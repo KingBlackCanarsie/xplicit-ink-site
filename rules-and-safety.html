@@ -1,1018 +1,957 @@
+Alright KingBlack — let’s lock in and begin **Chunk 1** exactly the way you asked.  
+This is the **full cinematic engine**, optimized, stable, and themed for the **Rules & Safety** page with the **A2 Neutral** visual style.
+
+This chunk replaces **everything from `<!DOCTYPE html>` through the end of the `<head>` section**, including all CSS.
+
+Paste it exactly as‑is.
+
+---
+
+# ⭐ **CHUNK 1 — `<head>` + FULL CINEMATIC CSS (A2 Neutral Theme)**
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rules & Safety | The Xplicit Ink</title>
-    <link rel="icon" href="./favicon-ink.png" />
-
-    <!-- Custom fonts (example) -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rules & Safety | Xplicit Ink</title>
 
     <style>
+        /* ============================================================
+           BASE RESET & GLOBAL SETTINGS
+        ============================================================ */
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-main: #050508;
-            --text-main: #dddde8;
-            --accent: #a78bfa;
-            --accent-strong: #ff66cc;
-            --accent-soft: #c6b8ff;
-            --container-bg: rgba(15, 15, 25, 0.55);
-            --border-glow: rgba(167, 139, 250, 0.35);
-            --font-size-base: 16px;
+        html, body {
+            height: 100%;
         }
 
-        body, html {
-            margin: 0; padding: 0;
-            background-color: var(--bg-main);
-            background-image: url('./ink-background.svg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--text-main);
-            font-family: 'Cormorant Garamond', 'Georgia', serif;
-            cursor: none;
+        body {
+            background: radial-gradient(circle at top, #120b2a 0%, #05030a 45%, #020108 100%);
+            color: #e5e7eb;
+            font-family: "Georgia", serif;
             overflow-x: hidden;
-            font-size: var(--font-size-base);
+            cursor: none;
         }
 
-        body.reading-mode .parallax-bg,
-        body.reading-mode .smoke,
-        body.reading-mode .particle,
-        body.reading-mode .ink-drip,
-        body.reading-mode .aurora,
-        body.reading-mode .caustics {
-            opacity: 0.05 !important;
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
-        body.high-contrast {
-            --bg-main: #000000;
-            --text-main: #ffffff;
-            --container-bg: rgba(0, 0, 0, 0.9);
-            --border-glow: rgba(255, 255, 255, 0.6);
-        }
+        /* ============================================================
+           BACKGROUND LAYERS (A2 Neutral Theme)
+        ============================================================ */
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.1));
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.7));
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .parallax-bg {
+        .bg-layer {
             position: fixed;
             inset: 0;
-            background-image: url('./ink-background.svg');
+            pointer-events: none;
+        }
+
+        /* Nebula (soft, neutral, atmospheric) */
+        .nebula {
+            z-index: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(148, 163, 184, 0.18) 0, transparent 55%),
+                radial-gradient(circle at 80% 70%, rgba(167, 139, 250, 0.16) 0, transparent 60%);
+            mix-blend-mode: screen;
+            animation: nebulaDrift 60s linear infinite alternate;
+        }
+
+        @keyframes nebulaDrift {
+            from { transform: translate3d(-20px, 0, 0); }
+            to   { transform: translate3d(20px, -10px, 0); }
+        }
+
+        /* Aurora (soft neutral purple/blue) */
+        .aurora {
+            z-index: 1;
+            background:
+                radial-gradient(circle at 10% 0%, rgba(167, 139, 250, 0.25) 0, transparent 55%),
+                radial-gradient(circle at 90% 0%, rgba(96, 165, 250, 0.22) 0, transparent 55%);
+            mix-blend-mode: screen;
+            opacity: 0.45;
+        }
+
+        /* Fog */
+        .neon-fog {
+            z-index: 2;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(148, 163, 184, 0.18) 0, transparent 60%),
+                radial-gradient(circle at 80% 60%, rgba(148, 163, 184, 0.16) 0, transparent 60%);
+            filter: blur(18px);
+            opacity: 0.45;
+        }
+
+        /* Smoke */
+        .smoke-layer {
+            z-index: 3;
+            background:
+                radial-gradient(circle at 30% 90%, rgba(15, 23, 42, 0.5) 0, transparent 60%),
+                radial-gradient(circle at 70% 10%, rgba(15, 23, 42, 0.45) 0, transparent 60%);
+            mix-blend-mode: soft-light;
+            opacity: 0.35;
+            animation: smokeDrift 80s linear infinite alternate;
+        }
+
+        @keyframes smokeDrift {
+            from { transform: translate3d(0, 10px, 0); }
+            to   { transform: translate3d(-20px, -10px, 0); }
+        }
+
+        /* Parallax ink texture */
+        .ink-parallax {
+            z-index: 4;
+            background-image: url('./ink-texture.png');
             background-size: cover;
             background-position: center;
+            opacity: 0.15;
+            mix-blend-mode: soft-light;
+        }
+
+        /* Constellation */
+        .constellation {
+            z-index: 5;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.06) 0, transparent 55%),
+                radial-gradient(circle at 70% 40%, rgba(167, 139, 250, 0.08) 0, transparent 60%);
             opacity: 0.25;
-            z-index: -2;
-            transform: translateY(0);
-            transition: transform 0.1s linear;
         }
 
-        .smoke {
+        /* Vignette */
+        .vignette {
+            z-index: 6;
+            background:
+                radial-gradient(circle at center, transparent 0%, transparent 55%, rgba(0, 0, 0, 0.65) 100%);
+        }
+
+        /* Film grain */
+        .film-grain {
+            z-index: 7;
+            background-image: url('./film-grain.png');
+            background-size: cover;
+            background-position: center;
+            mix-blend-mode: soft-light;
+            opacity: 0.12;
+        }
+
+        /* Ambient glow */
+        .ambient-glow {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: url('./smoke.png') center/cover no-repeat;
-            opacity: 0.18;
-            animation: drift 40s linear infinite;
-            z-index: 2;
+            inset: 0;
+            z-index: 8;
             pointer-events: none;
-        }
-        @keyframes drift {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-10%) scale(1.1); }
-        }
-
-        .aurora {
-            position: fixed;
-            top: -20vh; left: 0;
-            width: 100%; height: 40vh;
-            background: radial-gradient(circle at 10% 0%, rgba(167,139,250,0.4), transparent 60%),
-                        radial-gradient(circle at 90% 0%, rgba(255,102,204,0.35), transparent 60%);
+            background:
+                radial-gradient(circle at 50% 110%, rgba(129, 140, 248, 0.25) 0, transparent 60%);
             mix-blend-mode: screen;
-            opacity: 0.25;
-            animation: auroraMove 60s linear infinite;
-            z-index: 2;
-            pointer-events: none;
-        }
-        @keyframes auroraMove {
-            0% { transform: translateX(0); }
-            50% { transform: translateX(-10%); }
-            100% { transform: translateX(0); }
+            animation: ambientPulse 18s ease-in-out infinite alternate;
         }
 
-        .caustics {
-            position: fixed;
-            bottom: -20vh; left: 0;
-            width: 100%; height: 40vh;
-            background: radial-gradient(circle at 50% 100%, rgba(167,139,250,0.25), transparent 70%);
-            mix-blend-mode: screen;
-            opacity: 0.2;
-            animation: causticsMove 50s linear infinite;
-            z-index: 2;
-            pointer-events: none;
-        }
-        @keyframes causticsMove {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(5%); }
-            100% { transform: translateY(0); }
+        @keyframes ambientPulse {
+            from { opacity: 0.25; }
+            to   { opacity: 0.45; }
         }
 
-        .particle {
-            position: fixed;
-            width: 4px; height: 4px;
-            border-radius: 50%;
-            background: rgba(200, 180, 255, 0.7);
-            box-shadow: 0 0 8px rgba(200, 180, 255, 0.9);
-            opacity: 0.4;
-            z-index: 3;
-            pointer-events: none;
-            animation: float 18s linear infinite;
-        }
-        @keyframes float {
-            0% { transform: translateY(0) translateX(0); opacity: 0; }
-            10% { opacity: 0.4; }
-            90% { opacity: 0.4; }
-            100% { transform: translateY(-120vh) translateX(40px); opacity: 0; }
-        }
-
-        .scroll-progress {
-            position: fixed;
-            top: 0; left: 0;
-            height: 3px;
-            width: 0;
-            background: linear-gradient(90deg, var(--accent), var(--accent-strong));
-            z-index: 200;
-            box-shadow: 0 0 10px var(--accent);
-        }
-
-        .page-border {
-            position: fixed;
-            inset: 10px;
-            border: 1px solid var(--border-glow);
-            border-radius: 20px;
-            pointer-events: none;
-            z-index: 2;
-            box-shadow: 0 0 20px rgba(167, 139, 250, 0.25);
-            animation: borderBreath 6s ease-in-out infinite;
-        }
-        @keyframes borderBreath {
-            0%, 100% { box-shadow: 0 0 20px rgba(167,139,250,0.2); }
-            50% { box-shadow: 0 0 30px rgba(255,102,204,0.35); }
-        }
+        /* ============================================================
+           NAVIGATION
+        ============================================================ */
 
         nav {
-            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(5, 5, 15, 0.92);
+            border-bottom: 1px solid rgba(167, 139, 250, 0.35);
+            backdrop-filter: blur(18px);
+            padding: 16px 0;
             text-align: center;
-            padding: 20px 0;
-            background: rgba(11, 11, 18, 0.95);
-            border-bottom: 1px solid #4b3b8e55;
-            position: relative;
-            z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            transition: padding 0.3s ease, background 0.3s ease, transform 0.3s ease;
         }
+
+        nav.shrunk {
+            padding: 8px 0;
+            background: rgba(5, 5, 15, 0.98);
+            transform: translateY(-2px);
+        }
+
         nav a {
-            color: var(--accent);
-            margin: 0 15px;
-            text-decoration: none;
+            margin: 0 18px;
             font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: 0.3s;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #a78bfa;
+            opacity: 0.85;
+            transition: color 0.3s ease, text-shadow 0.3s ease, opacity 0.3s ease;
         }
+
         nav a:hover {
             color: #ffffff;
-            text-shadow: 0 0 10px var(--accent);
+            opacity: 1;
+            text-shadow: 0 0 10px #a78bfa, 0 0 18px #6d28d9;
         }
 
-        .layout {
-            display: grid;
-            grid-template-columns: 260px minmax(0, 1fr);
-            max-width: 1200px;
-            margin: 60px auto 80px;
-            gap: 20px;
-            padding: 0 20px;
-            position: relative;
-            z-index: 50;
-        }
+        /* ============================================================
+           SIDEBAR NAVIGATION
+        ============================================================ */
 
-        @media (max-width: 900px) {
-            .layout {
-                grid-template-columns: 1fr;
-            }
-            .side-nav {
-                position: static;
-                top: auto;
-            }
-        }
-
-        .side-nav {
-            position: sticky;
-            top: 90px;
-            align-self: flex-start;
-            background: rgba(10, 10, 20, 0.85);
-            border-radius: 16px;
-            padding: 18px 16px 20px;
-            border: 1px solid rgba(167,139,250,0.35);
-            box-shadow: 0 0 20px rgba(0,0,0,0.7);
-            font-size: 0.85rem;
-        }
-
-        .side-nav-title {
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0.7;
-            margin-bottom: 10px;
-        }
-
-        .side-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 15px;
-        }
-
-        .side-nav li {
-            margin-bottom: 8px;
-        }
-
-        .side-nav a {
-            color: var(--accent-soft);
-            text-decoration: none;
-            display: block;
-            padding: 6px 8px;
-            border-radius: 8px;
-            transition: 0.25s;
-        }
-
-        .side-nav a.active,
-        .side-nav a:hover {
-            background: radial-gradient(circle at left, rgba(167,139,250,0.25), transparent 70%);
-            color: #fff;
-            text-shadow: 0 0 8px var(--accent);
-        }
-
-        .side-controls {
-            margin-top: 10px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 10px;
-        }
-
-        .side-controls button,
-        .side-controls input[type="range"] {
-            width: 100%;
-            margin-bottom: 8px;
-        }
-
-        .side-controls button {
-            background: rgba(20, 15, 40, 0.9);
-            color: var(--accent-soft);
+        .sidebar-nav {
+            position: fixed;
+            right: 20px;
+            top: 120px;
+            z-index: 25;
+            background: rgba(15, 23, 42, 0.9);
             border-radius: 999px;
-            padding: 6px 10px;
+            padding: 10px 14px;
+            border: 1px solid rgba(129, 140, 248, 0.5);
+            backdrop-filter: blur(16px);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-nav button {
+            background: transparent;
+            border: none;
+            color: #c7d2fe;
             font-size: 0.7rem;
-            letter-spacing: 2px;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
-            border: 1px solid rgba(167,139,250,0.6);
             cursor: pointer;
-            transition: 0.25s;
-        }
-
-        .side-controls button:hover {
-            box-shadow: 0 0 10px var(--accent);
-            color: #fff;
-        }
-
-        .side-controls label {
-            display: block;
-            font-size: 0.7rem;
-            margin-bottom: 4px;
             opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.2s ease;
         }
 
-        .side-controls input[type="range"] {
-            accent-color: var(--accent);
+        .sidebar-nav button:hover {
+            opacity: 1;
+            transform: translateX(-2px);
         }
 
-        .minimap {
-            margin-top: 10px;
-            height: 60px;
-            border-radius: 10px;
-            background: linear-gradient(to bottom, rgba(167,139,250,0.2), rgba(15,15,25,0.9));
-            position: relative;
+        /* ============================================================
+           MINI-MAP
+        ============================================================ */
+
+        .mini-map {
+            position: fixed;
+            right: 20px;
+            bottom: 120px;
+            width: 6px;
+            height: 160px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(129, 140, 248, 0.5);
+            z-index: 25;
             overflow: hidden;
         }
 
-        .minimap-indicator {
-            position: absolute;
-            left: 0;
+        .mini-map-thumb {
             width: 100%;
-            height: 10px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.4);
-            box-shadow: 0 0 8px rgba(255,255,255,0.7);
+            border-radius: 999px;
+            background: linear-gradient(to top, #a855f7, #38bdf8);
+            height: 40px;
+            transform: translateY(0);
+            transition: transform 0.2s linear;
+        }
+
+        /* ============================================================
+           BACK-TO-TOP ORB
+        ============================================================ */
+
+        .scroll-orb {
+            position: fixed;
+            left: 20px;
+            bottom: 40px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #a78bfa, #4c1d95);
+            box-shadow: 0 0 18px rgba(167, 139, 250, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f9fafb;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 25;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .scroll-orb.visible {
+            opacity: 1;
+            pointer-events: auto;
             transform: translateY(0);
         }
 
-        .container {
-            background: var(--container-bg);
-            border-radius: 20px;
-            backdrop-filter: blur(14px);
-            position: relative;
-            border: 1px solid var(--border-glow);
-            box-shadow: 0 0 30px rgba(167, 139, 250, 0.25);
-            animation: containerFade 0.8s ease-out forwards;
-            transform: translateY(10px);
-            opacity: 0;
-            padding: 40px 40px 50px;
-        }
-        @keyframes containerFade {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+        /* ============================================================
+           PAGE CONTAINER & TITLES
+        ============================================================ */
 
-        .watermark {
-            position: absolute;
-            right: 20px;
-            bottom: 20px;
-            font-size: 0.7rem;
-            opacity: 0.25;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+        .container {
+            max-width: 1100px;
+            margin: 60px auto 80px auto;
+            padding: 0 20px 40px 20px;
+            position: relative;
+            z-index: 15;
         }
 
         h1 {
             font-size: 3.4rem;
             text-align: center;
-            color: #d0c4ff;
-            text-shadow: 0 0 20px var(--accent), 0 0 40px #6a32ff;
-            margin-top: 0;
-            letter-spacing: 3px;
-        }
-
-        .commandment-line {
-            text-align: center;
-            font-size: 1.2rem;
-            opacity: 0.85;
-            margin-top: -10px;
-            margin-bottom: 18px;
-            font-style: italic;
-            animation: typeFlicker 2.5s ease-out;
-        }
-        @keyframes typeFlicker {
-            0% { opacity: 0; }
-            20% { opacity: 1; }
-            25% { opacity: 0.4; }
-            30% { opacity: 1; }
-            100% { opacity: 0.85; }
-        }
-
-        .purpose-line {
-            text-align: center;
-            font-size: 1rem;
-            opacity: 0.75;
-            margin-bottom: 20px;
-            padding: 10px 15px;
-            border-radius: 10px;
-            background: rgba(20, 15, 40, 0.7);
-            border: 1px solid rgba(167, 139, 250, 0.25);
-        }
-
-        .lore-line {
-            text-align: center;
-            font-size: 0.9rem;
-            opacity: 0.6;
-            margin-bottom: 30px;
-            font-style: italic;
-        }
-
-        .chapter-label {
-            font-size: 0.8rem;
-            letter-spacing: 4px;
+            color: #e5ddff;
+            text-shadow:
+                0 0 18px rgba(167, 139, 250, 0.9),
+                0 0 40px rgba(109, 40, 217, 0.9);
+            margin-bottom: 10px;
             text-transform: uppercase;
-            opacity: 0.7;
-            margin-top: 40px;
+            letter-spacing: 0.22em;
         }
 
-        h2 {
-            font-size: 2rem;
-            color: var(--accent-soft);
-            text-shadow: 0 0 10px #6a32ff;
-            margin-top: 8px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #4b3b8e88;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: 0.3s;
+        .glitch-title {
             position: relative;
-        }
-
-        h2::after {
-            content: "";
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-strong));
-            box-shadow: 0 0 8px var(--accent);
-            transition: width 0.4s ease-out;
-        }
-
-        h2:hover {
-            text-shadow: 0 0 18px var(--accent-soft);
-            filter: url('#chromatic');
-        }
-
-        h2:hover::after {
-            width: 100%;
-        }
-
-        .section-subtitle {
-            font-size: 1rem;
-            opacity: 0.75;
-            margin-top: 5px;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-
-        .section-subtitle::before {
-            content: "";
             display: inline-block;
-            width: 3px;
-            height: 14px;
-            margin-right: 8px;
-            background: linear-gradient(to bottom, var(--accent), transparent);
-            border-radius: 999px;
-            opacity: 0.8;
         }
 
-        ul {
-            padding-left: 20px;
-            list-style-type: square;
+        .glitch-title::before,
+        .glitch-title::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            mix-blend-mode: screen;
         }
 
-        li {
-            margin-bottom: 15px;
-            line-height: 1.8;
-            font-size: 1.05rem;
-            opacity: 0.9;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 10px;
-            position: relative;
-            transition: 0.25s;
+        .glitch-title::before {
+            color: #38bdf8;
+            transform: translateX(-2px);
         }
 
-        li:last-child {
-            border-bottom: none;
-        }
-
-        li:hover {
-            background: radial-gradient(circle at left, rgba(167,139,250,0.18), transparent 60%);
+        .glitch-title::after {
+            color: #f97316;
             transform: translateX(2px);
         }
 
-        .highlight {
-            background: linear-gradient(90deg, rgba(167,139,250,0.2), rgba(255,102,204,0.15));
-            padding: 0 4px;
-            border-radius: 4px;
-            font-weight: bold;
-            text-shadow: 0 0 8px var(--accent);
+        .glitch-active::before,
+        .glitch-active::after {
+            animation: glitchFlicker 0.4s steps(2, end) infinite;
         }
 
-        .critical {
-            background: linear-gradient(90deg, #f0e6ff, #fbd6ff);
-            -webkit-background-clip: text;
-            color: transparent;
-            font-weight: bold;
-            text-shadow: 0 0 12px #b28aff;
-            animation: pulse 4s ease-in-out infinite;
-            font-family: "Courier New", monospace;
-        }
-        @keyframes pulse {
-            0%, 100% { text-shadow: 0 0 8px #b28aff; }
-            50% { text-shadow: 0 0 16px #f0e6ff; }
+        @keyframes glitchFlicker {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
         }
 
-        .divider {
-            text-align: center;
-            margin: 40px auto;
-            font-size: 1.3rem;
-            opacity: 0.4;
-            color: #ffffff55;
-            transition: 0.4s;
-        }
+        /* ============================================================
+           RULE CARDS (A2 Neutral Theme)
+        ============================================================ */
 
-        .divider.visible {
-            opacity: 0.9;
-            color: #d0c4ff;
-            text-shadow: 0 0 10px var(--accent);
-        }
-
-        .zero-box {
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 40px;
             margin-top: 40px;
-            padding: 20px;
-            background: rgba(80, 0, 120, 0.3);
-            border-left: 4px solid #b28aff;
-            border-radius: 8px;
-            font-size: 1.05rem;
-            line-height: 1.7;
-            opacity: 0.95;
-            position: relative;
+        }
+
+        .rule-card {
+            background: radial-gradient(circle at top, rgba(24, 16, 48, 0.95), rgba(10, 8, 20, 0.96));
+            border-radius: 18px;
             overflow: hidden;
+            border: 1px solid rgba(76, 81, 191, 0.45);
+            box-shadow:
+                0 18px 40px rgba(15, 23, 42, 0.9),
+                0 0 22px rgba(129, 140, 248, 0.35);
+            backdrop-filter: blur(18px);
+            transition:
+                transform 0.4s ease,
+                box-shadow 0.4s ease,
+                border-color 0.4s ease,
+                background 0.4s ease;
+            position: relative;
+            z-index: 16;
+            transform-style: preserve-3d;
         }
 
-        .zero-box::before {
-            content: "";
-            position: absolute;
-            top: 0; left: -40%;
-            width: 40%; height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.12), transparent);
-            transform: skewX(-20deg);
-            opacity: 0;
+        .rule-card:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 22px 55px rgba(15, 23, 42, 0.95),
+                0 0 30px rgba(167, 139, 250, 0.55);
+            border-color: rgba(196, 181, 253, 0.9);
         }
 
-        .zero-box:hover::before {
-            animation: sweep 1.2s ease-out;
+        .rule-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-bottom: 1px solid rgba(76, 81, 191, 0.6);
+            filter: brightness(1.2) contrast(1.1);
         }
 
-        @keyframes sweep {
-            0% { transform: translateX(-100%) skewX(-20deg); opacity: 0; }
-            40% { opacity: 1; }
-            100% { transform: translateX(250%) skewX(-20deg); opacity: 0; }
+        /* Neutral abstract backgrounds */
+        .img-intro { background-image: url('./rules-intro.jpg'); }
+        .img-core { background-image: url('./rules-core.jpg'); }
+        .img-general { background-image: url('./rules-general.jpg'); }
+        .img-consent { background-image: url('./rules-consent.jpg'); }
+        .img-rp { background-image: url('./rules-rp.jpg'); }
+        .img-voice { background-image: url('./rules-voice.jpg'); }
+        .img-safety { background-image: url('./rules-safety.jpg'); }
+        .img-final { background-image: url('./rules-final.jpg'); }
+
+        .rule-content {
+            padding: 26px;
         }
 
-        .footer-motto {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            letter-spacing: 2px;
+        .rule-content h2 {
+            margin-bottom: 12px;
+            color: #e0d4ff;
+            font-size: 1.6rem;
+            text-shadow: 0 0 14px rgba(129, 140, 248, 0.9);
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            font-family: 'Great Vibes', cursive;
         }
 
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            padding-bottom: 10px;
-            color: var(--accent);
-            text-decoration: none;
-            letter-spacing: 2px;
-            opacity: 0.8;
-            transition: 0.3s;
-            text-shadow: 0 0 8px #6a32ff;
+        .rule-text {
+            line-height: 1.6;
+            opacity: 0.85;
+            font-size: 0.95rem;
         }
 
-        .back-link:hover {
+        /* Expandable subsections */
+        .expand-toggle {
+            font-size: 0.75rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            cursor: pointer;
+            margin-top: 14px;
+        }
+
+        .expand-toggle:hover {
             opacity: 1;
-            color: #fff;
-            transform: translateY(-1px);
         }
+
+        .expandable {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.4s ease, opacity 0.4s ease;
+            margin-top: 10px;
+        }
+
+        .expandable.open {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        /* ============================================================
+           FOOTER ELEMENTS
+        ============================================================ */
+
+        .footer-line {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 0.95rem;
+            opacity: 0.7;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .footer-glow {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 6px;
+            background: linear-gradient(to right, #a855f7, #38bdf8, #f97316);
+            opacity: 0.4;
+            z-index: 24;
+            transform-origin: center;
+            transform: scaleX(0.4);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* ============================================================
+           CURSOR, SPOTLIGHT, PARTICLES
+        ============================================================ */
 
         .ink-cursor {
             position: fixed;
-            width: 20px; height: 20px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
-            background: radial-gradient(circle, var(--accent), transparent);
+            background: radial-gradient(circle, #a78bfa, transparent);
             pointer-events: none;
-            z-index: 1000;
+            z-index: 30;
             transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
         }
 
         .cursor-trail {
             position: fixed;
-            width: 10px; height: 10px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(167,139,250,0.8), transparent);
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.8), transparent);
             pointer-events: none;
-            z-index: 999;
-            opacity: 0.7;
-            animation: trailFade 0.5s ease-out forwards;
+            z-index: 11;
+            opacity: 0.8;
+            transform: translate(-50%, -50%);
         }
 
-        @keyframes trailFade {
-            to {
-                transform: scale(0.2);
-                opacity: 0;
-            }
-        }
-
-        .ink-drip {
+        .spotlight {
             position: fixed;
-            width: 2px;
-            background: linear-gradient(to bottom, transparent, var(--accent), var(--accent-strong), transparent);
-            box-shadow: 0 0 10px var(--accent);
-            z-index: 1;
-            animation: fall linear infinite;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 12;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0, transparent 65%);
+            mix-blend-mode: soft-light;
+            transform: translate(-50%, -50%);
         }
 
-        @keyframes fall {
-            0% { transform: translateY(-100vh); opacity: 0; }
-            50% { opacity: 0.35; }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
-
-        .back-to-top {
+        .particle-layer {
             position: fixed;
-            right: 20px;
-            bottom: 25px;
-            background: rgba(20, 15, 40, 0.9);
-            color: #d0c4ff;
-            border-radius: 999px;
-            padding: 8px 16px;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border: 1px solid rgba(167,139,250,0.6);
-            cursor: pointer;
-            z-index: 150;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: 0.3s;
+            inset: 0;
+            z-index: 6;
+            pointer-events: none;
+            overflow: hidden;
         }
 
-        .back-to-top.visible {
-            opacity: 0.9;
-            transform: translateY(0);
-        }
-
-        .back-to-top:hover {
-            box-shadow: 0 0 12px var(--accent);
-        }
-
-        .tooltip {
-            position: relative;
-            cursor: help;
-            border-bottom: 1px dotted rgba(255,255,255,0.4);
-        }
-
-        .tooltip:hover::after {
-            content: attr(data-tip);
+        .particle {
             position: absolute;
-            left: 0;
-            bottom: 120%;
-            background: rgba(10,10,20,0.95);
-            color: #fff;
-            padding: 6px 8px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            white-space: normal;
-            width: 220px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.7);
-            z-index: 999;
-        }
-
-        .embed-preview {
-            margin-top: 40px;
-            border-radius: 12px;
-            background: rgba(20, 20, 35, 0.95);
-            border: 1px solid rgba(167,139,250,0.4);
-            padding: 12px 14px;
-            font-size: 0.85rem;
-        }
-
-        .embed-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
-        }
-
-        .embed-color {
-            width: 4px;
-            border-radius: 999px;
-            background: linear-gradient(to bottom, var(--accent), var(--accent-strong));
-            margin-right: 8px;
-        }
-
-        .embed-title {
-            font-weight: bold;
-            color: var(--accent-soft);
-        }
-
-        .embed-footer {
-            margin-top: 6px;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(226, 232, 240, 0.8);
             opacity: 0.7;
-            font-size: 0.75rem;
         }
 
-        svg {
-            position: absolute;
-            width: 0;
-            height: 0;
-        }
-    </style>
-</head>
+        @keyframes floatUp {
+            from { transform: translateY(0); opacity: 0; }
+            20% { opacity: 0.9; }
+            to { transform
+                <body>
 
-<body>
+    <!-- ============================================================
+         BACKGROUND LAYERS
+    ============================================================ -->
+    <div class="bg-layer nebula"></div>
+    <div class="bg-layer aurora"></div>
+    <div class="bg-layer neon-fog"></div>
+    <div class="bg-layer smoke-layer"></div>
+    <div class="bg-layer ink-parallax"></div>
+    <div class="bg-layer constellation"></div>
+    <div class="bg-layer vignette"></div>
+    <div class="bg-layer film-grain"></div>
+    <div class="ambient-glow"></div>
 
-    <svg xmlns="http://www.w3.org/2000/svg">
-        <filter id="chromatic">
-            <feColorMatrix in="SourceGraphic" type="matrix"
-                values="1 0 0 0 0
-                        0 1 0 0 0
-                        0 0 1 0 0
-                        0 0 0 1 0" result="base"/>
-            <feOffset in="base" dx="-1" dy="0" result="r"/>
-            <feOffset in="base" dx="1" dy="0" result="b"/>
-            <feBlend in="r" in2="b" mode="screen"/>
-        </filter>
-    </svg>
-
-    <div class="parallax-bg"></div>
-    <div class="smoke"></div>
-    <div class="aurora"></div>
-    <div class="caustics"></div>
-    <div class="scroll-progress" id="scrollProgress"></div>
-    <div class="page-border"></div>
-    <div class="ink-cursor" id="cursor"></div>
-    <button class="back-to-top" id="backToTop">BACK TO TOP</button>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="community.html">Community</a>
-        <a href="rules-and-safety.html">Rules & Safety</a>
-        <a href="manifesto.html">Manifesto</a>
+    <!-- ============================================================
+         NAVIGATION
+    ============================================================ -->
+    <nav id="mainNav">
+        <a href="/">Home</a>
+        <a href="/community.html">Community</a>
+        <a href="/rules.html">Rules & Safety</a>
     </nav>
 
-    <div class="layout">
-        <aside class="side-nav">
-            <div class="side-nav-title">CHAPTERS</div>
-            <ul>
-                <li><a href="#core" class="side-link">I. Core Principles</a></li>
-                <li><a href="#behavior" class="side-link">II. Behavior</a></li>
-                <li><a href="#reporting" class="side-link">III. Reporting</a></li>
-                <li><a href="#zero" class="side-link">IV. Zero Tolerance</a></li>
-            </ul>
-
-            <div class="side-controls">
-                <label>Reading Mode</label>
-                <button id="readingToggle">TOGGLE READING MODE</button>
-
-                <label>High Contrast</label>
-                <button id="contrastToggle">TOGGLE CONTRAST</button>
-
-                <label>Font Size</label>
-                <input type="range" id="fontSizeSlider" min="14" max="20" value="16">
-            </div>
-
-            <div class="side-nav-title" style="margin-top:12px;">MINIMAP</div>
-            <div class="minimap">
-                <div class="minimap-indicator" id="minimapIndicator"></div>
-            </div>
-        </aside>
-
-        <main class="container">
-            <h1>Rules & Safety</h1>
-            <div class="commandment-line">These are the laws of Xplicit Ink.</div>
-            <div class="purpose-line">These rules exist to protect the people who make this community worth joining.</div>
-            <div class="lore-line">Written in ink, upheld in spirit.</div>
-
-            <section id="core">
-                <div class="chapter-label">I. CORE PRINCIPLES</div>
-                <h2>⚖️ Core Principles</h2>
-                <div class="section-subtitle">The foundation of how we treat each other.</div>
-
-                <ul>
-                    <li>
-                        <span class="critical tooltip" data-tip="This is a hard boundary. No minors, no exceptions, ever.">18+ only.</span>
-                        No minors, no exceptions. If staff suspect someone is underage, they will be removed.
-                    </li>
-                    <li>
-                        <span class="critical tooltip" data-tip="Consent is the core of every interaction here.">Consent is mandatory.</span>
-                        No pressuring, no guilt‑tripping, no ignoring boundaries. “No” is a complete answer.
-                    </li>
-                    <li>
-                        <span class="highlight tooltip" data-tip="You are speaking to real people, not characters or content.">Respect the person.</span>
-                        Behind every username is a real human being. Treat them like one.
-                    </li>
-                    <li>
-                        <span class="highlight tooltip" data-tip="What happens in Xplicit Ink stays in Xplicit Ink unless clearly agreed otherwise.">Privacy matters.</span>
-                        Do not share content or screenshots outside the server without clear permission.
-                    </li>
-                </ul>
-            </section>
-
-            <div class="divider" id="divider1">────────── ◆ ──────────</div>
-
-            <section id="behavior">
-                <div class="chapter-label">II. BEHAVIOR EXPECTATIONS</div>
-                <h2>🧭 Behavior Expectations</h2>
-                <div class="section-subtitle">How adults conduct themselves in shared spaces.</div>
-
-                <ul>
-                    <li>
-                        <span class="tooltip" data-tip="Each channel is designed with intention. Use them as labeled.">
-                            Read channel descriptions before posting.
-                        </span>
-                        Every space has a purpose.
-                    </li>
-                    <li>
-                        <span class="tooltip" data-tip="Keep personal conflicts out of shared creative spaces.">
-                            Keep out‑of‑character drama out of roleplay spaces.
-                        </span>
-                        Use tickets for issues.
-                    </li>
-                    <li>
-                        <span class="tooltip" data-tip="Fiction does not override real-world consent or boundaries.">
-                            Roleplay is fiction.
-                        </span>
-                        It does not grant permission to cross boundaries in real life.
-                    </li>
-                </ul>
-            </section>
-
-            <div class="divider" id="divider2">────────── ◆ ──────────</div>
-
-            <section id="reporting">
-                <div class="chapter-label">III. REPORTING & TICKETS</div>
-                <h2>🎟️ Reporting & Tickets</h2>
-                <div class="section-subtitle">Your safety line — always available, always private.</div>
-
-                <p>
-                    If something feels wrong, use the
-                    <span class="highlight tooltip" data-tip="This channel opens a private line to staff.">🚨｜Report</span>
-                    channel to open a private ticket.
-                </p>
-
-                <ul>
-                    <li>Tickets are visible only to you and staff.</li>
-                    <li>Staff will respond as soon as they can. While you wait, you can mute or block the person involved.</li>
-                </ul>
-            </section>
-
-            <section id="zero">
-                <div class="chapter-label">IV. ZERO TOLERANCE</div>
-                <h2>❗ Zero Tolerance</h2>
-                <div class="section-subtitle">Some lines are never crossed here.</div>
-
-                <div class="zero-box">
-                    <strong>❗ Zero Tolerance:</strong><br>
-                    Violations of these rules may result in removal from the community.<br>
-                    We protect our members first — always.
-                </div>
-            </section>
-
-            <div class="footer-motto">Ink flows where the community breathes.</div>
-            <a href="index.html" class="back-link">← Back to Home</a>
-
-            <div class="embed-preview">
-                <div class="embed-header">
-                    <div class="embed-color"></div>
-                    <div class="embed-title">XPLICIT INK • RULES SUMMARY</div>
-                </div>
-                <div>
-                    • 18+ only • Consent is mandatory • Respect people • Protect privacy • Use 🚨｜Report when needed.
-                </div>
-                <div class="embed-footer">
-                    Last updated: <span id="lastUpdated"></span>
-                </div>
-            </div>
-
-            <div class="watermark">XPPLICIT INK • RULES & SAFETY</div>
-        </main>
+    <!-- ============================================================
+         SIDEBAR NAVIGATION
+    ============================================================ -->
+    <div class="sidebar-nav">
+        <button data-target="intro">Intro</button>
+        <button data-target="core">Core</button>
+        <button data-target="general">General</button>
+        <button data-target="consent">Consent</button>
+        <button data-target="rp">Roleplay</button>
+        <button data-target="voice">Voice</button>
+        <button data-target="safety">Safety</button>
+        <button data-target="final">Final</button>
     </div>
 
+    <!-- ============================================================
+         MINI-MAP
+    ============================================================ -->
+    <div class="mini-map">
+        <div class="mini-map-thumb"></div>
+    </div>
+
+    <!-- ============================================================
+         BACK TO TOP ORB
+    ============================================================ -->
+    <div class="scroll-orb" id="scrollOrb">↑</div>
+
+    <!-- ============================================================
+         CURSOR + SPOTLIGHT + PARTICLES
+    ============================================================ -->
+    <div class="ink-cursor" id="inkCursor"></div>
+    <div class="spotlight" id="spotlight"></div>
+    <div class="particle-layer" id="particleLayer"></div>
+
+    <!-- ============================================================
+         PAGE CONTENT
+    ============================================================ -->
+    <div class="container">
+
+        <h1>
+            <span class="glitch-title" data-text="Rules & Safety">Rules & Safety</span>
+        </h1>
+
+        <p class="footer-line" style="margin-top: 10px; opacity: 0.8;">
+            A cinematic guide to conduct, consent, and community integrity.
+        </p>
+
+        <!-- ============================================================
+             RULE CARDS GRID
+        ============================================================ -->
+        <div class="rules-grid">
+
+            <!-- INTRODUCTION -->
+            <section class="rule-card" id="intro">
+                <div class="rule-image img-intro"></div>
+                <div class="rule-content">
+                    <h2>Introduction</h2>
+                    <p class="rule-text">
+                        Welcome to Xplicit Ink — a community built on intention, maturity, and atmosphere.
+                        These rules exist to protect the experience, the people, and the culture we’re creating.
+                    </p>
+                </div>
+            </section>
+
+            <!-- CORE PRINCIPLES -->
+            <section class="rule-card" id="core">
+                <div class="rule-image img-core"></div>
+                <div class="rule-content">
+                    <h2>Core Principles</h2>
+                    <p class="rule-text">
+                        Our foundation is built on respect, consent, clarity, and accountability.
+                        Every interaction — written, spoken, or implied — must align with these values.
+                    </p>
+                </div>
+            </section>
+
+            <!-- GENERAL CONDUCT -->
+            <section class="rule-card" id="general">
+                <div class="rule-image img-general"></div>
+                <div class="rule-content">
+                    <h2>General Conduct</h2>
+                    <p class="rule-text">
+                        Members are expected to behave with maturity, respect, and awareness.
+                        Harassment, hostility, or disruptive behavior will not be tolerated.
+                    </p>
+
+                    <div class="expand-toggle">Show More</div>
+                    <div class="expandable">
+                        <p class="rule-text">
+                            • No spamming, trolling, or antagonizing members.<br>
+                            • Keep discussions intentional and respectful.<br>
+                            • Follow staff instructions without argument.<br>
+                            • Maintain the atmosphere of the space at all times.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONSENT & BOUNDARIES -->
+            <section class="rule-card" id="consent">
+                <div class="rule-image img-consent"></div>
+                <div class="rule-content">
+                    <h2>Consent & Boundaries</h2>
+                    <p class="rule-text">
+                        Consent is the backbone of this community. It must be explicit, continuous, and respected.
+                    </p>
+
+                    <div class="expand-toggle">Show More</div>
+                    <div class="expandable">
+                        <p class="rule-text">
+                            • No assumptions — always ask.<br>
+                            • No pressure, guilt, or manipulation.<br>
+                            • Stop immediately if consent is withdrawn.<br>
+                            • Respect personal limits without debate.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROLEPLAY GUIDELINES -->
+            <section class="rule-card" id="rp">
+                <div class="rule-image img-rp"></div>
+                <div class="rule-content">
+                    <h2>Roleplay Guidelines</h2>
+                    <p class="rule-text">
+                        Roleplay must be consensual, immersive, and aligned with the tone of the community.
+                    </p>
+
+                    <div class="expand-toggle">Show More</div>
+                    <div class="expandable">
+                        <p class="rule-text">
+                            • No godmodding or forcing actions.<br>
+                            • Keep scenes intentional and respectful.<br>
+                            • Maintain immersion — avoid breaking tone.<br>
+                            • Communicate clearly before and after scenes.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VOICE & LIVE EXPECTATIONS -->
+            <section class="rule-card" id="voice">
+                <div class="rule-image img-voice"></div>
+                <div class="rule-content">
+                    <h2>Voice & Live</h2>
+                    <p class="rule-text">
+                        Voice interactions require heightened awareness and respect.
+                        Your tone, timing, and presence matter.
+                    </p>
+
+                    <div class="expand-toggle">Show More</div>
+                    <div class="expandable">
+                        <p class="rule-text">
+                            • No talking over others.<br>
+                            • No background noise or disruptions.<br>
+                            • Maintain the atmosphere of the space.<br>
+                            • Follow host or moderator direction.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SAFETY & REPORTING -->
+            <section class="rule-card" id="safety">
+                <div class="rule-image img-safety"></div>
+                <div class="rule-content">
+                    <h2>Safety & Reporting</h2>
+                    <p class="rule-text">
+                        Safety is non‑negotiable. If something feels wrong, report it immediately.
+                    </p>
+
+                    <div class="expand-toggle">Show More</div>
+                    <div class="expandable">
+                        <p class="rule-text">
+                            • Reports are confidential.<br>
+                            • Staff will act quickly and decisively.<br>
+                            • Zero tolerance for predatory behavior.<br>
+                            • Evidence helps — screenshots, timestamps, etc.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FINAL NOTES -->
+            <section class="rule-card" id="final">
+                <div class="rule-image img-final"></div>
+                <div class="rule-content">
+                    <h2>Final Notes</h2>
+                    <p class="rule-text">
+                        These rules exist to protect the experience we’re building.
+                        By being here, you agree to uphold the culture of Xplicit Ink.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="footer-line">End of Rules & Safety</div>
+        <div class="footer-glow"></div>
+
+    </div>
+    <!-- ============================================================
+         JAVASCRIPT ENGINE
+    ============================================================ -->
     <script>
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-
-            const trail = document.createElement('div');
-            trail.className = 'cursor-trail';
-            trail.style.left = e.clientX + 'px';
-            trail.style.top = e.clientY + 'px';
-            document.body.appendChild(trail);
-            setTimeout(() => trail.remove(), 500);
-
-            document.querySelectorAll('h2, .back-link, .side-nav, .container').forEach(el => {
-                const rect = el.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const dx = (e.clientX - centerX) * 0.002;
-                const dy = (e.clientY - centerY) * 0.002;
-                el.style.transform = `translate(${dx}px, ${dy}px)`;
-            });
+        /* ============================================================
+           NAV SHRINK ON SCROLL
+        ============================================================ */
+        const nav = document.getElementById("mainNav");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 60) {
+                nav.classList.add("shrunk");
+            } else {
+                nav.classList.remove("shrunk");
+            }
         });
 
-        for (let i = 0; i < 12; i++) {
-            let drip = document.createElement('div');
-            drip.className = 'ink-drip';
-            drip.style.left = Math.random() * 100 + 'vw';
-            drip.style.height = Math.random() * 200 + 120 + 'px';
-            drip.style.animationDuration = Math.random() * 5 + 4 + 's';
-            drip.style.animationDelay = Math.random() * 6 + 's';
-            document.body.appendChild(drip);
-        }
-
-        for (let i = 0; i < 20; i++) {
-            let p = document.createElement('div');
-            p.className = 'particle';
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.bottom = (Math.random() * 40 - 10) + 'vh';
-            p.style.animationDuration = (14 + Math.random() * 10) + 's';
-            p.style.animationDelay = (Math.random() * 10) + 's';
-            document.body.appendChild(p);
-        }
-
-        const scrollProgress = document.getElementById('scrollProgress');
-        const parallaxBg = document.querySelector('.parallax-bg');
-        const backToTop = document.getElementById('backToTop');
-        const dividers = [document.getElementById('divider1'), document.getElementById('divider2')];
-        const minimapIndicator = document.getElementById('minimapIndicator');
-        const sideLinks = document.querySelectorAll('.side-link');
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.body.scrollHeight - window.innerHeight;
-            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            scrollProgress.style.width = progress + '%';
-
-            parallaxBg.style.transform = `translateY(${scrollTop * 0.15}px)`;
-
-            if (scrollTop > 200) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-
-            if (docHeight > 0) {
-                minimapIndicator.style.transform = `translateY(${(scrollTop / docHeight) * 50}px)`;
-            }
-
-            dividers.forEach(div => {
-                const rect = div.getBoundingClientRect();
-                const inView = rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.3;
-                if (inView) div.classList.add('visible');
-            });
-
-            const sections = ['core', 'behavior', 'reporting', 'zero'].map(id => document.getElementById(id));
-            let activeId = null;
-            sections.forEach(sec => {
-                const rect = sec.getBoundingClientRect();
-                if (rect.top < window.innerHeight * 0.4 && rect.bottom > window.innerHeight * 0.3) {
-                    activeId = sec.id;
+        /* ============================================================
+           SIDEBAR NAVIGATION
+        ============================================================ */
+        document.querySelectorAll(".sidebar-nav button").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const target = document.getElementById(btn.dataset.target);
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 40,
+                        behavior: "smooth"
+                    });
                 }
             });
-            sideLinks.forEach(link => {
-                link.classList.toggle('active', link.getAttribute('href') === '#' + activeId);
+        });
+
+        /* ============================================================
+           MINI-MAP SCROLL TRACKING
+        ============================================================ */
+        const miniThumb = document.querySelector(".mini-map-thumb");
+        window.addEventListener("scroll", () => {
+            const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            const trackHeight = 160 - 40; // container minus thumb height
+            miniThumb.style.transform = `translateY(${scrollPercent * trackHeight}px)`;
+        });
+
+        /* ============================================================
+           BACK TO TOP ORB
+        ============================================================ */
+        const scrollOrb = document.getElementById("scrollOrb");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+                scrollOrb.classList.add("visible");
+            } else {
+                scrollOrb.classList.remove("visible");
+            }
+        });
+
+        scrollOrb.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        /* ============================================================
+           EXPANDABLE SECTIONS
+        ============================================================ */
+        document.querySelectorAll(".expand-toggle").forEach(toggle => {
+            toggle.addEventListener("click", () => {
+                const expandable = toggle.nextElementSibling;
+                expandable.classList.toggle("open");
+                toggle.textContent = expandable.classList.contains("open")
+                    ? "Show Less"
+                    : "Show More";
             });
         });
 
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* ============================================================
+           GLITCH TITLE ACTIVATION
+        ============================================================ */
+        const glitchTitle = document.querySelector(".glitch-title");
+        setInterval(() => {
+            glitchTitle.classList.add("glitch-active");
+            setTimeout(() => glitchTitle.classList.remove("glitch-active"), 300);
+        }, 3000);
+
+        /* ============================================================
+           CURSOR + SPOTLIGHT
+        ============================================================ */
+        const inkCursor = document.getElementById("inkCursor");
+        const spotlight = document.getElementById("spotlight");
+
+        window.addEventListener("mousemove", (e) => {
+            inkCursor.style.left = e.clientX + "px";
+            inkCursor.style.top = e.clientY + "px";
+
+            spotlight.style.left = e.clientX + "px";
+            spotlight.style.top = e.clientY + "px";
+
+            createCursorTrail(e.clientX, e.clientY);
         });
 
-        const readingToggle = document.getElementById('readingToggle');
-        const contrastToggle = document.getElementById('contrastToggle');
-        const fontSizeSlider = document.getElementById('fontSizeSlider');
+        /* ============================================================
+           CURSOR TRAIL PARTICLES
+        ============================================================ */
+        function createCursorTrail(x, y) {
+            const trail = document.createElement("div");
+            trail.classList.add("cursor-trail");
+            trail.style.left = x + "px";
+            trail.style.top = y + "px";
+            document.body.appendChild(trail);
 
-        readingToggle.addEventListener('click', () => {
-            document.body.classList.toggle('reading-mode');
+            setTimeout(() => {
+                trail.style.opacity = 0;
+                trail.style.transform = "scale(0.4)";
+            }, 10);
+
+            setTimeout(() => trail.remove(), 400);
+        }
+
+        /* ============================================================
+           FLOATING PARTICLES
+        ============================================================ */
+        const particleLayer = document.getElementById("particleLayer");
+
+        function spawnParticle() {
+            const p = document.createElement("div");
+            p.classList.add("particle");
+
+            p.style.left = Math.random() * window.innerWidth + "px";
+            p.style.top = window.innerHeight + "px";
+
+            const duration = 4000 + Math.random() * 4000;
+            const drift = (Math.random() - 0.5) * 40;
+
+            p.animate(
+                [
+                    { transform: "translateY(0)", opacity: 0 },
+                    { opacity: 1, offset: 0.2 },
+                    { transform: `translate(${drift}px, -${window.innerHeight + 100}px)`, opacity: 0 }
+                ],
+                { duration, easing: "linear" }
+            );
+
+            particleLayer.appendChild(p);
+            setTimeout(() => p.remove(), duration);
+        }
+
+        setInterval(spawnParticle, 350);
+
+        /* ============================================================
+           PARALLAX BACKGROUND MOVEMENT
+        ============================================================ */
+        const parallaxLayers = document.querySelectorAll(".bg-layer");
+
+        window.addEventListener("mousemove", (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+            parallaxLayers.forEach((layer, index) => {
+                const depth = (index + 1) * 2;
+                layer.style.transform = `translate(${x / depth}px, ${y / depth}px)`;
+            });
         });
 
-        contrastToggle.addEventListener('click', () => {
-            document.body.classList.toggle('high-contrast');
-        });
+        /* ============================================================
+           AUTO-TOUR (SLOW SCROLL)
+        ============================================================ */
+        let autoTourActive = false;
 
-        fontSizeSlider.addEventListener('input', (e) => {
-            const size = e.target.value + 'px';
-            document.documentElement.style.setProperty('--font-size-base', size);
-        });
+        function startAutoTour() {
+            if (autoTourActive) return;
+            autoTourActive = true;
 
-        const lastUpdated = document.getElementById('lastUpdated');
-        const now = new Date();
-        lastUpdated.textContent = now.toLocaleDateString(undefined, {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
+            let pos = window.scrollY;
+
+            function step() {
+                if (!autoTourActive) return;
+                pos += 0.3;
+                window.scrollTo(0, pos);
+
+                if (pos + window.innerHeight >= document.body.scrollHeight) {
+                    autoTourActive = false;
+                } else {
+                    requestAnimationFrame(step);
+                }
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        // Start auto-tour after 4 seconds
+        setTimeout(startAutoTour, 4000);
+
     </script>
 
 </body>
 </html>
-```

@@ -13,12 +13,13 @@
             display: flex; flex-direction: column;
         }
 
+        /* THE BACKGROUND LAYER */
         .full-bg {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            /* 1. Matches Capital 'M' 2. Adds '?v=3' to force a refresh */
+            /* Matches Capital 'M' in Manifesto.jpg exactly */
             background: linear-gradient(rgba(5, 5, 8, 0.7), rgba(5, 5, 8, 0.85)), 
-                        url('Manifesto.jpg?v=3') no-repeat center center;
+                        url('Manifesto.jpg') no-repeat center center;
             background-size: cover;
             z-index: -1;
         }
@@ -36,18 +37,17 @@
             text-align: center; padding: 0 60px;
         }
 
-        /* ONE CONTINUOUS ANIMATION: Reveal (0-95%) then Breath (65-95%) */
+        /* ONE CONTINUOUS TIMELINE: Fades in, then pulses without disappearing */
         @keyframes revealAndBreath {
-            0% { opacity: 0; transform: translateY(5px); }
-            15% { opacity: 0.95; transform: translateY(0); } /* Reveal complete */
-            45% { opacity: 0.65; color: #bf94ff; text-shadow: 0 0 15px #a78bfa; } /* Dim */
-            75% { opacity: 0.95; color: #ffffff; text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff; } /* Bright */
-            100% { opacity: 0.65; color: #bf94ff; text-shadow: 0 0 15px #a78bfa; }
+            0% { opacity: 0; transform: translateY(10px); }
+            10% { opacity: 0.95; transform: translateY(0); color: #ffffff; text-shadow: 0 0 20px #a78bfa; }
+            50% { opacity: 0.60; color: #bf94ff; text-shadow: 0 0 10px #a78bfa; }
+            90% { opacity: 0.95; color: #ffffff; text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff; }
+            100% { opacity: 0.95; }
         }
 
         .manifesto-text {
             font-size: 1.65rem !important;
-            font-weight: normal !important;
             font-style: italic !important;
             line-height: 2.2;
             max-width: 950px;
@@ -55,9 +55,9 @@
 
         .line {
             margin-bottom: 50px;
-            opacity: 0;
-            /* 18s duration to make the breathing slow and moody */
-            animation: revealAndBreath 18s infinite ease-in-out;
+            opacity: 0; 
+            /* Infinite loop keeps it on screen forever */
+            animation: revealAndBreath 15s infinite ease-in-out forwards;
         }
 
         .line-1 { animation-delay: 1s; } 

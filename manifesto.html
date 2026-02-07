@@ -10,26 +10,51 @@
   body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #1a1a2e 0%, #050507 100%);
-    color: #ccc4ff;
+    height: 100vh;
+    width: 100vw;
+    background: url('Manifesto.jpg') no-repeat center center fixed;
+    background-size: cover;
     font-family: 'Crimson Pro', serif;
-    overflow-x: hidden;
-    min-height: 100vh;
+    color: #e8e0ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     text-align: center;
-    padding: 40px 20px;
+    overflow: hidden;
+  }
+
+  /* Dark overlay for readability */
+  .overlay {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%; width: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.55),
+      rgba(0,0,0,0.35),
+      rgba(0,0,0,0.65)
+    );
+    z-index: 1;
+  }
+
+  /* Text container */
+  .text-blocks {
+    position: relative;
+    z-index: 2;
+    margin-top: 8vh;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
   .fade-block {
-    max-width: 650px;
-    font-size: 1.6rem;
+    max-width: 700px;
+    font-size: 1.7rem;
     opacity: 0;
     animation: fadeInOut 12s ease-in-out infinite;
     line-height: 1.6;
     margin: 1.2rem 0;
-    filter: drop-shadow(0 0 10px #9b7fffcc);
+    filter: drop-shadow(0 0 12px #000000cc);
   }
 
   .fade-block:nth-child(2) {
@@ -46,38 +71,33 @@
     50% { opacity: 0.4; }
   }
 
-  img {
-    margin-top: 2.5rem;
-    max-width: 90%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 0 25px #000000aa;
-  }
-
-  a {
-    margin-top: 2.5rem;
-    font-size: 1.2rem;
-    color: #a28dffcc;
+  /* Back link */
+  .back-link {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 4vh;
+    font-size: 1.3rem;
+    color: #d6caff;
     text-decoration: underline;
   }
 
-  a:hover {
-    color: #e5dfff;
+  .back-link:hover {
+    color: #ffffff;
   }
 </style>
 </head>
 
 <body>
 
-  <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
-  <div class="fade-block">Today, noise and fear cloud genuine connection — but here, the ink flows freely.</div>
-  <div class="fade-block">Welcome to Xplicit Ink — where voices are real, and the community is unshackled.</div>
+  <div class="overlay"></div>
 
-  <!-- YOUR IMAGE -->
-  <img src="Manifesto.jpg" alt="Manifesto Image">
+  <div class="text-blocks">
+    <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
+    <div class="fade-block">Today, noise and fear cloud genuine connection — but here, the ink flows freely.</div>
+    <div class="fade-block">Welcome to Xplicit Ink — where voices are real, and the community is unshackled.</div>
+  </div>
 
-  <!-- BACK TO HOME -->
-  <a href="/">← Back to Home</a>
+  <a href="/" class="back-link">← Back to Home</a>
 
 </body>
 </html>

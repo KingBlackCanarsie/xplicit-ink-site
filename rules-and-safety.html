@@ -12,14 +12,17 @@
             background-image: url('./ink-background.svg');
             background-size: cover; background-position: center; background-attachment: fixed;
             color: #dddde8; font-family: 'Georgia', serif;
-            cursor: none; overflow-x: hidden;
+            cursor: none; 
+            display: block; /* Changed from flex to block to prevent content hiding */
+            overflow-x: hidden;
         }
 
-        /* 2. THE NAV */
+        /* 2. THE NAV - Forced to Top */
         nav {
             width: 100%; text-align: center; padding: 20px 0;
-            background: rgba(11, 11, 18, 0.9); z-index: 100;
-            border-bottom: 1px solid #4b3b8e55; position: sticky; top: 0;
+            background: rgba(11, 11, 18, 0.95); 
+            z-index: 100; position: relative;
+            border-bottom: 1px solid #4b3b8e55;
         }
         nav a {
             color: #a78bfa; margin: 0 15px; text-decoration: none;
@@ -27,55 +30,48 @@
         }
         nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
 
+        /* 3. THE CONTAINER - Forced to Front */
         .container {
-            max-width: 850px; margin: 60px auto; padding: 0 20px; z-index: 10; position: relative;
+            max-width: 850px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            position: relative; /* Essential for z-index */
+            z-index: 50;        /* Higher than the drips */
+            background: rgba(15, 15, 25, 0.4);
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
         }
 
-        /* 3. GLOWING HEADERS */
         h1 {
             font-size: 3.5rem; text-align: center; color: #d0c4ff;
             text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff;
-            margin-bottom: 10px;
+            margin-top: 0;
         }
         h2 {
             font-size: 2rem; color: #c6b8ff; border-bottom: 1px solid #4b3b8e88;
-            padding-bottom: 10px; margin-top: 50px; text-shadow: 0 0 10px #6a32ff;
+            padding-bottom: 10px; margin-top: 40px; text-shadow: 0 0 10px #6a32ff;
         }
 
-        p.intro {
-            text-align: center; font-size: 1.2rem; font-style: italic;
-            color: #aaa9c7; margin-bottom: 40px;
-        }
+        .highlight { color: #c6b8ff; font-weight: bold; text-shadow: 0 0 8px #a78bfa; }
+        p, li { line-height: 1.8; opacity: 0.9; font-size: 1.1rem; }
+        ul { padding-left: 20px; list-style-type: square; }
+        li { margin-bottom: 15px; }
 
-        /* 4. CONTENT SECTIONS */
-        .section {
-            background: rgba(15, 15, 25, 0.6);
-            padding: 35px; border-radius: 15px;
-            backdrop-filter: blur(5px); border: 1px solid #4b3b8e33;
-            margin-bottom: 30px;
-        }
-
-        ul { padding-left: 20px; }
-        li { margin-bottom: 15px; line-height: 1.6; list-style-type: square; color: #dddde8; }
-
-        .highlight {
-            color: #c6b8ff; font-weight: bold;
-            text-shadow: 0 0 8px #a78bfa;
-        }
-
-        p { line-height: 1.6; opacity: 0.9; }
-
-        /* 5. NEON DRIPS & CURSOR */
+        /* 4. NEON DRIPS */
         .ink-drip {
             position: fixed; width: 2px;
             background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
-            box-shadow: 0 0 10px #a78bfa; z-index: 1; animation: fall linear infinite;
+            box-shadow: 0 0 10px #a78bfa; 
+            z-index: 1; /* Lowest level */
+            animation: fall linear infinite;
         }
         @keyframes fall {
             0% { transform: translateY(-100vh); opacity: 0; }
-            50% { opacity: 0.4; }
+            50% { opacity: 0.3; }
             100% { transform: translateY(100vh); opacity: 0; }
         }
+
+        /* 5. CURSOR */
         .ink-cursor {
             position: fixed; width: 20px; height: 20px; border-radius: 50%;
             background: radial-gradient(circle, #a78bfa, transparent);
@@ -88,3 +84,58 @@
 
     <nav>
         <a href="index.html">Home</a>
+        <a href="community.html">Community</a>
+        <a href="rules-and-safety.html">Rules & Safety</a>
+        <a href="manifesto.html">Manifesto</a>
+    </nav>
+
+    <div class="container">
+        <h1>Rules & Safety</h1>
+        <p style="text-align:center; font-style:italic; color:#aaa9c7;">Xplicit Ink is intense by design—but it only works if everyone understands the rules and respects the people around them.</p>
+
+        <h2>Core Principles</h2>
+        <ul>
+            <li><span class="highlight">18+ only.</span> No minors, no exceptions. If staff suspect someone is underage, they will be removed.</li>
+            <li><span class="highlight">Consent is mandatory.</span> No pressuring, no guilt‑tripping, no ignoring boundaries. “No” is a complete answer.</li>
+            <li><span class="highlight">Respect the person.</span> Behind every username is a real human being. Treat them like one.</li>
+            <li><span class="highlight">Privacy matters.</span> Do not share content or screenshots outside the server without clear permission.</li>
+        </ul>
+
+        <h2>Behavior Expectations</h2>
+        <ul>
+            <li>Read channel descriptions before posting. Every space has a purpose.</li>
+            <li>Keep out‑of‑character drama out of roleplay spaces. Use tickets for issues.</li>
+            <li>Roleplay is fiction. It does not grant permission to cross boundaries in real life.</li>
+        </ul>
+
+        <h2>Reporting & Tickets</h2>
+        <p>If something feels wrong, use the <span class="highlight">🚨｜Report</span> channel to open a private ticket.</p>
+        <ul>
+            <li>Tickets are visible only to you and staff.</li>
+            <li>Staff will respond as soon as they can. While you wait, you can mute or block the person involved.</li>
+        </ul>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="index.html" style="color: #a78bfa; text-decoration: none;">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        for (let i = 0; i < 12; i++) {
+            let drip = document.createElement('div');
+            drip.className = 'ink-drip';
+            drip.style.left = Math.random() * 100 + 'vw';
+            drip.style.height = Math.random() * 200 + 100 + 'px';
+            drip.style.animationDuration = Math.random() * 5 + 3 + 's';
+            drip.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(drip);
+        }
+    </script>
+</body>
+</html>

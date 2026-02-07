@@ -13,16 +13,15 @@
             display: flex; flex-direction: column;
         }
 
-        /* THE BACKGROUND LAYER - RELOADED */
+        /* THE BACKGROUND LAYER */
         .full-bg {
             position: fixed; top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            /* We use the Direct Root Path and a 'Cache Buster' (?v=2) 
-               This forces GitHub to stop looking at the old black version. */
+            width: 100%; height: 100%;
+            /* 1. Matches the exact Capital 'M' from your GitHub screenshot */
+            /* 2. Uses a 'root-relative' path to prevent GitHub routing errors */
             background: linear-gradient(rgba(5, 5, 8, 0.7), rgba(5, 5, 8, 0.85)), 
-                        url('Manifesto.jpg?v=2') no-repeat center center;
+                        url('Manifesto.jpg') no-repeat center center;
             background-size: cover;
-            background-color: #050508;
             z-index: -1;
         }
 
@@ -39,7 +38,7 @@
             text-align: center; padding: 0 60px;
         }
 
-        /* NO-BLINK PULSE ANIMATION */
+        /* BLINK-PROOF ANIMATIONS */
         @keyframes reveal { from { opacity: 0; } to { opacity: 0.95; } }
         @keyframes breath {
             0%, 100% { opacity: 0.95; color: #ffffff; text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff; }
@@ -57,7 +56,7 @@
         .line {
             margin-bottom: 50px;
             opacity: 0;
-            /* Starts the reveal, then starts the breath loop without resetting to 0 */
+            /* Combines reveal and loop so there is NO reset/blink */
             animation: reveal 6s ease-out forwards, breath 12s infinite ease-in-out 6s;
         }
 

@@ -2,82 +2,120 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Xplicit Ink | 18+ Community</title>
-    <meta name="description" content="Xplicit Ink is an 18+ community for adults who want real connection, conversation, and creative expression.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Xplicit Ink | 18+ Community</title>
     <style>
-        body {
-            background: #050509;
-            color: #ffffff;
-            font-family: Arial, Helvetica, sans-serif;
-            text-align: center;
-            padding: 60px 20px;
+        /* 1. ATMOSPHERE & BACKGROUND */
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            background-color: #050508; 
+            background-image: url('./ink-background.svg'); /* This uses your SVG file */
+            background-size: cover; background-position: center;
+            color: #dddde8; font-family: 'Georgia', serif;
+            display: flex; flex-direction: column; align-items: center;
+            overflow-x: hidden; cursor: none; /* Custom cursor is enabled */
         }
-        h1 {
-            font-size: 3rem;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-        h2 {
-            font-size: 1.6rem;
-            margin-top: 30px;
-        }
-        p {
-            font-size: 1.05rem;
-            opacity: 0.9;
-            max-width: 750px;
-            margin: 10px auto;
-        }
-        .btn {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 12px 28px;
-            background: #ff0066;
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 4px;
-        }
-        .btn:hover {
-            opacity: 0.8;
-        }
+
+        /* 2. NAVIGATION BAR (Kept from your new setup but styled to match) */
         nav {
-            text-align: center;
-            padding: 15px 0;
-            background: #0b0b12;
-            margin-bottom: 30px;
+            width: 100%; text-align: center; padding: 20px 0;
+            background: rgba(11, 11, 18, 0.8); z-index: 20;
+            border-bottom: 1px solid #4b3b8e55;
         }
         nav a {
-            color: #ff0066;
-            margin: 0 12px;
-            text-decoration: none;
-            font-size: 0.95rem;
+            color: #a78bfa; margin: 0 15px; text-decoration: none;
+            font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s;
         }
-        nav a:hover {
-            opacity: 0.8;
+        nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
+
+        .container { 
+            text-align: center; z-index: 10; 
+            padding: 60px 20px; max-width: 800px; 
+            margin-top: auto; margin-bottom: auto;
+        }
+        
+        /* 3. NEON GLOWING TEXT */
+        h1 {
+            font-size: 5rem; margin: 0; color: #d0c4ff;
+            text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff;
+            font-weight: bold;
+        }
+        .subtitle {
+            font-size: 1.4rem; font-style: italic; color: #aaa9c7cc;
+            margin: 20px 0 40px 0; line-height: 1.6;
+        }
+
+        /* 4. THE GLOWING BUTTON */
+        .btn {
+            display: inline-block; padding: 18px 45px; font-size: 1.6rem;
+            font-weight: bold; color: white; text-decoration: none;
+            background: #5b3cb9; border: 2px solid #a78bfa; border-radius: 15px;
+            box-shadow: 0 0 30px #a78bfa; transition: 0.3s;
+        }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 50px #c6b8ff; }
+        
+        .manifesto-link {
+            display: block; margin-top: 35px; color: #a28dffcc;
+            text-decoration: underline; font-size: 1rem; opacity: 0.7;
+        }
+
+        /* 5. ANIMATED INK DRIPS (Vertical Lines) */
+        .ink-drip {
+            position: fixed; width: 2px;
+            background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
+            box-shadow: 0 0 10px #a78bfa; z-index: 1; animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* 6. CUSTOM CURSOR */
+        .ink-cursor {
+            position: fixed; width: 20px; height: 20px; border-radius: 50%;
+            background: radial-gradient(circle, #a78bfa, transparent);
+            pointer-events: none; z-index: 100; transform: translate(-50%, -50%);
         }
     </style>
 </head>
 <body>
+    <div class="ink-cursor" id="cursor"></div>
+
     <nav>
-        <a href="/">Home</a>
-        <a href="/community.html">Community</a>
-        <a href="/roleplay.html">Roleplay</a>
-        <a href="/live.html">Live & Streams</a>
-        <a href="/rules-and-safety.html">Rules & Safety</a>
-        <a href="/join.html">Join</a>
+        <a href="index.html">Home</a>
+        <a href="community.html">Community</a>
+        <a href="rules-and-safety.html">Rules & Safety</a>
+        <a href="manifesto.html">Manifesto</a>
     </nav>
 
-    <h1>Xplicit Ink</h1>
-    <p>An 18+ community for adults who want more than just endless scrolling and empty timelines.</p>
-    <p>Here, people talk, play, roleplay, watch movies together, and build real chemistry in a space that actually feels alive.</p>
+    <div class="container">
+        <h1>The Xplicit Ink</h1>
+        <p class="subtitle">A quiet gathering for adults who miss when the internet felt human. 18+ Only.</p>
+        
+        <a href="https://discord.gg/RGwnBbnzgA" class="btn">Enter the Ink</a>
+        
+        <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
+    </div>
 
-    <h2>What Xplicit Ink Is About</h2>
-    <p>Xplicit Ink is built for adults who enjoy intensity, personality, and presence. It’s a place for conversation, connection, and creative expression—with clear boundaries and mutual respect at the center of everything.</p>
-    <p>We don’t do drama, we don’t tolerate harassment, and we don’t play around with consent. If you’re here, you’re expected to act like an adult.</p>
+    <script>
+        // Cursor Movement
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
 
-    <h2>18+ Only. No Exceptions.</h2>
-    <p>Every channel, voice room, and interaction in Xplicit Ink is for adults only. By joining, you confirm that you are 18 or older and understand that this is a mature space with strong expectations around behavior, privacy, and respect.</p>
-
-    <a href="YOUR_DISCORD_INVITE_LINK_HERE" class="btn">Enter Xplicit Ink (18+)</a>
+        // Generate Falling Lines
+        for (let i = 0; i < 12; i++) {
+            let drip = document.createElement('div');
+            drip.className = 'ink-drip';
+            drip.style.left = Math.random() * 100 + 'vw';
+            drip.style.height = Math.random() * 200 + 150 + 'px';
+            drip.style.animationDuration = Math.random() * 4 + 3 + 's';
+            drip.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(drip);
+        }
+    </script>
 </body>
 </html>

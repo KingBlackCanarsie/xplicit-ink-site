@@ -2,58 +2,72 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>The Xplicit Ink - Manifesto</title>
+<title>The Xplicit Ink – Manifesto</title>
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro&display=swap');
+
   body {
-    margin: 0; padding: 0;
+    margin: 0;
+    padding: 0;
     background: linear-gradient(135deg, #1a1a2e 0%, #050507 100%);
     color: #ccc4ff;
     font-family: 'Crimson Pro', serif;
     overflow-x: hidden;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 40px 20px;
   }
+
   .fade-block {
-    max-width: 600px;
-    font-size: 1.5rem;
+    max-width: 650px;
+    font-size: 1.6rem;
     opacity: 0;
     animation: fadeInOut 12s ease-in-out infinite;
     line-height: 1.6;
-    margin: 1rem 0;
+    margin: 1.2rem 0;
     filter: drop-shadow(0 0 10px #9b7fffcc);
   }
+
   .fade-block:nth-child(2) {
     animation-delay: 4s;
   }
+
   .fade-block:nth-child(3) {
     animation-delay: 8s;
   }
+
   @keyframes fadeInOut {
-    0%, 100% {opacity: 0;}
-    25%, 75% {opacity: 1;}
-    50% {opacity: 0.4;}
+    0%, 100% { opacity: 0; }
+    25%, 75% { opacity: 1; }
+    50% { opacity: 0.4; }
   }
+
   a {
     margin-top: 3rem;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #a28dffcc;
     text-decoration: underline;
   }
+
   a:hover {
     color: #e5dfff;
   }
 </style>
 </head>
-<body>
-  <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
-  <div class="fade-block">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
-  <div class="fade-block">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
 
-  <a href="index.html">← Back to Home</a>
+<body>
+
+  <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
+  <div class="fade-block">Today, noise and fear cloud genuine connection — but here, the ink flows freely.</div>
+  <div class="fade-block">Welcome to Xplicit Ink — where voices are real, and the community is unshackled.</div>
+
+  <!-- FIXED LINK -->
+  <a href="/index.html">← Back to Home</a>
+
 </body>
 </html>

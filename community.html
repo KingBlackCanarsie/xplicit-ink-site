@@ -6,459 +6,66 @@
     <title>Community | The Xplicit Ink</title>
 
     <style>
-        :root {
-            --bg-main: #050508;
-            --bg-main-darker: #020205;
-            --text-main: #dddde8;
-            --accent: #a78bfa;
-            --accent-strong: #ff66cc;
-            --accent-soft: #c6b8ff;
-            --card-bg: rgba(15, 15, 25, 0.8);
-            --card-border: #4b3b8e33;
-            --font-size-base: 16px;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
+        /* 1. ATMOSPHERE & BACKGROUND */
         body, html {
             margin: 0; padding: 0;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            font-family: 'Georgia', serif;
-            cursor: none;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+            background-color: #050508;
+            color: #dddde8; font-family: 'Georgia', serif;
+            cursor: none; overflow-x: hidden;
         }
 
-        body.darker {
-            background-color: var(--bg-main-darker);
-        }
-
-        body.dark-mode {
-            --bg-main: #000000;
-            --card-bg: rgba(0, 0, 0, 0.9);
-            --card-border: rgba(255,255,255,0.2);
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.8));
-            pointer-events: none;
-            z-index: 0;
-            animation: vignetteBreath 8s ease-in-out infinite;
-        }
-
-        @keyframes vignetteBreath {
-            0%, 100% { opacity: 0.9; }
-            50% { opacity: 0.7; }
-        }
-
-        .parallax-bg {
-            position: fixed;
-            inset: 0;
-            background-image: url('./ink-background.svg');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.25;
-            z-index: -2;
-            transform: translateY(0);
-            transition: transform 0.1s linear;
-        }
-
-        .neon-fog {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 20% 80%, rgba(167,139,250,0.25), transparent 60%),
-                        radial-gradient(circle at 80% 20%, rgba(255,102,204,0.2), transparent 60%);
-            mix-blend-mode: screen;
-            opacity: 0.25;
-            z-index: -1;
-            animation: fogDrift 40s linear infinite;
-        }
-
-        @keyframes fogDrift {
-            0% { transform: translateX(0); }
-            50% { transform: translateX(-5%); }
-            100% { transform: translateX(0); }
-        }
-
-        .aurora {
-            position: fixed;
-            top: -20vh; left: 0;
-            width: 100%; height: 40vh;
-            background: radial-gradient(circle at 10% 0%, rgba(167,139,250,0.4), transparent 60%);
-            mix-blend-mode: screen;
-            opacity: 0.3;
-            animation: auroraMove 60s linear infinite;
-            pointer-events: none;
-        }
-
-        .aurora.secondary {
-            top: -10vh;
-            background: radial-gradient(circle at 90% 0%, rgba(255,102,204,0.35), transparent 60%);
-            animation-duration: 80s;
-        }
-
-        @keyframes auroraMove {
-            0% { transform: translateX(0); }
-            50% { transform: translateX(-10%); }
-            100% { transform: translateX(0); }
-        }
-
-        .particles {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px; height: 4px;
-            border-radius: 50%;
-            background: rgba(200, 180, 255, 0.7);
-            box-shadow: 0 0 8px rgba(200, 180, 255, 0.9);
-            opacity: 0.4;
-            animation: float 20s linear infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) translateX(0); opacity: 0; }
-            10% { opacity: 0.4; }
-            90% { opacity: 0.4; }
-            100% { transform: translateY(-120vh) translateX(40px); opacity: 0; }
-        }
-
-        .constellation {
-            position: fixed;
-            top: 10%; right: 10%;
-            width: 180px; height: 180px;
-            border-radius: 50%;
-            border: 1px dashed rgba(167,139,250,0.4);
-            box-shadow: 0 0 20px rgba(167,139,250,0.2);
-            opacity: 0.25;
-            z-index: -1;
-        }
-
-        .constellation::before,
-        .constellation::after {
-            content: "";
-            position: absolute;
-            width: 4px; height: 4px;
-            border-radius: 50%;
-            background: rgba(200,180,255,0.9);
-            box-shadow: 0 0 10px rgba(200,180,255,0.9);
-        }
-
-        .constellation::before {
-            top: 20%; left: 30%;
-        }
-
-        .constellation::after {
-            bottom: 25%; right: 20%;
-        }
-
-        .spirit-silhouette {
-            position: fixed;
-            bottom: 5%; left: 5%;
-            width: 120px; height: 160px;
-            background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.15), transparent 60%);
-            mask-image: url('./spirit-silhouette.svg');
-            mask-size: contain;
-            mask-repeat: no-repeat;
-            mask-position: center;
-            opacity: 0.18;
-            z-index: -1;
-            animation: spiritDrift 30s ease-in-out infinite;
-        }
-
-        @keyframes spiritDrift {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .scroll-progress {
-            position: fixed;
-            top: 0; left: 0;
-            height: 3px;
-            width: 0;
-            background: linear-gradient(90deg, var(--accent), var(--accent-strong));
-            z-index: 200;
-            box-shadow: 0 0 10px var(--accent);
-        }
-
-        .page-border {
-            position: fixed;
-            inset: 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(167,139,250,0.35);
-            box-shadow: 0 0 20px rgba(167,139,250,0.2);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .page-border::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background:
-                linear-gradient(to bottom, transparent, rgba(167,139,250,0.2), transparent);
-            opacity: 0.4;
-            mix-blend-mode: screen;
-            animation: veins 10s ease-in-out infinite;
-        }
-
-        @keyframes veins {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-        }
-
+        /* 2. NAVIGATION */
         nav {
-            width: 100%;
-            text-align: center;
-            padding: 20px 0;
-            background: rgba(11, 11, 18, 0.9);
-            z-index: 100;
-            border-bottom: 1px solid #4b3b8e55;
-            position: sticky;
-            top: 0;
-            transition: 0.3s;
+            width: 100%; text-align: center; padding: 20px 0;
+            background: rgba(11, 11, 18, 0.9); z-index: 100;
+            border-bottom: 1px solid #4b3b8e55; position: sticky; top: 0;
         }
-
-        nav.shrink {
-            padding: 10px 0;
-            background: rgba(11,11,18,0.98);
-        }
-
         nav a {
-            color: var(--accent);
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: 0.3s;
+            color: #a78bfa; margin: 0 15px; text-decoration: none;
+            font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s;
         }
+        nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
 
-        nav a:hover {
-            color: #ffffff;
-            text-shadow: 0 0 10px var(--accent);
-        }
-
-        .layout {
-            max-width: 1200px;
-            margin: 40px auto 80px;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 260px minmax(0, 1fr);
-            gap: 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        @media (max-width: 900px) {
-            .layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .side-panel {
-            position: sticky;
-            top: 90px;
-            align-self: flex-start;
-            background: rgba(10, 10, 20, 0.9);
-            border-radius: 16px;
-            padding: 16px 14px 18px;
-            border: 1px solid rgba(167,139,250,0.35);
-            box-shadow: 0 0 20px rgba(0,0,0,0.7);
-            font-size: 0.85rem;
-        }
-
-        .side-title {
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0.7;
-            margin-bottom: 8px;
-        }
-
-        .side-panel ul {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 12px;
-        }
-
-        .side-panel li {
-            margin-bottom: 6px;
-        }
-
-        .side-panel a {
-            color: var(--accent-soft);
-            text-decoration: none;
-            display: block;
-            padding: 6px 8px;
-            border-radius: 8px;
-            transition: 0.25s;
-        }
-
-        .side-panel a.active,
-        .side-panel a:hover {
-            background: radial-gradient(circle at left, rgba(167,139,250,0.25), transparent 70%);
-            color: #fff;
-            text-shadow: 0 0 8px var(--accent);
-        }
-
-        .side-controls {
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 10px;
-            margin-top: 8px;
-        }
-
-        .side-controls button,
-        .side-controls input[type="range"] {
-            width: 100%;
-            margin-bottom: 8px;
-        }
-
-        .side-controls button {
-            background: rgba(20, 15, 40, 0.9);
-            color: var(--accent-soft);
-            border-radius: 999px;
-            padding: 6px 10px;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border: 1px solid rgba(167,139,250,0.6);
-            cursor: pointer;
-            transition: 0.25s;
-        }
-
-        .side-controls button:hover {
-            box-shadow: 0 0 10px var(--accent);
-            color: #fff;
-        }
-
-        .side-controls label {
-            display: block;
-            font-size: 0.7rem;
-            margin-bottom: 4px;
-            opacity: 0.8;
-        }
-
-        .side-controls input[type="range"] {
-            accent-color: var(--accent);
-        }
-
+        /* 3. PAGE CONTAINER */
         .container {
-            position: relative;
-        }
-
-        .crest-watermark {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 1px solid rgba(167,139,250,0.4);
-            box-shadow: 0 0 20px rgba(167,139,250,0.2);
-            opacity: 0.25;
-            background: radial-gradient(circle, rgba(167,139,250,0.4), transparent 60%);
+            max-width: 1100px; margin: 60px auto; padding: 0 20px; z-index: 10; position: relative;
         }
 
         h1 {
-            font-size: 3.5rem;
-            text-align: center;
-            color: #d0c4ff;
-            text-shadow: 0 0 20px var(--accent), 0 0 40px #6a32ff;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            font-size: 3.5rem; text-align: center; color: #d0c4ff;
+            text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff;
+            margin-bottom: 10px; text-transform: uppercase; letter-spacing: 3px;
         }
 
         .philosophy {
             text-align: center;
             font-size: 1.1rem;
             opacity: 0.75;
-            margin-bottom: 10px;
+            margin-bottom: 50px;
             letter-spacing: 1px;
         }
 
-        .philosophy-rotating {
-            text-align: center;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            margin-bottom: 40px;
-            font-style: italic;
-        }
-
-        .ink-whisper {
-            text-align: center;
-            font-size: 0.85rem;
-            opacity: 0.65;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
-        }
-
+        /* 4. GRID OF CARDS */
         .community-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
             margin-top: 20px;
-            scroll-snap-type: y proximity;
         }
 
         .card {
-            background: var(--card-bg);
+            background: rgba(15, 15, 25, 0.8);
             border-radius: 15px;
             overflow: hidden;
-            border: 1px solid var(--card-border);
+            border: 1px solid #4b3b8e33;
             backdrop-filter: blur(15px);
-            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s, background 0.3s;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s;
             display: flex;
             flex-direction: column;
-            position: relative;
-            scroll-snap-align: start;
-        }
-
-        .card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at top left, rgba(167,139,250,0.15), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-
-        .card:hover::before {
-            opacity: 1;
-        }
-
-        .card.favorite {
-            border-color: var(--accent-strong);
-            box-shadow: 0 0 20px rgba(255,102,204,0.4);
-        }
-
-        .card.new-channel {
-            box-shadow: 0 0 18px rgba(167,139,250,0.5);
-        }
-
-        .card.recent-active {
-            animation: pulseActive 3s ease-in-out infinite;
-        }
-
-        @keyframes pulseActive {
-            0%, 100% { box-shadow: 0 0 10px rgba(167,139,250,0.3); }
-            50% { box-shadow: 0 0 20px rgba(255,102,204,0.4); }
         }
 
         .card:hover {
-            transform: translateY(-10px) rotate3d(1, -1, 0, 4deg);
+            transform: translateY(-10px);
             box-shadow: 0 15px 40px #6a32ff33;
             border-color: #a78bfa66;
         }
@@ -469,37 +76,19 @@
             background-size: cover;
             background-position: center;
             border-bottom: 1px solid #4b3b8e55;
-            transition: transform 0.5s;
+            transition: 0.5s;
         }
 
-        .card:hover .card-image {
-            transform: scale(1.05);
-        }
-
+        /* Linked Images */
         .img-lobby { background-image: url('./lobby.jpg'); }
         .img-rp { background-image: url('./rp.jpg'); }
         .img-voice { background-image: url('./voice.jpg'); }
-/* BALANCE ALL CARD IMAGES */
-.img-lobby,
-.img-rp,
-.img-voice {
-    filter: brightness(1.25) contrast(1.1) saturate(1.05);
-}
 
-/* Voice & Live gets a stronger boost because it's darker */
-.img-voice {
-    filter: brightness(1.55) contrast(1.2) saturate(1.15);
-}
-
-        .card-content {
-            padding: 30px;
-            flex-grow: 1;
-            position: relative;
-        }
+        .card-content { padding: 30px; flex-grow: 1; }
 
         .card-content h2 {
             margin: 0 0 10px 0;
-            color: var(--accent-soft);
+            color: #c6b8ff;
             font-size: 1.8rem;
             text-shadow: 0 0 10px #6a32ff;
         }
@@ -511,75 +100,16 @@
             font-style: italic;
         }
 
-        .channel-info {
-            margin-bottom: 15px;
-            position: relative;
-        }
+        .channel-info { margin-bottom: 15px; }
 
         .channel-name {
-            font-weight: bold;
-            color: var(--accent);
-            display: block;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+            font-weight: bold; color: #a78bfa; display: block; margin-bottom: 4px;
+            text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;
         }
 
-        p {
-            line-height: 1.6;
-            opacity: 0.8;
-            font-size: 0.95rem;
-            margin: 0;
-        }
+        p { line-height: 1.6; opacity: 0.8; font-size: 0.95rem; margin: 0; }
 
-        .tooltip {
-            position: relative;
-            cursor: help;
-            border-bottom: 1px dotted rgba(255,255,255,0.4);
-        }
-
-        .tooltip:hover::after {
-            content: attr(data-tip);
-            position: absolute;
-            left: 0;
-            bottom: 120%;
-            background: rgba(10,10,20,0.95);
-            color: #fff;
-            padding: 6px 8px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            white-space: normal;
-            width: 220px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.7);
-            z-index: 999;
-        }
-
-        .card-actions {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .card-btn {
-            background: rgba(20, 15, 40, 0.9);
-            color: var(--accent-soft);
-            border-radius: 999px;
-            padding: 6px 12px;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border: 1px solid rgba(167,139,250,0.6);
-            cursor: pointer;
-            transition: 0.25s;
-        }
-
-        .card-btn:hover {
-            box-shadow: 0 0 10px var(--accent);
-            color: #fff;
-        }
-
+        /* 5. DIVIDER */
         .divider {
             text-align: center;
             margin: 60px auto;
@@ -588,702 +118,127 @@
             color: #ffffff55;
         }
 
+        /* 6. FOOTER LINE */
         .footer-line {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 60px;
             font-size: 1rem;
             opacity: 0.6;
             letter-spacing: 2px;
         }
 
-        .founder-signature {
-            text-align: center;
-            font-size: 1.1rem;
-            opacity: 0.7;
-            margin-top: 10px;
-            font-family: "Brush Script MT", "Lucida Handwriting", cursive;
-            position: relative;
-            display: inline-block;
-        }
-
-        .founder-signature::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -4px;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-strong));
-            box-shadow: 0 0 8px var(--accent);
-            animation: signatureDraw 2s ease-out forwards;
-        }
-
-        @keyframes signatureDraw {
-            to { width: 100%; }
-        }
-
+        /* 7. BACK LINK */
         .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            padding-bottom: 40px;
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            opacity: 0.6;
-            transition: 0.3s;
+            display: block; text-align: center; margin-top: 20px; padding-bottom: 40px;
+            color: #a78bfa; text-decoration: none; font-size: 0.8rem;
+            letter-spacing: 2px; opacity: 0.6; transition: 0.3s;
         }
+        .back-link:hover { opacity: 1; color: #fff; }
 
-        .back-link:hover {
-            opacity: 1;
-            color: #fff;
-        }
-
+        /* 8. CUSTOM CURSOR */
         .ink-cursor {
-            position: fixed;
-            width: 20px; height: 20px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--accent), transparent);
-            pointer-events: none;
-            z-index: 1000;
-            transform: translate(-50%, -50%);
-        }
-
-        .cursor-spotlight {
-            position: fixed;
-            width: 220px; height: 220px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
-            pointer-events: none;
-            z-index: 2;
-            mix-blend-mode: soft-light;
-            transform: translate(-50%, -50%);
-        }
-
-        .click-ripple {
-            position: fixed;
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            border: 1px solid rgba(167,139,250,0.8);
-            pointer-events: none;
-            z-index: 999;
-            animation: ripple 0.6s ease-out forwards;
-        }
-
-        @keyframes ripple {
-            to {
-                transform: scale(8);
-                opacity: 0;
-            }
-        }
-
-        .back-to-top {
-            position: fixed;
-            right: 20px;
-            bottom: 25px;
-            background: rgba(20, 15, 40, 0.9);
-            color: #d0c4ff;
-            border-radius: 999px;
-            padding: 8px 16px;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border: 1px solid rgba(167,139,250,0.6);
-            cursor: pointer;
-            z-index: 150;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: 0.3s;
-        }
-
-        .back-to-top.visible {
-            opacity: 0.9;
-            transform: translateY(0);
-        }
-
-        .back-to-top:hover {
-            box-shadow: 0 0 12px var(--accent);
-        }
-
-        .stats-section {
-            margin-top: 40px;
-            padding: 20px;
-            border-radius: 14px;
-            background: rgba(10,10,20,0.9);
-            border: 1px solid rgba(167,139,250,0.4);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 20px;
-            font-size: 0.9rem;
-        }
-
-        .stat-block {
-            text-align: center;
-        }
-
-        .stat-label {
-            opacity: 0.7;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.7rem;
-            margin-bottom: 4px;
-        }
-
-        .stat-value {
-            font-size: 1.4rem;
-            color: var(--accent-soft);
-        }
-
-        .timeline {
-            margin-top: 40px;
-            padding: 20px;
-            border-radius: 14px;
-            background: rgba(10,10,20,0.9);
-            border: 1px solid rgba(167,139,250,0.4);
-            font-size: 0.9rem;
-        }
-
-        .timeline-item {
-            margin-bottom: 10px;
-            opacity: 0.85;
-        }
-
-        .timeline-item span {
-            color: var(--accent-soft);
-            font-weight: bold;
-        }
-
-        .modal-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 300;
-        }
-
-        .modal {
-            background: rgba(10,10,20,0.98);
-            border-radius: 16px;
-            padding: 20px 24px;
-            max-width: 420px;
-            width: 90%;
-            border: 1px solid rgba(167,139,250,0.6);
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
-            font-size: 0.95rem;
-        }
-
-        .modal h3 {
-            margin-top: 0;
-            color: var(--accent-soft);
-        }
-
-        .modal-actions {
-            margin-top: 16px;
-            text-align: right;
-        }
-
-        .modal-btn {
-            background: rgba(20, 15, 40, 0.9);
-            color: var(--accent-soft);
-            border-radius: 999px;
-            padding: 6px 12px;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border: 1px solid rgba(167,139,250,0.6);
-            cursor: pointer;
-            transition: 0.25s;
-        }
-
-        .modal-btn:hover {
-            box-shadow: 0 0 10px var(--accent);
-            color: #fff;
-        }
-
-        .compare-mode .card {
-            outline: 1px dashed rgba(255,255,255,0.2);
-        }
-
-        .floating-chapter {
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
-            background: rgba(10,10,20,0.95);
-            border-radius: 999px;
-            padding: 6px 12px;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border: 1px solid rgba(167,139,250,0.6);
-            opacity: 0.8;
-            z-index: 140;
-        }
-
-        .live-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.8rem;
-            opacity: 0.8;
-            margin-left: 6px;
-        }
-
-        .live-dot {
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: #ff4b6e;
-            box-shadow: 0 0 8px #ff4b6e;
-            animation: livePulse 1.2s ease-in-out infinite;
-        }
-
-        @keyframes livePulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.4); opacity: 0.6; }
-        }
-
-        .stagger-card {
-            opacity: 0;
-            transform: translateY(15px);
-            animation: cardStagger 0.7s ease-out forwards;
-        }
-
-        @keyframes cardStagger {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 700px) {
-            .community-grid {
-                display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                padding-bottom: 10px;
-            }
-            .card {
-                min-width: 80%;
-                scroll-snap-align: center;
-            }
+            position: fixed; width: 20px; height: 20px; border-radius: 50%;
+            background: radial-gradient(circle, #a78bfa, transparent);
+            pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
         }
     </style>
 </head>
 
 <body>
-    <div class="parallax-bg"></div>
-    <div class="neon-fog"></div>
-    <div class="aurora"></div>
-    <div class="aurora secondary"></div>
-    <div class="particles" id="particles"></div>
-    <div class="constellation"></div>
-    <div class="spirit-silhouette"></div>
-    <div class="scroll-progress" id="scrollProgress"></div>
-    <div class="page-border"></div>
-
     <div class="ink-cursor" id="cursor"></div>
-    <div class="cursor-spotlight" id="spotlight"></div>
-    <button class="back-to-top" id="backToTop">BACK TO TOP</button>
-    <div class="floating-chapter" id="floatingChapter">Core Spaces</div>
 
-    <nav id="nav">
+    <nav>
         <a href="index.html">Home</a>
         <a href="community.html">Community</a>
         <a href="rules-and-safety.html">Rules & Safety</a>
         <a href="manifesto.html">Manifesto</a>
     </nav>
 
-    <div class="layout">
-        <aside class="side-panel">
-            <div class="side-title">SECTIONS</div>
-            <ul>
-                <li><a href="#core" class="side-link active">Core Spaces</a></li>
-                <li><a href="#roleplay" class="side-link">Roleplay</a></li>
-                <li><a href="#voice" class="side-link">Voice & Live</a></li>
-            </ul>
+    <div class="container">
+        <h1>The Community</h1>
+        <div class="philosophy">A space shaped with intention — every room exists for a reason.</div>
 
-            <div class="side-title">VIEW MODES</div>
-            <div class="side-controls">
-                <button id="compareToggle">TOGGLE COMPARE MODE</button>
-                <button id="layoutToggle">TOGGLE COMPACT GRID</button>
-                <button id="darkToggle">DARK / DARKER MODE</button>
+        <div class="community-grid">
 
-                <label>Font Size</label>
-                <input type="range" id="fontSizeSlider" min="14" max="20" value="16">
-            </div>
-        </aside>
+            <!-- CORE SPACES -->
+            <div class="card">
+                <div class="card-image img-lobby"></div>
+                <div class="card-content">
+                    <h2>Core Spaces</h2>
+                    <div class="identity-line">Where the community gathers, warms up, and finds its rhythm.</div>
 
-        <main class="container">
-            <div class="crest-watermark"></div>
-
-            <h1>The Community</h1>
-            <div class="philosophy">A space shaped with intention — every room exists for a reason.</div>
-            <div class="philosophy-rotating" id="philosophyRotating">
-                Every corner of Xplicit Ink is built for connection, not chaos.
-            </div>
-            <div class="ink-whisper" id="inkWhisper">
-                Ink Whisper: The quiet ones often write the loudest stories.
-            </div>
-
-            <section class="community-grid" id="grid">
-
-                <article class="card stagger-card" id="core" style="animation-delay: 0.1s;">
-                    <div class="card-image img-lobby"></div>
-                    <div class="card-content">
-                        <h2>Core Spaces</h2>
-                        <div class="identity-line">
-                            Where the community gathers, warms up, and finds its rhythm.
-                        </div>
-
-                        <div class="channel-info">
-                            <span class="channel-name tooltip" data-tip="Verification ensures everyone here is truly an adult.">🛡️｜Access</span>
-                            <p>Verify adulthood and unlock the hidden ink.</p>
-                        </div>
-                        <div class="channel-info">
-                            <span class="channel-name tooltip" data-tip="Your first step into the atmosphere of Xplicit Ink.">🛋️｜Lobby</span>
-                            <p>The entry point. Find your footing and the vibe.</p>
-                        </div>
-                        <div class="channel-info">
-                            <span class="channel-name tooltip" data-tip="The main artery of conversation — unfiltered, mature, and alive.">💬｜Chatroom</span>
-                            <p>The main vein. Unfiltered, mature conversation.</p>
-                        </div>
-
-                        <div class="card-actions">
-                            <button class="card-btn quick-view" data-card="core">Quick View</button>
-                            <button class="card-btn favorite-toggle">Favorite</button>
-                        </div>
+                    <div class="channel-info">
+                        <span class="channel-name">🛡️｜Access</span>
+                        <p>Verify adulthood and unlock the hidden ink.</p>
                     </div>
-                </article>
-
-                <article class="card stagger-card" id="roleplay" style="animation-delay: 0.25s;">
-                    <div class="card-image img-rp"></div>
-                    <div class="card-content">
-                        <h2>Roleplay</h2>
-                        <div class="identity-line">
-                            The creative heart of Xplicit Ink — where imagination and consent shape the story.
-                        </div>
-
-                        <div class="channel-info">
-                            <span class="channel-name tooltip" data-tip="A space for pure narrative — no OOC chatter, just story.">🧙‍♂️｜Rp_Only</span>
-                            <p>Total immersion. Pure narrative storytelling.</p>
-                        </div>
-                        <div class="channel-info">
-                            <span class="channel-name tooltip" data-tip="Where characters are built, refined, and given depth.">🎨｜Characters</span>
-                            <p>Profiles and personas crafted with care.</p>
-                        </div>
-                        <div class="channel-info">
-                            <span class="channel-name tooltip" data-tip="A space for power dynamics explored with explicit, ongoing consent.">👑｜Domination</span>
-                            <p>Exploring power dynamics with absolute consent.</p>
-                        </div>
-
-                        <div class="card-actions">
-                            <button class="card-btn quick-view" data-card="roleplay">Quick View</button>
-                            <button class="card-btn favorite-toggle">Favorite</button>
-                        </div>
+                    <div class="channel-info">
+                        <span class="channel-name">🛋️｜Lobby</span>
+                        <p>The entry point. Find your footing and the vibe.</p>
                     </div>
-                </article>
-
-                <article class="card stagger-card recent-active new-channel" id="voice" style="animation-delay: 0.4s;">
-                    <div class="card-image img-voice"></div>
-                    <div class="card-content">
-                        <h2>Voice & Live
-                            <span class="live-indicator">
-                                <span class="live-dot"></span> Live Now
-                            </span>
-                        </h2>
-                        <div class="identity-line">
-                            Where presence becomes real-time and energy becomes shared.
-                        </div>
-
-                        <div class="channel-info">
-                            <span class="channel-name tooltip" data-tip="For those who want to hear and be heard.">🗣️｜Mic Chat</span>
-                            <p>Real-time connection. Ambient and intimate.</p>
-                        </div>
-                        <div class="channel-info">
-                            <span class="channel-name tooltip" data-tip="Watch, listen, and share visual experiences together.">📺｜Streams</span>
-                            <p>Cinema, gaming, and visual storytelling.</p>
-                        </div>
-                        <div class="channel-info">
-                            <span class="channel-name tooltip" data-tip="For those who enjoy the edge — always with consent and clarity.">💦｜X‑Stream</span>
-                            <p>Live sessions for those who enjoy the edge.</p>
-                        </div>
-
-                        <div class="card-actions">
-                            <button class="card-btn quick-view" data-card="voice">Quick View</button>
-                            <button class="card-btn favorite-toggle">Favorite</button>
-                        </div>
+                    <div class="channel-info">
+                        <span class="channel-name">💬｜Chatroom</span>
+                        <p>The main vein. Unfiltered, mature conversation.</p>
                     </div>
-                </article>
-
-            </section>
-
-            <div class="stats-section">
-                <div class="stat-block">
-                    <div class="stat-label">ACTIVE MEMBERS</div>
-                    <div class="stat-value">128</div>
-                </div>
-                <div class="stat-block">
-                    <div class="stat-label">DAILY MESSAGES</div>
-                    <div class="stat-value">3.4K</div>
-                </div>
-                <div class="stat-block">
-                    <div class="stat-label">RP THREADS</div>
-                    <div class="stat-value">47</div>
-                </div>
-                <div class="stat-block">
-                    <div class="stat-label">LIVE SESSIONS</div>
-                    <div class="stat-value">6 / week</div>
                 </div>
             </div>
 
-            <div class="timeline">
-                <div class="timeline-item"><span>Year 1:</span> Xplicit Ink opens its doors as a small, curated space.</div>
-                <div class="timeline-item"><span>Year 2:</span> Roleplay expands into dedicated channels and story arcs.</div>
-                <div class="timeline-item"><span>Year 3:</span> Voice & Live sessions become a core part of the rhythm.</div>
-                <div class="timeline-item"><span>Now:</span> A mature, intentional community built on consent, clarity, and connection.</div>
+            <!-- ROLEPLAY -->
+            <div class="card">
+                <div class="card-image img-rp"></div>
+                <div class="card-content">
+                    <h2>Roleplay</h2>
+                    <div class="identity-line">The creative heart of Xplicit Ink — where imagination and consent shape the story.</div>
+
+                    <div class="channel-info">
+                        <span class="channel-name">🧙‍♂️｜Rp_Only</span>
+                        <p>Total immersion. Pure narrative storytelling.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">🎨｜Characters</span>
+                        <p>Profiles and personas crafted with care.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">👑｜Domination</span>
+                        <p>Exploring power dynamics with absolute consent.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="divider">────────── ◆ ──────────</div>
+            <!-- VOICE & LIVE -->
+            <div class="card">
+                <div class="card-image img-voice"></div>
+                <div class="card-content">
+                    <h2>Voice & Live</h2>
+                    <div class="identity-line">Where presence becomes real-time and energy becomes shared.</div>
 
-            <div class="footer-line">Ink flows where the community breathes.</div>
-            <div style="text-align:center;">
-                <span class="founder-signature">— The Founder</span>
+                    <div class="channel-info">
+                        <span class="channel-name">🗣️｜Mic Chat</span>
+                        <p>Real-time connection. Ambient and intimate.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">📺｜Streams</span>
+                        <p>Cinema, gaming, and visual storytelling.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">💦｜X‑Stream</span>
+                        <p>Live sessions for those who enjoy the edge.</p>
+                    </div>
+                </div>
             </div>
-            <a href="index.html" class="back-link">← RETURN TO HOME</a>
-        </main>
-    </div>
 
-    <div class="modal-backdrop" id="oathModal">
-        <div class="modal">
-            <h3>Community Oath</h3>
-            <p>
-                By stepping into Xplicit Ink, you agree to move with intention, respect boundaries,
-                and treat every person here as a whole human being — not just a screen name.
-            </p>
-            <div class="modal-actions">
-                <button class="modal-btn" id="oathAccept">I Understand</button>
-            </div>
         </div>
-    </div>
 
-    <div class="modal-backdrop" id="quickViewModal">
-        <div class="modal">
-            <h3 id="quickViewTitle">Space Overview</h3>
-            <p id="quickViewBody">
-                This is a focused look at one of the core spaces of Xplicit Ink.
-            </p>
-            <div class="modal-actions">
-                <button class="modal-btn" id="quickViewClose">Close</button>
-            </div>
-        </div>
+        <div class="footer-line">Ink flows where the community breathes.</div>
+        <a href="index.html" class="back-link">← RETURN TO HOME</a>
     </div>
 
     <script>
         const cursor = document.getElementById('cursor');
-        const spotlight = document.getElementById('spotlight');
-        const particlesContainer = document.getElementById('particles');
-        const scrollProgress = document.getElementById('scrollProgress');
-        const backToTop = document.getElementById('backToTop');
-        const nav = document.getElementById('nav');
-        const parallaxBg = document.querySelector('.parallax-bg');
-        const sideLinks = document.querySelectorAll('.side-link');
-        const floatingChapter = document.getElementById('floatingChapter');
-        const compareToggle = document.getElementById('compareToggle');
-        const layoutToggle = document.getElementById('layoutToggle');
-        const darkToggle = document.getElementById('darkToggle');
-        const fontSizeSlider = document.getElementById('fontSizeSlider');
-        const grid = document.getElementById('grid');
-        const philosophyRotating = document.getElementById('philosophyRotating');
-        const inkWhisper = document.getElementById('inkWhisper');
-        const oathModal = document.getElementById('oathModal');
-        const oathAccept = document.getElementById('oathAccept');
-        const quickViewModal = document.getElementById('quickViewModal');
-        const quickViewTitle = document.getElementById('quickViewTitle');
-        const quickViewBody = document.getElementById('quickViewBody');
-        const quickViewClose = document.getElementById('quickViewClose');
-
-        const philosophyLines = [
-            "Every corner of Xplicit Ink is built for connection, not chaos.",
-            "We value presence over performance, intention over impulse.",
-            "You are never just content here — you are a person first.",
-            "Spaces are curated so you never have to guess the vibe."
-        ];
-
-        const whispers = [
-            "Ink Whisper: The quiet ones often write the loudest stories.",
-            "Ink Whisper: Boundaries are not walls — they are invitations to trust.",
-            "Ink Whisper: The best scenes are built, not rushed.",
-            "Ink Whisper: You don’t have to be loud to be felt."
-        ];
-
-        let philosophyIndex = 0;
-        let whisperIndex = 0;
-
-        setInterval(() => {
-            philosophyIndex = (philosophyIndex + 1) % philosophyLines.length;
-            philosophyRotating.textContent = philosophyLines[philosophyIndex];
-        }, 9000);
-
-        setInterval(() => {
-            whisperIndex = (whisperIndex + 1) % whispers.length;
-            inkWhisper.textContent = whispers[whisperIndex];
-        }, 12000);
-
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
-
-            spotlight.style.left = e.clientX + 'px';
-            spotlight.style.top = e.clientY + 'px';
-
-            if (parallaxBg) {
-                parallaxBg.style.transform = `translateY(${window.scrollY * 0.15}px)`;
-            }
-
-            document.querySelectorAll('.card').forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const dx = (e.clientX - centerX) * 0.002;
-                const dy = (e.clientY - centerY) * 0.002;
-                card.style.transform = `translate(${dx * 10}px, ${dy * 10}px)`;
-            });
-        });
-
-        document.addEventListener('click', (e) => {
-            const ripple = document.createElement('div');
-            ripple.className = 'click-ripple';
-            ripple.style.left = e.clientX + 'px';
-            ripple.style.top = e.clientY + 'px';
-            document.body.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 600);
-        });
-
-        for (let i = 0; i < 25; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.bottom = (Math.random() * 40 - 10) + 'vh';
-            p.style.animationDuration = (18 + Math.random() * 10) + 's';
-            p.style.animationDelay = (Math.random() * 10) + 's';
-            particlesContainer.appendChild(p);
-        }
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.body.scrollHeight - window.innerHeight;
-            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            scrollProgress.style.width = progress + '%';
-
-            if (scrollTop > 80) {
-                nav.classList.add('shrink');
-            } else {
-                nav.classList.remove('shrink');
-            }
-
-            if (scrollTop > 200) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-
-            const sections = [
-                { id: 'core', label: 'Core Spaces' },
-                { id: 'roleplay', label: 'Roleplay' },
-                { id: 'voice', label: 'Voice & Live' }
-            ];
-
-            let activeId = null;
-            sections.forEach(sec => {
-                const el = document.getElementById(sec.id);
-                if (!el) return;
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight * 0.4 && rect.bottom > window.innerHeight * 0.3) {
-                    activeId = sec.id;
-                    floatingChapter.textContent = sec.label;
-                }
-            });
-
-            sideLinks.forEach(link => {
-                link.classList.toggle('active', link.getAttribute('href') === '#' + activeId);
-            });
-        });
-
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        compareToggle.addEventListener('click', () => {
-            document.body.classList.toggle('compare-mode');
-        });
-
-        layoutToggle.addEventListener('click', () => {
-            grid.classList.toggle('compact');
-            if (grid.classList.contains('compact')) {
-                grid.style.gap = '20px';
-            } else {
-                grid.style.gap = '40px';
-            }
-        });
-
-        darkToggle.addEventListener('click', () => {
-            document.body.classList.toggle('darker');
-        });
-
-        fontSizeSlider.addEventListener('input', (e) => {
-            const size = e.target.value + 'px';
-            document.documentElement.style.setProperty('--font-size-base', size);
-            document.body.style.fontSize = size;
-        });
-
-        document.querySelectorAll('.favorite-toggle').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const card = btn.closest('.card');
-                card.classList.toggle('favorite');
-            });
-        });
-
-        const quickViewContent = {
-            core: {
-                title: 'Core Spaces',
-                body: 'The Core Spaces are where you first feel the pulse of Xplicit Ink — access, lobby, and chat form the spine of everyday presence.'
-            },
-            roleplay: {
-                title: 'Roleplay',
-                body: 'Roleplay is where stories are built, not rushed. Characters, scenes, and dynamics unfold with consent and intention.'
-            },
-            voice: {
-                title: 'Voice & Live',
-                body: 'Voice & Live spaces turn presence into something shared — from ambient mic chats to cinematic streams and edge‑leaning sessions.'
-            }
-        };
-
-        document.querySelectorAll('.quick-view').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const key = btn.getAttribute('data-card');
-                const data = quickViewContent[key];
-                if (data) {
-                    quickViewTitle.textContent = data.title;
-                    quickViewBody.textContent = data.body;
-                }
-                quickViewModal.style.display = 'flex';
-            });
-        });
-
-        quickViewClose.addEventListener('click', () => {
-            quickViewModal.style.display = 'none';
-        });
-
-        if (!localStorage.getItem('xplicit_oath_ack')) {
-            oathModal.style.display = 'flex';
-        }
-
-        oathAccept.addEventListener('click', () => {
-            oathModal.style.display = 'none';
-            localStorage.setItem('xplicit_oath_ack', 'true');
         });
     </script>
+
 </body>
 </html>

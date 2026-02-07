@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community | The Xplicit Ink</title>
+
     <style>
         /* 1. ATMOSPHERE & BACKGROUND */
         body, html {
@@ -25,6 +26,7 @@
         }
         nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
 
+        /* 3. PAGE CONTAINER */
         .container {
             max-width: 1100px; margin: 60px auto; padding: 0 20px; z-index: 10; position: relative;
         }
@@ -32,10 +34,18 @@
         h1 {
             font-size: 3.5rem; text-align: center; color: #d0c4ff;
             text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff;
-            margin-bottom: 40px; text-transform: uppercase; letter-spacing: 3px;
+            margin-bottom: 10px; text-transform: uppercase; letter-spacing: 3px;
         }
 
-        /* 3. THE VISUAL CARDS GRID */
+        .philosophy {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.75;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+
+        /* 4. GRID OF CARDS */
         .community-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -69,18 +79,25 @@
             transition: 0.5s;
         }
 
-        /* Linking the Images you committed */
+        /* Linked Images */
         .img-lobby { background-image: url('./lobby.jpg'); }
         .img-rp { background-image: url('./rp.jpg'); }
         .img-voice { background-image: url('./voice.jpg'); }
 
         .card-content { padding: 30px; flex-grow: 1; }
-        
+
         .card-content h2 {
-            margin: 0 0 20px 0;
+            margin: 0 0 10px 0;
             color: #c6b8ff;
             font-size: 1.8rem;
             text-shadow: 0 0 10px #6a32ff;
+        }
+
+        .identity-line {
+            font-size: 0.95rem;
+            opacity: 0.75;
+            margin-bottom: 20px;
+            font-style: italic;
         }
 
         .channel-info { margin-bottom: 15px; }
@@ -92,21 +109,41 @@
 
         p { line-height: 1.6; opacity: 0.8; font-size: 0.95rem; margin: 0; }
 
-        /* 4. THE CUSTOM CURSOR */
+        /* 5. DIVIDER */
+        .divider {
+            text-align: center;
+            margin: 60px auto;
+            font-size: 1.3rem;
+            opacity: 0.4;
+            color: #ffffff55;
+        }
+
+        /* 6. FOOTER LINE */
+        .footer-line {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 1rem;
+            opacity: 0.6;
+            letter-spacing: 2px;
+        }
+
+        /* 7. BACK LINK */
+        .back-link {
+            display: block; text-align: center; margin-top: 20px; padding-bottom: 40px;
+            color: #a78bfa; text-decoration: none; font-size: 0.8rem;
+            letter-spacing: 2px; opacity: 0.6; transition: 0.3s;
+        }
+        .back-link:hover { opacity: 1; color: #fff; }
+
+        /* 8. CUSTOM CURSOR */
         .ink-cursor {
             position: fixed; width: 20px; height: 20px; border-radius: 50%;
             background: radial-gradient(circle, #a78bfa, transparent);
             pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
         }
-
-        .back-link {
-            display: block; text-align: center; margin-top: 60px; padding-bottom: 40px;
-            color: #a78bfa; text-decoration: none; font-size: 0.8rem;
-            letter-spacing: 2px; opacity: 0.6; transition: 0.3s;
-        }
-        .back-link:hover { opacity: 1; color: #fff; }
     </style>
 </head>
+
 <body>
     <div class="ink-cursor" id="cursor"></div>
 
@@ -119,12 +156,17 @@
 
     <div class="container">
         <h1>The Community</h1>
+        <div class="philosophy">A space shaped with intention — every room exists for a reason.</div>
 
         <div class="community-grid">
+
+            <!-- CORE SPACES -->
             <div class="card">
                 <div class="card-image img-lobby"></div>
                 <div class="card-content">
                     <h2>Core Spaces</h2>
+                    <div class="identity-line">Where the community gathers, warms up, and finds its rhythm.</div>
+
                     <div class="channel-info">
                         <span class="channel-name">🛡️｜Access</span>
                         <p>Verify adulthood and unlock the hidden ink.</p>
@@ -140,10 +182,13 @@
                 </div>
             </div>
 
+            <!-- ROLEPLAY -->
             <div class="card">
                 <div class="card-image img-rp"></div>
                 <div class="card-content">
                     <h2>Roleplay</h2>
+                    <div class="identity-line">The creative heart of Xplicit Ink — where imagination and consent shape the story.</div>
+
                     <div class="channel-info">
                         <span class="channel-name">🧙‍♂️｜Rp_Only</span>
                         <p>Total immersion. Pure narrative storytelling.</p>
@@ -159,10 +204,13 @@
                 </div>
             </div>
 
+            <!-- VOICE & LIVE -->
             <div class="card">
                 <div class="card-image img-voice"></div>
                 <div class="card-content">
                     <h2>Voice & Live</h2>
+                    <div class="identity-line">Where presence becomes real-time and energy becomes shared.</div>
+
                     <div class="channel-info">
                         <span class="channel-name">🗣️｜Mic Chat</span>
                         <p>Real-time connection. Ambient and intimate.</p>
@@ -177,8 +225,10 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
+        <div class="footer-line">Ink flows where the community breathes.</div>
         <a href="index.html" class="back-link">← RETURN TO HOME</a>
     </div>
 
@@ -189,5 +239,6 @@
             cursor.style.top = e.clientY + 'px';
         });
     </script>
+
 </body>
 </html>

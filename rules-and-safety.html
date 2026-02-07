@@ -6,45 +6,103 @@
     <title>Rules & Safety | The Xplicit Ink</title>
 
     <style>
-        /* 1. ATMOSPHERE */
+        /* 1. GLOBAL ATMOSPHERE */
         body, html {
             margin: 0; padding: 0;
             background-color: #050508;
             background-image: url('./ink-background.svg');
-            background-size: cover; background-position: center; background-attachment: fixed;
-            color: #dddde8; font-family: 'Georgia', serif;
-            cursor: none; overflow-x: hidden;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #dddde8;
+            font-family: 'Georgia', serif;
+            cursor: none;
+            overflow-x: hidden;
+        }
+
+        /* 1A. TOP GRADIENT OVERLAY */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0));
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* 1B. VIGNETTE */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.65));
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* 1C. SMOKE LAYER */
+        .smoke {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('./smoke.png') center/cover no-repeat;
+            opacity: 0.15;
+            animation: drift 40s linear infinite;
+            z-index: 2;
+            pointer-events: none;
+        }
+        @keyframes drift {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-10%) scale(1.1); }
         }
 
         /* 2. NAVIGATION */
         nav {
-            width: 100%; text-align: center; padding: 20px 0;
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
             background: rgba(11, 11, 18, 0.95);
             border-bottom: 1px solid #4b3b8e55;
-            position: relative; z-index: 100;
+            position: relative;
+            z-index: 100;
         }
         nav a {
-            color: #a78bfa; margin: 0 15px; text-decoration: none;
-            font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s;
+            color: #a78bfa;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: 0.3s;
         }
-        nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
+        nav a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px #a78bfa;
+        }
 
         /* 3. MAIN CONTAINER */
         .container {
             max-width: 850px;
-            margin: 40px auto;
-            padding: 30px;
+            margin: 60px auto;
+            padding: 40px;
             background: rgba(15, 15, 25, 0.45);
             border-radius: 20px;
-            backdrop-filter: blur(10px);
-            position: relative; z-index: 50;
+            backdrop-filter: blur(12px);
+            position: relative;
+            z-index: 50;
+            border: 1px solid rgba(167, 139, 250, 0.25);
+            box-shadow: 0 0 25px rgba(167, 139, 250, 0.15);
         }
 
         /* 4. HEADER */
         h1 {
-            font-size: 3.5rem; text-align: center; color: #d0c4ff;
+            font-size: 3.5rem;
+            text-align: center;
+            color: #d0c4ff;
             text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff;
-            margin-top: 0; letter-spacing: 2px;
+            margin-top: 0;
+            letter-spacing: 2px;
         }
 
         .commandment-line {
@@ -74,6 +132,10 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: 0.3s;
+        }
+        h2:hover {
+            text-shadow: 0 0 15px #b28aff;
         }
 
         .section-subtitle {
@@ -85,8 +147,18 @@
         }
 
         /* 6. RULE LISTS */
-        ul { padding-left: 20px; list-style-type: square; }
-        li { margin-bottom: 15px; line-height: 1.8; font-size: 1.1rem; opacity: 0.9; }
+        ul {
+            padding-left: 20px;
+            list-style-type: square;
+        }
+        li {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 10px;
+        }
 
         .highlight {
             color: #c6b8ff;
@@ -94,11 +166,16 @@
             text-shadow: 0 0 8px #a78bfa;
         }
 
-        /* 7. IMPORTANT RULE GLOW */
+        /* 7. CRITICAL RULE PULSE */
         .critical {
             color: #e3d8ff;
             font-weight: bold;
             text-shadow: 0 0 12px #b28aff;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { text-shadow: 0 0 8px #b28aff; }
+            50% { text-shadow: 0 0 14px #d8caff; }
         }
 
         /* 8. DIVIDER */
@@ -133,19 +210,28 @@
             letter-spacing: 2px;
             opacity: 0.7;
             transition: 0.3s;
+            text-shadow: 0 0 8px #6a32ff;
         }
-        .back-link:hover { opacity: 1; color: #fff; }
+        .back-link:hover {
+            opacity: 1;
+            color: #fff;
+        }
 
-        /* 11. CURSOR */
+        /* 11. CUSTOM CURSOR */
         .ink-cursor {
-            position: fixed; width: 20px; height: 20px; border-radius: 50%;
+            position: fixed;
+            width: 20px; height: 20px;
+            border-radius: 50%;
             background: radial-gradient(circle, #a78bfa, transparent);
-            pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 1000;
+            transform: translate(-50%, -50%);
         }
 
         /* 12. NEON DRIPS */
         .ink-drip {
-            position: fixed; width: 2px;
+            position: fixed;
+            width: 2px;
             background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
             box-shadow: 0 0 10px #a78bfa;
             z-index: 1;
@@ -160,6 +246,8 @@
 </head>
 
 <body>
+
+    <div class="smoke"></div>
     <div class="ink-cursor" id="cursor"></div>
 
     <nav>
@@ -213,7 +301,7 @@
 
         <!-- ZERO TOLERANCE -->
         <div class="zero-box">
-            <strong>Zero Tolerance:</strong><br>
+            <strong>❗ Zero Tolerance:</strong><br>
             Violations of these rules may result in removal from the community.<br>
             We protect our members first — always.
         </div>

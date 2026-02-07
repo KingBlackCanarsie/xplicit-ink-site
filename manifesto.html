@@ -34,43 +34,46 @@
             text-align: center; padding: 0 40px;
         }
 
-        /* THE SPECIFIC PULSE: 10% -> 75% -> 50% -> 75% */
-        @keyframes customPulse {
-            0% { 
-                opacity: 0.1; /* 10% Visibility */
-                text-shadow: 0 0 5px #a78bfa;
-                color: #4b3b8e;
-            }
-            33% { 
-                opacity: 0.75; /* 75% Visibility */
-                text-shadow: 0 0 25px #a78bfa, 0 0 45px #6a32ff; 
-                color: #bf94ff; 
-            }
-            66% { 
-                opacity: 0.5; /* 50% Visibility */
-                text-shadow: 0 0 15px #a78bfa;
+        /* 1. THE INITIAL SLOW REVEAL */
+        @keyframes initialDrift {
+            0% { opacity: 0; transform: translateY(10px); color: #444; }
+            100% { opacity: 0.75; transform: translateY(0); color: #ffffff; }
+        }
+
+        /* 2. THE PERMANENT PULSE (35% to 75%) */
+        @keyframes slowBreath {
+            0%, 100% { 
+                opacity: 0.35; /* 35% visibility */
+                text-shadow: 0 0 10px #a78bfa;
                 color: #d0c4ff;
             }
-            100% { 
-                opacity: 0.75; /* Back to 75% Visibility */
-                text-shadow: 0 0 25px #a78bfa, 0 0 45px #6a32ff; 
+            50% { 
+                opacity: 0.75; /* 75% visibility */
+                text-shadow: 0 0 30px #a78bfa, 0 0 50px #6a32ff; 
                 color: #ffffff;
             }
         }
 
         .line {
-            max-width: 850px;
-            font-size: 1.7rem; /* Exact same size for every line */
+            max-width: 900px;
+            /* TOTAL UNIFORMITY */
+            font-size: 1.7rem; 
             line-height: 1.8;
             margin-bottom: 40px;
             font-style: italic;
-            font-weight: normal; /* Removes bold from the last line */
+            font-weight: normal; 
+            text-transform: none;
+            
             opacity: 0;
-            /* Infinite loop with a slow 10-second breath */
-            animation: customPulse 10s infinite ease-in-out;
+            /* Drift in first, then start the slow 12-second breath */
+            animation: initialDrift 5s forwards;
         }
 
-        /* Staggered starts to create the "reading" effect */
+        /* Trigger the pulse loop after the initial drift ends */
+        .pulse-active {
+            animation: slowBreath 12s infinite ease-in-out !important;
+        }
+
         .line-1 { animation-delay: 1s; }
         .line-2 { animation-delay: 4s; }
         .line-3 { animation-delay: 7s; }
@@ -96,19 +99,27 @@
     </nav>
 
     <div class="container">
-        <div class="line line-1">The internet once united us, forging true friendships beyond screens.</div>
-        <div class="line line-2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
-        <div class="line line-3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
+        <div class="line line-1" id="l1">The internet once united us, forging true friendships beyond screens.</div>
+        <div class="line line-2" id="l2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
+        <div class="line line-3" id="l3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
         
         <a href="index.html" class="back-link">← RETURN TO HOME</a>
     </div>
 
     <script>
+        // Custom Cursor
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
+
+        // Switch to the permanent pulse after the intro animations finish
+        setTimeout(() => {
+            document.getElementById('l1').classList.add('pulse-active');
+            document.getElementById('l2').classList.add('pulse-active');
+            document.getElementById('l3').classList.add('pulse-active');
+        }, 12000); // 12 seconds covers the staggered intro
     </script>
 </body>
 </html>

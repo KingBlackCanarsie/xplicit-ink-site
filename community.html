@@ -28,41 +28,77 @@
         nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
 
         .container {
-            max-width: 900px; margin: 60px auto; padding: 0 20px; z-index: 10; position: relative;
+            max-width: 1100px; margin: 60px auto; padding: 0 20px; z-index: 10; position: relative;
         }
 
-        /* 3. GLOWING HEADERS */
         h1 {
             font-size: 3.5rem; text-align: center; color: #d0c4ff;
             text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff;
-            margin-bottom: 10px;
-        }
-        h2 {
-            font-size: 2rem; color: #c6b8ff; border-bottom: 1px solid #4b3b8e88;
-            padding-bottom: 10px; margin-top: 50px; text-shadow: 0 0 10px #6a32ff;
+            margin-bottom: 40px;
         }
 
-        p.intro {
-            text-align: center; font-size: 1.2rem; font-style: italic;
-            color: #aaa9c7; margin-bottom: 40px;
+        /* 3. THE VISUAL CARDS GRID */
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 20px;
         }
 
-        /* 4. CONTENT SECTIONS */
-        .section {
-            background: rgba(15, 15, 25, 0.6);
-            padding: 30px; border-radius: 15px;
-            backdrop-filter: blur(5px); border: 1px solid #4b3b8e33;
-            margin-bottom: 30px;
+        .card {
+            background: rgba(15, 15, 25, 0.8);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #4b3b8e33;
+            backdrop-filter: blur(15px);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: flex;
+            flex-direction: column;
         }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px #6a32ff33;
+            border-color: #a78bfa66;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            border-bottom: 1px solid #4b3b8e55;
+            transition: 0.5s;
+        }
+
+        .card:hover .card-image {
+            filter: brightness(1.1);
+        }
+
+        /* Connecting the Images you uploaded */
+        .img-lobby { background-image: url('./lobby.jpg'); }
+        .img-rp { background-image: url('./rp.jpg'); }
+        .img-voice { background-image: url('./voice.jpg'); }
+
+        .card-content { padding: 30px; flex-grow: 1; }
+        
+        .card-content h2 {
+            margin: 0 0 20px 0;
+            color: #c6b8ff;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px #6a32ff;
+        }
+
+        .channel-info { margin-bottom: 15px; }
 
         .channel-name {
-            font-weight: bold; color: #c6b8ff;
-            text-shadow: 0 0 8px #a78bfa; display: block; margin-top: 15px;
+            font-weight: bold; color: #a78bfa; display: block; margin-bottom: 4px;
+            text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;
         }
 
-        p { line-height: 1.6; opacity: 0.9; }
+        p { line-height: 1.6; opacity: 0.8; font-size: 0.95rem; margin: 0; }
 
-        /* 5. NEON DRIPS & CURSOR */
+        /* 4. NEON DRIPS & CURSOR */
         .ink-drip {
             position: fixed; width: 2px;
             background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
@@ -92,37 +128,68 @@
 
     <div class="container">
         <h1>The Community</h1>
-        <p class="intro">Every channel in Xplicit Ink is 18+ and built around consent, respect, and clear boundaries.</p>
 
-        <div class="section">
-            <h2>Core Text Channels</h2>
-            <p><span class="channel-name">🛡️｜Access</span> The starting point. Confirm adulthood and unlock the ink.</p>
-            <p><span class="channel-name">🛋️｜Lobby</span> A softer, general hangout to warm up and find the vibe.</p>
-            <p><span class="channel-name">💬｜Chatroom</span> The main flow. Flirt, joke, and exist together in the mess.</p>
-            <p><span class="channel-name">🤝｜Intros</span> Share who you are and what you seek—no random connections.</p>
-            <p><span class="channel-name">💞｜Kinks</span> Compatibility and preferences discussed with absolute respect.</p>
-            <p><span class="channel-name">🚨｜Report</span> A private line to staff for safety and boundary concerns.</p>
+        <div class="community-grid">
+            <div class="card">
+                <div class="card-image img-lobby"></div>
+                <div class="card-content">
+                    <h2>Core Spaces</h2>
+                    <div class="channel-info">
+                        <span class="channel-name">🛡️｜Access</span>
+                        <p>Confirm adulthood and unlock the full ink.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">🛋️｜Lobby</span>
+                        <p>The first stop. A soft, general hangout to find the vibe.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">💬｜Chatroom</span>
+                        <p>The main flow. Flirt, joke, and exist together in the mess.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image img-rp"></div>
+                <div class="card-content">
+                    <h2>Roleplay</h2>
+                    <div class="channel-info">
+                        <span class="channel-name">🧙‍♂️｜Rp_Only</span>
+                        <p>Strictly in-character. No chatter, only the story.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">🎨｜Characters</span>
+                        <p>The gallery of original souls and detailed bios.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">👑｜Domination</span>
+                        <p>Power dynamics grounded in total mutual respect.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image img-voice"></div>
+                <div class="card-content">
+                    <h2>Live & Voice</h2>
+                    <div class="channel-info">
+                        <span class="channel-name">🗣️｜Mic Chat</span>
+                        <p>Casual presence. Ambient noise and deep conversation.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">📺｜Streams</span>
+                        <p>Watch parties, shared cinema, and live reactions.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">💦｜X‑Stream</span>
+                        <p>Intense, mature-themed voice and stream sessions.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="section">
-            <h2>Roleplay & Creative</h2>
-            <p><span class="channel-name">🧙‍♂️｜Rp_Only</span> Strictly in-character. No chatter, only the story.</p>
-            <p><span class="channel-name">🎓｜Roleplay_101</span> Experiment, learn, and sharpen your skills.</p>
-            <p><span class="channel-name">🎨｜Characters</span> The gallery of souls. Post your bios here.</p>
-            <p><span class="channel-name">🗺｜Adventurous</span> Thrilling settings—parks, beaches, and risks.</p>
-            <p><span class="channel-name">👑｜Domination</span> Power dynamics grounded in mutual respect.</p>
-        </div>
-
-        <div class="section">
-            <h2>Voice & Live</h2>
-            <p><span class="channel-name">🗣️｜Mic Chat</span> The main hangout. Casual conversation and background presence.</p>
-            <p><span class="channel-name">📺｜Streams</span> Watch parties and shared movie experiences.</p>
-            <p><span class="channel-name">💦｜X‑Stream</span> Intense, mature-themed voice and live sessions.</p>
-            <p><span class="channel-name">EXTREME 18+</span> High-intensity voice rooms for those who know the tone.</p>
-        </div>
-
-        <div class="section" style="text-align: center; border: none; background: transparent;">
-            <a href="index.html" style="color: #a78bfa; text-decoration: none;">← Back to Home</a>
+        <div style="text-align: center; margin-top: 60px; padding-bottom: 40px;">
+            <a href="index.html" style="color: #a78bfa; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; opacity: 0.7;">← RETURN TO HOME</a>
         </div>
     </div>
 

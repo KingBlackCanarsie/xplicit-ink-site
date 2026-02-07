@@ -34,42 +34,49 @@
             text-align: center; padding: 0 60px;
         }
 
-        /* INITIAL REVEAL (0% to 90%) */
-        @keyframes revealFade {
-            0% { opacity: 0; transform: translateY(5px); }
-            100% { opacity: 0.9; transform: translateY(0); }
+        /* THE ANIMATION: 0% (Intro) -> 90% -> 60% -> 90% (Infinite Loop) */
+        @keyframes livingPulse {
+            0% { 
+                opacity: 0; 
+                text-shadow: 0 0 0px transparent;
+            }
+            /* First peak visibility */
+            15% { 
+                opacity: 0.9; 
+                text-shadow: 0 0 30px #a78bfa, 0 0 50px #6a32ff; 
+            }
+            /* The ongoing loop floor */
+            50% { 
+                opacity: 0.6; 
+                text-shadow: 0 0 15px #a78bfa;
+            }
+            /* The ongoing loop ceiling */
+            100% { 
+                opacity: 0.9; 
+                text-shadow: 0 0 30px #a78bfa, 0 0 50px #6a32ff; 
+            }
         }
 
-        /* PERMANENT PULSE (60% to 90%) */
-        @keyframes slowBreath {
-            0%, 100% { opacity: 0.6; text-shadow: 0 0 15px #a78bfa; }
-            50% { opacity: 0.9; text-shadow: 0 0 35px #a78bfa, 0 0 55px #6a32ff; }
-        }
-
-        /* FORCED UNIFORMITY CLASS */
         .manifesto-text {
-            /* This ensures all children (lines) are identical */
-            font-size: 1.6rem !important;
+            /* Hard-coded uniformity for all text inside */
+            font-size: 1.65rem !important;
             font-weight: normal !important;
             font-style: italic !important;
-            line-height: 1.9;
+            line-height: 2.0;
             color: #ffffff;
             max-width: 950px;
         }
 
         .line {
-            margin-bottom: 45px;
-            opacity: 0;
-            /* Applies the reveal first */
-            animation: revealFade 7s forwards;
+            margin-bottom: 50px;
+            opacity: 0; /* Hidden before delay starts */
+            
+            /* 15 seconds per loop ensures a very slow, gradual fade */
+            animation: livingPulse 15s infinite ease-in-out;
+            animation-fill-mode: forwards;
         }
 
-        /* The pulse class added via JS */
-        .pulse-active {
-            animation: slowBreath 14s infinite ease-in-out !important;
-        }
-
-        /* Staggered starts */
+        /* Staggered start times so they "reveal" one by one */
         .line-1 { animation-delay: 1s; }
         .line-2 { animation-delay: 5s; }
         .line-3 { animation-delay: 9s; }
@@ -81,6 +88,7 @@
         }
 
         .back-link { margin-top: 50px; color: #a78bfa; opacity: 0.4; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; }
+        .back-link:hover { opacity: 1; text-shadow: 0 0 10px #a78bfa; }
     </style>
 </head>
 <body>
@@ -96,9 +104,9 @@
 
     <div class="container">
         <div class="manifesto-text">
-            <div class="line line-1" id="l1">The internet once united us, forging true friendships beyond screens.</div>
-            <div class="line line-2" id="l2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
-            <div class="line line-3" id="l3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
+            <div class="line line-1">The internet once united us, forging true friendships beyond screens.</div>
+            <div class="line line-2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
+            <div class="line line-3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
         </div>
         
         <a href="index.html" class="back-link">← RETURN TO HOME</a>
@@ -110,11 +118,6 @@
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
-
-        // Loop trigger
-        setTimeout(() => {
-            document.querySelectorAll('.line').forEach(el => el.classList.add('pulse-active'));
-        }, 16000); 
     </script>
 </body>
 </html>

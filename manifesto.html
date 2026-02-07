@@ -16,7 +16,7 @@
         .full-bg {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(rgba(5, 5, 8, 0.65), rgba(5, 5, 8, 0.8)), url('manifesto.jpg');
+            background: linear-gradient(rgba(5, 5, 8, 0.6), rgba(5, 5, 8, 0.8)), url('manifesto.jpg');
             background-size: cover; background-position: center;
             z-index: -1;
         }
@@ -34,51 +34,47 @@
             text-align: center; padding: 0 60px;
         }
 
-        /* THE DYNAMIC GLOW LOOP
-           0% -> Hidden
-           20% -> Brightest (90% visible + Neon Glow)
-           60% -> Dimmed (65% visible + Soft Hue)
-           100% -> Back to Brightest
-        */
-        @keyframes neonPulse {
-            0% { 
-                opacity: 0; 
-                color: #4b3b8e; 
-                text-shadow: 0 0 0px transparent;
-            }
-            20% { 
+        /* 1. THE REVEAL (One time only) */
+        @keyframes reveal {
+            0% { opacity: 0; color: #4b3b8e; }
+            100% { opacity: 0.9; color: #ffffff; }
+        }
+
+        /* 2. THE LIVING GLOW (Infinite loop: 65% to 90%) */
+        @keyframes livingGlow {
+            0%, 100% { 
                 opacity: 0.9; 
                 color: #ffffff; 
-                text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff, 0 0 60px #a78bfa;
+                text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff; 
             }
-            60% { 
+            50% { 
                 opacity: 0.65; 
-                color: #a78bfa; /* Noticeable Purple Hue here */
-                text-shadow: 0 0 10px #a78bfa;
-            }
-            100% { 
-                opacity: 0.9; 
-                color: #ffffff;
-                text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff, 0 0 60px #a78bfa;
+                color: #bf94ff; /* This is where the purple shows up */
+                text-shadow: 0 0 10px #a78bfa, 0 0 20px #a78bfa;
             }
         }
 
         .manifesto-text {
+            /* Absolute uniformity */
             font-size: 1.65rem !important;
             font-weight: normal !important;
             font-style: italic !important;
-            line-height: 2.1;
+            line-height: 2.2;
             max-width: 950px;
         }
 
         .line {
             margin-bottom: 50px;
             opacity: 0;
-            /* 12 seconds per cycle: Slow and deliberate */
-            animation: neonPulse 12s infinite ease-in-out;
+            /* First, reveal them one by one */
+            animation: reveal 5s forwards;
         }
 
-        /* Delays so they appear one by one */
+        /* This class will be added by JS to start the never-ending glow */
+        .glow-loop {
+            animation: livingGlow 8s infinite ease-in-out !important;
+        }
+
         .line-1 { animation-delay: 1s; }
         .line-2 { animation-delay: 5s; }
         .line-3 { animation-delay: 9s; }
@@ -105,9 +101,9 @@
 
     <div class="container">
         <div class="manifesto-text">
-            <div class="line line-1">The internet once united us, forging true friendships beyond screens.</div>
-            <div class="line line-2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
-            <div class="line line-3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
+            <div class="line line-1" id="l1">The internet once united us, forging true friendships beyond screens.</div>
+            <div class="line line-2" id="l2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
+            <div class="line line-3" id="l3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
         </div>
         
         <a href="index.html" class="back-link">← RETURN TO HOME</a>
@@ -119,6 +115,16 @@
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
+
+        /* This is the magic part: 
+           It waits for the lines to finish revealing, 
+           then starts the infinite loop that stays between 65% and 90%.
+        */
+        setTimeout(() => {
+            document.getElementById('l1').classList.add('glow-loop');
+            document.getElementById('l2').classList.add('glow-loop');
+            document.getElementById('l3').classList.add('glow-loop');
+        }, 15000); // Trigger after the staggered entrance is complete
     </script>
 </body>
 </html>

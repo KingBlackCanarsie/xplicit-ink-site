@@ -4,25 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rules & Safety | The Xplicit Ink</title>
+
     <style>
-        /* 1. THE ATMOSPHERE */
+        /* 1. ATMOSPHERE */
         body, html {
             margin: 0; padding: 0;
             background-color: #050508;
             background-image: url('./ink-background.svg');
             background-size: cover; background-position: center; background-attachment: fixed;
             color: #dddde8; font-family: 'Georgia', serif;
-            cursor: none; 
-            display: block; /* Changed from flex to block to prevent content hiding */
-            overflow-x: hidden;
+            cursor: none; overflow-x: hidden;
         }
 
-        /* 2. THE NAV - Forced to Top */
+        /* 2. NAVIGATION */
         nav {
             width: 100%; text-align: center; padding: 20px 0;
-            background: rgba(11, 11, 18, 0.95); 
-            z-index: 100; position: relative;
+            background: rgba(11, 11, 18, 0.95);
             border-bottom: 1px solid #4b3b8e55;
+            position: relative; z-index: 100;
         }
         nav a {
             color: #a78bfa; margin: 0 15px; text-decoration: none;
@@ -30,39 +29,126 @@
         }
         nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
 
-        /* 3. THE CONTAINER - Forced to Front */
+        /* 3. MAIN CONTAINER */
         .container {
-            max-width: 850px; 
-            margin: 40px auto; 
-            padding: 20px; 
-            position: relative; /* Essential for z-index */
-            z-index: 50;        /* Higher than the drips */
-            background: rgba(15, 15, 25, 0.4);
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(15, 15, 25, 0.45);
             border-radius: 20px;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
+            position: relative; z-index: 50;
         }
 
+        /* 4. HEADER */
         h1 {
             font-size: 3.5rem; text-align: center; color: #d0c4ff;
             text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff;
-            margin-top: 0;
+            margin-top: 0; letter-spacing: 2px;
         }
+
+        .commandment-line {
+            text-align: center;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-top: -10px;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .purpose-line {
+            text-align: center;
+            font-size: 1rem;
+            opacity: 0.7;
+            margin-bottom: 40px;
+        }
+
+        /* 5. SECTION HEADERS */
         h2 {
-            font-size: 2rem; color: #c6b8ff; border-bottom: 1px solid #4b3b8e88;
-            padding-bottom: 10px; margin-top: 40px; text-shadow: 0 0 10px #6a32ff;
+            font-size: 2rem;
+            color: #c6b8ff;
+            text-shadow: 0 0 10px #6a32ff;
+            margin-top: 50px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #4b3b8e88;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .highlight { color: #c6b8ff; font-weight: bold; text-shadow: 0 0 8px #a78bfa; }
-        p, li { line-height: 1.8; opacity: 0.9; font-size: 1.1rem; }
-        ul { padding-left: 20px; list-style-type: square; }
-        li { margin-bottom: 15px; }
+        .section-subtitle {
+            font-size: 1rem;
+            opacity: 0.75;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
 
-        /* 4. NEON DRIPS */
+        /* 6. RULE LISTS */
+        ul { padding-left: 20px; list-style-type: square; }
+        li { margin-bottom: 15px; line-height: 1.8; font-size: 1.1rem; opacity: 0.9; }
+
+        .highlight {
+            color: #c6b8ff;
+            font-weight: bold;
+            text-shadow: 0 0 8px #a78bfa;
+        }
+
+        /* 7. IMPORTANT RULE GLOW */
+        .critical {
+            color: #e3d8ff;
+            font-weight: bold;
+            text-shadow: 0 0 12px #b28aff;
+        }
+
+        /* 8. DIVIDER */
+        .divider {
+            text-align: center;
+            margin: 40px auto;
+            font-size: 1.3rem;
+            opacity: 0.4;
+            color: #ffffff55;
+        }
+
+        /* 9. ZERO TOLERANCE BOX */
+        .zero-box {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(80, 0, 120, 0.25);
+            border-left: 4px solid #b28aff;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        /* 10. BACK LINK */
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 50px;
+            padding-bottom: 20px;
+            color: #a78bfa;
+            text-decoration: none;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+        .back-link:hover { opacity: 1; color: #fff; }
+
+        /* 11. CURSOR */
+        .ink-cursor {
+            position: fixed; width: 20px; height: 20px; border-radius: 50%;
+            background: radial-gradient(circle, #a78bfa, transparent);
+            pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
+        }
+
+        /* 12. NEON DRIPS */
         .ink-drip {
             position: fixed; width: 2px;
             background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
-            box-shadow: 0 0 10px #a78bfa; 
-            z-index: 1; /* Lowest level */
+            box-shadow: 0 0 10px #a78bfa;
+            z-index: 1;
             animation: fall linear infinite;
         }
         @keyframes fall {
@@ -70,15 +156,9 @@
             50% { opacity: 0.3; }
             100% { transform: translateY(100vh); opacity: 0; }
         }
-
-        /* 5. CURSOR */
-        .ink-cursor {
-            position: fixed; width: 20px; height: 20px; border-radius: 50%;
-            background: radial-gradient(circle, #a78bfa, transparent);
-            pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
-        }
     </style>
 </head>
+
 <body>
     <div class="ink-cursor" id="cursor"></div>
 
@@ -90,34 +170,55 @@
     </nav>
 
     <div class="container">
-        <h1>Rules & Safety</h1>
-        <p style="text-align:center; font-style:italic; color:#aaa9c7;">Xplicit Ink is intense by design—but it only works if everyone understands the rules and respects the people around them.</p>
 
-        <h2>Core Principles</h2>
+        <h1>Rules & Safety</h1>
+        <div class="commandment-line">These are the laws of Xplicit Ink.</div>
+        <div class="purpose-line">These rules exist to protect the people who make this community worth joining.</div>
+
+        <!-- CORE PRINCIPLES -->
+        <h2>⚖️ Core Principles</h2>
+        <div class="section-subtitle">The foundation of how we treat each other.</div>
+
         <ul>
-            <li><span class="highlight">18+ only.</span> No minors, no exceptions. If staff suspect someone is underage, they will be removed.</li>
-            <li><span class="highlight">Consent is mandatory.</span> No pressuring, no guilt‑tripping, no ignoring boundaries. “No” is a complete answer.</li>
+            <li><span class="critical">18+ only.</span> No minors, no exceptions. If staff suspect someone is underage, they will be removed.</li>
+            <li><span class="critical">Consent is mandatory.</span> No pressuring, no guilt‑tripping, no ignoring boundaries. “No” is a complete answer.</li>
             <li><span class="highlight">Respect the person.</span> Behind every username is a real human being. Treat them like one.</li>
             <li><span class="highlight">Privacy matters.</span> Do not share content or screenshots outside the server without clear permission.</li>
         </ul>
 
-        <h2>Behavior Expectations</h2>
+        <div class="divider">────────── ◆ ──────────</div>
+
+        <!-- BEHAVIOR EXPECTATIONS -->
+        <h2>🧭 Behavior Expectations</h2>
+        <div class="section-subtitle">How adults conduct themselves in shared spaces.</div>
+
         <ul>
             <li>Read channel descriptions before posting. Every space has a purpose.</li>
             <li>Keep out‑of‑character drama out of roleplay spaces. Use tickets for issues.</li>
             <li>Roleplay is fiction. It does not grant permission to cross boundaries in real life.</li>
         </ul>
 
-        <h2>Reporting & Tickets</h2>
+        <div class="divider">────────── ◆ ──────────</div>
+
+        <!-- REPORTING -->
+        <h2>🎟️ Reporting & Tickets</h2>
+        <div class="section-subtitle">Your safety line — always available, always private.</div>
+
         <p>If something feels wrong, use the <span class="highlight">🚨｜Report</span> channel to open a private ticket.</p>
+
         <ul>
             <li>Tickets are visible only to you and staff.</li>
             <li>Staff will respond as soon as they can. While you wait, you can mute or block the person involved.</li>
         </ul>
 
-        <div style="text-align: center; margin-top: 50px;">
-            <a href="index.html" style="color: #a78bfa; text-decoration: none;">← Back to Home</a>
+        <!-- ZERO TOLERANCE -->
+        <div class="zero-box">
+            <strong>Zero Tolerance:</strong><br>
+            Violations of these rules may result in removal from the community.<br>
+            We protect our members first — always.
         </div>
+
+        <a href="index.html" class="back-link">← Back to Home</a>
     </div>
 
     <script>
@@ -137,5 +238,6 @@
             document.body.appendChild(drip);
         }
     </script>
+
 </body>
 </html>

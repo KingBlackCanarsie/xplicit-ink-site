@@ -5,19 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Manifesto | Xplicit Ink</title>
     <style>
-        /* 1. CORE ATMOSPHERE */
+        /* 1. LAYOUT & BACKGROUND */
         body, html {
-            margin: 0; padding: 0;
+            margin: 0; padding: 0; height: 100%;
             background-color: #050508;
             color: #dddde8; font-family: 'Georgia', serif;
-            cursor: none; overflow-x: hidden;
+            cursor: none; overflow: hidden;
+        }
+
+        .full-bg {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            /* This gradient ensures the image is visible but the text remains readable */
+            background-image: linear-gradient(rgba(5, 5, 8, 0.75), rgba(5, 5, 8, 0.75)), url('./manifesto.jpg');
+            background-size: cover; background-position: center;
+            z-index: -1;
         }
 
         /* 2. NAVIGATION */
         nav {
             width: 100%; text-align: center; padding: 20px 0;
-            background: rgba(11, 11, 18, 0.9); z-index: 100;
-            border-bottom: 1px solid #4b3b8e55; position: sticky; top: 0;
+            background: rgba(11, 11, 18, 0.8); z-index: 100;
+            border-bottom: 1px solid #4b3b8e55;
         }
         nav a {
             color: #a78bfa; margin: 0 15px; text-decoration: none;
@@ -25,95 +34,47 @@
         }
         nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
 
-        /* 3. THE CONTENT CONTAINER */
+        /* 3. THE TEXT CONTAINER */
         .container {
-            max-width: 800px; margin: 60px auto; padding: 40px;
-            background: rgba(10, 10, 15, 0.85);
-            border: 1px solid #4b3b8e44;
-            border-radius: 5px;
-            backdrop-filter: blur(10px);
-            position: relative; z-index: 10;
-            box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+            height: 75vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; padding: 0 40px;
         }
 
-        /* The Hero Image (Using your committed manifesto.jpg) */
-        .manifesto-image {
-            width: 100%; height: 350px;
-            background-image: url('./manifesto.jpg');
-            background-size: cover; background-position: center;
-            margin-bottom: 40px; border: 1px solid #4b3b8e66;
-            filter: brightness(0.8) contrast(1.1);
-        }
-
-        h1 {
-            font-size: 2.8rem; color: #d0c4ff; text-align: center;
-            text-transform: uppercase; letter-spacing: 6px;
-            text-shadow: 0 0 15px #6a32ff; margin-bottom: 40px;
-        }
-
-        /* 4. TYPOGRAPHY */
-        .content-body p {
-            line-height: 1.8; font-size: 1.15rem; margin-bottom: 30px;
-            color: #c9c9d5; text-align: justify;
-        }
-
-        .highlight-quote {
-            text-align: center; font-style: italic; border-top: 1px solid #4b3b8e55;
-            border-bottom: 1px solid #4b3b8e55; padding: 30px 0;
-            color: #a78bfa; font-size: 1.3rem; margin: 40px 0;
-        }
-
-        /* 5. THE CUSTOM CURSOR */
-        .ink-cursor {
-            position: fixed; width: 20px; height: 20px; border-radius: 50%;
-            background: radial-gradient(circle, #a78bfa, transparent);
-            pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
-        }
-
-        /* BACK BUTTON */
-        .back-link {
-            display: block; text-align: center; margin-top: 40px;
-            color: #a78bfa; text-decoration: none; font-size: 0.8rem;
-            letter-spacing: 2px; opacity: 0.6; transition: 0.3s;
-        }
-        .back-link:hover { opacity: 1; color: #fff; }
-    </style>
-</head>
-<body>
-    <div class="ink-cursor" id="cursor"></div>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="community.html">Community</a>
-        <a href="rules-and-safety.html">Rules & Safety</a>
-        <a href="manifesto.html">Manifesto</a>
-    </nav>
-
-    <div class="container">
-        <div class="manifesto-image"></div>
-        <h1>The Manifesto</h1>
+        /* 4. ANIMATION LOGIC */
         
-        <div class="content-body">
-            <p>We are a quiet gathering for adults who miss when the internet felt human. In a world of algorithms, noise, and temporary connections, we choose depth over volume. The Xplicit Ink isn't just a server; it's a digital sanctum for those who value the weight of words.</p>
+        /* The Initial Reveal: Each line fades in and glows strongly */
+        @keyframes revealLine {
+            0% { opacity: 0; transform: translateY(15px); text-shadow: 0 0 0px #a78bfa; }
+            100% { opacity: 1; transform: translateY(0); text-shadow: 0 0 15px #a78bfa; }
+        }
 
-            <div class="highlight-quote">
-                "Intensity requires safety. Freedom requires boundaries."
-            </div>
+        /* The Soft Loop: After revealing, all lines pulse gently */
+        @keyframes softBreathe {
+            0%, 100% { opacity: 0.7; text-shadow: 0 0 8px #a78bfa; }
+            50% { opacity: 1; text-shadow: 0 0 25px #a78bfa, 0 0 45px #6a32ff; }
+        }
 
-            <p>Every stroke of ink in this community is built on the foundation of <strong>Consent, Respect, and Authenticity.</strong> We don't just chat; we build worlds. Whether through the lens of roleplay or the vulnerability of voice, we hold ourselves to a standard of maturity that honors the person behind the screen.</p>
+        .line {
+            max-width: 900px; font-size: 1.6rem; line-height: 1.6;
+            margin-bottom: 25px; font-style: italic; color: #d0c4ff;
+            opacity: 0; /* Keeps them hidden initially */
             
-            <p>This is not a space for everyone. It is a space for the thinkers, the creators, and the souls who understand that true liberation only exists where mutual respect is absolute. Own your behavior. Respect the ink.</p>
-        </div>
+            /* Each line runs 'revealLine' once, then starts 'softBreathe' loop at 9 seconds */
+            animation: revealLine 3s forwards, softBreathe 4s infinite 9s;
+        }
 
-        <a href="index.html" class="back-link">← RETURN TO HOME</a>
-    </div>
+        /* Staggered starts for that 'One by One' effect */
+        .line-1 { animation-delay: 1s, 9s; }
+        .line-2 { animation-delay: 4s, 9s; }
+        .line-3 { 
+            animation-delay: 7s, 9s; 
+            font-weight: bold; 
+            font-size: 1.9rem; 
+            color: #ffffff;
+            margin-top: 20px;
+        }
 
-    <script>
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-    </script>
-</body>
-</html>
+        /* 5. INTERACTIVE ELEMENTS */
+        .ink-cursor {
+            position: fixed; width: 20px; height

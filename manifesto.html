@@ -1,32 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>The Xplicit Ink - Manifesto</title>
-  <style>
-    body {
-      margin: 0; background: #08080c; color: #ccc4ff;
-      font-family: 'Crimson Pro', serif; height: 100vh;
-      display: flex; flex-direction: column; justify-content: center;
-      align-items: center; text-align: center; line-height: 1.8;
-    }
-    .text-block {
-      max-width: 700px; font-size: 1.8rem; margin: 30px 0;
-      text-shadow: 0 0 15px #9b7fff88; opacity: 0.9;
-    }
-    a {
-      margin-top: 50px; font-size: 1.2rem; color: #a28dffcc;
-      text-decoration: none; border-bottom: 1px solid transparent;
-      transition: 0.3s;
-    }
-    a:hover { border-bottom: 1px solid #a28dffcc; color: #e5dfff; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Manifesto | Xplicit Ink</title>
+    <style>
+        /* 1. CORE ATMOSPHERE */
+        body, html {
+            margin: 0; padding: 0;
+            background-color: #050508;
+            color: #dddde8; font-family: 'Georgia', serif;
+            cursor: none; overflow-x: hidden;
+        }
+
+        /* 2. NAVIGATION */
+        nav {
+            width: 100%; text-align: center; padding: 20px 0;
+            background: rgba(11, 11, 18, 0.9); z-index: 100;
+            border-bottom: 1px solid #4b3b8e55; position: sticky; top: 0;
+        }
+        nav a {
+            color: #a78bfa; margin: 0 15px; text-decoration: none;
+            font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s;
+        }
+        nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
+
+        /* 3. THE CONTENT CONTAINER */
+        .container {
+            max-width: 800px; margin: 60px auto; padding: 40px;
+            background: rgba(10, 10, 15, 0.85);
+            border: 1px solid #4b3b8e44;
+            border-radius: 5px;
+            backdrop-filter: blur(10px);
+            position: relative; z-index: 10;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+        }
+
+        /* The Hero Image (Using your committed manifesto.jpg) */
+        .manifesto-image {
+            width: 100%; height: 350px;
+            background-image: url('./manifesto.jpg');
+            background-size: cover; background-position: center;
+            margin-bottom: 40px; border: 1px solid #4b3b8e66;
+            filter: brightness(0.8) contrast(1.1);
+        }
+
+        h1 {
+            font-size: 2.8rem; color: #d0c4ff; text-align: center;
+            text-transform: uppercase; letter-spacing: 6px;
+            text-shadow: 0 0 15px #6a32ff; margin-bottom: 40px;
+        }
+
+        /* 4. TYPOGRAPHY */
+        .content-body p {
+            line-height: 1.8; font-size: 1.15rem; margin-bottom: 30px;
+            color: #c9c9d5; text-align: justify;
+        }
+
+        .highlight-quote {
+            text-align: center; font-style: italic; border-top: 1px solid #4b3b8e55;
+            border-bottom: 1px solid #4b3b8e55; padding: 30px 0;
+            color: #a78bfa; font-size: 1.3rem; margin: 40px 0;
+        }
+
+        /* 5. THE CUSTOM CURSOR */
+        .ink-cursor {
+            position: fixed; width: 20px; height: 20px; border-radius: 50%;
+            background: radial-gradient(circle, #a78bfa, transparent);
+            pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
+        }
+
+        /* BACK BUTTON */
+        .back-link {
+            display: block; text-align: center; margin-top: 40px;
+            color: #a78bfa; text-decoration: none; font-size: 0.8rem;
+            letter-spacing: 2px; opacity: 0.6; transition: 0.3s;
+        }
+        .back-link:hover { opacity: 1; color: #fff; }
+    </style>
 </head>
 <body>
-  <div class="text-block">The internet once united us, forging true friendships beyond screens.</div>
-  <div class="text-block">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
-  <div class="text-block">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
-  
-  <a href="index.html">← Back to Home</a>
+    <div class="ink-cursor" id="cursor"></div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="community.html">Community</a>
+        <a href="rules-and-safety.html">Rules & Safety</a>
+        <a href="manifesto.html">Manifesto</a>
+    </nav>
+
+    <div class="container">
+        <div class="manifesto-image"></div>
+        <h1>The Manifesto</h1>
+        
+         <div class="fade-block">The internet once united us.</div>
+  <div class="fade-block">Here, the ink flows freely.</div>
+  <div class="fade-block">Join us—where voices are real.</div>
+        <a href="index.html" class="back-link">← RETURN TO HOME</a>
+    </div>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+    </script>
 </body>
 </html>

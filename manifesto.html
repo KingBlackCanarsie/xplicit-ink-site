@@ -34,28 +34,29 @@
             text-align: center; padding: 0 60px;
         }
 
-        /* 1. THE REVEAL (One time only) */
+        /* 1. THE REVEAL: Only runs once per line */
         @keyframes reveal {
-            0% { opacity: 0; color: #4b3b8e; }
-            100% { opacity: 0.9; color: #ffffff; }
+            0% { opacity: 0; transform: translateY(5px); }
+            100% { opacity: 0.95; transform: translateY(0); }
         }
 
-        /* 2. THE LIVING GLOW (Infinite loop: 65% to 90%) */
+        /* 2. THE PERMANENT LOOP: Only moves between 65% and 95% */
         @keyframes livingGlow {
             0%, 100% { 
-                opacity: 0.9; 
+                opacity: 0.95; 
                 color: #ffffff; 
-                text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff; 
+                /* Heavy Neon Purple Glow */
+                text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff, 0 0 60px #a78bfa; 
             }
             50% { 
-                opacity: 0.65; 
-                color: #bf94ff; /* This is where the purple shows up */
-                text-shadow: 0 0 10px #a78bfa, 0 0 20px #a78bfa;
+                opacity: 0.65; /* The floor - it never goes lower than this */
+                color: #bf94ff; 
+                text-shadow: 0 0 15px #a78bfa, 0 0 30px #a78bfa;
             }
         }
 
         .manifesto-text {
-            /* Absolute uniformity */
+            /* Forced Uniformity for all 3 lines */
             font-size: 1.65rem !important;
             font-weight: normal !important;
             font-style: italic !important;
@@ -66,13 +67,13 @@
         .line {
             margin-bottom: 50px;
             opacity: 0;
-            /* First, reveal them one by one */
-            animation: reveal 5s forwards;
+            /* Initial reveal takes 6 seconds */
+            animation: reveal 6s forwards;
         }
 
-        /* This class will be added by JS to start the never-ending glow */
+        /* This class is injected by JS to start the 65-95 pulse */
         .glow-loop {
-            animation: livingGlow 8s infinite ease-in-out !important;
+            animation: livingGlow 10s infinite ease-in-out !important;
         }
 
         .line-1 { animation-delay: 1s; }
@@ -116,15 +117,14 @@
             cursor.style.top = e.clientY + 'px';
         });
 
-        /* This is the magic part: 
-           It waits for the lines to finish revealing, 
-           then starts the infinite loop that stays between 65% and 90%.
+        /* Crucial Fix: After 15 seconds (when all lines are revealed), 
+           we switch them to the 'livingGlow' loop which never touches 0% opacity.
         */
         setTimeout(() => {
             document.getElementById('l1').classList.add('glow-loop');
             document.getElementById('l2').classList.add('glow-loop');
             document.getElementById('l3').classList.add('glow-loop');
-        }, 15000); // Trigger after the staggered entrance is complete
+        }, 15000);
     </script>
 </body>
 </html>

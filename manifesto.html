@@ -7,19 +7,18 @@
     <style>
         body, html {
             margin: 0; padding: 0; height: 100%;
-            background-color: #050508;
+            background-color: #050508; /* Deep dark fallback */
             color: #dddde8; font-family: 'Georgia', serif;
             cursor: none; overflow: hidden;
             display: flex; flex-direction: column;
         }
 
-        /* THE BACKGROUND LAYER */
         .full-bg {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            /* Matches your new file: Manifesto.jpg */
+            /* Added a 'v=1' cache buster to force GitHub to refresh the image */
             background: linear-gradient(rgba(5, 5, 8, 0.7), rgba(5, 5, 8, 0.85)), 
-                        url('./Manifesto.jpg') no-repeat center center;
+                        url('./Manifesto.jpg?v=1') no-repeat center center;
             background-size: cover;
             z-index: -1;
         }
@@ -37,28 +36,14 @@
             text-align: center; padding: 0 60px;
         }
 
-        /* ANIMATION 1: The Reveal (0 to 90%) */
-        @keyframes reveal {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 0.90; transform: translateY(0); }
-        }
-
-        /* ANIMATION 2: The Breathing Loop (60% to 90%) */
+        /* BLINK-PROOF ANIMATIONS */
+        @keyframes reveal { from { opacity: 0; } to { opacity: 0.90; } }
         @keyframes breath {
-            0%, 100% { 
-                opacity: 0.90; 
-                color: #ffffff; 
-                text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff; 
-            }
-            50% { 
-                opacity: 0.60; 
-                color: #bf94ff; /* Purple Hue Shift */
-                text-shadow: 0 0 15px #a78bfa, 0 0 30px #a78bfa; 
-            }
+            0%, 100% { opacity: 0.90; color: #ffffff; text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff; }
+            50% { opacity: 0.60; color: #bf94ff; text-shadow: 0 0 15px #a78bfa; }
         }
 
         .manifesto-text {
-            /* Forced Uniformity */
             font-size: 1.65rem !important;
             font-weight: normal !important;
             font-style: italic !important;
@@ -69,17 +54,13 @@
         .line {
             margin-bottom: 50px;
             opacity: 0;
-            /* Applying both: reveal first, then breath starts with a delay */
-            /* No blink because reveal ends at 90% and breath starts at 90% */
-            animation: 
-                reveal 6s ease-out forwards, 
-                breath 12s infinite ease-in-out 6s;
+            /* Layered animations to stop the blinking */
+            animation: reveal 6s ease-out forwards, breath 12s infinite ease-in-out 6s;
         }
 
-        /* Staggered Entrance */
         .line-1 { animation-delay: 1s, 7s; } 
-        .line-2 { animation-delay: 5s, 11s; }
-        .line-3 { animation-delay: 9s, 15s; }
+        .line-2 { animation-delay: 4s, 10s; }
+        .line-3 { animation-delay: 7s, 13s; }
 
         .ink-cursor {
             position: fixed; width: 20px; height: 20px; border-radius: 50%;
@@ -88,7 +69,6 @@
         }
 
         .back-link { margin-top: 50px; color: #a78bfa; opacity: 0.4; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; }
-        .back-link:hover { opacity: 1; text-shadow: 0 0 10px #a78bfa; }
     </style>
 </head>
 <body>

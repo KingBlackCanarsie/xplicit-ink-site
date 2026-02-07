@@ -6,68 +6,201 @@
     <title>Community | The Xplicit Ink</title>
 
     <style>
-        /* 1. ATMOSPHERE & BACKGROUND */
-        body, html {
-            margin: 0; padding: 0;
-            background-color: #050508;
-            color: #dddde8; font-family: 'Georgia', serif;
-            cursor: none; overflow-x: hidden;
+        /* ========== BASE RESET & BODY ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        /* 2. NAVIGATION */
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #120b2a 0%, #05030a 45%, #020108 100%);
+            color: #dddde8;
+            font-family: "Georgia", serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ========== GLOBAL LAYERING ========== */
+        /* Background effects live from z-index 0–5.
+           Content lives at z-index 10+ so it NEVER gets buried. */
+
+        .page-root {
+            position: relative;
+            min-height: 100vh;
+            z-index: 10;
+        }
+
+        /* ========== BACKGROUND EFFECT LAYERS (ALL BEHIND CONTENT) ========== */
+
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        /* Aurora ribbons */
+        .aurora {
+            z-index: 1;
+            background:
+                radial-gradient(circle at 10% 0%, rgba(167, 139, 250, 0.35) 0, transparent 55%),
+                radial-gradient(circle at 90% 0%, rgba(96, 165, 250, 0.3) 0, transparent 55%);
+            mix-blend-mode: screen;
+            opacity: 0.55; /* medium-heavy but safe */
+        }
+
+        /* Fog */
+        .neon-fog {
+            z-index: 2;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(148, 163, 184, 0.18) 0, transparent 60%),
+                radial-gradient(circle at 80% 60%, rgba(148, 163, 184, 0.16) 0, transparent 60%);
+            filter: blur(18px);
+            opacity: 0.55;
+        }
+
+        /* Parallax ink texture (subtle) */
+        .ink-parallax {
+            z-index: 3;
+            background-image: url('./ink-texture.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.18;
+            mix-blend-mode: soft-light;
+        }
+
+        /* Constellation / spirit silhouette (very soft, behind) */
+        .constellation {
+            z-index: 4;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08) 0, transparent 55%),
+                radial-gradient(circle at 70% 40%, rgba(167, 139, 250, 0.12) 0, transparent 60%);
+            opacity: 0.35;
+        }
+
+        /* Vignette BEHIND content (important: low z-index) */
+        .vignette {
+            z-index: 5;
+            background:
+                radial-gradient(circle at center, transparent 0%, transparent 55%, rgba(0, 0, 0, 0.65) 100%);
+        }
+
+        /* ========== NAVIGATION ========== */
+
         nav {
-            width: 100%; text-align: center; padding: 20px 0;
-            background: rgba(11, 11, 18, 0.9); z-index: 100;
-            border-bottom: 1px solid #4b3b8e55; position: sticky; top: 0;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(5, 5, 15, 0.92);
+            border-bottom: 1px solid rgba(167, 139, 250, 0.35);
+            backdrop-filter: blur(18px);
+            padding: 16px 0;
+            text-align: center;
         }
-        nav a {
-            color: #a78bfa; margin: 0 15px; text-decoration: none;
-            font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s;
-        }
-        nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
 
-        /* 3. PAGE CONTAINER */
+        nav a {
+            margin: 0 18px;
+            font-size: 0.9rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #a78bfa;
+            opacity: 0.85;
+            transition: color 0.3s ease, text-shadow 0.3s ease, opacity 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            opacity: 1;
+            text-shadow: 0 0 10px #a78bfa, 0 0 18px #6d28d9;
+        }
+
+        /* ========== PAGE CONTAINER & HEADER ========== */
+
         .container {
-            max-width: 1100px; margin: 60px auto; padding: 0 20px; z-index: 10; position: relative;
+            max-width: 1100px;
+            margin: 60px auto 80px auto;
+            padding: 0 20px 40px 20px;
+            position: relative;
+            z-index: 15; /* above all background layers */
         }
 
         h1 {
-            font-size: 3.5rem; text-align: center; color: #d0c4ff;
-            text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff;
-            margin-bottom: 10px; text-transform: uppercase; letter-spacing: 3px;
+            font-size: 3.4rem;
+            text-align: center;
+            color: #e5ddff;
+            text-shadow:
+                0 0 18px rgba(167, 139, 250, 0.9),
+                0 0 40px rgba(109, 40, 217, 0.9);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
         }
 
         .philosophy {
             text-align: center;
-            font-size: 1.1rem;
-            opacity: 0.75;
+            font-size: 1.05rem;
+            opacity: 0.8;
             margin-bottom: 50px;
-            letter-spacing: 1px;
+            letter-spacing: 0.08em;
         }
 
-        /* 4. GRID OF CARDS */
+        /* ========== COMMUNITY GRID & CARDS ========== */
+
         .community-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
-            margin-top: 20px;
         }
 
         .card {
-            background: rgba(15, 15, 25, 0.8);
-            border-radius: 15px;
+            background: radial-gradient(circle at top, rgba(24, 16, 48, 0.95), rgba(10, 8, 20, 0.96));
+            border-radius: 18px;
             overflow: hidden;
-            border: 1px solid #4b3b8e33;
-            backdrop-filter: blur(15px);
-            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s;
+            border: 1px solid rgba(76, 81, 191, 0.45);
+            box-shadow:
+                0 18px 40px rgba(15, 23, 42, 0.9),
+                0 0 22px rgba(129, 140, 248, 0.35);
+            backdrop-filter: blur(18px);
+            transition:
+                transform 0.4s ease,
+                box-shadow 0.4s ease,
+                border-color 0.4s ease,
+                background 0.4s ease;
             display: flex;
             flex-direction: column;
+            position: relative;
+            z-index: 16; /* ABOVE background layers */
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top, rgba(167, 139, 250, 0.12), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
         }
 
         .card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px #6a32ff33;
-            border-color: #a78bfa66;
+            box-shadow:
+                0 22px 55px rgba(15, 23, 42, 0.95),
+                0 0 30px rgba(167, 139, 250, 0.55);
+            border-color: rgba(196, 181, 253, 0.9);
+        }
+
+        .card:hover::before {
+            opacity: 1;
         }
 
         .card-image {
@@ -75,8 +208,15 @@
             height: 250px;
             background-size: cover;
             background-position: center;
-            border-bottom: 1px solid #4b3b8e55;
-            transition: 0.5s;
+            border-bottom: 1px solid rgba(76, 81, 191, 0.6);
+            position: relative;
+            z-index: 1;
+            transition: transform 0.6s ease, filter 0.6s ease;
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.04);
+            filter: brightness(1.08);
         }
 
         /* Linked Images */
@@ -84,161 +224,327 @@
         .img-rp { background-image: url('./rp.jpg'); }
         .img-voice { background-image: url('./voice.jpg'); }
 
-        .card-content { padding: 30px; flex-grow: 1; }
+        /* Balance all card images so none get buried by atmosphere */
+        .img-lobby,
+        .img-rp,
+        .img-voice {
+            filter: brightness(1.25) contrast(1.1) saturate(1.05);
+        }
+
+        /* Voice & Live gets a slightly stronger boost */
+        .img-voice {
+            filter: brightness(1.55) contrast(1.2) saturate(1.15);
+        }
+
+        .card-content {
+            padding: 26px 26px 28px 26px;
+            flex-grow: 1;
+            position: relative;
+            z-index: 2;
+        }
 
         .card-content h2 {
-            margin: 0 0 10px 0;
-            color: #c6b8ff;
-            font-size: 1.8rem;
-            text-shadow: 0 0 10px #6a32ff;
+            margin: 0 0 8px 0;
+            color: #e0d4ff;
+            font-size: 1.7rem;
+            text-shadow: 0 0 14px rgba(129, 140, 248, 0.9);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
         }
 
         .identity-line {
             font-size: 0.95rem;
-            opacity: 0.75;
-            margin-bottom: 20px;
+            opacity: 0.78;
+            margin-bottom: 18px;
             font-style: italic;
         }
 
-        .channel-info { margin-bottom: 15px; }
+        .channel-info {
+            margin-bottom: 14px;
+        }
 
         .channel-name {
-            font-weight: bold; color: #a78bfa; display: block; margin-bottom: 4px;
-            text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;
+            font-weight: bold;
+            color: #a78bfa;
+            display: block;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            font-size: 0.82rem;
+            letter-spacing: 0.14em;
         }
 
-        p { line-height: 1.6; opacity: 0.8; font-size: 0.95rem; margin: 0; }
-
-        /* 5. DIVIDER */
-        .divider {
-            text-align: center;
-            margin: 60px auto;
-            font-size: 1.3rem;
-            opacity: 0.4;
-            color: #ffffff55;
+        p {
+            line-height: 1.6;
+            opacity: 0.85;
+            font-size: 0.95rem;
         }
 
-        /* 6. FOOTER LINE */
+        /* Footer line & back link */
+
         .footer-line {
             text-align: center;
             margin-top: 60px;
-            font-size: 1rem;
-            opacity: 0.6;
-            letter-spacing: 2px;
+            font-size: 0.95rem;
+            opacity: 0.7;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
         }
 
-        /* 7. BACK LINK */
         .back-link {
-            display: block; text-align: center; margin-top: 20px; padding-bottom: 40px;
-            color: #a78bfa; text-decoration: none; font-size: 0.8rem;
-            letter-spacing: 2px; opacity: 0.6; transition: 0.3s;
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            padding-bottom: 40px;
+            color: #a78bfa;
+            font-size: 0.8rem;
+            letter-spacing: 0.18em;
+            opacity: 0.7;
+            text-transform: uppercase;
+            transition: opacity 0.3s ease, color 0.3s ease;
         }
-        .back-link:hover { opacity: 1; color: #fff; }
 
-        /* 8. CUSTOM CURSOR */
+        .back-link:hover {
+            opacity: 1;
+            color: #ffffff;
+        }
+
+        /* ========== CUSTOM CURSOR & SPOTLIGHT ========== */
+
         .ink-cursor {
-            position: fixed; width: 20px; height: 20px; border-radius: 50%;
+            position: fixed;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
             background: radial-gradient(circle, #a78bfa, transparent);
-            pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 30;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+        }
+
+        .spotlight {
+            position: fixed;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 12; /* above bg, below cards */
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0, transparent 65%);
+            mix-blend-mode: soft-light;
+            transform: translate(-50%, -50%);
+        }
+
+        /* ========== PARTICLES (SUBTLE, BEHIND CARDS) ========== */
+
+        .particle-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 6;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(226, 232, 240, 0.8);
+            opacity: 0.7;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.9;
+            }
+            to {
+                transform: translateY(-140vh);
+                opacity: 0;
+            }
+        }
+
+        /* ========== RESPONSIVE TWEAKS ========== */
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.4rem;
+                letter-spacing: 0.16em;
+            }
+
+            .container {
+                margin-top: 40px;
+            }
+
+            .card-image {
+                height: 220px;
+            }
         }
     </style>
 </head>
-
 <body>
+    <!-- Background effect layers (ALL behind content) -->
+    <div class="bg-layer aurora"></div>
+    <div class="bg-layer neon-fog"></div>
+    <div class="bg-layer ink-parallax"></div>
+    <div class="bg-layer constellation"></div>
+    <div class="bg-layer vignette"></div>
+
+    <!-- Particles layer -->
+    <div class="particle-layer" id="particle-layer"></div>
+
+    <!-- Spotlight & custom cursor -->
+    <div class="spotlight" id="spotlight"></div>
     <div class="ink-cursor" id="cursor"></div>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="community.html">Community</a>
-        <a href="rules-and-safety.html">Rules & Safety</a>
-        <a href="manifesto.html">Manifesto</a>
-    </nav>
+    <!-- Main page content -->
+    <div class="page-root">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="community.html">Community</a>
+            <a href="rules-and-safety.html">Rules & Safety</a>
+            <a href="manifesto.html">Manifesto</a>
+        </nav>
 
-    <div class="container">
-        <h1>The Community</h1>
-        <div class="philosophy">A space shaped with intention — every room exists for a reason.</div>
+        <div class="container">
+            <h1>The Community</h1>
+            <div class="philosophy">
+                A space shaped with intention — every room exists for a reason.
+            </div>
 
-        <div class="community-grid">
+            <div class="community-grid">
+                <!-- CORE SPACES -->
+                <div class="card">
+                    <div class="card-image img-lobby"></div>
+                    <div class="card-content">
+                        <h2>Core Spaces</h2>
+                        <div class="identity-line">
+                            Where the community gathers, warms up, and finds its rhythm.
+                        </div>
 
-            <!-- CORE SPACES -->
-            <div class="card">
-                <div class="card-image img-lobby"></div>
-                <div class="card-content">
-                    <h2>Core Spaces</h2>
-                    <div class="identity-line">Where the community gathers, warms up, and finds its rhythm.</div>
-
-                    <div class="channel-info">
-                        <span class="channel-name">🛡️｜Access</span>
-                        <p>Verify adulthood and unlock the hidden ink.</p>
+                        <div class="channel-info">
+                            <span class="channel-name">🛡️｜Access</span>
+                            <p>Verify adulthood and unlock the hidden ink.</p>
+                        </div>
+                        <div class="channel-info">
+                            <span class="channel-name">🛋️｜Lobby</span>
+                            <p>The entry point. Find your footing and the vibe.</p>
+                        </div>
+                        <div class="channel-info">
+                            <span class="channel-name">💬｜Chatroom</span>
+                            <p>The main vein. Unfiltered, mature conversation.</p>
+                        </div>
                     </div>
-                    <div class="channel-info">
-                        <span class="channel-name">🛋️｜Lobby</span>
-                        <p>The entry point. Find your footing and the vibe.</p>
+                </div>
+
+                <!-- ROLEPLAY -->
+                <div class="card">
+                    <div class="card-image img-rp"></div>
+                    <div class="card-content">
+                        <h2>Roleplay</h2>
+                        <div class="identity-line">
+                            The creative heart of Xplicit Ink — where imagination and consent shape the story.
+                        </div>
+
+                        <div class="channel-info">
+                            <span class="channel-name">🧙‍♂️｜Rp_Only</span>
+                            <p>Total immersion. Pure narrative storytelling.</p>
+                        </div>
+                        <div class="channel-info">
+                            <span class="channel-name">🎨｜Characters</span>
+                            <p>Profiles and personas crafted with care.</p>
+                        </div>
+                        <div class="channel-info">
+                            <span class="channel-name">👑｜Domination</span>
+                            <p>Exploring power dynamics with absolute consent.</p>
+                        </div>
                     </div>
-                    <div class="channel-info">
-                        <span class="channel-name">💬｜Chatroom</span>
-                        <p>The main vein. Unfiltered, mature conversation.</p>
+                </div>
+
+                <!-- VOICE & LIVE -->
+                <div class="card">
+                    <div class="card-image img-voice"></div>
+                    <div class="card-content">
+                        <h2>Voice & Live</h2>
+                        <div class="identity-line">
+                            Where presence becomes real-time and energy becomes shared.
+                        </div>
+
+                        <div class="channel-info">
+                            <span class="channel-name">🗣️｜Mic Chat</span>
+                            <p>Real-time connection. Ambient and intimate.</p>
+                        </div>
+                        <div class="channel-info">
+                            <span class="channel-name">📺｜Streams</span>
+                            <p>Cinema, gaming, and visual storytelling.</p>
+                        </div>
+                        <div class="channel-info">
+                            <span class="channel-name">💦｜X‑Stream</span>
+                            <p>Live sessions for those who enjoy the edge.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ROLEPLAY -->
-            <div class="card">
-                <div class="card-image img-rp"></div>
-                <div class="card-content">
-                    <h2>Roleplay</h2>
-                    <div class="identity-line">The creative heart of Xplicit Ink — where imagination and consent shape the story.</div>
-
-                    <div class="channel-info">
-                        <span class="channel-name">🧙‍♂️｜Rp_Only</span>
-                        <p>Total immersion. Pure narrative storytelling.</p>
-                    </div>
-                    <div class="channel-info">
-                        <span class="channel-name">🎨｜Characters</span>
-                        <p>Profiles and personas crafted with care.</p>
-                    </div>
-                    <div class="channel-info">
-                        <span class="channel-name">👑｜Domination</span>
-                        <p>Exploring power dynamics with absolute consent.</p>
-                    </div>
-                </div>
+            <div class="footer-line">
+                Ink flows where the community breathes.
             </div>
-
-            <!-- VOICE & LIVE -->
-            <div class="card">
-                <div class="card-image img-voice"></div>
-                <div class="card-content">
-                    <h2>Voice & Live</h2>
-                    <div class="identity-line">Where presence becomes real-time and energy becomes shared.</div>
-
-                    <div class="channel-info">
-                        <span class="channel-name">🗣️｜Mic Chat</span>
-                        <p>Real-time connection. Ambient and intimate.</p>
-                    </div>
-                    <div class="channel-info">
-                        <span class="channel-name">📺｜Streams</span>
-                        <p>Cinema, gaming, and visual storytelling.</p>
-                    </div>
-                    <div class="channel-info">
-                        <span class="channel-name">💦｜X‑Stream</span>
-                        <p>Live sessions for those who enjoy the edge.</p>
-                    </div>
-                </div>
-            </div>
-
+            <a href="index.html" class="back-link">← RETURN TO HOME</a>
         </div>
-
-        <div class="footer-line">Ink flows where the community breathes.</div>
-        <a href="index.html" class="back-link">← RETURN TO HOME</a>
     </div>
-
     <script>
+        // Custom cursor & spotlight follow
         const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-    </script>
+        const spotlight = document.getElementById('spotlight');
 
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+
+            cursor.style.left = x + 'px';
+            cursor.style.top = y + 'px';
+
+            spotlight.style.left = x + 'px';
+            spotlight.style.top = y + 'px';
+        });
+
+        // Simple parallax effect for ink texture
+        const inkParallax = document.querySelector('.ink-parallax');
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            if (inkParallax) {
+                inkParallax.style.transform = `translate(${x}px, ${y}px)`;
+            }
+        });
+
+        // Particles
+        const particleLayer = document.getElementById('particle-layer');
+
+        function createParticle() {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+
+            const startX = Math.random() * window.innerWidth;
+            const size = 2 + Math.random() * 3;
+            const duration = 10 + Math.random() * 14;
+            const delay = Math.random() * 8;
+
+            p.style.left = startX + 'px';
+            p.style.bottom = '-20px';
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.animation = `floatUp ${duration}s linear ${delay}s infinite`;
+
+            particleLayer.appendChild(p);
+        }
+
+        for (let i = 0; i < 40; i++) {
+            createParticle();
+        }
+    </script>
 </body>
 </html>

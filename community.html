@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Manifesto | Xplicit Ink</title>
+    <title>Community | The Xplicit Ink</title>
     <style>
-        /* 1. CORE ATMOSPHERE */
+        /* 1. ATMOSPHERE & BACKGROUND */
         body, html {
             margin: 0; padding: 0;
             background-color: #050508;
@@ -25,54 +25,82 @@
         }
         nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
 
-        /* 3. THE CONTENT CONTAINER */
         .container {
-            max-width: 800px; margin: 60px auto; padding: 40px;
-            background: rgba(10, 10, 15, 0.85);
-            border: 1px solid #4b3b8e44;
-            border-radius: 5px;
-            backdrop-filter: blur(10px);
-            position: relative; z-index: 10;
-            box-shadow: 0 10px 50px rgba(0,0,0,0.8);
-        }
-
-        /* The Hero Image (Using your committed manifesto.jpg) */
-        .manifesto-image {
-            width: 100%; height: 350px;
-            background-image: url('./manifesto.jpg');
-            background-size: cover; background-position: center;
-            margin-bottom: 40px; border: 1px solid #4b3b8e66;
-            filter: brightness(0.8) contrast(1.1);
+            max-width: 1100px; margin: 60px auto; padding: 0 20px; z-index: 10; position: relative;
         }
 
         h1 {
-            font-size: 2.8rem; color: #d0c4ff; text-align: center;
-            text-transform: uppercase; letter-spacing: 6px;
-            text-shadow: 0 0 15px #6a32ff; margin-bottom: 40px;
+            font-size: 3.5rem; text-align: center; color: #d0c4ff;
+            text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff;
+            margin-bottom: 40px; text-transform: uppercase; letter-spacing: 3px;
         }
 
-        /* 4. TYPOGRAPHY */
-        .content-body p {
-            line-height: 1.8; font-size: 1.15rem; margin-bottom: 30px;
-            color: #c9c9d5; text-align: justify;
+        /* 3. THE VISUAL CARDS GRID */
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 20px;
         }
 
-        .highlight-quote {
-            text-align: center; font-style: italic; border-top: 1px solid #4b3b8e55;
-            border-bottom: 1px solid #4b3b8e55; padding: 30px 0;
-            color: #a78bfa; font-size: 1.3rem; margin: 40px 0;
+        .card {
+            background: rgba(15, 15, 25, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #4b3b8e33;
+            backdrop-filter: blur(15px);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* 5. THE CUSTOM CURSOR */
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px #6a32ff33;
+            border-color: #a78bfa66;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            border-bottom: 1px solid #4b3b8e55;
+            transition: 0.5s;
+        }
+
+        /* Linking the Images you committed */
+        .img-lobby { background-image: url('./lobby.jpg'); }
+        .img-rp { background-image: url('./rp.jpg'); }
+        .img-voice { background-image: url('./voice.jpg'); }
+
+        .card-content { padding: 30px; flex-grow: 1; }
+        
+        .card-content h2 {
+            margin: 0 0 20px 0;
+            color: #c6b8ff;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px #6a32ff;
+        }
+
+        .channel-info { margin-bottom: 15px; }
+
+        .channel-name {
+            font-weight: bold; color: #a78bfa; display: block; margin-bottom: 4px;
+            text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;
+        }
+
+        p { line-height: 1.6; opacity: 0.8; font-size: 0.95rem; margin: 0; }
+
+        /* 4. THE CUSTOM CURSOR */
         .ink-cursor {
             position: fixed; width: 20px; height: 20px; border-radius: 50%;
             background: radial-gradient(circle, #a78bfa, transparent);
             pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
         }
 
-        /* BACK BUTTON */
         .back-link {
-            display: block; text-align: center; margin-top: 40px;
+            display: block; text-align: center; margin-top: 60px; padding-bottom: 40px;
             color: #a78bfa; text-decoration: none; font-size: 0.8rem;
             letter-spacing: 2px; opacity: 0.6; transition: 0.3s;
         }
@@ -90,19 +118,65 @@
     </nav>
 
     <div class="container">
-        <div class="manifesto-image"></div>
-        <h1>The Manifesto</h1>
-        
-        <div class="content-body">
-            <p>We are a quiet gathering for adults who miss when the internet felt human. In a world of algorithms, noise, and temporary connections, we choose depth over volume. The Xplicit Ink isn't just a server; it's a digital sanctum for those who value the weight of words.</p>
+        <h1>The Community</h1>
 
-            <div class="highlight-quote">
-                "Intensity requires safety. Freedom requires boundaries."
+        <div class="community-grid">
+            <div class="card">
+                <div class="card-image img-lobby"></div>
+                <div class="card-content">
+                    <h2>Core Spaces</h2>
+                    <div class="channel-info">
+                        <span class="channel-name">🛡️｜Access</span>
+                        <p>Verify adulthood and unlock the hidden ink.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">🛋️｜Lobby</span>
+                        <p>The entry point. Find your footing and the vibe.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">💬｜Chatroom</span>
+                        <p>The main vein. Unfiltered, mature conversation.</p>
+                    </div>
+                </div>
             </div>
 
-            <p>Every stroke of ink in this community is built on the foundation of <strong>Consent, Respect, and Authenticity.</strong> We don't just chat; we build worlds. Whether through the lens of roleplay or the vulnerability of voice, we hold ourselves to a standard of maturity that honors the person behind the screen.</p>
-            
-            <p>This is not a space for everyone. It is a space for the thinkers, the creators, and the souls who understand that true liberation only exists where mutual respect is absolute. Own your behavior. Respect the ink.</p>
+            <div class="card">
+                <div class="card-image img-rp"></div>
+                <div class="card-content">
+                    <h2>Roleplay</h2>
+                    <div class="channel-info">
+                        <span class="channel-name">🧙‍♂️｜Rp_Only</span>
+                        <p>Total immersion. Pure narrative storytelling.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">🎨｜Characters</span>
+                        <p>Profiles and personas crafted with care.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">👑｜Domination</span>
+                        <p>Exploring power dynamics with absolute consent.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image img-voice"></div>
+                <div class="card-content">
+                    <h2>Voice & Live</h2>
+                    <div class="channel-info">
+                        <span class="channel-name">🗣️｜Mic Chat</span>
+                        <p>Real-time connection. Ambient and intimate.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">📺｜Streams</span>
+                        <p>Cinema, gaming, and visual storytelling.</p>
+                    </div>
+                    <div class="channel-info">
+                        <span class="channel-name">💦｜X‑Stream</span>
+                        <p>Live sessions for those who enjoy the edge.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <a href="index.html" class="back-link">← RETURN TO HOME</a>

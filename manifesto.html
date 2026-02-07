@@ -77,4 +77,45 @@
 
         /* 5. INTERACTIVE ELEMENTS */
         .ink-cursor {
-            position: fixed; width: 20px; height
+            position: fixed; width: 20px; height: 20px; border-radius: 50%;
+            background: radial-gradient(circle, #a78bfa, transparent);
+            pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
+        }
+
+        .back-link {
+            position: absolute; bottom: 40px;
+            color: #a78bfa; text-decoration: none; font-size: 0.8rem;
+            letter-spacing: 2px; opacity: 0.4; transition: 0.3s;
+        }
+        .back-link:hover { opacity: 1; text-shadow: 0 0 10px #a78bfa; }
+    </style>
+</head>
+<body>
+    <div class="full-bg"></div>
+    <div class="ink-cursor" id="cursor"></div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="community.html">Community</a>
+        <a href="rules-and-safety.html">Rules & Safety</a>
+        <a href="manifesto.html">Manifesto</a>
+    </nav>
+
+    <div class="container">
+        <div class="line line-1">"The internet once united us, forging true friendships beyond screens."</div>
+        <div class="line line-2">"Today, noise and fear cloud genuine connection, but here, the ink flows freely."</div>
+        <div class="line line-3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
+
+        <a href="index.html" class="back-link">← RETURN TO HOME</a>
+    </div>
+
+    <script>
+        // Custom Cursor Movement
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+    </script>
+</body>
+</html>

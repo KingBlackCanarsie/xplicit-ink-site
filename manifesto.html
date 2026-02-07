@@ -5,83 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Manifesto | Xplicit Ink</title>
     <style>
-        /* 1. LAYOUT & ATMOSPHERE */
         body, html {
             margin: 0; padding: 0; height: 100%;
-            background-color: #050508; /* Fallback color */
+            background-color: #050508;
             color: #dddde8; font-family: 'Georgia', serif;
             cursor: none; overflow: hidden;
             display: flex; flex-direction: column;
         }
 
-        /* 2. BACKGROUND IMAGE FIX */
         .full-bg {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            /* This ensures manifesto.jpg is visible but dark enough for text */
             background: linear-gradient(rgba(5, 5, 8, 0.7), rgba(5, 5, 8, 0.7)), url('manifesto.jpg');
             background-size: cover; 
             background-position: center;
             z-index: -1;
         }
 
-        /* 3. NAVIGATION */
         nav {
             width: 100%; text-align: center; padding: 25px 0;
             background: rgba(11, 11, 18, 0.85); z-index: 100;
             border-bottom: 1px solid #4b3b8e55;
         }
-        nav a {
-            color: #a78bfa; margin: 0 15px; text-decoration: none;
-            font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s;
-        }
-        nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
+        nav a { color: #a78bfa; margin: 0 15px; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; }
 
-        /* 4. CONTENT CENTERED */
         .container {
             flex-grow: 1; display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             text-align: center; padding: 0 40px;
         }
 
-        /* 5. THE SEQUENTIAL GLOW ANIMATIONS */
-        @keyframes fadeInGlow {
-            0% { opacity: 0; text-shadow: 0 0 0px #a78bfa; transform: translateY(10px); }
-            100% { opacity: 1; text-shadow: 0 0 15px #a78bfa; transform: translateY(0); }
+        /* THE CHANGING COLOR & GLOW ANIMATION */
+        @keyframes glowIn {
+            0% { 
+                opacity: 0; 
+                color: #444; 
+                text-shadow: 0 0 0px rgba(167, 139, 250, 0);
+                transform: translateY(10px);
+            }
+            50% { 
+                opacity: 1; 
+                color: #a78bfa; /* Deep Purple Hue */
+                text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff; 
+            }
+            100% { 
+                opacity: 0.85; 
+                color: #d0c4ff; /* Settles into a glowy violet-white */
+                text-shadow: 0 0 12px #a78bfa;
+                transform: translateY(0);
+            }
         }
 
         @keyframes softBreathe {
-            0%, 100% { opacity: 0.7; text-shadow: 0 0 8px #a78bfa; }
-            50% { opacity: 1; text-shadow: 0 0 25px #a78bfa, 0 0 45px #6a32ff; }
+            0%, 100% { opacity: 0.7; text-shadow: 0 0 10px #a78bfa; color: #d0c4ff; }
+            50% { opacity: 1; text-shadow: 0 0 30px #a78bfa, 0 0 50px #6a32ff; color: #ffffff; }
         }
 
         .line {
-            max-width: 800px; font-size: 1.65rem; line-height: 1.6;
-            margin-bottom: 35px; font-style: italic; color: #d0c4ff;
-            opacity: 0; /* Hidden until reveal */
-            animation: fadeInGlow 3s forwards;
+            max-width: 850px; font-size: 1.65rem; line-height: 1.6;
+            margin-bottom: 35px; font-style: italic;
+            opacity: 0;
+            /* Runs the glowIn once over 4 seconds */
+            animation: glowIn 4s forwards;
         }
 
-        /* Staggered Start Times */
+        /* Staggered Timing for the "Reading" effect */
         .line-1 { animation-delay: 1s; }
-        .line-2 { animation-delay: 4.5s; }
+        .line-2 { animation-delay: 5s; }
         .line-3 { 
-            animation-delay: 8s; 
-            font-weight: bold; font-size: 1.8rem; color: #ffffff;
+            animation-delay: 9s; 
+            font-weight: bold; font-style: normal; font-size: 1.8rem; 
         }
 
-        /* 6. INTERACTIVE ELEMENTS */
+        .pulse-on {
+            animation: softBreathe 4s infinite ease-in-out !important;
+        }
+
+        /* CURSOR */
         .ink-cursor {
             position: fixed; width: 20px; height: 20px; border-radius: 50%;
             background: radial-gradient(circle, #a78bfa, transparent);
             pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
         }
 
-        .back-link {
-            margin-top: 40px; color: #a78bfa; text-decoration: none;
-            font-size: 0.85rem; letter-spacing: 2px; opacity: 0.5; transition: 0.3s;
-        }
-        .back-link:hover { opacity: 1; text-shadow: 0 0 10px #a78bfa; }
+        .back-link { margin-top: 40px; color: #a78bfa; text-decoration: none; font-size: 0.85rem; opacity: 0.5; }
     </style>
 </head>
 <body>
@@ -99,24 +106,22 @@
         <div class="line line-1" id="l1">The internet once united us, forging true friendships beyond screens.</div>
         <div class="line line-2" id="l2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
         <div class="line line-3" id="l3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
-
         <a href="index.html" class="back-link">← BACK TO HOME</a>
     </div>
 
     <script>
-        // Cursor Movement
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
 
-        // Trigger the permanent breathing effect once everything is visible
+        // This triggers the transition from "Reveal" to "Breathing Glow"
         setTimeout(() => {
-            document.querySelectorAll('.line').forEach(line => {
-                line.style.animation = "softBreathe 4s infinite ease-in-out";
-            });
-        }, 11000); 
+            document.getElementById('l1').classList.add('pulse-on');
+            document.getElementById('l2').classList.add('pulse-on');
+            document.getElementById('l3').classList.add('pulse-on');
+        }, 13000); 
     </script>
 </body>
 </html>

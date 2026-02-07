@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Manifesto | Xplicit Ink</title>
+    <style>
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            background-color: #050508;
+            color: #dddde8; font-family: 'Georgia', serif;
+            cursor: none; overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        .full-bg {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            /* This matches your uploaded file 'Manifesto.jpg' perfectly */
+            background: linear-gradient(rgba(5, 5, 8, 0.7), rgba(5, 5, 8, 0.85)), 
+                        url('Manifesto.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        nav {
+            width: 100%; text-align: center; padding: 25px 0;
+            background: rgba(11, 11, 18, 0.9); z-index: 100;
+            border-bottom: 1px solid #4b3b8e55;
+        }
+        nav a { color: #a78bfa; margin: 0 15px; text-decoration: none; font-size: 0.9rem; }
+
+        .container {
+            flex-grow: 1; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; padding: 0 60px;
+        }
+
+        /* ONE-WAY TIMELINE: No resets, no blinking */
+        @keyframes revealAndBreath {
+            0% { opacity: 0; transform: translateY(10px); }
+            15% { opacity: 0.95; transform: translateY(0); color: #ffffff; text-shadow: 0 0 20px #a78bfa; }
+            50% { opacity: 0.60; color: #bf94ff; text-shadow: 0 0 10px #a78bfa; }
+            85% { opacity: 0.95; color: #ffffff; text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff; }
+            100% { opacity: 0.95; }
+        }
+
+        .manifesto-text {
+            font-size: 1.65rem !important;
+            font-style: italic !important;
+            line-height: 2.2;
+            max-width: 950px;
+        }
+
+        .line {
+            margin-bottom: 50px;
+            opacity: 0; 
+            animation: revealAndBreath 15s infinite ease-in-out forwards;
+        }
+
+        .line-1 { animation-delay: 1s; } 
+        .line-2 { animation-delay: 4s; }
+        .line-3 { animation-delay: 7s; }
+
+        .ink-cursor {
+            position: fixed; width: 20px; height: 20px; border-radius: 50%;
+            background: radial-gradient(circle, #a78bfa, transparent);
+            pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
+        }
+
+        .back-link { margin-top: 50px; color: #a78bfa; opacity: 0.4; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+    <div class="full-bg"></div>
+    <div class="ink-cursor" id="cursor"></div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="community.html">Community</a>
+        <a href="rules-and-safety.html">Rules & Safety</a>
+        <a href="the-manifesto.html">Manifesto</a>
+    </nav>
+
+    <div class="container">
+        <div class="manifesto-text">
+            <div class="line line-1">The internet once united us, forging true friendships beyond screens.</div>
+            <div class="line line-2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
+            <div class="line line-3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
+        </div>
+        <a href="index.html" class="back-link">← RETURN TO HOME</a>
+    </div>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+    </script>
+</body>
+</html>

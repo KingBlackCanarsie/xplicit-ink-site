@@ -5,18 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Xplicit Ink | 18+ Community</title>
     <style>
-        /* 1. ATMOSPHERE & BACKGROUND */
         body, html {
             margin: 0; padding: 0; height: 100%;
             background-color: #050508; 
-            background-image: url('./ink-background.svg'); /* This uses your SVG file */
+            background-image: url('./ink-background.svg');
             background-size: cover; background-position: center;
             color: #dddde8; font-family: 'Georgia', serif;
             display: flex; flex-direction: column; align-items: center;
-            overflow-x: hidden; cursor: none; /* Custom cursor is enabled */
+            overflow-x: hidden; cursor: none;
         }
 
-        /* 2. NAVIGATION BAR (Kept from your new setup but styled to match) */
         nav {
             width: 100%; text-align: center; padding: 20px 0;
             background: rgba(11, 11, 18, 0.8); z-index: 20;
@@ -30,11 +28,28 @@
 
         .container { 
             text-align: center; z-index: 10; 
-            padding: 60px 20px; max-width: 800px; 
-            margin-top: auto; margin-bottom: auto;
+            padding: 40px 20px; max-width: 800px; 
+            margin: auto;
+        }
+
+        /* --- NEW HERO IMAGE STYLES --- */
+        .hero-image {
+            width: 280px; height: 280px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background-image: url('./hero-ink.png'); /* Ensure file is named hero-ink.png */
+            background-size: cover;
+            background-position: center;
+            border: 3px solid #a78bfa55;
+            box-shadow: 0 0 40px #6a32ff66;
+            animation: pulseGlow 4s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 30px #6a32ff66; transform: scale(1); }
+            50% { box-shadow: 0 0 60px #a78bfa99; transform: scale(1.02); }
         }
         
-        /* 3. NEON GLOWING TEXT */
         h1 {
             font-size: 5rem; margin: 0; color: #d0c4ff;
             text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff;
@@ -45,7 +60,6 @@
             margin: 20px 0 40px 0; line-height: 1.6;
         }
 
-        /* 4. THE GLOWING BUTTON */
         .btn {
             display: inline-block; padding: 18px 45px; font-size: 1.6rem;
             font-weight: bold; color: white; text-decoration: none;
@@ -53,13 +67,8 @@
             box-shadow: 0 0 30px #a78bfa; transition: 0.3s;
         }
         .btn:hover { transform: scale(1.05); box-shadow: 0 0 50px #c6b8ff; }
-        
-        .manifesto-link {
-            display: block; margin-top: 35px; color: #a28dffcc;
-            text-decoration: underline; font-size: 1rem; opacity: 0.7;
-        }
 
-        /* 5. ANIMATED INK DRIPS (Vertical Lines) */
+        /* Neon Drips & Cursor */
         .ink-drip {
             position: fixed; width: 2px;
             background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
@@ -70,8 +79,6 @@
             50% { opacity: 0.6; }
             100% { transform: translateY(100vh); opacity: 0; }
         }
-
-        /* 6. CUSTOM CURSOR */
         .ink-cursor {
             position: fixed; width: 20px; height: 20px; border-radius: 50%;
             background: radial-gradient(circle, #a78bfa, transparent);
@@ -90,23 +97,21 @@
     </nav>
 
     <div class="container">
+        <div class="hero-image"></div>
+
         <h1>The Xplicit Ink</h1>
-        <p class="subtitle">A quiet gathering for adults who miss when the internet felt human. 18+ Only.</p>
+        <p class="subtitle">A quiet gathering for adults who miss when the internet felt human.</p>
         
         <a href="https://discord.gg/RGwnBbnzgA" class="btn">Enter the Ink</a>
-        
-        <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
     </div>
 
     <script>
-        // Cursor Movement
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
 
-        // Generate Falling Lines
         for (let i = 0; i < 12; i++) {
             let drip = document.createElement('div');
             drip.className = 'ink-drip';

@@ -34,58 +34,51 @@
             text-align: center; padding: 0 60px;
         }
 
-        /* THE "LIVING INK" ANIMATION 
-           Combines: 0->90->65->90 Opacity + Hue Shift + Subtle Floating
+        /* THE DYNAMIC GLOW LOOP
+           0% -> Hidden
+           20% -> Brightest (90% visible + Neon Glow)
+           60% -> Dimmed (65% visible + Soft Hue)
+           100% -> Back to Brightest
         */
-        @keyframes livingInk {
+        @keyframes neonPulse {
             0% { 
                 opacity: 0; 
-                color: #4b3b8e; /* Deep shadowy violet */
+                color: #4b3b8e; 
                 text-shadow: 0 0 0px transparent;
-                transform: translateY(10px);
             }
-            /* The "Reveal" peak */
             20% { 
                 opacity: 0.9; 
-                color: #ffffff; /* Bright white glow */
-                text-shadow: 0 0 30px #a78bfa, 0 0 50px #6a32ff;
-                transform: translateY(0px);
+                color: #ffffff; 
+                text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff, 0 0 60px #a78bfa;
             }
-            /* The "Breathe Out" floor */
             60% { 
                 opacity: 0.65; 
-                color: #d0c4ff; /* Fades to soft lavender */
-                text-shadow: 0 0 15px #a78bfa;
-                transform: translateY(2px); /* Slight downward drift */
+                color: #a78bfa; /* Noticeable Purple Hue here */
+                text-shadow: 0 0 10px #a78bfa;
             }
-            /* The "Breathe In" ceiling */
             100% { 
                 opacity: 0.9; 
                 color: #ffffff;
-                text-shadow: 0 0 35px #a78bfa, 0 0 60px #6a32ff;
-                transform: translateY(0px);
+                text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff, 0 0 60px #a78bfa;
             }
         }
 
         .manifesto-text {
-            /* Forced Uniformity */
             font-size: 1.65rem !important;
             font-weight: normal !important;
             font-style: italic !important;
             line-height: 2.1;
-            color: #ffffff;
             max-width: 950px;
         }
 
         .line {
             margin-bottom: 50px;
             opacity: 0;
-            /* 16 seconds loop for an ultra-slow, hypnotic effect */
-            animation: livingInk 16s infinite ease-in-out;
-            animation-fill-mode: forwards;
+            /* 12 seconds per cycle: Slow and deliberate */
+            animation: neonPulse 12s infinite ease-in-out;
         }
 
-        /* Staggered entrance delays */
+        /* Delays so they appear one by one */
         .line-1 { animation-delay: 1s; }
         .line-2 { animation-delay: 5s; }
         .line-3 { animation-delay: 9s; }
@@ -97,7 +90,6 @@
         }
 
         .back-link { margin-top: 50px; color: #a78bfa; opacity: 0.4; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; }
-        .back-link:hover { opacity: 1; text-shadow: 0 0 10px #a78bfa; }
     </style>
 </head>
 <body>

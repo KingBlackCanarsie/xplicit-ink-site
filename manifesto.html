@@ -13,14 +13,12 @@
             display: flex; flex-direction: column;
         }
 
-        /* THE BACKGROUND LAYER */
         .full-bg {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            /* 1. Matches the exact Capital 'M' from your GitHub screenshot */
-            /* 2. Uses a 'root-relative' path to prevent GitHub routing errors */
+            /* 1. Matches Capital 'M' 2. Adds '?v=3' to force a refresh */
             background: linear-gradient(rgba(5, 5, 8, 0.7), rgba(5, 5, 8, 0.85)), 
-                        url('Manifesto.jpg') no-repeat center center;
+                        url('Manifesto.jpg?v=3') no-repeat center center;
             background-size: cover;
             z-index: -1;
         }
@@ -38,11 +36,13 @@
             text-align: center; padding: 0 60px;
         }
 
-        /* BLINK-PROOF ANIMATIONS */
-        @keyframes reveal { from { opacity: 0; } to { opacity: 0.95; } }
-        @keyframes breath {
-            0%, 100% { opacity: 0.95; color: #ffffff; text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff; }
-            50% { opacity: 0.65; color: #bf94ff; text-shadow: 0 0 15px #a78bfa; }
+        /* ONE CONTINUOUS ANIMATION: Reveal (0-95%) then Breath (65-95%) */
+        @keyframes revealAndBreath {
+            0% { opacity: 0; transform: translateY(5px); }
+            15% { opacity: 0.95; transform: translateY(0); } /* Reveal complete */
+            45% { opacity: 0.65; color: #bf94ff; text-shadow: 0 0 15px #a78bfa; } /* Dim */
+            75% { opacity: 0.95; color: #ffffff; text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff; } /* Bright */
+            100% { opacity: 0.65; color: #bf94ff; text-shadow: 0 0 15px #a78bfa; }
         }
 
         .manifesto-text {
@@ -56,13 +56,13 @@
         .line {
             margin-bottom: 50px;
             opacity: 0;
-            /* Combines reveal and loop so there is NO reset/blink */
-            animation: reveal 6s ease-out forwards, breath 12s infinite ease-in-out 6s;
+            /* 18s duration to make the breathing slow and moody */
+            animation: revealAndBreath 18s infinite ease-in-out;
         }
 
-        .line-1 { animation-delay: 1s, 7s; } 
-        .line-2 { animation-delay: 4s, 10s; }
-        .line-3 { animation-delay: 7s, 13s; }
+        .line-1 { animation-delay: 1s; } 
+        .line-2 { animation-delay: 4s; }
+        .line-3 { animation-delay: 7s; }
 
         .ink-cursor {
             position: fixed; width: 20px; height: 20px; border-radius: 50%;

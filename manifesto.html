@@ -34,49 +34,58 @@
             text-align: center; padding: 0 60px;
         }
 
-        /* THE ANIMATION: 0% (Intro) -> 90% -> 60% -> 90% (Infinite Loop) */
-        @keyframes livingPulse {
+        /* THE "LIVING INK" ANIMATION 
+           Combines: 0->90->65->90 Opacity + Hue Shift + Subtle Floating
+        */
+        @keyframes livingInk {
             0% { 
                 opacity: 0; 
+                color: #4b3b8e; /* Deep shadowy violet */
                 text-shadow: 0 0 0px transparent;
+                transform: translateY(10px);
             }
-            /* First peak visibility */
-            15% { 
+            /* The "Reveal" peak */
+            20% { 
                 opacity: 0.9; 
-                text-shadow: 0 0 30px #a78bfa, 0 0 50px #6a32ff; 
+                color: #ffffff; /* Bright white glow */
+                text-shadow: 0 0 30px #a78bfa, 0 0 50px #6a32ff;
+                transform: translateY(0px);
             }
-            /* The ongoing loop floor */
-            50% { 
-                opacity: 0.6; 
+            /* The "Breathe Out" floor */
+            60% { 
+                opacity: 0.65; 
+                color: #d0c4ff; /* Fades to soft lavender */
                 text-shadow: 0 0 15px #a78bfa;
+                transform: translateY(2px); /* Slight downward drift */
             }
-            /* The ongoing loop ceiling */
+            /* The "Breathe In" ceiling */
             100% { 
                 opacity: 0.9; 
-                text-shadow: 0 0 30px #a78bfa, 0 0 50px #6a32ff; 
+                color: #ffffff;
+                text-shadow: 0 0 35px #a78bfa, 0 0 60px #6a32ff;
+                transform: translateY(0px);
             }
         }
 
         .manifesto-text {
-            /* Hard-coded uniformity for all text inside */
+            /* Forced Uniformity */
             font-size: 1.65rem !important;
             font-weight: normal !important;
             font-style: italic !important;
-            line-height: 2.0;
+            line-height: 2.1;
             color: #ffffff;
             max-width: 950px;
         }
 
         .line {
             margin-bottom: 50px;
-            opacity: 0; /* Hidden before delay starts */
-            
-            /* 15 seconds per loop ensures a very slow, gradual fade */
-            animation: livingPulse 15s infinite ease-in-out;
+            opacity: 0;
+            /* 16 seconds loop for an ultra-slow, hypnotic effect */
+            animation: livingInk 16s infinite ease-in-out;
             animation-fill-mode: forwards;
         }
 
-        /* Staggered start times so they "reveal" one by one */
+        /* Staggered entrance delays */
         .line-1 { animation-delay: 1s; }
         .line-2 { animation-delay: 5s; }
         .line-3 { animation-delay: 9s; }

@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,26 +7,55 @@
     <title>Rules & Safety | The Xplicit Ink</title>
     <link rel="icon" href="./favicon-ink.png" />
 
+    <!-- Custom fonts (example) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
     <style>
-        /* 0. BASE RESET & GLOBALS */
         * {
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-main: #050508;
+            --text-main: #dddde8;
+            --accent: #a78bfa;
+            --accent-strong: #ff66cc;
+            --accent-soft: #c6b8ff;
+            --container-bg: rgba(15, 15, 25, 0.55);
+            --border-glow: rgba(167, 139, 250, 0.35);
+            --font-size-base: 16px;
+        }
+
         body, html {
             margin: 0; padding: 0;
-            background-color: #050508;
+            background-color: var(--bg-main);
             background-image: url('./ink-background.svg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            color: #dddde8;
-            font-family: 'Georgia', serif;
+            color: var(--text-main);
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
             cursor: none;
             overflow-x: hidden;
+            font-size: var(--font-size-base);
         }
 
-        /* 1. TOP GRADIENT OVERLAY */
+        body.reading-mode .parallax-bg,
+        body.reading-mode .smoke,
+        body.reading-mode .particle,
+        body.reading-mode .ink-drip,
+        body.reading-mode .aurora,
+        body.reading-mode .caustics {
+            opacity: 0.05 !important;
+        }
+
+        body.high-contrast {
+            --bg-main: #000000;
+            --text-main: #ffffff;
+            --container-bg: rgba(0, 0, 0, 0.9);
+            --border-glow: rgba(255, 255, 255, 0.6);
+        }
+
         body::before {
             content: "";
             position: fixed;
@@ -36,7 +66,6 @@
             pointer-events: none;
         }
 
-        /* 2. VIGNETTE */
         body::after {
             content: "";
             position: fixed;
@@ -47,7 +76,6 @@
             pointer-events: none;
         }
 
-        /* 3. PARALLAX BACKGROUND WRAPPER */
         .parallax-bg {
             position: fixed;
             inset: 0;
@@ -55,12 +83,11 @@
             background-size: cover;
             background-position: center;
             opacity: 0.25;
-            z-index: -1;
+            z-index: -2;
             transform: translateY(0);
             transition: transform 0.1s linear;
         }
 
-        /* 4. SMOKE LAYER */
         .smoke {
             position: fixed;
             top: 0; left: 0;
@@ -76,7 +103,41 @@
             100% { transform: translateY(-10%) scale(1.1); }
         }
 
-        /* 5. FLOATING PARTICLES */
+        .aurora {
+            position: fixed;
+            top: -20vh; left: 0;
+            width: 100%; height: 40vh;
+            background: radial-gradient(circle at 10% 0%, rgba(167,139,250,0.4), transparent 60%),
+                        radial-gradient(circle at 90% 0%, rgba(255,102,204,0.35), transparent 60%);
+            mix-blend-mode: screen;
+            opacity: 0.25;
+            animation: auroraMove 60s linear infinite;
+            z-index: 2;
+            pointer-events: none;
+        }
+        @keyframes auroraMove {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-10%); }
+            100% { transform: translateX(0); }
+        }
+
+        .caustics {
+            position: fixed;
+            bottom: -20vh; left: 0;
+            width: 100%; height: 40vh;
+            background: radial-gradient(circle at 50% 100%, rgba(167,139,250,0.25), transparent 70%);
+            mix-blend-mode: screen;
+            opacity: 0.2;
+            animation: causticsMove 50s linear infinite;
+            z-index: 2;
+            pointer-events: none;
+        }
+        @keyframes causticsMove {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(5%); }
+            100% { transform: translateY(0); }
+        }
+
         .particle {
             position: fixed;
             width: 4px; height: 4px;
@@ -95,29 +156,31 @@
             100% { transform: translateY(-120vh) translateX(40px); opacity: 0; }
         }
 
-        /* 6. SCROLL PROGRESS BAR */
         .scroll-progress {
             position: fixed;
             top: 0; left: 0;
             height: 3px;
             width: 0;
-            background: linear-gradient(90deg, #a78bfa, #ff66cc);
+            background: linear-gradient(90deg, var(--accent), var(--accent-strong));
             z-index: 200;
-            box-shadow: 0 0 10px #a78bfa;
+            box-shadow: 0 0 10px var(--accent);
         }
 
-        /* 7. PAGE BORDER */
         .page-border {
             position: fixed;
             inset: 10px;
-            border: 1px solid rgba(167, 139, 250, 0.25);
+            border: 1px solid var(--border-glow);
             border-radius: 20px;
             pointer-events: none;
             z-index: 2;
-            box-shadow: 0 0 20px rgba(167, 139, 250, 0.15);
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.25);
+            animation: borderBreath 6s ease-in-out infinite;
+        }
+        @keyframes borderBreath {
+            0%, 100% { box-shadow: 0 0 20px rgba(167,139,250,0.2); }
+            50% { box-shadow: 0 0 30px rgba(255,102,204,0.35); }
         }
 
-        /* 8. NAVIGATION */
         nav {
             width: 100%;
             text-align: center;
@@ -129,7 +192,7 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.6);
         }
         nav a {
-            color: #a78bfa;
+            color: var(--accent);
             margin: 0 15px;
             text-decoration: none;
             font-size: 0.9rem;
@@ -138,24 +201,148 @@
         }
         nav a:hover {
             color: #ffffff;
-            text-shadow: 0 0 10px #a78bfa;
+            text-shadow: 0 0 10px var(--accent);
         }
 
-        /* 9. MAIN CONTAINER */
+        .layout {
+            display: grid;
+            grid-template-columns: 260px minmax(0, 1fr);
+            max-width: 1200px;
+            margin: 60px auto 80px;
+            gap: 20px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 50;
+        }
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+            .side-nav {
+                position: static;
+                top: auto;
+            }
+        }
+
+        .side-nav {
+            position: sticky;
+            top: 90px;
+            align-self: flex-start;
+            background: rgba(10, 10, 20, 0.85);
+            border-radius: 16px;
+            padding: 18px 16px 20px;
+            border: 1px solid rgba(167,139,250,0.35);
+            box-shadow: 0 0 20px rgba(0,0,0,0.7);
+            font-size: 0.85rem;
+        }
+
+        .side-nav-title {
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 10px;
+        }
+
+        .side-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px;
+        }
+
+        .side-nav li {
+            margin-bottom: 8px;
+        }
+
+        .side-nav a {
+            color: var(--accent-soft);
+            text-decoration: none;
+            display: block;
+            padding: 6px 8px;
+            border-radius: 8px;
+            transition: 0.25s;
+        }
+
+        .side-nav a.active,
+        .side-nav a:hover {
+            background: radial-gradient(circle at left, rgba(167,139,250,0.25), transparent 70%);
+            color: #fff;
+            text-shadow: 0 0 8px var(--accent);
+        }
+
+        .side-controls {
+            margin-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 10px;
+        }
+
+        .side-controls button,
+        .side-controls input[type="range"] {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .side-controls button {
+            background: rgba(20, 15, 40, 0.9);
+            color: var(--accent-soft);
+            border-radius: 999px;
+            padding: 6px 10px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid rgba(167,139,250,0.6);
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .side-controls button:hover {
+            box-shadow: 0 0 10px var(--accent);
+            color: #fff;
+        }
+
+        .side-controls label {
+            display: block;
+            font-size: 0.7rem;
+            margin-bottom: 4px;
+            opacity: 0.8;
+        }
+
+        .side-controls input[type="range"] {
+            accent-color: var(--accent);
+        }
+
+        .minimap {
+            margin-top: 10px;
+            height: 60px;
+            border-radius: 10px;
+            background: linear-gradient(to bottom, rgba(167,139,250,0.2), rgba(15,15,25,0.9));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .minimap-indicator {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.4);
+            box-shadow: 0 0 8px rgba(255,255,255,0.7);
+            transform: translateY(0);
+        }
+
         .container {
-            max-width: 900px;
-            margin: 70px auto 80px;
-            padding: 40px 40px 50px;
-            background: rgba(15, 15, 25, 0.55);
+            background: var(--container-bg);
             border-radius: 20px;
             backdrop-filter: blur(14px);
             position: relative;
-            z-index: 50;
-            border: 1px solid rgba(167, 139, 250, 0.35);
+            border: 1px solid var(--border-glow);
             box-shadow: 0 0 30px rgba(167, 139, 250, 0.25);
             animation: containerFade 0.8s ease-out forwards;
             transform: translateY(10px);
             opacity: 0;
+            padding: 40px 40px 50px;
         }
         @keyframes containerFade {
             to {
@@ -164,7 +351,6 @@
             }
         }
 
-        /* 10. BRAND WATERMARK */
         .watermark {
             position: absolute;
             right: 20px;
@@ -175,12 +361,11 @@
             text-transform: uppercase;
         }
 
-        /* 11. HEADER */
         h1 {
             font-size: 3.4rem;
             text-align: center;
             color: #d0c4ff;
-            text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff;
+            text-shadow: 0 0 20px var(--accent), 0 0 40px #6a32ff;
             margin-top: 0;
             letter-spacing: 3px;
         }
@@ -192,13 +377,21 @@
             margin-top: -10px;
             margin-bottom: 18px;
             font-style: italic;
+            animation: typeFlicker 2.5s ease-out;
+        }
+        @keyframes typeFlicker {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            25% { opacity: 0.4; }
+            30% { opacity: 1; }
+            100% { opacity: 0.85; }
         }
 
         .purpose-line {
             text-align: center;
             font-size: 1rem;
             opacity: 0.75;
-            margin-bottom: 35px;
+            margin-bottom: 20px;
             padding: 10px 15px;
             border-radius: 10px;
             background: rgba(20, 15, 40, 0.7);
@@ -213,18 +406,17 @@
             font-style: italic;
         }
 
-        /* 12. SECTION HEADERS (CHAPTER STYLE) */
         .chapter-label {
             font-size: 0.8rem;
             letter-spacing: 4px;
             text-transform: uppercase;
-            opacity: 0.6;
+            opacity: 0.7;
             margin-top: 40px;
         }
 
         h2 {
             font-size: 2rem;
-            color: #c6b8ff;
+            color: var(--accent-soft);
             text-shadow: 0 0 10px #6a32ff;
             margin-top: 8px;
             padding-bottom: 10px;
@@ -233,9 +425,28 @@
             align-items: center;
             gap: 10px;
             transition: 0.3s;
+            position: relative;
         }
+
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+            box-shadow: 0 0 8px var(--accent);
+            transition: width 0.4s ease-out;
+        }
+
         h2:hover {
-            text-shadow: 0 0 18px #b28aff;
+            text-shadow: 0 0 18px var(--accent-soft);
+            filter: url('#chromatic');
+        }
+
+        h2:hover::after {
+            width: 100%;
         }
 
         .section-subtitle {
@@ -246,11 +457,22 @@
             font-style: italic;
         }
 
-        /* 13. RULE LISTS */
+        .section-subtitle::before {
+            content: "";
+            display: inline-block;
+            width: 3px;
+            height: 14px;
+            margin-right: 8px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            border-radius: 999px;
+            opacity: 0.8;
+        }
+
         ul {
             padding-left: 20px;
             list-style-type: square;
         }
+
         li {
             margin-bottom: 15px;
             line-height: 1.8;
@@ -261,22 +483,28 @@
             position: relative;
             transition: 0.25s;
         }
+
         li:last-child {
             border-bottom: none;
         }
+
         li:hover {
-            background: radial-gradient(circle at left, rgba(167,139,250,0.12), transparent 60%);
+            background: radial-gradient(circle at left, rgba(167,139,250,0.18), transparent 60%);
             transform: translateX(2px);
         }
 
         .highlight {
-            color: #c6b8ff;
+            background: linear-gradient(90deg, rgba(167,139,250,0.2), rgba(255,102,204,0.15));
+            padding: 0 4px;
+            border-radius: 4px;
             font-weight: bold;
-            text-shadow: 0 0 8px #a78bfa;
+            text-shadow: 0 0 8px var(--accent);
         }
 
         .critical {
-            color: #e3d8ff;
+            background: linear-gradient(90deg, #f0e6ff, #fbd6ff);
+            -webkit-background-clip: text;
+            color: transparent;
             font-weight: bold;
             text-shadow: 0 0 12px #b28aff;
             animation: pulse 4s ease-in-out infinite;
@@ -287,7 +515,6 @@
             50% { text-shadow: 0 0 16px #f0e6ff; }
         }
 
-        /* 14. DIVIDER */
         .divider {
             text-align: center;
             margin: 40px auto;
@@ -296,13 +523,13 @@
             color: #ffffff55;
             transition: 0.4s;
         }
+
         .divider.visible {
             opacity: 0.9;
             color: #d0c4ff;
-            text-shadow: 0 0 10px #a78bfa;
+            text-shadow: 0 0 10px var(--accent);
         }
 
-        /* 15. ZERO TOLERANCE BOX */
         .zero-box {
             margin-top: 40px;
             padding: 20px;
@@ -315,6 +542,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .zero-box::before {
             content: "";
             position: absolute;
@@ -324,16 +552,17 @@
             transform: skewX(-20deg);
             opacity: 0;
         }
+
         .zero-box:hover::before {
             animation: sweep 1.2s ease-out;
         }
+
         @keyframes sweep {
             0% { transform: translateX(-100%) skewX(-20deg); opacity: 0; }
             40% { opacity: 1; }
             100% { transform: translateX(250%) skewX(-20deg); opacity: 0; }
         }
 
-        /* 16. BACK LINK & FOOTER MOTTO */
         .footer-motto {
             text-align: center;
             margin-top: 40px;
@@ -341,6 +570,7 @@
             opacity: 0.7;
             letter-spacing: 2px;
             text-transform: uppercase;
+            font-family: 'Great Vibes', cursive;
         }
 
         .back-link {
@@ -348,28 +578,30 @@
             text-align: center;
             margin-top: 20px;
             padding-bottom: 10px;
-            color: #a78bfa;
+            color: var(--accent);
             text-decoration: none;
             letter-spacing: 2px;
             opacity: 0.8;
             transition: 0.3s;
             text-shadow: 0 0 8px #6a32ff;
         }
+
         .back-link:hover {
             opacity: 1;
             color: #fff;
+            transform: translateY(-1px);
         }
 
-        /* 17. CUSTOM CURSOR + TRAIL */
         .ink-cursor {
             position: fixed;
             width: 20px; height: 20px;
             border-radius: 50%;
-            background: radial-gradient(circle, #a78bfa, transparent);
+            background: radial-gradient(circle, var(--accent), transparent);
             pointer-events: none;
             z-index: 1000;
             transform: translate(-50%, -50%);
         }
+
         .cursor-trail {
             position: fixed;
             width: 10px; height: 10px;
@@ -380,6 +612,7 @@
             opacity: 0.7;
             animation: trailFade 0.5s ease-out forwards;
         }
+
         @keyframes trailFade {
             to {
                 transform: scale(0.2);
@@ -387,22 +620,21 @@
             }
         }
 
-        /* 18. NEON DRIPS */
         .ink-drip {
             position: fixed;
             width: 2px;
-            background: linear-gradient(to bottom, transparent, #a78bfa, #ff66cc, transparent);
-            box-shadow: 0 0 10px #a78bfa;
+            background: linear-gradient(to bottom, transparent, var(--accent), var(--accent-strong), transparent);
+            box-shadow: 0 0 10px var(--accent);
             z-index: 1;
             animation: fall linear infinite;
         }
+
         @keyframes fall {
             0% { transform: translateY(-100vh); opacity: 0; }
             50% { opacity: 0.35; }
             100% { transform: translateY(100vh); opacity: 0; }
         }
 
-        /* 19. BACK TO TOP BUTTON */
         .back-to-top {
             position: fixed;
             right: 20px;
@@ -421,20 +653,99 @@
             transform: translateY(10px);
             transition: 0.3s;
         }
+
         .back-to-top.visible {
             opacity: 0.9;
             transform: translateY(0);
         }
+
         .back-to-top:hover {
-            box-shadow: 0 0 12px #a78bfa;
+            box-shadow: 0 0 12px var(--accent);
+        }
+
+        .tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dotted rgba(255,255,255,0.4);
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            left: 0;
+            bottom: 120%;
+            background: rgba(10,10,20,0.95);
+            color: #fff;
+            padding: 6px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            white-space: normal;
+            width: 220px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.7);
+            z-index: 999;
+        }
+
+        .embed-preview {
+            margin-top: 40px;
+            border-radius: 12px;
+            background: rgba(20, 20, 35, 0.95);
+            border: 1px solid rgba(167,139,250,0.4);
+            padding: 12px 14px;
+            font-size: 0.85rem;
+        }
+
+        .embed-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .embed-color {
+            width: 4px;
+            border-radius: 999px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-strong));
+            margin-right: 8px;
+        }
+
+        .embed-title {
+            font-weight: bold;
+            color: var(--accent-soft);
+        }
+
+        .embed-footer {
+            margin-top: 6px;
+            opacity: 0.7;
+            font-size: 0.75rem;
+        }
+
+        svg {
+            position: absolute;
+            width: 0;
+            height: 0;
         }
     </style>
 </head>
 
 <body>
 
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <filter id="chromatic">
+            <feColorMatrix in="SourceGraphic" type="matrix"
+                values="1 0 0 0 0
+                        0 1 0 0 0
+                        0 0 1 0 0
+                        0 0 0 1 0" result="base"/>
+            <feOffset in="base" dx="-1" dy="0" result="r"/>
+            <feOffset in="base" dx="1" dy="0" result="b"/>
+            <feBlend in="r" in2="b" mode="screen"/>
+        </filter>
+    </svg>
+
     <div class="parallax-bg"></div>
     <div class="smoke"></div>
+    <div class="aurora"></div>
+    <div class="caustics"></div>
     <div class="scroll-progress" id="scrollProgress"></div>
     <div class="page-border"></div>
     <div class="ink-cursor" id="cursor"></div>
@@ -447,63 +758,142 @@
         <a href="manifesto.html">Manifesto</a>
     </nav>
 
-    <div class="container">
+    <div class="layout">
+        <aside class="side-nav">
+            <div class="side-nav-title">CHAPTERS</div>
+            <ul>
+                <li><a href="#core" class="side-link">I. Core Principles</a></li>
+                <li><a href="#behavior" class="side-link">II. Behavior</a></li>
+                <li><a href="#reporting" class="side-link">III. Reporting</a></li>
+                <li><a href="#zero" class="side-link">IV. Zero Tolerance</a></li>
+            </ul>
 
-        <h1>Rules & Safety</h1>
-        <div class="commandment-line">These are the laws of Xplicit Ink.</div>
-        <div class="purpose-line">These rules exist to protect the people who make this community worth joining.</div>
-        <div class="lore-line">Written in ink, upheld in spirit.</div>
+            <div class="side-controls">
+                <label>Reading Mode</label>
+                <button id="readingToggle">TOGGLE READING MODE</button>
 
-        <!-- CORE PRINCIPLES -->
-        <div class="chapter-label">I. CORE PRINCIPLES</div>
-        <h2>⚖️ Core Principles</h2>
-        <div class="section-subtitle">The foundation of how we treat each other.</div>
+                <label>High Contrast</label>
+                <button id="contrastToggle">TOGGLE CONTRAST</button>
 
-        <ul>
-            <li><span class="critical">18+ only.</span> No minors, no exceptions. If staff suspect someone is underage, they will be removed.</li>
-            <li><span class="critical">Consent is mandatory.</span> No pressuring, no guilt‑tripping, no ignoring boundaries. “No” is a complete answer.</li>
-            <li><span class="highlight">Respect the person.</span> Behind every username is a real human being. Treat them like one.</li>
-            <li><span class="highlight">Privacy matters.</span> Do not share content or screenshots outside the server without clear permission.</li>
-        </ul>
+                <label>Font Size</label>
+                <input type="range" id="fontSizeSlider" min="14" max="20" value="16">
+            </div>
 
-        <div class="divider" id="divider1">────────── ◆ ──────────</div>
+            <div class="side-nav-title" style="margin-top:12px;">MINIMAP</div>
+            <div class="minimap">
+                <div class="minimap-indicator" id="minimapIndicator"></div>
+            </div>
+        </aside>
 
-        <!-- BEHAVIOR EXPECTATIONS -->
-        <div class="chapter-label">II. BEHAVIOR EXPECTATIONS</div>
-        <h2>🧭 Behavior Expectations</h2>
-        <div class="section-subtitle">How adults conduct themselves in shared spaces.</div>
+        <main class="container">
+            <h1>Rules & Safety</h1>
+            <div class="commandment-line">These are the laws of Xplicit Ink.</div>
+            <div class="purpose-line">These rules exist to protect the people who make this community worth joining.</div>
+            <div class="lore-line">Written in ink, upheld in spirit.</div>
 
-        <ul>
-            <li>Read channel descriptions before posting. Every space has a purpose.</li>
-            <li>Keep out‑of‑character drama out of roleplay spaces. Use tickets for issues.</li>
-            <li>Roleplay is fiction. It does not grant permission to cross boundaries in real life.</li>
-        </ul>
+            <section id="core">
+                <div class="chapter-label">I. CORE PRINCIPLES</div>
+                <h2>⚖️ Core Principles</h2>
+                <div class="section-subtitle">The foundation of how we treat each other.</div>
 
-        <div class="divider" id="divider2">────────── ◆ ──────────</div>
+                <ul>
+                    <li>
+                        <span class="critical tooltip" data-tip="This is a hard boundary. No minors, no exceptions, ever.">18+ only.</span>
+                        No minors, no exceptions. If staff suspect someone is underage, they will be removed.
+                    </li>
+                    <li>
+                        <span class="critical tooltip" data-tip="Consent is the core of every interaction here.">Consent is mandatory.</span>
+                        No pressuring, no guilt‑tripping, no ignoring boundaries. “No” is a complete answer.
+                    </li>
+                    <li>
+                        <span class="highlight tooltip" data-tip="You are speaking to real people, not characters or content.">Respect the person.</span>
+                        Behind every username is a real human being. Treat them like one.
+                    </li>
+                    <li>
+                        <span class="highlight tooltip" data-tip="What happens in Xplicit Ink stays in Xplicit Ink unless clearly agreed otherwise.">Privacy matters.</span>
+                        Do not share content or screenshots outside the server without clear permission.
+                    </li>
+                </ul>
+            </section>
 
-        <!-- REPORTING -->
-        <div class="chapter-label">III. REPORTING & TICKETS</div>
-        <h2>🎟️ Reporting & Tickets</h2>
-        <div class="section-subtitle">Your safety line — always available, always private.</div>
+            <div class="divider" id="divider1">────────── ◆ ──────────</div>
 
-        <p>If something feels wrong, use the <span class="highlight">🚨｜Report</span> channel to open a private ticket.</p>
+            <section id="behavior">
+                <div class="chapter-label">II. BEHAVIOR EXPECTATIONS</div>
+                <h2>🧭 Behavior Expectations</h2>
+                <div class="section-subtitle">How adults conduct themselves in shared spaces.</div>
 
-        <ul>
-            <li>Tickets are visible only to you and staff.</li>
-            <li>Staff will respond as soon as they can. While you wait, you can mute or block the person involved.</li>
-        </ul>
+                <ul>
+                    <li>
+                        <span class="tooltip" data-tip="Each channel is designed with intention. Use them as labeled.">
+                            Read channel descriptions before posting.
+                        </span>
+                        Every space has a purpose.
+                    </li>
+                    <li>
+                        <span class="tooltip" data-tip="Keep personal conflicts out of shared creative spaces.">
+                            Keep out‑of‑character drama out of roleplay spaces.
+                        </span>
+                        Use tickets for issues.
+                    </li>
+                    <li>
+                        <span class="tooltip" data-tip="Fiction does not override real-world consent or boundaries.">
+                            Roleplay is fiction.
+                        </span>
+                        It does not grant permission to cross boundaries in real life.
+                    </li>
+                </ul>
+            </section>
 
-        <!-- ZERO TOLERANCE -->
-        <div class="zero-box">
-            <strong>❗ Zero Tolerance:</strong><br>
-            Violations of these rules may result in removal from the community.<br>
-            We protect our members first — always.
-        </div>
+            <div class="divider" id="divider2">────────── ◆ ──────────</div>
 
-        <div class="footer-motto">Ink flows where the community breathes.</div>
-        <a href="index.html" class="back-link">← Back to Home</a>
+            <section id="reporting">
+                <div class="chapter-label">III. REPORTING & TICKETS</div>
+                <h2>🎟️ Reporting & Tickets</h2>
+                <div class="section-subtitle">Your safety line — always available, always private.</div>
 
-        <div class="watermark">XPPLICIT INK • RULES & SAFETY</div>
+                <p>
+                    If something feels wrong, use the
+                    <span class="highlight tooltip" data-tip="This channel opens a private line to staff.">🚨｜Report</span>
+                    channel to open a private ticket.
+                </p>
+
+                <ul>
+                    <li>Tickets are visible only to you and staff.</li>
+                    <li>Staff will respond as soon as they can. While you wait, you can mute or block the person involved.</li>
+                </ul>
+            </section>
+
+            <section id="zero">
+                <div class="chapter-label">IV. ZERO TOLERANCE</div>
+                <h2>❗ Zero Tolerance</h2>
+                <div class="section-subtitle">Some lines are never crossed here.</div>
+
+                <div class="zero-box">
+                    <strong>❗ Zero Tolerance:</strong><br>
+                    Violations of these rules may result in removal from the community.<br>
+                    We protect our members first — always.
+                </div>
+            </section>
+
+            <div class="footer-motto">Ink flows where the community breathes.</div>
+            <a href="index.html" class="back-link">← Back to Home</a>
+
+            <div class="embed-preview">
+                <div class="embed-header">
+                    <div class="embed-color"></div>
+                    <div class="embed-title">XPLICIT INK • RULES SUMMARY</div>
+                </div>
+                <div>
+                    • 18+ only • Consent is mandatory • Respect people • Protect privacy • Use 🚨｜Report when needed.
+                </div>
+                <div class="embed-footer">
+                    Last updated: <span id="lastUpdated"></span>
+                </div>
+            </div>
+
+            <div class="watermark">XPPLICIT INK • RULES & SAFETY</div>
+        </main>
     </div>
 
     <script>
@@ -518,9 +908,17 @@
             trail.style.top = e.clientY + 'px';
             document.body.appendChild(trail);
             setTimeout(() => trail.remove(), 500);
+
+            document.querySelectorAll('h2, .back-link, .side-nav, .container').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const dx = (e.clientX - centerX) * 0.002;
+                const dy = (e.clientY - centerY) * 0.002;
+                el.style.transform = `translate(${dx}px, ${dy}px)`;
+            });
         });
 
-        // Neon drips
         for (let i = 0; i < 12; i++) {
             let drip = document.createElement('div');
             drip.className = 'ink-drip';
@@ -531,8 +929,7 @@
             document.body.appendChild(drip);
         }
 
-        // Floating particles
-        for (let i = 0; i < 18; i++) {
+        for (let i = 0; i < 20; i++) {
             let p = document.createElement('div');
             p.className = 'particle';
             p.style.left = Math.random() * 100 + 'vw';
@@ -542,11 +939,12 @@
             document.body.appendChild(p);
         }
 
-        // Scroll progress + parallax + back-to-top + divider glow
         const scrollProgress = document.getElementById('scrollProgress');
         const parallaxBg = document.querySelector('.parallax-bg');
         const backToTop = document.getElementById('backToTop');
         const dividers = [document.getElementById('divider1'), document.getElementById('divider2')];
+        const minimapIndicator = document.getElementById('minimapIndicator');
+        const sideLinks = document.querySelectorAll('.side-link');
 
         window.addEventListener('scroll', () => {
             const scrollTop = window.scrollY;
@@ -562,15 +960,56 @@
                 backToTop.classList.remove('visible');
             }
 
+            if (docHeight > 0) {
+                minimapIndicator.style.transform = `translateY(${(scrollTop / docHeight) * 50}px)`;
+            }
+
             dividers.forEach(div => {
                 const rect = div.getBoundingClientRect();
                 const inView = rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.3;
                 if (inView) div.classList.add('visible');
             });
+
+            const sections = ['core', 'behavior', 'reporting', 'zero'].map(id => document.getElementById(id));
+            let activeId = null;
+            sections.forEach(sec => {
+                const rect = sec.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.4 && rect.bottom > window.innerHeight * 0.3) {
+                    activeId = sec.id;
+                }
+            });
+            sideLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + activeId);
+            });
         });
 
         backToTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        const readingToggle = document.getElementById('readingToggle');
+        const contrastToggle = document.getElementById('contrastToggle');
+        const fontSizeSlider = document.getElementById('fontSizeSlider');
+
+        readingToggle.addEventListener('click', () => {
+            document.body.classList.toggle('reading-mode');
+        });
+
+        contrastToggle.addEventListener('click', () => {
+            document.body.classList.toggle('high-contrast');
+        });
+
+        fontSizeSlider.addEventListener('input', (e) => {
+            const size = e.target.value + 'px';
+            document.documentElement.style.setProperty('--font-size-base', size);
+        });
+
+        const lastUpdated = document.getElementById('lastUpdated');
+        const now = new Date();
+        lastUpdated.textContent = now.toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
         });
     </script>
 

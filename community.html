@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community | The Xplicit Ink</title>
+    <title>The Manifesto | Xplicit Ink</title>
     <style>
-        /* 1. THE ATMOSPHERE */
+        /* 1. CORE ATMOSPHERE */
         body, html {
             margin: 0; padding: 0;
             background-color: #050508;
-            background-image: url('./ink-background.svg');
-            background-size: cover; background-position: center; background-attachment: fixed;
             color: #dddde8; font-family: 'Georgia', serif;
             cursor: none; overflow-x: hidden;
         }
 
-        /* 2. THE NAV */
+        /* 2. NAVIGATION */
         nav {
             width: 100%; text-align: center; padding: 20px 0;
             background: rgba(11, 11, 18, 0.9); z-index: 100;
@@ -27,93 +25,58 @@
         }
         nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
 
+        /* 3. THE CONTENT CONTAINER */
         .container {
-            max-width: 1100px; margin: 60px auto; padding: 0 20px; z-index: 10; position: relative;
+            max-width: 800px; margin: 60px auto; padding: 40px;
+            background: rgba(10, 10, 15, 0.85);
+            border: 1px solid #4b3b8e44;
+            border-radius: 5px;
+            backdrop-filter: blur(10px);
+            position: relative; z-index: 10;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+        }
+
+        /* The Hero Image (Using your committed manifesto.jpg) */
+        .manifesto-image {
+            width: 100%; height: 350px;
+            background-image: url('./manifesto.jpg');
+            background-size: cover; background-position: center;
+            margin-bottom: 40px; border: 1px solid #4b3b8e66;
+            filter: brightness(0.8) contrast(1.1);
         }
 
         h1 {
-            font-size: 3.5rem; text-align: center; color: #d0c4ff;
-            text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff;
-            margin-bottom: 40px;
+            font-size: 2.8rem; color: #d0c4ff; text-align: center;
+            text-transform: uppercase; letter-spacing: 6px;
+            text-shadow: 0 0 15px #6a32ff; margin-bottom: 40px;
         }
 
-        /* 3. THE VISUAL CARDS GRID */
-        .community-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            margin-top: 20px;
+        /* 4. TYPOGRAPHY */
+        .content-body p {
+            line-height: 1.8; font-size: 1.15rem; margin-bottom: 30px;
+            color: #c9c9d5; text-align: justify;
         }
 
-        .card {
-            background: rgba(15, 15, 25, 0.8);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid #4b3b8e33;
-            backdrop-filter: blur(15px);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            display: flex;
-            flex-direction: column;
+        .highlight-quote {
+            text-align: center; font-style: italic; border-top: 1px solid #4b3b8e55;
+            border-bottom: 1px solid #4b3b8e55; padding: 30px 0;
+            color: #a78bfa; font-size: 1.3rem; margin: 40px 0;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px #6a32ff33;
-            border-color: #a78bfa66;
-        }
-
-        .card-image {
-            width: 100%;
-            height: 250px;
-            background-size: cover;
-            background-position: center;
-            border-bottom: 1px solid #4b3b8e55;
-            transition: 0.5s;
-        }
-
-        .card:hover .card-image {
-            filter: brightness(1.1);
-        }
-
-        /* Connecting the Images you uploaded */
-        .img-lobby { background-image: url('./lobby.jpg'); }
-        .img-rp { background-image: url('./rp.jpg'); }
-        .img-voice { background-image: url('./voice.jpg'); }
-
-        .card-content { padding: 30px; flex-grow: 1; }
-        
-        .card-content h2 {
-            margin: 0 0 20px 0;
-            color: #c6b8ff;
-            font-size: 1.8rem;
-            text-shadow: 0 0 10px #6a32ff;
-        }
-
-        .channel-info { margin-bottom: 15px; }
-
-        .channel-name {
-            font-weight: bold; color: #a78bfa; display: block; margin-bottom: 4px;
-            text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;
-        }
-
-        p { line-height: 1.6; opacity: 0.8; font-size: 0.95rem; margin: 0; }
-
-        /* 4. NEON DRIPS & CURSOR */
-        .ink-drip {
-            position: fixed; width: 2px;
-            background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
-            box-shadow: 0 0 10px #a78bfa; z-index: 1; animation: fall linear infinite;
-        }
-        @keyframes fall {
-            0% { transform: translateY(-100vh); opacity: 0; }
-            50% { opacity: 0.4; }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
+        /* 5. THE CUSTOM CURSOR */
         .ink-cursor {
             position: fixed; width: 20px; height: 20px; border-radius: 50%;
             background: radial-gradient(circle, #a78bfa, transparent);
             pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
         }
+
+        /* BACK BUTTON */
+        .back-link {
+            display: block; text-align: center; margin-top: 40px;
+            color: #a78bfa; text-decoration: none; font-size: 0.8rem;
+            letter-spacing: 2px; opacity: 0.6; transition: 0.3s;
+        }
+        .back-link:hover { opacity: 1; color: #fff; }
     </style>
 </head>
 <body>
@@ -127,70 +90,22 @@
     </nav>
 
     <div class="container">
-        <h1>The Community</h1>
+        <div class="manifesto-image"></div>
+        <h1>The Manifesto</h1>
+        
+        <div class="content-body">
+            <p>We are a quiet gathering for adults who miss when the internet felt human. In a world of algorithms, noise, and temporary connections, we choose depth over volume. The Xplicit Ink isn't just a server; it's a digital sanctum for those who value the weight of words.</p>
 
-        <div class="community-grid">
-            <div class="card">
-                <div class="card-image img-lobby"></div>
-                <div class="card-content">
-                    <h2>Core Spaces</h2>
-                    <div class="channel-info">
-                        <span class="channel-name">🛡️｜Access</span>
-                        <p>Confirm adulthood and unlock the full ink.</p>
-                    </div>
-                    <div class="channel-info">
-                        <span class="channel-name">🛋️｜Lobby</span>
-                        <p>The first stop. A soft, general hangout to find the vibe.</p>
-                    </div>
-                    <div class="channel-info">
-                        <span class="channel-name">💬｜Chatroom</span>
-                        <p>The main flow. Flirt, joke, and exist together in the mess.</p>
-                    </div>
-                </div>
+            <div class="highlight-quote">
+                "Intensity requires safety. Freedom requires boundaries."
             </div>
 
-            <div class="card">
-                <div class="card-image img-rp"></div>
-                <div class="card-content">
-                    <h2>Roleplay</h2>
-                    <div class="channel-info">
-                        <span class="channel-name">🧙‍♂️｜Rp_Only</span>
-                        <p>Strictly in-character. No chatter, only the story.</p>
-                    </div>
-                    <div class="channel-info">
-                        <span class="channel-name">🎨｜Characters</span>
-                        <p>The gallery of original souls and detailed bios.</p>
-                    </div>
-                    <div class="channel-info">
-                        <span class="channel-name">👑｜Domination</span>
-                        <p>Power dynamics grounded in total mutual respect.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-image img-voice"></div>
-                <div class="card-content">
-                    <h2>Live & Voice</h2>
-                    <div class="channel-info">
-                        <span class="channel-name">🗣️｜Mic Chat</span>
-                        <p>Casual presence. Ambient noise and deep conversation.</p>
-                    </div>
-                    <div class="channel-info">
-                        <span class="channel-name">📺｜Streams</span>
-                        <p>Watch parties, shared cinema, and live reactions.</p>
-                    </div>
-                    <div class="channel-info">
-                        <span class="channel-name">💦｜X‑Stream</span>
-                        <p>Intense, mature-themed voice and stream sessions.</p>
-                    </div>
-                </div>
-            </div>
+            <p>Every stroke of ink in this community is built on the foundation of <strong>Consent, Respect, and Authenticity.</strong> We don't just chat; we build worlds. Whether through the lens of roleplay or the vulnerability of voice, we hold ourselves to a standard of maturity that honors the person behind the screen.</p>
+            
+            <p>This is not a space for everyone. It is a space for the thinkers, the creators, and the souls who understand that true liberation only exists where mutual respect is absolute. Own your behavior. Respect the ink.</p>
         </div>
 
-        <div style="text-align: center; margin-top: 60px; padding-bottom: 40px;">
-            <a href="index.html" style="color: #a78bfa; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; opacity: 0.7;">← RETURN TO HOME</a>
-        </div>
+        <a href="index.html" class="back-link">← RETURN TO HOME</a>
     </div>
 
     <script>
@@ -199,16 +114,6 @@
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
-
-        for (let i = 0; i < 15; i++) {
-            let drip = document.createElement('div');
-            drip.className = 'ink-drip';
-            drip.style.left = Math.random() * 100 + 'vw';
-            drip.style.height = Math.random() * 200 + 150 + 'px';
-            drip.style.animationDuration = Math.random() * 5 + 4 + 's';
-            drip.style.animationDelay = Math.random() * 5 + 's';
-            document.body.appendChild(drip);
-        }
     </script>
 </body>
 </html>

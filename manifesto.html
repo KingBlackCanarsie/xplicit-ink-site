@@ -3,76 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Manifesto | Xplicit Ink</title>
+    <title>Manifesto | The Xplicit Ink</title>
     <style>
         body, html {
             margin: 0; padding: 0; height: 100%;
-            background-color: #0a0a0f; /* Slightly lighter than pure black to see depth */
+            background-color: #050508;
             color: #dddde8; font-family: 'Georgia', serif;
             cursor: none; overflow: hidden;
         }
 
-        /* 1. BACKGROUND FIX */
+        /* 1. BACKGROUND IMAGE FIX */
         .full-bg {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            /* Try removing the gradient first to see if image appears */
-            background: linear-gradient(rgba(10, 10, 15, 0.7), rgba(10, 10, 15, 0.7)), url('manifesto.jpg');
-            background-size: cover; 
+            /* Using a lighter overlay to ensure you see the manifesto.jpg */
+            background: linear-gradient(rgba(5, 5, 8, 0.5), rgba(5, 5, 8, 0.7)), url('manifesto.jpg');
+            background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
             z-index: -1;
         }
 
         nav {
-            width: 100%; text-align: center; padding: 20px 0;
+            width: 100%; text-align: center; padding: 25px 0;
             background: rgba(11, 11, 18, 0.9); z-index: 100;
             border-bottom: 1px solid #4b3b8e55;
-            position: relative;
         }
-        nav a {
-            color: #a78bfa; margin: 0 15px; text-decoration: none;
-            font-size: 0.9rem; letter-spacing: 1px;
-        }
+        nav a { color: #a78bfa; margin: 0 15px; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; }
 
+        /* 2. SYMMETRY & TEXT STYLE */
         .container {
-            height: 80vh; display: flex; flex-direction: column;
+            height: 70vh; display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            text-align: center; padding: 0 40px;
+            text-align: center; padding: 0 20px;
         }
 
-        /* 2. SIMPLEST ANIMATIONS */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { text-shadow: 0 0 10px #a78bfa; opacity: 0.8; }
-            50% { text-shadow: 0 0 30px #a78bfa, 0 0 50px #6a32ff; opacity: 1; }
+        .text-box {
+            max-width: 850px; /* Forces lines to wrap similarly */
+            width: 100%;
         }
 
         .line {
-            max-width: 850px; font-size: 1.6rem; line-height: 1.6;
-            margin-bottom: 25px; font-style: italic; color: #d0c4ff;
-            opacity: 0; /* Hidden until animation starts */
-            animation: fadeIn 2s forwards;
+            font-size: 1.7rem; line-height: 1.8;
+            margin-bottom: 30px; font-style: italic; color: #d0c4ff;
+            opacity: 0; /* Hidden initially */
+            display: block;
         }
 
-        .line-1 { animation-delay: 1s; }
-        .line-2 { animation-delay: 4s; }
+        /* 3. THE "FADE IN & GLOW" ANIMATION */
+        @keyframes revealAndPulse {
+            0% { opacity: 0; text-shadow: 0 0 0px #a78bfa; transform: scale(0.98); }
+            20% { opacity: 1; text-shadow: 0 0 20px #a78bfa; transform: scale(1); }
+            50% { text-shadow: 0 0 40px #6a32ff, 0 0 60px #a78bfa; opacity: 1; }
+            100% { opacity: 0.8; text-shadow: 0 0 15px #a78bfa; }
+        }
+
+        @keyframes finalBreathe {
+            0%, 100% { opacity: 0.7; text-shadow: 0 0 10px #a78bfa; transform: scale(1); }
+            50% { opacity: 1; text-shadow: 0 0 35px #a78bfa, 0 0 55px #6a32ff; transform: scale(1.01); }
+        }
+
+        /* Staggered starts */
+        .line-1 { animation: revealAndPulse 4s forwards 1s, finalBreathe 4s infinite 10s; }
+        .line-2 { animation: revealAndPulse 4s forwards 4s, finalBreathe 4s infinite 10s; }
         .line-3 { 
-            animation-delay: 7s; 
-            font-weight: bold; 
-            font-size: 1.8rem; 
-            color: #ffffff;
+            animation: revealAndPulse 4s forwards 7s, finalBreathe 4s infinite 10s;
+            font-weight: bold; font-style: normal; color: #ffffff; font-size: 1.9rem;
         }
 
-        /* The soft pulse starts on everyone after the last one appears */
-        .pulse-active {
-            animation: pulseGlow 4s infinite ease-in-out !important;
-        }
-
+        /* 4. CURSOR */
         .ink-cursor {
             position: fixed; width: 20px; height: 20px; border-radius: 50%;
             background: radial-gradient(circle, #a78bfa, transparent);
@@ -82,7 +80,7 @@
         .back-link {
             position: absolute; bottom: 30px;
             color: #a78bfa; text-decoration: none; font-size: 0.8rem;
-            letter-spacing: 2px; opacity: 0.5;
+            letter-spacing: 2px; opacity: 0.5; transition: 0.3s;
         }
     </style>
 </head>
@@ -98,26 +96,12 @@
     </nav>
 
     <div class="container">
-        <div class="line line-1" id="l1">"The internet once united us, forging true friendships beyond screens."</div>
-        <div class="line line-2" id="l2">"Today, noise and fear cloud genuine connection, but here, the ink flows freely."</div>
-        <div class="line line-3" id="l3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
+        <div class="text-box">
+            <span class="line line-1">The internet once united us, forging true friendships beyond screens.</span>
+            <span class="line line-2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</span>
+            <span class="line line-3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</span>
+        </div>
         <a href="index.html" class="back-link">← RETURN TO HOME</a>
     </div>
 
     <script>
-        // Cursor
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        // Trigger the breathing glow once they've all revealed
-        setTimeout(() => {
-            document.getElementById('l1').classList.add('pulse-active');
-            document.getElementById('l2').classList.add('pulse-active');
-            document.getElementById('l3').classList.add('pulse-active');
-        }, 9000);
-    </script>
-</body>
-</html>

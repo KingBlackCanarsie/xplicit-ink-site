@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Manifesto | Xplicit Ink</title>
     <style>
+        /* 1. ATMOSPHERE */
         body, html {
             margin: 0; padding: 0; height: 100%;
             background-color: #050508;
@@ -12,18 +13,20 @@
             cursor: none; overflow: hidden;
         }
 
+        /* 2. THE BACKGROUND IMAGE */
         .full-bg {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(5, 5, 8, 0.75), rgba(5, 5, 8, 0.75)), url('./manifesto.jpg');
+            background-image: linear-gradient(rgba(5, 5, 8, 0.7), rgba(5, 5, 8, 0.7)), url('./manifesto.jpg');
             background-size: cover; background-position: center;
             z-index: -1;
         }
 
+        /* 3. NAVIGATION */
         nav {
             width: 100%; text-align: center; padding: 20px 0;
             background: rgba(11, 11, 18, 0.8); z-index: 100;
-            border-bottom: 1px solid #4b3b8e55;
+            border-bottom: 1px solid #4b3b8e55; position: relative;
         }
         nav a {
             color: #a78bfa; margin: 0 15px; text-decoration: none;
@@ -31,42 +34,41 @@
         }
         nav a:hover { color: #ffffff; text-shadow: 0 0 10px #a78bfa; }
 
+        /* 4. THE GLOWING CONTENT */
         .container {
-            height: 75vh; display: flex; flex-direction: column;
+            height: 80vh; display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            text-align: center; padding: 0 40px;
+            text-align: center; padding: 0 20px;
         }
 
-        /* Animation for the staggered entrance and soft breathing */
-        @keyframes fadeInGlow {
-            0% { opacity: 0; text-shadow: 0 0 0px #a78bfa; transform: translateY(10px); }
-            50% { opacity: 1; text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff; transform: translateY(0px); }
-            100% { opacity: 0.8; text-shadow: 0 0 10px #a78bfa; }
+        h1 {
+            font-size: 3.5rem; color: #d0c4ff;
+            text-transform: uppercase; letter-spacing: 8px;
+            margin-bottom: 20px;
+            animation: glow 4s ease-in-out infinite;
         }
 
-        @keyframes breathe {
-            0%, 100% { opacity: 0.7; text-shadow: 0 0 10px #a78bfa; }
-            50% { opacity: 1; text-shadow: 0 0 25px #a78bfa, 0 0 45px #6a32ff; }
+        .manifesto-text {
+            max-width: 700px; font-size: 1.4rem; line-height: 1.8;
+            font-style: italic; color: #c6b8ff;
+            animation: glow 4s ease-in-out infinite;
+            animation-delay: 1s; /* staggers the glow */
         }
 
-        .line {
-            max-width: 900px; font-size: 1.6rem; line-height: 1.6;
-            margin-bottom: 25px; font-style: italic; color: #d0c4ff;
-            opacity: 0; /* Start hidden */
-            animation: fadeInGlow 3s forwards, breathe 4s infinite 9s; 
+        /* 5. THE GLOW ANIMATION */
+        @keyframes glow {
+            0%, 100% { 
+                text-shadow: 0 0 5px #a78bfa, 0 0 10px #a78bfa;
+                opacity: 0.6;
+            }
+            50% { 
+                text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff, 0 0 60px #6a32ff;
+                opacity: 1;
+                transform: scale(1.02);
+            }
         }
 
-        /* Timing: Line 1 starts, then Line 2 at 3s, then Line 3 at 6s */
-        .line-1 { animation-delay: 1s, 9s; }
-        .line-2 { animation-delay: 4s, 9s; }
-        .line-3 { 
-            animation-delay: 7s, 9s; 
-            font-weight: bold; 
-            font-size: 1.8rem; 
-            color: #ffffff; 
-            margin-top: 20px;
-        }
-
+        /* 6. CURSOR & FOOTER */
         .ink-cursor {
             position: fixed; width: 20px; height: 20px; border-radius: 50%;
             background: radial-gradient(circle, #a78bfa, transparent);
@@ -76,7 +78,7 @@
         .back-link {
             position: absolute; bottom: 40px;
             color: #a78bfa; text-decoration: none; font-size: 0.8rem;
-            letter-spacing: 2px; opacity: 0.4; transition: 0.3s;
+            letter-spacing: 2px; opacity: 0.5; transition: 0.3s;
         }
         .back-link:hover { opacity: 1; text-shadow: 0 0 10px #a78bfa; }
     </style>
@@ -93,9 +95,12 @@
     </nav>
 
     <div class="container">
-        <div class="line line-1">"The internet once united us, forging true friendships beyond screens."</div>
-        <div class="line line-2">"Today, noise and fear cloud genuine connection, but here, the ink flows freely."</div>
-        <div class="line line-3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
+        <h1>The Manifesto</h1>
+        <div class="manifesto-text">
+            <p>"Intensity requires safety. Freedom requires boundaries."</p>
+            <p>Every stroke of ink is built on Consent, Respect, and Authenticity.</p>
+            <p>We don't just chat. We build worlds.</p>
+        </div>
 
         <a href="index.html" class="back-link">← RETURN TO HOME</a>
     </div>

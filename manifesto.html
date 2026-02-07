@@ -34,36 +34,28 @@
             text-align: center; padding: 0 60px;
         }
 
-        /* ONE CONTINUOUS TIMELINE: 
-           0-20%: Slow Reveal from 0 to 95
-           20-60%: Breathe down to 65
-           60-100%: Breathe up to 95 and repeat
-        */
-        @keyframes steadyPulse {
-            0% { 
-                opacity: 0; 
-                color: #4b3b8e;
-                text-shadow: 0 0 0px transparent;
-            }
-            20% { 
+        /* 1. THE REVEAL: Runs only ONCE per line */
+        @keyframes revealOnce {
+            0% { opacity: 0; transform: translateY(5px); }
+            100% { opacity: 0.95; transform: translateY(0); }
+        }
+
+        /* 2. THE PERMANENT PULSE: Never touches 0% */
+        @keyframes stayAlive {
+            0%, 100% { 
                 opacity: 0.95; 
                 color: #ffffff;
                 text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff;
             }
-            60% { 
-                opacity: 0.65; 
-                color: #bf94ff; /* Purple hue shift */
+            50% { 
+                opacity: 0.65; /* THE FLOOR: Never goes lower than this */
+                color: #bf94ff; /* PURPLE HUE SHIFT */
                 text-shadow: 0 0 15px #a78bfa;
-            }
-            100% { 
-                opacity: 0.95; 
-                color: #ffffff;
-                text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff;
             }
         }
 
         .manifesto-text {
-            /* Forced Uniformity */
+            /* TOTAL UNIFORMITY: Every character is identical */
             font-size: 1.65rem !important;
             font-weight: normal !important;
             font-style: italic !important;
@@ -73,13 +65,16 @@
 
         .line {
             margin-bottom: 50px;
-            opacity: 0; /* Hidden before delay */
-            /* 15s loop: Very slow and steady. 
-               The 'forwards' ensures it doesn't vanish if the loop hits an edge. */
-            animation: steadyPulse 15s infinite ease-in-out;
+            opacity: 0;
+            /* Applies the reveal first. 'forwards' keeps it visible at the end. */
+            animation: revealOnce 6s ease-out forwards;
         }
 
-        /* Staggered starts for reading effect */
+        /* We apply this via JS after the reveal to prevent the "reset" blink */
+        .permanent-pulse {
+            animation: stayAlive 12s infinite ease-in-out !important;
+        }
+
         .line-1 { animation-delay: 1s; }
         .line-2 { animation-delay: 5s; }
         .line-3 { animation-delay: 9s; }
@@ -106,9 +101,9 @@
 
     <div class="container">
         <div class="manifesto-text">
-            <div class="line line-1">The internet once united us, forging true friendships beyond screens.</div>
-            <div class="line line-2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
-            <div class="line line-3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
+            <div class="line line-1" id="l1">The internet once united us, forging true friendships beyond screens.</div>
+            <div class="line line-2" id="l2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
+            <div class="line line-3" id="l3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
         </div>
         <a href="index.html" class="back-link">← RETURN TO HOME</a>
     </div>
@@ -119,6 +114,14 @@
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
+
+        /* THE BLINK KILLER: 
+           We wait for the 6-second reveal + the delay to finish, 
+           THEN start the pulse. It will start at 95% and go down to 65%.
+        */
+        setTimeout(() => { document.getElementById('l1').classList.add('permanent-pulse'); }, 7000);
+        setTimeout(() => { document.getElementById('l2').classList.add('permanent-pulse'); }, 11000);
+        setTimeout(() => { document.getElementById('l3').classList.add('permanent-pulse'); }, 15000);
     </script>
 </body>
 </html>

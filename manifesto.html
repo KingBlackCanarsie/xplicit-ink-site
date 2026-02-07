@@ -34,28 +34,20 @@
             text-align: center; padding: 0 60px;
         }
 
-        /* 1. THE REVEAL: Runs only ONCE per line */
-        @keyframes revealOnce {
-            0% { opacity: 0; transform: translateY(5px); }
-            100% { opacity: 0.95; transform: translateY(0); }
+        /* 1. THE REVEAL: Fades 0 to 95 and stops there */
+        @keyframes reveal {
+            from { opacity: 0; }
+            to { opacity: 0.95; }
         }
 
-        /* 2. THE PERMANENT PULSE: Never touches 0% */
-        @keyframes stayAlive {
-            0%, 100% { 
-                opacity: 0.95; 
-                color: #ffffff;
-                text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff;
-            }
-            50% { 
-                opacity: 0.65; /* THE FLOOR: Never goes lower than this */
-                color: #bf94ff; /* PURPLE HUE SHIFT */
-                text-shadow: 0 0 15px #a78bfa;
-            }
+        /* 2. THE LOOP: Strictly 95 -> 65 -> 95. No zeros allowed. */
+        @keyframes breath {
+            0%, 100% { opacity: 0.95; color: #ffffff; text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff; }
+            50% { opacity: 0.65; color: #bf94ff; text-shadow: 0 0 15px #a78bfa; }
         }
 
         .manifesto-text {
-            /* TOTAL UNIFORMITY: Every character is identical */
+            /* Forced Uniformity */
             font-size: 1.65rem !important;
             font-weight: normal !important;
             font-style: italic !important;
@@ -66,18 +58,19 @@
         .line {
             margin-bottom: 50px;
             opacity: 0;
-            /* Applies the reveal first. 'forwards' keeps it visible at the end. */
-            animation: revealOnce 6s ease-out forwards;
+            /* THE TRICK: Apply both animations separated by a comma.
+               The second animation (breath) has a "waiting period" (delay) 
+               so it only starts after the reveal is finished.
+            */
+            animation: 
+                reveal 6s ease-out forwards, 
+                breath 12s infinite ease-in-out 6s; /* The 6s at the end is the 'wait' */
         }
 
-        /* We apply this via JS after the reveal to prevent the "reset" blink */
-        .permanent-pulse {
-            animation: stayAlive 12s infinite ease-in-out !important;
-        }
-
-        .line-1 { animation-delay: 1s; }
-        .line-2 { animation-delay: 5s; }
-        .line-3 { animation-delay: 9s; }
+        /* Standard staggered delays for the reveal */
+        .line-1 { animation-delay: 1s, 7s; } /* 1s to start reveal, 7s (1+6) to start breath */
+        .line-2 { animation-delay: 4s, 10s; }
+        .line-3 { animation-delay: 7s, 13s; }
 
         .ink-cursor {
             position: fixed; width: 20px; height: 20px; border-radius: 50%;
@@ -101,9 +94,9 @@
 
     <div class="container">
         <div class="manifesto-text">
-            <div class="line line-1" id="l1">The internet once united us, forging true friendships beyond screens.</div>
-            <div class="line line-2" id="l2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
-            <div class="line line-3" id="l3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
+            <div class="line line-1">The internet once united us, forging true friendships beyond screens.</div>
+            <div class="line line-2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
+            <div class="line line-3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
         </div>
         <a href="index.html" class="back-link">← RETURN TO HOME</a>
     </div>
@@ -114,14 +107,6 @@
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
-
-        /* THE BLINK KILLER: 
-           We wait for the 6-second reveal + the delay to finish, 
-           THEN start the pulse. It will start at 95% and go down to 65%.
-        */
-        setTimeout(() => { document.getElementById('l1').classList.add('permanent-pulse'); }, 7000);
-        setTimeout(() => { document.getElementById('l2').classList.add('permanent-pulse'); }, 11000);
-        setTimeout(() => { document.getElementById('l3').classList.add('permanent-pulse'); }, 15000);
     </script>
 </body>
 </html>

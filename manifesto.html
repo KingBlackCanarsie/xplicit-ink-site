@@ -16,7 +16,7 @@
         .full-bg {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(rgba(5, 5, 8, 0.65), rgba(5, 5, 8, 0.8)), url('manifesto.jpg');
+            background: linear-gradient(rgba(5, 5, 8, 0.6), rgba(5, 5, 8, 0.8)), url('manifesto.jpg');
             background-size: cover; background-position: center;
             z-index: -1;
         }
@@ -34,51 +34,46 @@
             text-align: center; padding: 0 40px;
         }
 
-        /* THE "ALIVE" BREATHING ANIMATION */
-        @keyframes livingInk {
+        /* THE SPECIFIC PULSE: 10% -> 75% -> 50% -> 75% */
+        @keyframes customPulse {
             0% { 
-                opacity: 0; 
-                text-shadow: 0 0 0px transparent;
-                color: #444;
+                opacity: 0.1; /* 10% Visibility */
+                text-shadow: 0 0 5px #a78bfa;
+                color: #4b3b8e;
             }
-            25% { 
-                opacity: 1; 
-                text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff; 
-                color: #bf94ff; /* Peak Purple */
+            33% { 
+                opacity: 0.75; /* 75% Visibility */
+                text-shadow: 0 0 25px #a78bfa, 0 0 45px #6a32ff; 
+                color: #bf94ff; 
             }
-            50% { 
-                opacity: 0.4; /* Fades back to halfway visible */
-                text-shadow: 0 0 10px #a78bfa;
-                color: #d0c4ff;
-            }
-            75% { 
-                opacity: 1; 
-                text-shadow: 0 0 30px #a78bfa, 0 0 60px #6a32ff; 
-                color: #ffffff; /* Peak Brightness */
-            }
-            100% { 
-                opacity: 0.5; /* Back to halfway */
+            66% { 
+                opacity: 0.5; /* 50% Visibility */
                 text-shadow: 0 0 15px #a78bfa;
                 color: #d0c4ff;
+            }
+            100% { 
+                opacity: 0.75; /* Back to 75% Visibility */
+                text-shadow: 0 0 25px #a78bfa, 0 0 45px #6a32ff; 
+                color: #ffffff;
             }
         }
 
         .line {
-            max-width: 900px;
-            /* Uniform font size for all letters as requested */
-            font-size: 1.75rem; 
+            max-width: 850px;
+            font-size: 1.7rem; /* Exact same size for every line */
             line-height: 1.8;
             margin-bottom: 40px;
             font-style: italic;
+            font-weight: normal; /* Removes bold from the last line */
             opacity: 0;
-            /* Infinite loop makes it stay "alive" */
-            animation: livingInk 8s infinite ease-in-out;
+            /* Infinite loop with a slow 10-second breath */
+            animation: customPulse 10s infinite ease-in-out;
         }
 
-        /* Staggered entrance so they don't all pulse at the exact same time */
+        /* Staggered starts to create the "reading" effect */
         .line-1 { animation-delay: 1s; }
-        .line-2 { animation-delay: 3s; }
-        .line-3 { animation-delay: 5s; font-weight: bold; font-style: normal; }
+        .line-2 { animation-delay: 4s; }
+        .line-3 { animation-delay: 7s; }
 
         .ink-cursor {
             position: fixed; width: 20px; height: 20px; border-radius: 50%;
@@ -87,7 +82,6 @@
         }
 
         .back-link { margin-top: 50px; color: #a78bfa; opacity: 0.4; text-decoration: none; font-size: 0.8rem; }
-        .back-link:hover { opacity: 1; text-shadow: 0 0 10px #a78bfa; }
     </style>
 </head>
 <body>

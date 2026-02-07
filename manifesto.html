@@ -34,29 +34,20 @@
             text-align: center; padding: 0 60px;
         }
 
-        /* 1. THE REVEAL: Only runs once per line */
-        @keyframes reveal {
-            0% { opacity: 0; transform: translateY(5px); }
-            100% { opacity: 0.95; transform: translateY(0); }
+        /* 1. THE REVEAL: Fades in and STAYS at 95% (forwards) */
+        @keyframes revealOnly {
+            0% { opacity: 0; }
+            100% { opacity: 0.95; }
         }
 
-        /* 2. THE PERMANENT LOOP: Only moves between 65% and 95% */
-        @keyframes livingGlow {
-            0%, 100% { 
-                opacity: 0.95; 
-                color: #ffffff; 
-                /* Heavy Neon Purple Glow */
-                text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff, 0 0 60px #a78bfa; 
-            }
-            50% { 
-                opacity: 0.65; /* The floor - it never goes lower than this */
-                color: #bf94ff; 
-                text-shadow: 0 0 15px #a78bfa, 0 0 30px #a78bfa;
-            }
+        /* 2. THE LOOP: Strictly between 65% and 95% */
+        @keyframes breathLoop {
+            0% { opacity: 0.95; color: #ffffff; text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff; }
+            50% { opacity: 0.65; color: #bf94ff; text-shadow: 0 0 15px #a78bfa, 0 0 30px #a78bfa; }
+            100% { opacity: 0.95; color: #ffffff; text-shadow: 0 0 20px #a78bfa, 0 0 40px #6a32ff; }
         }
 
         .manifesto-text {
-            /* Forced Uniformity for all 3 lines */
             font-size: 1.65rem !important;
             font-weight: normal !important;
             font-style: italic !important;
@@ -66,14 +57,16 @@
 
         .line {
             margin-bottom: 50px;
-            opacity: 0;
-            /* Initial reveal takes 6 seconds */
-            animation: reveal 6s forwards;
+            opacity: 0; /* Starts hidden */
+            /* This animation runs once and stays at 95% opacity */
+            animation: revealOnly 6s ease-out forwards;
         }
 
-        /* This class is injected by JS to start the 65-95 pulse */
-        .glow-loop {
-            animation: livingGlow 10s infinite ease-in-out !important;
+        /* This is the loop that we add later. 
+           The 'forwards' from the first animation keeps it visible 
+           until this one takes over. */
+        .pulse-now {
+            animation: breathLoop 10s infinite ease-in-out !important;
         }
 
         .line-1 { animation-delay: 1s; }
@@ -106,7 +99,6 @@
             <div class="line line-2" id="l2">Today, noise and fear cloud genuine connection, but here, the ink flows freely.</div>
             <div class="line line-3" id="l3">Join The Xplicit Ink — where voices are real, and the community is unshackled.</div>
         </div>
-        
         <a href="index.html" class="back-link">← RETURN TO HOME</a>
     </div>
 
@@ -117,14 +109,11 @@
             cursor.style.top = e.clientY + 'px';
         });
 
-        /* Crucial Fix: After 15 seconds (when all lines are revealed), 
-           we switch them to the 'livingGlow' loop which never touches 0% opacity.
-        */
-        setTimeout(() => {
-            document.getElementById('l1').classList.add('glow-loop');
-            document.getElementById('l2').classList.add('glow-loop');
-            document.getElementById('l3').classList.add('glow-loop');
-        }, 15000);
+        /* The Fix: We wait for the 'revealOnly' animation to finish completely 
+           before swapping in the infinite loop. This prevents the 'blink'. */
+        setTimeout(() => { document.getElementById('l1').classList.add('pulse-now'); }, 7000);
+        setTimeout(() => { document.getElementById('l2').classList.add('pulse-now'); }, 11000);
+        setTimeout(() => { document.getElementById('l3').classList.add('pulse-now'); }, 15000);
     </script>
 </body>
 </html>

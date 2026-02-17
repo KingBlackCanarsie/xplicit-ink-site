@@ -4,12 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Xplicit Ink</title>
+
   <style>
     /* 1. THE ATMOSPHERE */
     body, html {
       margin: 0; padding: 0;
       height: 100%;
-      background-color: #0b0a0f; /* Deep dark base */
+      background-color: #0b0a0f;
       background-image: url('./ink-background.svg');
       background-position: center;
       background-size: cover;
@@ -22,9 +23,40 @@
       cursor: none;
     }
 
+    /* ⭐ TOP NAVIGATION BAR (RESTORED) */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 0;
+      text-align: center;
+      background: rgba(5, 5, 15, 0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(167, 139, 250, 0.35);
+      z-index: 50;
+    }
+
+    nav a {
+      margin: 0 20px;
+      color: #a78bfa;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+      opacity: 1;
+      text-shadow: 0 0 10px #a78bfa;
+    }
+
     .content-wrapper {
       text-align: center;
       z-index: 10;
+      margin-top: 80px; /* Prevent overlap with nav */
     }
 
     /* 2. THE GLOWING TITLE */
@@ -48,7 +80,7 @@
       opacity: 0.8;
     }
 
-    /* 3. THE BUTTON (Matching your screenshot) */
+    /* 3. THE BUTTON */
     .enter-button {
       display: inline-block;
       padding: 1rem 3.5rem;
@@ -59,7 +91,7 @@
       background: #5b3cb9;
       border: 2px solid #a78bfa;
       border-radius: 12px;
-      box-shadow: 0 0 25px #a78bfa; /* The Glow */
+      box-shadow: 0 0 25px #a78bfa;
       transition: all 0.3s ease;
     }
 
@@ -77,7 +109,7 @@
       opacity: 0.7;
     }
 
-    /* 4. THE INK DRIPS (Vertical lines from your photo) */
+    /* 4. THE INK DRIPS */
     .ink-drip {
       position: fixed;
       width: 2px;
@@ -93,6 +125,7 @@
       100% { transform: translateY(100vh); opacity: 0; }
     }
 
+    /* 5. CUSTOM CURSOR */
     .ink-cursor {
       position: fixed;
       width: 20px;
@@ -104,7 +137,16 @@
     }
   </style>
 </head>
+
 <body>
+
+  <!-- ⭐ RESTORED NAVIGATION BAR -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="community.html">Community</a>
+    <a href="rules-and-safety.html">Rules</a>
+    <a href="manifesto.html">Manifesto</a>
+  </nav>
 
   <div class="ink-cursor" id="cursor"></div>
 
@@ -134,5 +176,6 @@
       cursor.style.top = e.clientY + 'px';
     });
   </script>
+
 </body>
 </html>

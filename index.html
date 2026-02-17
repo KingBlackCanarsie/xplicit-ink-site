@@ -1,146 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Xplicit Ink</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Xplicit Ink</title>
+  <style>
+    /* 1. THE ATMOSPHERE */
+    body, html {
+      margin: 0; padding: 0;
+      height: 100%;
+      background-color: #0b0a0f; /* Deep dark base */
+      background-image: url('./ink-background.svg');
+      background-position: center;
+      background-size: cover;
+      font-family: 'Georgia', serif;
+      color: #dddde8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      cursor: none;
+    }
 
-<style>
-/* Base */
-body {
-    margin: 0;
-    padding: 0;
-    background: #1e1f22;
-    font-family: "Inter", system-ui, sans-serif;
-    color: #f2f3f5;
-}
+    .content-wrapper {
+      text-align: center;
+      z-index: 10;
+    }
 
-/* Header */
-.header {
-    background: #2b2d31;
-    padding: 14px 20px;
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid #1a1b1d;
-}
-.header-inner {
-    width: 100%;
-    max-width: 1100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.brand {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #ffffff;
-}
-.nav a {
-    margin-left: 20px;
-    color: #b5bac1;
-    text-decoration: none;
-    font-size: 0.95rem;
-}
-.nav a:hover {
-    color: #ffffff;
-}
+    /* 2. THE GLOWING TITLE */
+    h1 {
+      font-size: 5rem;
+      margin: 0;
+      color: #c6b8ff;
+      letter-spacing: 2px;
+      text-shadow: 
+        0 0 10px #a78bfa,
+        0 0 20px #6a32ff,
+        0 0 40px #6a32ff;
+      font-weight: bold;
+    }
 
-/* Main */
-.main {
-    max-width: 1100px;
-    margin: 60px auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: center;
-}
+    p.subtitle {
+      font-size: 1.4rem;
+      font-style: italic;
+      color: #aaa9c7;
+      margin: 1.5rem 0 3rem 0;
+      opacity: 0.8;
+    }
 
-/* Hero Card */
-.hero-card {
-    background: #313338;
-    width: 100%;
-    max-width: 480px;
-    padding: 32px;
-    border-radius: 12px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-    text-align: center;
-}
-.hero-title {
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: 10px;
-}
-.hero-subtitle {
-    font-size: 1rem;
-    color: #b5bac1;
-    margin-bottom: 24px;
-}
+    /* 3. THE BUTTON (Matching your screenshot) */
+    .enter-button {
+      display: inline-block;
+      padding: 1rem 3.5rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      background: #5b3cb9;
+      border: 2px solid #a78bfa;
+      border-radius: 12px;
+      box-shadow: 0 0 25px #a78bfa; /* The Glow */
+      transition: all 0.3s ease;
+    }
 
-/* Buttons */
-.btn {
-    display: block;
-    width: 100%;
-    padding: 12px 0;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    margin-bottom: 12px;
-}
-.btn-primary {
-    background: #5865f2;
-    color: #ffffff;
-}
-.btn-primary:hover {
-    background: #4752c4;
-}
-.btn-secondary {
-    background: #4e5058;
-    color: #ffffff;
-}
-.btn-secondary:hover {
-    background: #3c3e44;
-}
+    .enter-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px #c6b8ff;
+    }
 
-/* Footer */
-.footer {
-    text-align: center;
-    margin-top: 60px;
-    padding-bottom: 40px;
-    font-size: 0.8rem;
-    color: #8e9297;
-}
-</style>
+    .manifesto-link {
+      display: block;
+      margin-top: 2rem;
+      color: #a78bfa;
+      text-decoration: underline;
+      font-size: 1rem;
+      opacity: 0.7;
+    }
+
+    /* 4. THE INK DRIPS (Vertical lines from your photo) */
+    .ink-drip {
+      position: fixed;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
+      box-shadow: 0 0 8px #a78bfa;
+      z-index: 1;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100vh); opacity: 0; }
+      50% { opacity: 0.5; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    .ink-cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, #a78bfa, transparent);
+      pointer-events: none;
+      z-index: 100;
+      transform: translate(-50%, -50%);
+    }
+  </style>
 </head>
-
 <body>
 
-<header class="header">
-    <div class="header-inner">
-        <div class="brand">Xplicit Ink</div>
-        <nav class="nav">
-            <a href="/index.html">Home</a>
-            <a href="/community.html">Community</a>
-            <a href="/rules-and-safety.html">Rules</a>
-            <a href="/manifesto.html">Manifesto</a>
-        </nav>
-    </div>
-</header>
+  <div class="ink-cursor" id="cursor"></div>
 
-<main class="main">
-    <div class="hero-card">
-        <h1 class="hero-title">Welcome to Xplicit Ink</h1>
-        <p class="hero-subtitle">
-            A focused, adult‑friendly community built for conversation, connection, and controlled chaos.
-        </p>
+  <div class="content-wrapper">
+    <h1>The Xplicit Ink</h1>
+    <p class="subtitle">A quiet gathering for people who miss when the internet felt human.</p>
+    <a href="https://discord.gg/RGwnBbnzgA" class="enter-button">Enter the Ink</a>
+    <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
+  </div>
 
-        <a href="/community.html" class="btn btn-primary">Enter Community</a>
-        <a href="/rules-and-safety.html" class="btn btn-secondary">Rules & Safety</a>
-    </div>
-</main>
+  <script>
+    // Create the vertical drip lines
+    for (let i = 0; i < 15; i++) {
+      let drip = document.createElement('div');
+      drip.className = 'ink-drip';
+      drip.style.left = Math.random() * 100 + 'vw';
+      drip.style.height = Math.random() * 200 + 100 + 'px';
+      drip.style.animationDuration = Math.random() * 3 + 2 + 's';
+      drip.style.animationDelay = Math.random() * 5 + 's';
+      document.body.appendChild(drip);
+    }
 
-<footer class="footer">
-    Xplicit Ink • Simple. Clean. Intentional.
-</footer>
-
+    // Cursor Follow
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+  </script>
 </body>
 </html>

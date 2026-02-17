@@ -1,682 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rules & Safety | Xplicit Ink</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rules & Safety • Xplicit Ink</title>
 
-    <style>
-        /* ===== RESET ===== */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: radial-gradient(circle at top, #120b2a, #05030a 50%, #020108);
-            color: #e5e7eb;
-            font-family: Georgia, serif;
-            overflow-x: hidden;
-            cursor: none;
-        }
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: #1e1f22;
+    font-family: "Inter", system-ui, sans-serif;
+    color: #f2f3f5;
+}
 
-        /* ===== BACKGROUND LAYERS (Optimized A2 Neutral) ===== */
-        .bg-layer { position: fixed; inset: 0; pointer-events: none; }
+/* Header */
+.header {
+    background: #2b2d31;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #1a1b1d;
+}
+.header-inner {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+.nav a {
+    margin-left: 20px;
+    color: #b5bac1;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+.nav a:hover {
+    color: #ffffff;
+}
 
-        .nebula {
-            background:
-                radial-gradient(circle at 20% 30%, rgba(148,163,184,0.18), transparent 55%),
-                radial-gradient(circle at 80% 70%, rgba(167,139,250,0.16), transparent 60%);
-            mix-blend-mode: screen;
-            animation: nebulaDrift 60s linear infinite alternate;
-        }
-        @keyframes nebulaDrift {
-            from { transform: translateX(-20px); }
-            to   { transform: translateX(20px); }
-        }
+/* Page */
+.page {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+.page-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+.page-subtitle {
+    font-size: 1rem;
+    color: #b5bac1;
+    margin-bottom: 30px;
+}
 
-        .aurora {
-            background:
-                radial-gradient(circle at 10% 0%, rgba(167,139,250,0.25), transparent 55%),
-                radial-gradient(circle at 90% 0%, rgba(96,165,250,0.22), transparent 55%);
-            opacity: .45;
-            mix-blend-mode: screen;
-        }
+/* Rule Card */
+.rule-card {
+    background: #313338;
+    padding: 22px 24px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #1f2023;
+}
+.rule-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.rule-text {
+    font-size: 0.95rem;
+    color: #d0d2d6;
+    line-height: 1.5;
+}
 
-        .fog {
-            background:
-                radial-gradient(circle at 20% 80%, rgba(148,163,184,0.18), transparent 60%),
-                radial-gradient(circle at 80% 60%, rgba(148,163,184,0.16), transparent 60%);
-            filter: blur(18px);
-            opacity: .45;
-        }
+/* Back Button */
+.back-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 22px;
+    border-radius: 6px;
+    background: #5865f2;
+    color: #ffffff;
+    font-weight: 600;
+    text-decoration: none;
+}
+.back-btn:hover {
+    background: #4752c4;
+}
 
-        .smoke {
-            background:
-                radial-gradient(circle at 30% 90%, rgba(15,23,42,0.5), transparent 60%),
-                radial-gradient(circle at 70% 10%, rgba(15,23,42,0.45), transparent 60%);
-            opacity: .35;
-            animation: smokeDrift 80s linear infinite alternate;
-        }
-        @keyframes smokeDrift {
-            from { transform: translateY(10px); }
-            to   { transform: translateY(-10px); }
-        }
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-bottom: 40px;
+    font-size: 0.8rem;
+    color: #8e9297;
+}
+</style>
+</head>
 
-        .ink {
-            background-image: url('./ink-texture.png');
-            background-size: cover;
-            opacity: .15;
-            mix-blend-mode: soft-light;
-        }
-
-        .vignette {
-            background: radial-gradient(circle, transparent 55%, rgba(0,0,0,0.65));
-        }
-
-        .grain {
-            background-image: url('./film-grain.png');
-            background-size: cover;
-            opacity: .12;
-            mix-blend-mode: soft-light;
-        }
-
-        .ambient {
-            background: radial-gradient(circle at 50% 110%, rgba(129,140,248,0.25), transparent 60%);
-            animation: ambientPulse 18s ease-in-out infinite alternate;
-        }
-        @keyframes ambientPulse {
-            from { opacity: .25; }
-            to   { opacity: .45; }
-        }
-
-        /* ===== NAV ===== */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            background: rgba(5,5,15,0.92);
-            border-bottom: 1px solid rgba(167,139,250,0.35);
-            backdrop-filter: blur(18px);
-            padding: 16px 0;
-            text-align: center;
-            transition: .3s ease;
-        }
-        nav.shrunk { padding: 8px 0; background: rgba(5,5,15,0.98); }
-        nav a {
-            margin: 0 18px;
-            font-size: .9rem;
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            color: #a78bfa;
-            opacity: .85;
-            transition: .3s;
-        }
-        nav a:hover { color: #fff; opacity: 1; text-shadow: 0 0 10px #a78bfa; }
-
-        /* ===== SIDEBAR ===== */
-        .sidebar-nav {
-            position: fixed;
-            right: 20px;
-            top: 120px;
-            z-index: 25;
-            background: rgba(15,23,42,0.9);
-            border-radius: 999px;
-            padding: 10px 14px;
-            border: 1px solid rgba(129,140,248,0.5);
-            backdrop-filter: blur(16px);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .sidebar-nav button {
-            background: none;
-            border: none;
-            color: #c7d2fe;
-            font-size: .7rem;
-            letter-spacing: .16em;
-            text-transform: uppercase;
-            cursor: pointer;
-            opacity: .8;
-            transition: .2s;
-        }
-        .sidebar-nav button:hover { opacity: 1; transform: translateX(-2px); }
-
-        /* ===== MINI MAP ===== */
-        .mini-map {
-            position: fixed;
-            right: 20px;
-            bottom: 120px;
-            width: 6px;
-            height: 160px;
-            border-radius: 999px;
-            background: rgba(15,23,42,0.9);
-            border: 1px solid rgba(129,140,248,0.5);
-            z-index: 25;
-            overflow: hidden;
-        }
-        .mini-map-thumb {
-            width: 100%;
-            height: 40px;
-            border-radius: 999px;
-            background: linear-gradient(to top, #a855f7, #38bdf8);
-            transition: .2s linear;
-        }
-
-        /* ===== SCROLL ORB ===== */
-        .scroll-orb {
-            position: fixed;
-            left: 20px;
-            bottom: 40px;
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #a78bfa, #4c1d95);
-            box-shadow: 0 0 18px rgba(167,139,250,0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #f9fafb;
-            font-size: 1.2rem;
-            cursor: pointer;
-            z-index: 25;
-            opacity: 0;
-            pointer-events: none;
-            transition: .3s;
-        }
-        .scroll-orb.visible { opacity: 1; pointer-events: auto; }
-
-        /* ===== PAGE STRUCTURE ===== */
-        .container {
-            max-width: 1100px;
-            margin: 60px auto 80px;
-            padding: 0 20px 40px;
-            position: relative;
-            z-index: 15;
-        }
-
-        h1 {
-            font-size: 3.4rem;
-            text-align: center;
-            color: #e5ddff;
-            text-shadow: 0 0 18px rgba(167,139,250,0.9);
-            letter-spacing: .22em;
-            text-transform: uppercase;
-        }
-
-        .glitch-title { position: relative; display: inline-block; }
-        .glitch-title::before,
-        .glitch-title::after {
-            content: attr(data-text);
-            position: absolute;
-            left: 0; top: 0;
-            opacity: 0;
-            mix-blend-mode: screen;
-        }
-        .glitch-title::before { color: #38bdf8; transform: translateX(-2px); }
-        .glitch-title::after  { color: #f97316; transform: translateX(2px); }
-
-        /* ===== RULE CARDS ===== */
-        .rules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px,1fr));
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .rule-card {
-            background: radial-gradient(circle at top, rgba(24,16,48,0.95), rgba(10,8,20,0.96));
-            border-radius: 18px;
-            border: 1px solid rgba(76,81,191,0.45);
-            box-shadow: 0 18px 40px rgba(15,23,42,0.9);
-            backdrop-filter: blur(18px);
-            transition: .4s;
-        }
-        .rule-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(196,181,253,0.9);
-            box-shadow: 0 22px 55px rgba(15,23,42,0.95);
-        }
-
-        .rule-image {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-            filter: brightness(1.2) contrast(1.1);
-            border-bottom: 1px solid rgba(76,81,191,0.6);
-        }
-
-        .rule-content { padding: 26px; }
-        .rule-content h2 {
-            margin-bottom: 12px;
-            color: #e0d4ff;
-            font-size: 1.6rem;
-            text-shadow: 0 0 14px rgba(129,140,248,0.9);
-            letter-spacing: .12em;
-            text-transform: uppercase;
-        }
-        .rule-text { line-height: 1.6; opacity: .85; font-size: .95rem; }
-
-        .expand-toggle {
-            font-size: .75rem;
-            letter-spacing: .16em;
-            text-transform: uppercase;
-            opacity: .7;
-            cursor: pointer;
-            margin-top: 14px;
-        }
-        .expand-toggle:hover { opacity: 1; }
-
-        .expandable {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: .4s;
-        }
-        .expandable.open {
-            max-height: 500px;
-            opacity: 1;
-        }
-
-        /* ===== CURSOR + SPOTLIGHT ===== */
-        .ink-cursor {
-            position: fixed;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #a78bfa, transparent);
-            pointer-events: none;
-            z-index: 30;
-            transform: translate(-50%, -50%);
-        }
-
-        .spotlight {
-            position: fixed;
-            width: 260px;
-            height: 260px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 12;
-            background: radial-gradient(circle, rgba(255,255,255,0.16), transparent 65%);
-            mix-blend-mode: soft-light;
-            transform: translate(-50%, -50%);
-        }
-
-        .particle-layer { position: fixed; inset: 0; z-index: 6; pointer-events: none; }
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            background: rgba(226,232,240,0.8);
-            opacity: .7;
-        }
-
-        .footer-line {
-            text-align: center;
-            margin-top: 60px;
-            font-size: .95rem;
-            opacity: .7;
-            letter-spacing: .18em;
-            text-transform: uppercase;
-        }
-
-        .footer-glow {
-            position: fixed;
-            left: 0; right: 0; bottom: 0;
-            height: 6px;
-            background: linear-gradient(to right, #a855f7, #38bdf8, #f97316);
-            opacity: .4;
-            z-index: 24;
-            transform: scaleX(.4);
-            transition: .3s;
-        }
-    </style>
 <body>
 
-    <!-- BACKGROUND LAYERS -->
-    <div class="bg-layer nebula"></div>
-    <div class="bg-layer aurora"></div>
-    <div class="bg-layer fog"></div>
-    <div class="bg-layer smoke"></div>
-    <div class="bg-layer ink"></div>
-    <div class="bg-layer vignette"></div>
-    <div class="bg-layer grain"></div>
-    <div class="bg-layer ambient"></div>
+<header class="header">
+    <div class="header-inner">
+        <div class="brand">Xplicit Ink</div>
+        <nav class="nav">
+            <a href="/index.html">Home</a>
+            <a href="/community.html">Community</a>
+            <a href="/rules.html">Rules</a>
+            <a href="/manifesto.html">Manifesto</a>
+        </nav>
+    </div>
+</header>
 
-    <!-- NAVIGATION -->
-    <nav id="mainNav">
-        <a href="/">Home</a>
-        <a href="/community.html">Community</a>
-        <a href="/rules-and-safety.html">Rules & Safety</a>
-    </nav>
+<main class="page">
 
-    <!-- SIDEBAR NAVIGATION -->
-    <div class="sidebar-nav">
-        <button data-target="intro">Intro</button>
-        <button data-target="core">Core</button>
-        <button data-target="general">General</button>
-        <button data-target="consent">Consent</button>
-        <button data-target="rp">Roleplay</button>
-        <button data-target="voice">Voice</button>
-        <button data-target="safety">Safety</button>
-        <button data-target="final">Final</button>
+    <h1 class="page-title">Rules & Safety</h1>
+    <p class="page-subtitle">These guidelines keep Xplicit Ink safe, respectful, and enjoyable for everyone.</p>
+
+    <div class="rule-card">
+        <div class="rule-title">1. Adults Only</div>
+        <div class="rule-text">Xplicit Ink is strictly 18+. If staff suspect a member is underage, removal is immediate.</div>
     </div>
 
-    <!-- MINI MAP -->
-    <div class="mini-map">
-        <div class="mini-map-thumb"></div>
+    <div class="rule-card">
+        <div class="rule-title">2. Consent Is Mandatory</div>
+        <div class="rule-text">No pressure, no guilt‑tripping, no ignoring boundaries. “No” is final. Respect all limits.</div>
     </div>
 
-    <!-- BACK TO TOP ORB -->
-    <div class="scroll-orb" id="scrollOrb">↑</div>
-
-    <!-- CURSOR + SPOTLIGHT + PARTICLES -->
-    <div class="ink-cursor" id="inkCursor"></div>
-    <div class="spotlight" id="spotlight"></div>
-    <div class="particle-layer" id="particleLayer"></div>
-
-    <!-- PAGE CONTENT -->
-    <div class="container">
-
-        <h1>
-            <span class="glitch-title" data-text="Rules & Safety">Rules & Safety</span>
-        </h1>
-
-        <p class="footer-line" style="margin-top: 10px; opacity: 0.8;">
-            A cinematic guide to conduct, consent, and community integrity.
-        </p>
-
-        <!-- RULE CARDS GRID -->
-        <div class="rules-grid">
-
-            <!-- INTRO -->
-            <section class="rule-card" id="intro">
-                <div class="rule-image" style="background-image:url('./rules-intro.jpg');"></div>
-                <div class="rule-content">
-                    <h2>Introduction</h2>
-                    <p class="rule-text">
-                        Welcome to Xplicit Ink — a community built on intention, maturity, and atmosphere.
-                        These rules exist to protect the experience, the people, and the culture we’re creating.
-                    </p>
-                </div>
-            </section>
-
-            <!-- CORE PRINCIPLES -->
-            <section class="rule-card" id="core">
-                <div class="rule-image" style="background-image:url('./rules-core.jpg');"></div>
-                <div class="rule-content">
-                    <h2>Core Principles</h2>
-                    <p class="rule-text">
-                        Our foundation is built on respect, consent, clarity, and accountability.
-                        Every interaction — written, spoken, or implied — must align with these values.
-                    </p>
-                </div>
-            </section>
-
-            <!-- GENERAL CONDUCT -->
-            <section class="rule-card" id="general">
-                <div class="rule-image" style="background-image:url('./rules-general.jpg');"></div>
-                <div class="rule-content">
-                    <h2>General Conduct</h2>
-                    <p class="rule-text">
-                        Members are expected to behave with maturity, respect, and awareness.
-                        Harassment, hostility, or disruptive behavior will not be tolerated.
-                    </p>
-
-                    <div class="expand-toggle">Show More</div>
-                    <div class="expandable">
-                        <p class="rule-text">
-                            • No spamming, trolling, or antagonizing members.<br>
-                            • Keep discussions intentional and respectful.<br>
-                            • Follow staff instructions without argument.<br>
-                            • Maintain the atmosphere of the space at all times.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CONSENT -->
-            <section class="rule-card" id="consent">
-                <div class="rule-image" style="background-image:url('./rules-consent.jpg');"></div>
-                <div class="rule-content">
-                    <h2>Consent & Boundaries</h2>
-                    <p class="rule-text">
-                        Consent must be explicit, continuous, and respected at all times.
-                    </p>
-
-                    <div class="expand-toggle">Show More</div>
-                    <div class="expandable">
-                        <p class="rule-text">
-                            • No assumptions — always ask.<br>
-                            • No pressure, guilt, or manipulation.<br>
-                            • Stop immediately if consent is withdrawn.<br>
-                            • Respect personal limits without debate.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ROLEPLAY -->
-            <section class="rule-card" id="rp">
-                <div class="rule-image" style="background-image:url('./rules-rp.jpg');"></div>
-                <div class="rule-content">
-                    <h2>Roleplay Guidelines</h2>
-                    <p class="rule-text">
-                        Roleplay must be consensual, immersive, and aligned with the tone of the community.
-                    </p>
-
-                    <div class="expand-toggle">Show More</div>
-                    <div class="expandable">
-                        <p class="rule-text">
-                            • No godmodding or forcing actions.<br>
-                            • Keep scenes intentional and respectful.<br>
-                            • Maintain immersion — avoid breaking tone.<br>
-                            • Communicate clearly before and after scenes.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- VOICE -->
-            <section class="rule-card" id="voice">
-                <div class="rule-image" style="background-image:url('./rules-voice.jpg');"></div>
-                <div class="rule-content">
-                    <h2>Voice & Live</h2>
-                    <p class="rule-text">
-                        Voice interactions require awareness and respect. Your tone and presence matter.
-                    </p>
-
-                    <div class="expand-toggle">Show More</div>
-                    <div class="expandable">
-                        <p class="rule-text">
-                            • No talking over others.<br>
-                            • No background noise or disruptions.<br>
-                            • Maintain the atmosphere of the space.<br>
-                            • Follow host or moderator direction.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SAFETY -->
-            <section class="rule-card" id="safety">
-                <div class="rule-image" style="background-image:url('./rules-safety.jpg');"></div>
-                <div class="rule-content">
-                    <h2>Safety & Reporting</h2>
-                    <p class="rule-text">
-                        Safety is non‑negotiable. If something feels wrong, report it immediately.
-                    </p>
-
-                    <div class="expand-toggle">Show More</div>
-                    <div class="expandable">
-                        <p class="rule-text">
-                            • Reports are confidential.<br>
-                            • Staff will act quickly and decisively.<br>
-                            • Zero tolerance for predatory behavior.<br>
-                            • Evidence helps — screenshots, timestamps, etc.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- FINAL NOTES -->
-            <section class="rule-card" id="final">
-                <div class="rule-image" style="background-image:url('./rules-final.jpg');"></div>
-                <div class="rule-content">
-                    <h2>Final Notes</h2>
-                    <p class="rule-text">
-                        These rules protect the experience we’re building.  
-                        By being here, you agree to uphold the culture of Xplicit Ink.
-                    </p>
-                </div>
-            </section>
-
-        </div>
-
-        <div class="footer-line">End of Rules & Safety</div>
-        <div class="footer-glow"></div>
-
+    <div class="rule-card">
+        <div class="rule-title">3. Respect the Person</div>
+        <div class="rule-text">Behind every username is a real human being. Treat them with basic decency and respect.</div>
     </div>
-    <script>
-        // NAV SHRINK
-        const nav = document.getElementById("mainNav");
-        window.addEventListener("scroll", () => {
-            nav.classList.toggle("shrunk", window.scrollY > 60);
-        });
 
-        // SIDEBAR NAVIGATION
-        document.querySelectorAll(".sidebar-nav button").forEach(btn => {
-            btn.addEventListener("click", () => {
-                const target = document.getElementById(btn.dataset.target);
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 40,
-                        behavior: "smooth"
-                    });
-                }
-            });
-        });
+    <div class="rule-card">
+        <div class="rule-title">4. Privacy Matters</div>
+        <div class="rule-text">Do not share screenshots, messages, or content outside the server without explicit permission.</div>
+    </div>
 
-        // MINI MAP
-        const miniThumb = document.querySelector(".mini-map-thumb");
-        window.addEventListener("scroll", () => {
-            const percent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-            const track = 160 - 40;
-            miniThumb.style.transform = `translateY(${percent * track}px)`;
-        });
+    <div class="rule-card">
+        <div class="rule-title">5. Keep Drama Out</div>
+        <div class="rule-text">No harassment, no personal attacks, no dragging issues into public channels. Use staff tickets.</div>
+    </div>
 
-        // SCROLL ORB
-        const scrollOrb = document.getElementById("scrollOrb");
-        window.addEventListener("scroll", () => {
-            scrollOrb.classList.toggle("visible", window.scrollY > 300);
-        });
-        scrollOrb.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
+    <div class="rule-card">
+        <div class="rule-title">6. Roleplay Is Fiction</div>
+        <div class="rule-text">Roleplay does not equal real‑life consent. Keep IC and OOC separate at all times.</div>
+    </div>
 
-        // EXPANDABLE SECTIONS
-        document.querySelectorAll(".expand-toggle").forEach(toggle => {
-            toggle.addEventListener("click", () => {
-                const box = toggle.nextElementSibling;
-                box.classList.toggle("open");
-                toggle.textContent = box.classList.contains("open") ? "Show Less" : "Show More";
-            });
-        });
+    <div class="rule-card">
+        <div class="rule-title">7. Voice Etiquette</div>
+        <div class="rule-text">No yelling, blasting music, or disrupting others. Match the tone of the room you're in.</div>
+    </div>
 
-        // GLITCH TITLE
-        const glitchTitle = document.querySelector(".glitch-title");
-        setInterval(() => {
-            glitchTitle.classList.add("glitch-active");
-            setTimeout(() => glitchTitle.classList.remove("glitch-active"), 300);
-        }, 3000);
+    <div class="rule-card">
+        <div class="rule-title">8. Reporting Issues</div>
+        <div class="rule-text">If something feels wrong, open a private ticket. Staff will respond as soon as possible.</div>
+    </div>
 
-        // CURSOR + SPOTLIGHT
-        const inkCursor = document.getElementById("inkCursor");
-        const spotlight = document.getElementById("spotlight");
+    <a href="/index.html" class="back-btn">← Back to Home</a>
 
-        window.addEventListener("mousemove", (e) => {
-            inkCursor.style.left = e.clientX + "px";
-            inkCursor.style.top = e.clientY + "px";
-            spotlight.style.left = e.clientX + "px";
-            spotlight.style.top = e.clientY + "px";
-            createTrail(e.clientX, e.clientY);
-        });
+</main>
 
-        // CURSOR TRAIL
-        function createTrail(x, y) {
-            const t = document.createElement("div");
-            t.classList.add("cursor-trail");
-            t.style.left = x + "px";
-            t.style.top = y + "px";
-            document.body.appendChild(t);
-
-            setTimeout(() => {
-                t.style.opacity = 0;
-                t.style.transform = "scale(0.4)";
-            }, 10);
-
-            setTimeout(() => t.remove(), 400);
-        }
-
-        // FLOATING PARTICLES
-        const particleLayer = document.getElementById("particleLayer");
-
-        function spawnParticle() {
-            const p = document.createElement("div");
-            p.classList.add("particle");
-            p.style.left = Math.random() * window.innerWidth + "px";
-            p.style.top = window.innerHeight + "px";
-
-            const duration = 4000 + Math.random() * 4000;
-            const drift = (Math.random() - 0.5) * 40;
-
-            p.animate(
-                [
-                    { transform: "translateY(0)", opacity: 0 },
-                    { opacity: 1, offset: 0.2 },
-                    { transform: `translate(${drift}px, -${window.innerHeight + 100}px)`, opacity: 0 }
-                ],
-                { duration, easing: "linear" }
-            );
-
-            particleLayer.appendChild(p);
-            setTimeout(() => p.remove(), duration);
-        }
-
-        setInterval(spawnParticle, 350);
-
-        // PARALLAX
-        const layers = document.querySelectorAll(".bg-layer");
-        window.addEventListener("mousemove", (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 20;
-            const y = (e.clientY / window.innerHeight - 0.5) * 20;
-
-            layers.forEach((layer, i) => {
-                const depth = (i + 1) * 2;
-                layer.style.transform = `translate(${x / depth}px, ${y / depth}px)`;
-            });
-        });
-
-        // AUTO TOUR
-        let touring = false;
-        function autoTour() {
-            if (touring) return;
-            touring = true;
-
-            let pos = window.scrollY;
-            function step() {
-                if (!touring) return;
-                pos += 0.3;
-                window.scrollTo(0, pos);
-
-                if (pos + window.innerHeight >= document.body.scrollHeight) {
-                    touring = false;
-                } else {
-                    requestAnimationFrame(step);
-                }
-            }
-            requestAnimationFrame(step);
-        }
-
-        setTimeout(autoTour, 4000);
-    </script>
+<footer class="footer">
+    Xplicit Ink • Respect. Safety. Clarity.
+</footer>
 
 </body>
 </html>

@@ -3,401 +3,196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rules & Safety</title>
+<title>Rules & Safety • Xplicit Ink</title>
 
 <style>
-
+/* Base */
 body {
     margin: 0;
     padding: 0;
-    background: radial-gradient(circle at top, #1b1233 0, #050510 55%, #020208 100%);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-    color: #f5f3ff;
-    -webkit-font-smoothing: antialiased;
+    background: #1e1f22; /* Discord dark */
+    font-family: "Inter", system-ui, sans-serif;
+    color: #f2f3f5;
 }
 
-.page-shell {
-    min-height: 100vh;
+/* Header */
+.header {
+    background: #2b2d31;
+    padding: 14px 20px;
     display: flex;
     justify-content: center;
-    padding: 40px 16px 60px;
+    border-bottom: 1px solid #1a1b1d;
 }
-
-.page-inner {
+.header-inner {
     width: 100%;
-    max-width: 960px;
-}
-
-/* Hero */
-
-.hero {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.hero-pill {
-    display: inline-flex;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: rgba(124, 90, 255, 0.12);
-    border: 1px solid rgba(167, 139, 250, 0.4);
-    color: #e0e7ff;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
 }
-
-.hero-title {
-    margin-top: 18px;
-    font-size: 2.6rem;
-    font-weight: 800;
-    letter-spacing: 0.03em;
-    color: #f9fafb;
+.brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
 }
-
-.hero-subtitle {
-    margin-top: 10px;
-    font-size: 0.98rem;
-    color: #c7c9ff;
-    max-width: 520px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Back Home Button */
-
-.back-home-btn {
-    display: inline-block;
-    margin: 0 auto 40px;
-    padding: 12px 26px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(167, 139, 250, 0.45);
-    color: #e5e7ff;
-    font-size: 0.95rem;
-    font-weight: 500;
+.nav a {
+    margin-left: 20px;
+    color: #b5bac1;
     text-decoration: none;
-    backdrop-filter: blur(12px);
-    transition: 
-        background 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.25s ease;
+    font-size: 0.95rem;
+}
+.nav a:hover {
+    color: #ffffff;
 }
 
-.back-home-btn:hover {
-    background: rgba(167, 139, 250, 0.18);
-    border-color: rgba(199, 210, 254, 0.75);
-    box-shadow: 0 0 22px rgba(167, 139, 250, 0.45);
-    transform: translateY(-3px);
+/* Page Layout */
+.page {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 20px;
 }
 
-/* Background glow */
-
-.bg-orbit {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: -1;
+/* Title */
+.page-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+.page-subtitle {
+    font-size: 1rem;
+    color: #b5bac1;
+    margin-bottom: 30px;
 }
 
-.bg-orbit::before,
-.bg-orbit::after {
-    content: "";
-    position: absolute;
-    width: 420px;
-    height: 420px;
-    border-radius: 999px;
-    filter: blur(70px);
-    opacity: 0.55;
-}
-
-.bg-orbit::before {
-    background: #7c3aed;
-    top: -80px;
-    left: -40px;
-}
-
-.bg-orbit::after {
-    background: #22d3ee;
-    bottom: -120px;
-    right: -40px;
-}
-
-/* Rules grid */
-
-.rules-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 22px;
-}
-
-@media (min-width: 800px) {
-    .rules-grid {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    }
-}
-
-/* Rule card */
-
+/* Rule Card */
 .rule-card {
-    position: relative;
-    border-radius: 22px;
-    background: radial-gradient(circle at top left, rgba(148, 163, 253, 0.12), rgba(15, 23, 42, 0.96));
-    border: 1px solid rgba(129, 140, 248, 0.35);
-    box-shadow:
-        0 18px 45px rgba(15, 23, 42, 0.9),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
-    overflow: hidden;
-    transition:
-        transform 0.22s ease,
-        box-shadow 0.22s ease,
-        border-color 0.22s ease,
-        background 0.22s ease;
+    background: #313338;
+    padding: 22px 24px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #1f2023;
 }
-
-.rule-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at top, rgba(129, 140, 248, 0.22), transparent 55%);
-    opacity: 0;
-    transition: opacity 0.22s ease;
-}
-
-.rule-card:hover {
-    transform: translateY(-6px);
-    box-shadow:
-        0 26px 60px rgba(15, 23, 42, 0.95),
-        0 0 0 1px rgba(129, 140, 248, 0.55);
-    border-color: rgba(191, 219, 254, 0.7);
-}
-
-.rule-card:hover::before {
-    opacity: 1;
-}
-
-/* Header strip */
-
-.rule-header-strip {
-    position: relative;
-    height: 70px;
-    padding: 0 22px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: linear-gradient(120deg, rgba(129, 140, 248, 0.18), rgba(236, 72, 153, 0.16), rgba(56, 189, 248, 0.16));
-    border-bottom: 1px solid rgba(129, 140, 248, 0.45);
-    backdrop-filter: blur(18px);
-}
-
-.rule-badge {
-    width: 40px;
-    height: 40px;
-    border-radius: 14px;
-    background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.9), rgba(129, 140, 248, 0.9));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #020617;
+.rule-title {
     font-size: 1.2rem;
     font-weight: 700;
-    box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.85),
-        0 0 22px rgba(129, 140, 248, 0.85);
-}
-
-.rule-label {
-    font-size: 0.78rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #e5e7eb;
-    opacity: 0.9;
-}
-
-/* Content */
-
-.rule-body {
-    padding: 20px 22px 22px;
-}
-
-.rule-title {
-    font-size: 1.15rem;
-    font-weight: 700;
     margin-bottom: 6px;
-    color: #f9fafb;
 }
-
-.rule-tagline {
-    font-size: 0.9rem;
-    color: #c7c9ff;
-    margin-bottom: 12px;
-}
-
 .rule-text {
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: #aeb0d8;
+    font-size: 0.95rem;
+    color: #d0d2d6;
+    line-height: 1.5;
+}
+
+/* Back Button */
+.back-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 22px;
+    border-radius: 6px;
+    background: #5865f2;
+    color: #ffffff;
+    font-weight: 600;
+    text-decoration: none;
+}
+.back-btn:hover {
+    background: #4752c4;
 }
 
 /* Footer */
-
-.footer-note {
-    margin-top: 32px;
+.footer {
     text-align: center;
+    margin-top: 60px;
+    padding-bottom: 40px;
     font-size: 0.8rem;
-    color: #9ca3af;
+    color: #8e9297;
 }
-
 </style>
 </head>
+
 <body>
 
-<div class="bg-orbit"></div>
-
-<div class="page-shell">
-    <div class="page-inner">
-
-        <section class="hero">
-            <div class="hero-pill">
-                <span>Community First</span>
-            </div>
-            <h1 class="hero-title">Rules &amp; Safety</h1>
-            <p class="hero-subtitle">
-                Clear expectations. Soft landings. This is how we keep the space respectful, playful, and worth coming back to.
-            </p>
-        </section>
-
-        <a href="/index.html" class="back-home-btn">← Back to Home</a>
-
-        <section class="rules-grid">
-
-            <article class="rule-card">
-                <div class="rule-header-strip">
-                    <div class="rule-badge">01</div>
-                    <div class="rule-label">Introduction</div>
-                </div>
-                <div class="rule-body">
-                    <h2 class="rule-title">Start with intention</h2>
-                    <p class="rule-tagline">You’re stepping into a curated space, not a free‑for‑all.</p>
-                    <p class="rule-text">
-                        This community is built for connection, creativity, and mutual respect. By being here, you agree to engage
-                        with care, read the room, and treat others like real people with real boundaries.
-                    </p>
-                </div>
-            </article>
-
-            <article class="rule-card">
-                <div class="rule-header-strip">
-                    <div class="rule-badge">02</div>
-                    <div class="rule-label">Core Principles</div>
-                </div>
-                <div class="rule-body">
-                    <h2 class="rule-title">Respect, always</h2>
-                    <p class="rule-tagline">No vibe is worth more than someone’s comfort.</p>
-                    <p class="rule-text">
-                        Harassment, bigotry, or targeted disrespect are not tolerated. Listen when someone sets a boundary and
-                        accept moderation decisions without hostility.
-                    </p>
-                </div>
-            </article>
-
-            <article class="rule-card">
-                <div class="rule-header-strip">
-                    <div class="rule-badge">03</div>
-                    <div class="rule-label">General Conduct</div>
-                </div>
-                <div class="rule-body">
-                    <h2 class="rule-title">Act like you’re in the same room</h2>
-                    <p class="rule-tagline">If it’s out of pocket face‑to‑face, it’s out of pocket here.</p>
-                    <p class="rule-text">
-                        Keep conversations on‑topic, avoid spam, and don’t derail spaces meant for others. No doxxing or sharing
-                        private content without consent.
-                    </p>
-                </div>
-            </article>
-
-            <article class="rule-card">
-                <div class="rule-header-strip">
-                    <div class="rule-badge">04</div>
-                    <div class="rule-label">Consent</div>
-                </div>
-                <div class="rule-body">
-                    <h2 class="rule-title">Nothing is implied</h2>
-                    <p class="rule-tagline">Interest in chatting is not consent to anything else.</p>
-                    <p class="rule-text">
-                        Ask before escalating tone or intimacy. “No,” “stop,” or silence are all answers you respect immediately.
-                    </p>
-                </div>
-            </article>
-
-            <article class="rule-card">
-                <div class="rule-header-strip">
-                    <div class="rule-badge">05</div>
-                    <div class="rule-label">Roleplay</div>
-                </div>
-                <div class="rule-body">
-                    <h2 class="rule-title">Keep it agreed, keep it contained</h2>
-                    <p class="rule-tagline">Every scene is opt‑in, never assumed.</p>
-                    <p class="rule-text">
-                        Only engage with people who clearly opt in. Follow channel tags, avoid banned themes, and keep IC and OOC
-                        separate.
-                    </p>
-                </div>
-            </article>
-
-            <article class="rule-card">
-                <div class="rule-header-strip">
-                    <div class="rule-badge">06</div>
-                    <div class="rule-label">Voice</div>
-                </div>
-                <div class="rule-body">
-                    <h2 class="rule-title">Use your mic like a guest</h2>
-                    <p class="rule-tagline">Clarity and context matter more than volume.</p>
-                    <p class="rule-text">
-                        Don’t scream, blast music, or talk over people. Get consent before recording or streaming calls.
-                    </p>
-                </div>
-            </article>
-
-            <article class="rule-card">
-                <div class="rule-header-strip">
-                    <div class="rule-badge">07</div>
-                    <div class="rule-label">Safety</div>
-                </div>
-                <div class="rule-body">
-                    <h2 class="rule-title">We take harm seriously</h2>
-                    <p class="rule-tagline">If something feels off, say something.</p>
-                    <p class="rule-text">
-                        Report threats, stalking, or non‑consensual sharing immediately. Do not retaliate or escalate.
-                    </p>
-                </div>
-            </article>
-
-            <article class="rule-card">
-                <div class="rule-header-strip">
-                    <div class="rule-badge">08</div>
-                    <div class="rule-label">Final Notes</div>
-                </div>
-                <div class="rule-body">
-                    <h2 class="rule-title">Being here is a choice</h2>
-                    <p class="rule-tagline">If this space works, it’s because we keep it that way together.</p>
-                    <p class="rule-text">
-                        Staff decisions protect the community. If you’re here, it’s because you help make it better.
-                    </p>
-                </div>
-            </article>
-
-        </section>
-
-        <div class="footer-note">
-            These rules may evolve as the community grows. Updates will appear here first.
-        </div>
-
+<header class="header">
+    <div class="header-inner">
+        <div class="brand">Xplicit Ink</div>
+        <nav class="nav">
+            <a href="/index.html">Home</a>
+            <a href="/community.html">Community</a>
+            <a href="/rules.html">Rules</a>
+            <a href="/manifesto.html">Manifesto</a>
+        </nav>
     </div>
-</div>
+</header>
+
+<main class="page">
+
+    <h1 class="page-title">Rules & Safety</h1>
+    <p class="page-subtitle">
+        These guidelines keep Xplicit Ink safe, respectful, and enjoyable for everyone.
+    </p>
+
+    <div class="rule-card">
+        <div class="rule-title">1. Adults Only</div>
+        <div class="rule-text">
+            Xplicit Ink is strictly 18+. If staff suspect a member is underage, removal is immediate.
+        </div>
+    </div>
+
+    <div class="rule-card">
+        <div class="rule-title">2. Consent Is Mandatory</div>
+        <div class="rule-text">
+            No pressure, no guilt‑tripping, no ignoring boundaries. “No” is final. Respect all limits.
+        </div>
+    </div>
+
+    <div class="rule-card">
+        <div class="rule-title">3. Respect the Person</div>
+        <div class="rule-text">
+            Behind every username is a real human being. Treat them with basic decency and respect.
+        </div>
+    </div>
+
+    <div class="rule-card">
+        <div class="rule-title">4. Privacy Matters</div>
+        <div class="rule-text">
+            Do not share screenshots, messages, or content outside the server without explicit permission.
+        </div>
+    </div>
+
+    <div class="rule-card">
+        <div class="rule-title">5. Keep Drama Out</div>
+        <div class="rule-text">
+            No harassment, no personal attacks, no dragging issues into public channels. Use staff tickets.
+        </div>
+    </div>
+
+    <div class="rule-card">
+        <div class="rule-title">6. Roleplay Is Fiction</div>
+        <div class="rule-text">
+            Roleplay does not equal real‑life consent. Keep IC and OOC separate at all times.
+        </div>
+    </div>
+
+    <div class="rule-card">
+        <div class="rule-title">7. Voice Etiquette</div>
+        <div class="rule-text">
+            No yelling, blasting music, or disrupting others. Match the tone of the room you're in.
+        </div>
+    </div>
+
+    <div class="rule-card">
+        <div class="rule-title">8. Reporting Issues</div>
+        <div class="rule-text">
+            If something feels wrong, open a private ticket. Staff will respond as soon as possible.
+        </div>
+    </div>
+
+    <a href="/index.html" class="back-btn">← Back to Home</a>
+
+</main>
+
+<footer class="footer">
+    Xplicit Ink • Respect. Safety. Clarity.
+</footer>
 
 </body>
 </html>

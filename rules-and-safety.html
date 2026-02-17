@@ -6,6 +6,7 @@
 <title>Rules & Safety</title>
 
 <style>
+
 body {
     margin: 0;
     padding: 0;
@@ -50,7 +51,7 @@ body {
 
 .hero-title {
     margin-top: 18px;
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     font-weight: 800;
     letter-spacing: 0.03em;
     color: #f9fafb;
@@ -63,6 +64,34 @@ body {
     max-width: 520px;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* Back Home Button */
+
+.back-home-btn {
+    display: inline-block;
+    margin: 0 auto 40px;
+    padding: 12px 26px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(167, 139, 250, 0.45);
+    color: #e5e7ff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    backdrop-filter: blur(12px);
+    transition: 
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.back-home-btn:hover {
+    background: rgba(167, 139, 250, 0.18);
+    border-color: rgba(199, 210, 254, 0.75);
+    box-shadow: 0 0 22px rgba(167, 139, 250, 0.45);
+    transform: translateY(-3px);
 }
 
 /* Background glow */
@@ -213,7 +242,7 @@ body {
     color: #aeb0d8;
 }
 
-/* Small footer note */
+/* Footer */
 
 .footer-note {
     margin-top: 32px;
@@ -241,6 +270,8 @@ body {
             </p>
         </section>
 
+        <a href="/index.html" class="back-home-btn">← Back to Home</a>
+
         <section class="rules-grid">
 
             <article class="rule-card">
@@ -253,8 +284,7 @@ body {
                     <p class="rule-tagline">You’re stepping into a curated space, not a free‑for‑all.</p>
                     <p class="rule-text">
                         This community is built for connection, creativity, and mutual respect. By being here, you agree to engage
-                        with care, read the room, and treat others like real people with real boundaries. If you’re unsure, pause
-                        and ask instead of assuming.
+                        with care, read the room, and treat others like real people with real boundaries.
                     </p>
                 </div>
             </article>
@@ -268,9 +298,8 @@ body {
                     <h2 class="rule-title">Respect, always</h2>
                     <p class="rule-tagline">No vibe is worth more than someone’s comfort.</p>
                     <p class="rule-text">
-                        Harassment, bigotry, or targeted disrespect are not “edgy” here—they’re grounds for removal. Listen when
-                        someone sets a boundary, accept moderation decisions, and remember that everyone is here by choice, not
-                        obligation.
+                        Harassment, bigotry, or targeted disrespect are not tolerated. Listen when someone sets a boundary and
+                        accept moderation decisions without hostility.
                     </p>
                 </div>
             </article>
@@ -282,11 +311,10 @@ body {
                 </div>
                 <div class="rule-body">
                     <h2 class="rule-title">Act like you’re in the same room</h2>
-                    <p class="rule-tagline">If it would be out of pocket face‑to‑face, it’s out of pocket here.</p>
+                    <p class="rule-tagline">If it’s out of pocket face‑to‑face, it’s out of pocket here.</p>
                     <p class="rule-text">
-                        Keep conversations on‑topic for the channel, avoid spamming, and don’t derail spaces meant for others.
-                        No doxxing, no sharing private content without consent, and no trying to “test” the rules. If you’re
-                        unsure whether something crosses a line, assume it does.
+                        Keep conversations on‑topic, avoid spam, and don’t derail spaces meant for others. No doxxing or sharing
+                        private content without consent.
                     </p>
                 </div>
             </article>
@@ -300,9 +328,7 @@ body {
                     <h2 class="rule-title">Nothing is implied</h2>
                     <p class="rule-tagline">Interest in chatting is not consent to anything else.</p>
                     <p class="rule-text">
-                        Ask before you escalate tone, topics, or intimacy—especially in DMs. “No,” “stop,” “not comfortable,” or
-                        silence are all answers you respect immediately. Pressuring, guilt‑tripping, or trying to negotiate
-                        someone’s boundary is not allowed here.
+                        Ask before escalating tone or intimacy. “No,” “stop,” or silence are all answers you respect immediately.
                     </p>
                 </div>
             </article>
@@ -316,9 +342,8 @@ body {
                     <h2 class="rule-title">Keep it agreed, keep it contained</h2>
                     <p class="rule-tagline">Every scene is opt‑in, never assumed.</p>
                     <p class="rule-text">
-                        Only engage in roleplay with people who have clearly opted in. Follow channel tags and content limits,
-                        avoid taboo or banned themes, and keep IC and OOC separate. If someone pauses or taps out, you respect it
-                        without debate or attitude.
+                        Only engage with people who clearly opt in. Follow channel tags, avoid banned themes, and keep IC and OOC
+                        separate.
                     </p>
                 </div>
             </article>
@@ -329,12 +354,10 @@ body {
                     <div class="rule-label">Voice</div>
                 </div>
                 <div class="rule-body">
-                    <h2 class="rule-title">Use your mic like a guest, not a disruptor</h2>
-                    <p class="rule-tagline">Clarity, consent, and context matter more than volume.</p>
+                    <h2 class="rule-title">Use your mic like a guest</h2>
+                    <p class="rule-tagline">Clarity and context matter more than volume.</p>
                     <p class="rule-text">
-                        Don’t scream, blast music, or talk over people. Get consent before recording or streaming calls. If a room
-                        has a set tone—chill, social, focused—match it or switch channels. Moderators may move or mute you to keep
-                        the space usable for everyone.
+                        Don’t scream, blast music, or talk over people. Get consent before recording or streaming calls.
                     </p>
                 </div>
             </article>
@@ -348,9 +371,7 @@ body {
                     <h2 class="rule-title">We take harm seriously</h2>
                     <p class="rule-tagline">If something feels off, say something.</p>
                     <p class="rule-text">
-                        Report threats, stalking, non‑consensual sharing, or any behavior that makes you feel unsafe. Do not
-                        retaliate, escalate, or “handle it yourself.” Bring it to staff so it can be documented and addressed.
-                        Safety reports are reviewed with discretion and care.
+                        Report threats, stalking, or non‑consensual sharing immediately. Do not retaliate or escalate.
                     </p>
                 </div>
             </article>
@@ -361,12 +382,10 @@ body {
                     <div class="rule-label">Final Notes</div>
                 </div>
                 <div class="rule-body">
-                    <h2 class="rule-title">Being here is a choice—for all of us</h2>
+                    <h2 class="rule-title">Being here is a choice</h2>
                     <p class="rule-tagline">If this space works, it’s because we keep it that way together.</p>
                     <p class="rule-text">
-                        Staff decisions are made to protect the community, not to debate every edge case in public. If you’re
-                        removed, it’s because the fit wasn’t right for this space. If you’re here, it’s because you help make it
-                        better. Act like it.
+                        Staff decisions protect the community. If you’re here, it’s because you help make it better.
                     </p>
                 </div>
             </article>
@@ -374,7 +393,7 @@ body {
         </section>
 
         <div class="footer-note">
-            These rules may evolve as the community grows. When they do, we’ll update this page first.
+            These rules may evolve as the community grows. Updates will appear here first.
         </div>
 
     </div>

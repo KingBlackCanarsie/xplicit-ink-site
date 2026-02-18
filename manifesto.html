@@ -25,7 +25,7 @@
       cursor: none;
     }
 
-    /* Purple Matrix Rain */
+    /* Purple Matrix Rain - toned down for visibility */
     #matrix {
       position: fixed;
       top: 0; left: 0;
@@ -33,19 +33,19 @@
       height: 100%;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.65; /* Keeps it visible but not overpowering the background image */
+      opacity: 0.35; /* Reduced so book background shines through */
     }
 
-    /* Dark overlay for text readability (slightly adjusted to blend with rain) */
+    /* Dark overlay - adjusted mid-gradient for more background visibility */
     .overlay {
       position: absolute;
       top: 0; left: 0;
       height: 100%; width: 100%;
       background: linear-gradient(
         to bottom,
-        rgba(11, 10, 15, 0.65),
-        rgba(11, 10, 15, 0.45),
-        rgba(11, 10, 15, 0.75)
+        rgba(11, 10, 15, 0.55),
+        rgba(11, 10, 15, 0.35),
+        rgba(11, 10, 15, 0.55)
       );
       z-index: 2;
     }
@@ -152,7 +152,7 @@
   <a href="/" class="back-link">← Back to Home</a>
 
   <script>
-    // Purple Matrix Rain (same as other pages)
+    // Purple Matrix Rain - lighter version
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -169,12 +169,12 @@
     let drops = new Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = 'rgba(11, 10, 15, 0.085)';
+      ctx.fillStyle = 'rgba(11, 10, 15, 0.04)'; // Much lighter fade → background more visible
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.fillStyle = '#a78bfa';
       ctx.shadowColor = '#6a32ff';
-      ctx.shadowBlur = 10;
+      ctx.shadowBlur = 8; // Slightly softer glow
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {
@@ -187,7 +187,7 @@
         drops[i]++;
       }
     }
-    setInterval(draw, 38);
+    setInterval(draw, 45); // Slightly slower for gentler feel (was 38)
 
     // Glowing Cursor + Trail
     const cursor = document.getElementById('cursor');
@@ -202,7 +202,6 @@
       trail.style.top = e.clientY + 'px';
       document.body.appendChild(trail);
 
-      // Remove after animation
       setTimeout(() => trail.remove(), 600);
     });
   </script>

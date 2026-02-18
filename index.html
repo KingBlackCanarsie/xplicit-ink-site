@@ -123,7 +123,7 @@
 
     /* Discord Widget Styling */
     .discord-widget {
-      margin: 1rem auto 1.5rem;
+      margin: 1rem auto 1rem;
       max-width: 380px;
       border-radius: 12px;
       overflow: hidden;
@@ -138,14 +138,14 @@
       border: none;
     }
 
-    /* Mobile: make widget smaller and compact */
+    /* Mobile: compact widget + tighter hero */
     @media (max-width: 768px) {
       .discord-widget {
         max-width: 320px;
-        margin: 0.8rem auto 1.2rem;
+        margin: 0.8rem auto 1rem;
       }
       .discord-widget iframe {
-        height: 260px; /* Compact height on phones – shows icon, count, join button + members list */
+        height: 260px; /* Shows icon, count, join button + several members (scrollable inside) */
         max-width: 320px;
       }
       .hero {
@@ -509,6 +509,28 @@
       font-size: clamp(1rem, 3.5vw, 1.2rem);
       opacity: 0.9;
     }
+
+    /* Testimonials - one-by-one fade */
+    .testimonials {
+      font-size: clamp(0.95rem, 3.5vw, 1.15rem);
+      color: #aaa9c7;
+      margin: 0.8rem 0 1.5rem;
+      opacity: 0.9;
+      min-height: 3.5rem;
+      position: relative;
+    }
+
+    .testimonial {
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      transition: opacity 1.2s ease-in-out;
+    }
+
+    .testimonial.active {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -557,17 +579,18 @@
           </iframe>
         </div>
 
-        <!-- Rotating testimonials (kept as extra social proof) -->
+        <!-- Join Now button right under the widget -->
+        <a href="https://discord.gg/RGwnBbnzgA" class="enter-button pulse-btn ripple" target="_blank">
+          Join Now – Dive Into the Ink 🔥
+        </a>
+        <span class="badge">18+ Only – Explicit Content</span>
+
+        <!-- Rotating testimonials – one by one fade -->
         <div class="testimonials">
           <div class="testimonial active">"The depth of the stories here is unreal – finally a place for real literary RP." – @nyxshadow</div>
           <div class="testimonial">"Safe, creative, and steamy – joined last week and already hooked." – @velvetquill</div>
           <div class="testimonial">"Best adult RP server I've found. The voice rooms are 🔥" – @inkbound</div>
         </div>
-
-        <a href="https://discord.gg/RGwnBbnzgA" class="enter-button pulse-btn ripple" target="_blank">
-          Join Now – Dive Into the Ink 🔥
-        </a>
-        <span class="badge">18+ Only – Explicit Content</span>
 
         <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
 
@@ -575,6 +598,7 @@
       </div>
     </section>
 
+    <!-- Rest of your sections remain unchanged -->
     <section class="reveal-on-scroll">
       <h2 class="section-title">Sneak Peek Inside</h2>
       <div class="teaser-grid">
@@ -719,7 +743,7 @@
     }, { threshold: 0.15 });
     reveals.forEach(el => observer.observe(el));
 
-    // Rotating testimonials
+    // Rotating testimonials – one by one fade
     const testimonials = document.querySelectorAll('.testimonial');
     let current = 0;
     if (testimonials.length > 0) {

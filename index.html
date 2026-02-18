@@ -83,36 +83,36 @@
       color: #c6b8ff;
     }
 
-    /* Hero - reduced height & responsive sizing */
+    /* Hero - tighter spacing, better mobile flow */
     .hero {
-      min-height: 80vh; /* Was 100vh → less empty space */
+      min-height: 70vh; /* Reduced from 80vh */
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 70px 20px 40px; /* Reduced top padding */
+      padding: 60px 20px 30px;
       text-align: center;
       position: relative;
     }
 
     h1 {
-      font-size: clamp(3.5rem, 10vw, 5.5rem);
-      margin: 0 0 0.5rem;
+      font-size: clamp(3rem, 9vw, 5rem);
+      margin: 0 0 0.4rem;
       color: #c6b8ff;
       text-shadow: 0 0 25px #6a32ff, 0 0 50px #a78bfa;
       letter-spacing: clamp(2px, 0.8vw, 4px);
     }
 
     .tagline {
-      font-size: clamp(1.1rem, 4vw, 1.6rem);
+      font-size: clamp(1.1rem, 4vw, 1.5rem);
       color: #c6b8ff;
-      margin: 0.5rem 0 1rem;
+      margin: 0.4rem 0 0.8rem;
       text-shadow: 0 0 10px #a78bfa;
     }
 
     .social-proof {
       font-size: clamp(1rem, 3.5vw, 1.3rem);
       color: #aaa9c7;
-      margin: 0.8rem 0 0.5rem;
+      margin: 0.6rem 0 0.4rem;
       opacity: 0.9;
     }
 
@@ -120,9 +120,31 @@
       font-size: clamp(1.1rem, 4vw, 1.4rem);
       color: #c6b8ff;
       text-shadow: 0 0 10px #a78bfa;
-      margin: 0.5rem 0 1.5rem;
+      margin: 0.4rem 0 0.8rem;
       animation: glowPulse 4s infinite alternate;
       font-weight: bold;
+    }
+
+    /* Rotating testimonials */
+    .testimonials {
+      font-size: clamp(0.95rem, 3.5vw, 1.15rem);
+      color: #aaa9c7;
+      margin: 0.8rem 0 1.5rem;
+      opacity: 0.9;
+      min-height: 3.5rem;
+      position: relative;
+    }
+
+    .testimonial {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      position: absolute;
+      width: 100%;
+      left: 0;
+    }
+
+    .testimonial.active {
+      opacity: 1;
     }
 
     @keyframes glowPulse {
@@ -173,7 +195,7 @@
 
     .manifesto-link {
       display: block;
-      margin-top: 1.5rem;
+      margin-top: 1.2rem;
       color: #a78bfa;
       text-decoration: underline;
       font-size: clamp(1rem, 3.5vw, 1.2rem);
@@ -309,30 +331,30 @@
     /* Responsive adjustments for phones */
     @media (max-width: 768px) {
       .hero {
-        min-height: 70vh;
-        padding: 60px 15px 30px;
+        min-height: 65vh;
+        padding: 50px 15px 20px;
       }
       h1 {
-        font-size: clamp(2.8rem, 12vw, 4rem);
+        font-size: clamp(2.6rem, 11vw, 4rem);
+        margin-bottom: 0.3rem;
       }
       .tagline {
-        font-size: clamp(1rem, 4.5vw, 1.4rem);
+        margin: 0.3rem 0 0.6rem;
       }
-      .social-proof, .live-counter {
-        font-size: clamp(1rem, 4vw, 1.2rem);
-        margin: 0.8rem 0;
+      .social-proof, .live-counter, .testimonials {
+        margin: 0.5rem 0;
       }
       .enter-button {
-        padding: 0.9rem 2.5rem;
-        font-size: clamp(1.1rem, 5vw, 1.4rem);
+        padding: 0.8rem 2.2rem;
+        font-size: clamp(1rem, 4.5vw, 1.3rem);
       }
       .badge {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         padding: 0.4rem 0.8rem;
       }
       .scroll-hint {
         font-size: 2rem;
-        bottom: 20px;
+        bottom: 15px;
       }
       .section {
         padding: 60px 15px;
@@ -532,6 +554,13 @@
           Members online right now: <span id="memberCount">312</span>
         </div>
 
+        <!-- Rotating testimonials / social proof -->
+        <div class="testimonials">
+          <div class="testimonial active">"The depth of the stories here is unreal – finally a place for real literary RP." – @nyxshadow</div>
+          <div class="testimonial">"Safe, creative, and steamy – joined last week and already hooked." – @velvetquill</div>
+          <div class="testimonial">"Best adult RP server I've found. The voice rooms are 🔥" – @inkbound</div>
+        </div>
+
         <a href="https://discord.gg/RGwnBbnzgA" class="enter-button pulse-btn ripple" target="_blank">
           Join Now – Dive Into the Ink 🔥
         </a>
@@ -543,6 +572,7 @@
       </div>
     </section>
 
+    <!-- Rest of your sections remain unchanged -->
     <section class="reveal-on-scroll">
       <h2 class="section-title">Sneak Peek Inside</h2>
       <div class="teaser-grid">
@@ -697,6 +727,18 @@
       }, 10000);
     }
 
+    // Rotating testimonials
+    const testimonials = document.querySelectorAll('.testimonial');
+    let current = 0;
+    if (testimonials.length > 0) {
+      testimonials[current].classList.add('active');
+      setInterval(() => {
+        testimonials[current].classList.remove('active');
+        current = (current + 1) % testimonials.length;
+        testimonials[current].classList.add('active');
+      }, 6000);
+    }
+
     // Floating particles
     for (let i = 0; i < 25; i++) {
       const p = document.createElement('div');
@@ -720,4 +762,3 @@
   </script>
 </body>
 </html>
-

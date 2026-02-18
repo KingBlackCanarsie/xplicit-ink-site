@@ -1,95 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>The Xplicit Ink – Manifesto</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Xplicit Ink – Manifesto</title>
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro&display=swap');
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro&display=swap');
 
-  body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    width: 100vw;
-    background: url('Manifesto.jpg') no-repeat center center fixed;
-    background-size: cover;
-    font-family: 'Crimson Pro', serif;
-    color: #e8e0ff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    overflow: hidden;
-  }
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      background: url('Manifesto.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Crimson Pro', serif;
+      color: #e8e0ff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      overflow: hidden;
+      cursor: none;
+    }
 
-  /* Dark overlay for readability */
-  .overlay {
-    position: absolute;
-    top: 0; left: 0;
-    height: 100%; width: 100%;
-    background: linear-gradient(
-      to bottom,
-      rgba(0,0,0,0.55),
-      rgba(0,0,0,0.35),
-      rgba(0,0,0,0.65)
-    );
-    z-index: 1;
-  }
+    /* Purple Matrix Rain */
+    #matrix {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.65; /* Keeps it visible but not overpowering the background image */
+    }
 
-  /* Text container */
-  .text-blocks {
-    position: relative;
-    z-index: 2;
-    margin-top: 8vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    /* Dark overlay for text readability (slightly adjusted to blend with rain) */
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%; width: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(11, 10, 15, 0.65),
+        rgba(11, 10, 15, 0.45),
+        rgba(11, 10, 15, 0.75)
+      );
+      z-index: 2;
+    }
 
-  .fade-block {
-    max-width: 700px;
-    font-size: 1.7rem;
-    opacity: 0;
-    animation: fadeInOut 12s ease-in-out infinite;
-    line-height: 1.6;
-    margin: 1.2rem 0;
-    filter: drop-shadow(0 0 12px #000000cc);
-  }
+    /* Text container */
+    .text-blocks {
+      position: relative;
+      z-index: 3;
+      margin-top: 8vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-  .fade-block:nth-child(2) {
-    animation-delay: 4s;
-  }
+    .fade-block {
+      max-width: 700px;
+      font-size: 1.7rem;
+      opacity: 0;
+      animation: fadeInOut 12s ease-in-out infinite;
+      line-height: 1.6;
+      margin: 1.2rem 0;
+      filter: drop-shadow(0 0 12px #000000cc);
+      text-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
+    }
 
-  .fade-block:nth-child(3) {
-    animation-delay: 8s;
-  }
+    .fade-block:nth-child(2) { animation-delay: 4s; }
+    .fade-block:nth-child(3) { animation-delay: 8s; }
 
-  @keyframes fadeInOut {
-    0%, 100% { opacity: 0; }
-    25%, 75% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; }
+      25%, 75% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
 
-  /* Back link */
-  .back-link {
-    position: relative;
-    z-index: 2;
-    margin-bottom: 4vh;
-    font-size: 1.3rem;
-    color: #d6caff;
-    text-decoration: underline;
-  }
+    /* Glowing trailing cursor */
+    .ink-cursor {
+      position: fixed;
+      width: 24px;
+      height: 24px;
+      background: radial-gradient(circle, #a78bfa 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 100;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      box-shadow: 0 0 15px #a78bfa, 0 0 30px #6a32ff;
+      transition: transform 0.08s ease-out;
+    }
 
-  .back-link:hover {
-    color: #ffffff;
-  }
-</style>
+    .cursor-trail {
+      position: fixed;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.7), transparent);
+      pointer-events: none;
+      z-index: 99;
+      opacity: 0.9;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      animation: trailFade 0.6s ease-out forwards;
+    }
+
+    @keyframes trailFade {
+      to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.3);
+      }
+    }
+
+    /* Back link */
+    .back-link {
+      position: relative;
+      z-index: 3;
+      margin-bottom: 4vh;
+      font-size: 1.3rem;
+      color: #d6caff;
+      text-decoration: underline;
+      text-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
+    }
+
+    .back-link:hover {
+      color: #ffffff;
+      text-shadow: 0 0 15px #c6b8ff;
+    }
+  </style>
 </head>
-
 <body>
 
+  <!-- Purple Matrix Rain -->
+  <canvas id="matrix"></canvas>
+
+  <!-- Overlay -->
   <div class="overlay"></div>
+
+  <!-- Glowing Cursor -->
+  <div class="ink-cursor" id="cursor"></div>
 
   <div class="text-blocks">
     <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
@@ -98,6 +150,62 @@
   </div>
 
   <a href="/" class="back-link">← Back to Home</a>
+
+  <script>
+    // Purple Matrix Rain (same as other pages)
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const fontSize = 15;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = new Array(columns).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(11, 10, 15, 0.085)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#a78bfa';
+      ctx.shadowColor = '#6a32ff';
+      ctx.shadowBlur = 10;
+      ctx.font = `${fontSize}px monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 38);
+
+    // Glowing Cursor + Trail
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+
+      // Create trail particle
+      const trail = document.createElement('div');
+      trail.classList.add('cursor-trail');
+      trail.style.left = e.clientX + 'px';
+      trail.style.top = e.clientY + 'px';
+      document.body.appendChild(trail);
+
+      // Remove after animation
+      setTimeout(() => trail.remove(), 600);
+    });
+  </script>
 
 </body>
 </html>

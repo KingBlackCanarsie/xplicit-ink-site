@@ -25,7 +25,7 @@
       height: 100%;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.35;
+      opacity: 0.55; /* Increased visibility */
     }
 
     .overlay {
@@ -504,8 +504,8 @@
         <p class="tagline">Where your darkest fantasies become shared realities • 18+ • Consent First • No Judgment</p>
         <p class="social-proof">600+ members already inked • Daily RP & voice heat • "Best kink community I've found" – new join</p>
 
-        <!-- Live member counter – visible and animating -->
-        <div class="live-counter reveal-on-scroll">
+        <!-- Live member counter -->
+        <div class="live-counter">
           Members online right now: <span id="memberCount">312</span>
         </div>
 
@@ -594,7 +594,7 @@
   </div>
 
   <script>
-    // Purple Matrix Rain
+    // Purple Matrix Rain – more visible version
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -611,12 +611,12 @@
     let drops = new Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = 'rgba(11, 10, 15, 0.085)';
+      ctx.fillStyle = 'rgba(11, 10, 15, 0.12)'; // stronger fill for visibility
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.fillStyle = '#a78bfa';
-      ctx.shadowColor = '#6a32ff';
-      ctx.shadowBlur = 10;
+      ctx.shadowColor = '#7a4aff'; // slightly brighter shadow
+      ctx.shadowBlur = 12; // more visible glow
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {
@@ -629,7 +629,7 @@
         drops[i]++;
       }
     }
-    setInterval(draw, 38);
+    setInterval(draw, 35); // slightly faster for more presence
 
     // Ink Drips
     for (let i = 0; i < 18; i++) {

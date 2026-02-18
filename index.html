@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Xplicit Ink</title>
   <style>
-    /* ==================== BASE & MATRIX BACKGROUND ==================== */
     body, html {
       margin: 0;
       padding: 0;
@@ -38,7 +37,6 @@
       z-index: 10;
     }
 
-    /* ==================== HEADER ==================== */
     .header {
       position: fixed;
       top: 0;
@@ -79,7 +77,6 @@
       font-weight: 600;
     }
 
-    /* ==================== HERO ==================== */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -143,7 +140,6 @@
       opacity: 1;
     }
 
-    /* ==================== INK DRIPS & CURSOR ==================== */
     .ink-drip {
       position: fixed;
       width: 2px;
@@ -171,7 +167,6 @@
       mix-blend-mode: screen;
     }
 
-    /* ==================== SCROLLABLE SECTIONS ==================== */
     section {
       padding: 100px 20px;
       max-width: 1100px;
@@ -187,47 +182,11 @@
       text-shadow: 0 0 15px #a78bfa;
     }
 
-    /* What Awaits You - preserved exactly */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 40px;
-      margin-top: 60px;
-    }
-
-    .feature-card {
-      background: rgba(43, 45, 49, 0.6);
-      border: 1px solid #4a3f6e;
-      border-radius: 16px;
-      overflow: hidden;
-      transition: transform 0.4s, box-shadow 0.4s;
-    }
-    .feature-card:hover {
-      transform: translateY(-15px);
-      box-shadow: 0 0 35px rgba(167, 139, 250, 0.4);
-    }
-    .feature-card img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-    }
-    .feature-card h3 {
-      font-size: 1.7rem;
-      padding: 20px 25px 10px;
-      color: #c6b8ff;
-    }
-    .feature-card p {
-      padding: 0 25px 30px;
-      line-height: 1.6;
-      opacity: 0.9;
-    }
-
-    /* Teaser Cards (Community, Rules, Manifesto) */
     .teaser-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
       gap: 40px;
-      margin-top: 60px;
+      margin-top: 40px;
     }
 
     .teaser-card {
@@ -253,10 +212,10 @@
       text-shadow: 0 0 12px rgba(167, 139, 250, 0.5);
     }
 
-    .teaser-card p {
+    .teaser-card p, .teaser-card .fade-block {
       font-size: 1.15rem;
       line-height: 1.65;
-      padding: 0 30px 30px;
+      padding: 0 30px 20px;
       opacity: 0.9;
     }
 
@@ -278,7 +237,7 @@
       box-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
     }
 
-    /* Manifesto teaser text fade effect */
+    /* Manifesto teaser fade effect */
     .manifesto-teaser .fade-block {
       opacity: 0;
       animation: fadeInOut 12s ease-in-out infinite;
@@ -286,6 +245,7 @@
       margin: 0 auto 20px;
       font-size: 1.3rem;
       line-height: 1.7;
+      text-align: center;
     }
 
     .manifesto-teaser .fade-block:nth-child(1) { animation-delay: 0s; }
@@ -298,7 +258,6 @@
       50% { opacity: 0.4; }
     }
 
-    /* CTA */
     .cta {
       text-align: center;
       padding: 120px 20px 140px;
@@ -325,16 +284,10 @@
 </head>
 <body>
 
-  <!-- PURPLE MATRIX RAIN -->
   <canvas id="matrix"></canvas>
-
-  <!-- Light overlay -->
   <div class="overlay"></div>
-
-  <!-- Glowing cursor -->
   <div class="ink-cursor" id="cursor"></div>
 
-  <!-- TOP NAV -->
   <header class="header">
     <div class="header-inner">
       <div class="brand">The Xplicit Ink</div>
@@ -349,7 +302,7 @@
 
   <div class="main-content">
 
-    <!-- HERO - preserved exactly -->
+    <!-- Hero preserved exactly -->
     <section class="hero">
       <div>
         <h1>The Xplicit Ink</h1>
@@ -359,59 +312,44 @@
       </div>
     </section>
 
-    <!-- What Awaits You - preserved exactly -->
-    <section style="background:#0f0e14;">
-      <h2 class="section-title">What Awaits You</h2>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <img src="https://images.unsplash.com/photo-1617791160505-6f00504e3519?auto=format&fit=crop&q=80" alt="Roleplay">
-          <h3>Intense Adult Roleplay</h3>
-          <p>Long-form literate scenes. Fantasy, dark romance, sci-fi, horror — every kink and every world.</p>
-        </div>
-        <div class="feature-card">
-          <img src="https://picsum.photos/id/133/800/600" alt="Voice">
-          <h3>Steamy Voice Rooms</h3>
-          <p>Always-open 18+ voice channels for ERP, moans, laughter, aftercare, and late-night vibes.</p>
-        </div>
-        <div class="feature-card">
-          <img src="https://picsum.photos/id/201/800/600" alt="Friendships">
-          <h3>Real Friendships</h3>
-          <p>Gaming nights, movie streams, deep talks — bonds that go far beyond the roleplay.</p>
+    <!-- Scrollable teaser sections start here -->
+
+    <!-- Community Teaser -->
+    <section>
+      <h2 class="section-title">Community</h2>
+      <div class="teaser-grid">
+        <div class="teaser-card">
+          <h2>Where Connections Live</h2>
+          <p>Core spaces for casual chat, roleplay channels for immersive stories, voice rooms for real-time energy — gaming, streams, deep talks, and bonds that last beyond the screen.</p>
+          <a href="community.html">Explore Community →</a>
         </div>
       </div>
     </section>
 
-    <!-- NEW: TEASER SECTIONS (scrollable) -->
+    <!-- Rules & Safety Teaser -->
     <section>
-      <h2 class="section-title">Explore the Ink</h2>
+      <h2 class="section-title">Rules & Safety</h2>
       <div class="teaser-grid">
-
-        <!-- Community Teaser -->
         <div class="teaser-card">
-          <h2>Community</h2>
-          <p>Where real connections, creativity, and shared energy come alive — from core spaces to voice & live moments.</p>
-          <a href="community.html">Read More →</a>
-        </div>
-
-        <!-- Rules & Safety Teaser -->
-        <div class="teaser-card">
-          <h2>Rules & Safety</h2>
-          <p>Consent is mandatory. Adults only. Respect the person. Privacy matters. Roleplay is fiction. Keep drama out.</p>
+          <h2>Our Code of the Ink</h2>
+          <p>18+ only — zero tolerance for minors. Consent is mandatory. Respect the person. Privacy is sacred. Roleplay is fiction. Keep drama out. Voice etiquette matters. Report issues privately.</p>
           <a href="rules-and-safety.html">Read Full Rules →</a>
         </div>
-
-        <!-- Manifesto Teaser -->
-        <div class="teaser-card manifesto-teaser">
-          <h2>Manifesto</h2>
-          <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
-          <div class="fade-block">Today, noise and fear cloud genuine connection — but here, the ink flows freely.</div>
-          <div class="fade-block">Welcome to Xplicit Ink — where voices are real, and the community is unshackled.</div>
-          <a href="manifesto.html">Read the Full Manifesto →</a>
-        </div>
       </div>
     </section>
 
-    <!-- FINAL CTA -->
+    <!-- Manifesto Teaser -->
+    <section>
+      <h2 class="section-title">Manifesto</h2>
+      <div class="teaser-card manifesto-teaser">
+        <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
+        <div class="fade-block">Today, noise and fear cloud genuine connection — but here, the ink flows freely.</div>
+        <div class="fade-block">Welcome to Xplicit Ink — where voices are real, and the community is unshackled.</div>
+        <a href="manifesto.html">Read the Full Manifesto →</a>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
     <section class="cta">
       <h2 style="font-size:3.8rem; margin-bottom:2rem; color:#c6b8ff;">Ready to get inked?</h2>
       <a href="https://discord.gg/RGwnBbnzgA" class="big-cta" target="_blank">JOIN THE DISCORD NOW</a>
@@ -421,7 +359,7 @@
   </div>
 
   <script>
-    // ==================== PURPLE MATRIX RAIN ====================
+    // Purple Matrix Rain
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -458,7 +396,7 @@
     }
     setInterval(draw, 38);
 
-    // ==================== INK DRIPS ====================
+    // Ink Drips
     for (let i = 0; i < 18; i++) {
       let drip = document.createElement('div');
       drip.className = 'ink-drip';
@@ -469,7 +407,7 @@
       document.body.appendChild(drip);
     }
 
-    // ==================== CURSOR ====================
+    // Glowing Cursor
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', (e) => {
       cursor.style.left = e.clientX + 'px';

@@ -5,215 +5,431 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Xplicit Ink</title>
   <style>
-    /* Base setup */
+    /* ==================== BASE & MATRIX BACKGROUND ==================== */
     body, html {
       margin: 0;
       padding: 0;
-      height: 100%;
-      overflow-x: hidden;
-      background-color: #0b0a0f; /* Deep dark base */
+      background-color: #0b0a0f;
       font-family: 'Georgia', serif;
       color: #dddde8;
+      overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    /* Matrix canvas - full screen background */
     #matrix {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Overlay for perfect text readability */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 10, 15, 0.45);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Content sits on top */
+    .main-content {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ==================== DISCORD-STYLE TOP PANEL (exactly like your Rules page) ==================== */
+    .header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none; /* Allows clicking through to content */
+      background: #2b2d31;
+      padding: 14px 20px;
+      border-bottom: 1px solid #1a1b1d;
+      z-index: 50;
+      display: flex;
+      justify-content: center;
+    }
+    .header-inner {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #c6b8ff;
+      letter-spacing: 1px;
+    }
+    .nav a {
+      margin-left: 28px;
+      color: #b5bac1;
+      text-decoration: none;
+      font-size: 0.98rem;
+      transition: color 0.3s;
+    }
+    .nav a:hover {
+      color: #c6b8ff;
+    }
+    .nav a.active {
+      color: #c6b8ff;
+      font-weight: 600;
     }
 
-    /* Main content - on top, scrollable */
-    .content-wrapper {
-      position: relative;
-      z-index: 10;
+    /* ==================== HERO (your exact original appearance) ==================== */
+    .hero {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      padding: 4rem 1rem;
+      justify-content: center;
+      padding-top: 90px; /* space for fixed header */
       text-align: center;
+      position: relative;
     }
 
-    /* Glowing title - unchanged */
     h1 {
-      font-size: 5rem;
+      font-size: 5.2rem;
       margin: 0;
       color: #c6b8ff;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       text-shadow: 
-        0 0 10px #a78bfa,
-        0 0 20px #6a32ff,
-        0 0 40px #6a32ff;
+        0 0 12px #a78bfa,
+        0 0 25px #6a32ff,
+        0 0 45px #6a32ff;
       font-weight: bold;
     }
 
-    p.subtitle {
-      font-size: 1.4rem;
+    .subtitle {
+      font-size: 1.45rem;
       font-style: italic;
       color: #aaa9c7;
-      margin: 1.5rem 0 3rem 0;
-      opacity: 0.8;
-      max-width: 800px;
+      margin: 1.8rem 0 3.2rem 0;
+      opacity: 0.85;
+      max-width: 720px;
     }
 
-    /* Button - unchanged */
     .enter-button {
       display: inline-block;
-      padding: 1rem 3.5rem;
-      font-size: 1.5rem;
+      padding: 1.1rem 3.8rem;
+      font-size: 1.55rem;
       font-weight: bold;
       color: white;
       text-decoration: none;
       background: #5b3cb9;
       border: 2px solid #a78bfa;
       border-radius: 12px;
-      box-shadow: 0 0 25px #a78bfa;
+      box-shadow: 0 0 28px #a78bfa;
       transition: all 0.3s ease;
     }
 
     .enter-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px #c6b8ff;
+      transform: scale(1.06);
+      box-shadow: 0 0 45px #c6b8ff;
     }
 
     .manifesto-link {
       display: block;
-      margin-top: 2rem;
+      margin-top: 2.2rem;
       color: #a78bfa;
       text-decoration: underline;
-      font-size: 1rem;
-      opacity: 0.7;
+      font-size: 1.05rem;
+      opacity: 0.75;
+      transition: opacity 0.3s;
+    }
+    .manifesto-link:hover {
+      opacity: 1;
     }
 
-    /* Ink drips - kept as they were (vertical purple lines) */
+    /* ==================== INK DRIPS & CURSOR (kept from your original) ==================== */
     .ink-drip {
       position: fixed;
       width: 2px;
       background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
-      box-shadow: 0 0 8px #a78bfa;
-      z-index: 2; /* Above matrix but below content if needed */
+      box-shadow: 0 0 9px #a78bfa;
+      z-index: 3;
       pointer-events: none;
       animation: fall linear infinite;
     }
 
     @keyframes fall {
-      0% { transform: translateY(-100vh); opacity: 0; }
-      50% { opacity: 0.5; }
-      100% { transform: translateY(100vh); opacity: 0; }
+      0% { transform: translateY(-120vh); opacity: 0; }
+      40% { opacity: 0.6; }
+      100% { transform: translateY(120vh); opacity: 0; }
     }
 
-    /* Custom cursor - kept */
     .ink-cursor {
       position: fixed;
-      width: 20px;
-      height: 20px;
-      background: radial-gradient(circle, #a78bfa, transparent);
+      width: 22px;
+      height: 22px;
+      background: radial-gradient(circle, #a78bfa 30%, transparent 70%);
       pointer-events: none;
       z-index: 100;
       transform: translate(-50%, -50%);
-      mix-blend-mode: screen; /* Makes it glow nicely over purple matrix */
+      mix-blend-mode: screen;
     }
 
-    /* Optional subtle overlay to make text more readable if needed */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(11, 10, 15, 0.35); /* Very light dark tint */
-      z-index: 5;
-      pointer-events: none;
+    /* ==================== SCROLLABLE SECTIONS (new but matching your elegant style) ==================== */
+    section {
+      padding: 100px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .section-title {
+      font-size: 3.2rem;
+      color: #c6b8ff;
+      text-align: center;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 15px #a78bfa;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .feature-card {
+      background: rgba(43, 45, 49, 0.6);
+      border: 1px solid #4a3f6e;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+    .feature-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 0 35px rgba(167, 139, 250, 0.4);
+    }
+    .feature-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+    .feature-card h3 {
+      font-size: 1.7rem;
+      padding: 20px 25px 10px;
+      color: #c6b8ff;
+    }
+    .feature-card p {
+      padding: 0 25px 30px;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .gallery img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: all 0.5s;
+      box-shadow: 0 0 12px rgba(0,0,0,0.6);
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #a78bfa;
+    }
+
+    .rules-teaser {
+      background: rgba(43, 45, 49, 0.7);
+      border: 2px solid #6a32ff;
+      border-radius: 16px;
+      padding: 60px 40px;
+      text-align: center;
+      max-width: 760px;
+      margin: 80px auto;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 120px 20px 140px;
+    }
+    .big-cta {
+      display: inline-block;
+      padding: 1.4rem 4.5rem;
+      font-size: 1.8rem;
+      background: #5b3cb9;
+      color: white;
+      border: 3px solid #c6b8ff;
+      border-radius: 16px;
+      box-shadow: 0 0 40px #a78bfa;
+      text-decoration: none;
+      transition: all 0.4s;
+    }
+    .big-cta:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 60px #c6b8ff;
     }
   </style>
 </head>
 <body>
 
-  <!-- Purple Matrix Rain Canvas -->
+  <!-- PURPLE MATRIX RAIN -->
   <canvas id="matrix"></canvas>
 
-  <!-- Optional subtle overlay for better text contrast (you can remove if too dark) -->
-  <!-- <div class="overlay"></div> -->
+  <!-- Light overlay for perfect readability -->
+  <div class="overlay"></div>
 
-  <!-- Custom cursor -->
+  <!-- Custom glowing cursor -->
   <div class="ink-cursor" id="cursor"></div>
 
-  <!-- Main content - centered vertically, but page is now scrollable -->
-  <div class="content-wrapper">
-    <h1>The Xplicit Ink</h1>
-    <p class="subtitle">A quiet gathering for people who miss when the internet felt human.</p>
-    <a href="https://discord.gg/RGwnBbnzgA" class="enter-button" target="_blank">Enter the Ink</a>
-    <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
+  <!-- TOP NAV PANEL (exactly like your Rules & Safety page) -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">The Xplicit Ink</div>
+      <nav class="nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="community.html">Community</a>
+        <a href="rules-and-safety.html">Rules &amp; Safety</a>
+        <a href="manifesto.html">Manifesto</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="main-content">
+
+    <!-- HERO - YOUR ORIGINAL EXACT APPEARANCE -->
+    <section class="hero">
+      <div>
+        <h1>The Xplicit Ink</h1>
+        <p class="subtitle">A quiet gathering for people who miss when the internet felt human.</p>
+        <a href="https://discord.gg/RGwnBbnzgA" class="enter-button" target="_blank">Enter the Ink</a>
+        <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
+      </div>
+    </section>
+
+    <!-- SCROLLABLE SECTIONS START HERE -->
+    <section>
+      <h2 class="section-title">Welcome to the Ink</h2>
+      <p style="max-width:720px; margin:0 auto; font-size:1.25rem; line-height:1.7; text-align:center; opacity:0.9;">
+        A private 18+ space for adult roleplay, deep friendships, and the kind of real connections the old internet promised. 
+        No judgment. Only consent, creativity, and heat.
+      </p>
+    </section>
+
+    <!-- FEATURES WITH EYE-CATCHING IMAGES -->
+    <section style="background:#0f0e14;">
+      <h2 class="section-title">What Awaits You</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <img src="https://images.unsplash.com/photo-1617791160505-6f00504e3519?auto=format&fit=crop&q=80" alt="Roleplay">
+          <h3>Intense Adult Roleplay</h3>
+          <p>Long-form literate scenes. Fantasy, dark romance, sci-fi, horror — every kink and every world.</p>
+        </div>
+        <div class="feature-card">
+          <img src="https://picsum.photos/id/133/800/600" alt="Voice">
+          <h3>Steamy Voice Rooms</h3>
+          <p>Always-open 18+ voice channels for ERP, moans, laughter, aftercare, and late-night vibes.</p>
+        </div>
+        <div class="feature-card">
+          <img src="https://picsum.photos/id/201/800/600" alt="Friendships">
+          <h3>Real Friendships</h3>
+          <p>Gaming nights, movie streams, deep talks — bonds that go far beyond the roleplay.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY - EYE-CATCHING -->
+    <section>
+      <h2 class="section-title">Gallery of Temptation</h2>
+      <div class="gallery">
+        <img src="https://picsum.photos/id/251/800/800" alt="Neon fantasy">
+        <img src="https://picsum.photos/id/274/800/800" alt="Dark seduction">
+        <img src="https://picsum.photos/id/1016/800/800" alt="Ink aesthetic">
+        <img src="https://picsum.photos/id/160/800/800" alt="Roleplay scene">
+        <img src="https://picsum.photos/id/201/800/800" alt="Kink vibe">
+        <img src="https://picsum.photos/id/133/800/800" alt="Community heat">
+      </div>
+    </section>
+
+    <!-- RULES TEASER -->
+    <section class="rules-teaser">
+      <h2 class="section-title" style="margin-bottom:1.5rem; text-shadow:none;">18+ Only • Consent First</h2>
+      <p style="font-size:1.3rem; max-width:620px; margin:0 auto 2rem;">
+        Minors are instantly banned. Respect limits, safewords, and boundaries at all times.
+      </p>
+      <a href="rules-and-safety.html" style="color:#c6b8ff; font-size:1.3rem; text-decoration:underline;">
+        Read Full Rules →
+      </a>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="cta">
+      <h2 style="font-size:3.8rem; margin-bottom:2rem; color:#c6b8ff;">Ready to get inked?</h2>
+      <a href="https://discord.gg/RGwnBbnzgA" class="big-cta" target="_blank">JOIN THE DISCORD NOW</a>
+      <p style="margin-top:3rem; font-size:1.3rem; opacity:0.8;">Hundreds of members already waiting… come find your people.</p>
+    </section>
+
   </div>
 
-  <!-- Keep your ink drips -->
   <script>
-    // Ink drips (vertical falling lines)
-    for (let i = 0; i < 15; i++) {
+    // ==================== PURPLE MATRIX RAIN ====================
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const fontSize = 15;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = new Array(columns).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(11, 10, 15, 0.085)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#a78bfa';
+      ctx.shadowColor = '#6a32ff';
+      ctx.shadowBlur = 10;
+      ctx.font = `${fontSize}px monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 38);
+
+    // ==================== INK DRIPS ====================
+    for (let i = 0; i < 18; i++) {
       let drip = document.createElement('div');
       drip.className = 'ink-drip';
       drip.style.left = Math.random() * 100 + 'vw';
-      drip.style.height = Math.random() * 200 + 100 + 'px';
-      drip.style.animationDuration = Math.random() * 3 + 2 + 's';
-      drip.style.animationDelay = Math.random() * 5 + 's';
+      drip.style.height = Math.random() * 280 + 120 + 'px';
+      drip.style.animationDuration = (Math.random() * 4 + 2.5) + 's';
+      drip.style.animationDelay = Math.random() * 6 + 's';
       document.body.appendChild(drip);
     }
 
-    // Custom cursor follow
+    // ==================== CURSOR ====================
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', (e) => {
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
     });
 
-    // Purple Matrix Rain
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    // Characters (mix of katakana, numbers, letters for cyber feel)
-    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZあいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
-
-    const fontSize = 16;
-    let columns = Math.floor(canvas.width / fontSize);
-    let drops = new Array(columns).fill(1);
-
-    function drawMatrix() {
-      // Semi-transparent black fade for trail effect
-      ctx.fillStyle = 'rgba(11, 10, 15, 0.07)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = '#a78bfa';          // Light purple
-      ctx.shadowColor = '#6a32ff';        // Glow purple
-      ctx.shadowBlur = 8;
-      ctx.font = fontSize + 'px monospace';
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = chars.charAt(Math.floor(Math.random() * chars.length));
-        const x = i * fontSize;
-        const y = drops[i] * fontSize;
-
-        ctx.fillText(text, x, y);
-
-        // Randomly reset drop when it reaches bottom
-        if (y > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-    }
-
-    setInterval(drawMatrix, 40); // ~25 fps - smooth but not too heavy
+    console.log('%cThe Xplicit Ink loaded — welcome back to the old internet ✨', 'color:#c6b8ff; font-family:Georgia; font-size:15px');
   </script>
-
 </body>
 </html>

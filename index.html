@@ -319,7 +319,7 @@
       to { opacity: 0; }
     }
 
-    /* Sections with fade-in */
+    /* Sections */
     section {
       padding: 100px 20px;
       max-width: 1100px;
@@ -497,15 +497,14 @@
 
   <div class="main-content">
 
-    <!-- Hero with all effects -->
+    <!-- Hero with reveal -->
     <section class="hero reveal-on-scroll">
       <div>
         <h1>The Xplicit Ink</h1>
         <p class="tagline">Where your darkest fantasies become shared realities • 18+ • Consent First • No Judgment</p>
         <p class="social-proof">600+ members already inked • Daily RP & voice heat • "Best kink community I've found" – new join</p>
 
-        <!-- Live member counter – visible and animating -->
-        <div class="live-counter">
+        <div class="live-counter reveal-on-scroll">
           Members online right now: <span id="memberCount">312</span>
         </div>
 
@@ -668,14 +667,14 @@
     }, { threshold: 0.15 });
     reveals.forEach(el => observer.observe(el));
 
-    // Fake live member counter – visible and updating
+    // Fake live member counter
     let members = 312;
     const countEl = document.getElementById('memberCount');
     if (countEl) {
       setInterval(() => {
         members += Math.floor(Math.random() * 4) + 1;
         countEl.textContent = members;
-      }, 10000); // every 10 seconds
+      }, 10000);
     }
 
     // Floating particles

@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rules & Safety • Xplicit Ink</title>
+
   <style>
-    /* Base & Matrix Background */
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
-      background: #0b0a0f;
+      background: url('https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/Manifesto.jpg') no-repeat center center fixed;
+      background-size: cover;
       font-family: 'Georgia', serif;
       color: #dddde8;
       overflow-x: hidden;
@@ -23,12 +24,18 @@
       height: 100%;
       z-index: 1;
       pointer-events: none;
+      opacity: 0.35; /* Subtle rain over your image */
     }
 
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(11, 10, 15, 0.55);
+      background: linear-gradient(
+        to bottom,
+        rgba(11, 10, 15, 0.65),
+        rgba(11, 10, 15, 0.45),
+        rgba(11, 10, 15, 0.65)
+      );
       z-index: 2;
       pointer-events: none;
     }
@@ -36,21 +43,9 @@
     .main-content {
       position: relative;
       z-index: 10;
+      min-height: 100vh;
     }
 
-    /* Glowing Cursor */
-    .ink-cursor {
-      position: fixed;
-      width: 22px;
-      height: 22px;
-      background: radial-gradient(circle, #a78bfa 30%, transparent 70%);
-      pointer-events: none;
-      z-index: 100;
-      transform: translate(-50%, -50%);
-      mix-blend-mode: screen;
-    }
-
-    /* Header */
     .header {
       background: rgba(43, 45, 49, 0.9);
       backdrop-filter: blur(10px);
@@ -58,7 +53,7 @@
       border-bottom: 1px solid rgba(167, 139, 250, 0.3);
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 100;
     }
     .header-inner {
       max-width: 1100px;
@@ -85,7 +80,6 @@
       color: #c6b8ff;
     }
 
-    /* Page Content */
     .page {
       max-width: 950px;
       margin: 100px auto 80px;
@@ -108,7 +102,6 @@
       opacity: 0.9;
     }
 
-    /* Rule Cards - Glass + Neon Glow */
     .rule-card {
       background: rgba(49, 51, 56, 0.75);
       backdrop-filter: blur(12px);
@@ -136,7 +129,6 @@
       line-height: 1.65;
     }
 
-    /* Back Button */
     .back-btn {
       display: block;
       width: fit-content;
@@ -157,7 +149,6 @@
       box-shadow: 0 0 45px rgba(198, 184, 255, 0.8);
     }
 
-    /* Footer */
     .footer {
       text-align: center;
       padding: 50px 20px;
@@ -169,14 +160,8 @@
 </head>
 <body>
 
-  <!-- Purple Matrix Rain -->
   <canvas id="matrix"></canvas>
-
-  <!-- Overlay for readability -->
   <div class="overlay"></div>
-
-  <!-- Glowing Cursor -->
-  <div class="ink-cursor" id="cursor"></div>
 
   <div class="main-content">
 
@@ -246,7 +231,7 @@
   </div>
 
   <script>
-    // Purple Matrix Rain (identical to landing page)
+    // Purple Matrix Rain (same as index, slightly visible over background)
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -282,13 +267,6 @@
       }
     }
     setInterval(draw, 38);
-
-    // Glowing Cursor
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
   </script>
 
 </body>

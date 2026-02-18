@@ -112,7 +112,7 @@
     .social-proof {
       font-size: clamp(1rem, 3.5vw, 1.3rem);
       color: #aaa9c7;
-      margin: 0.6rem 0 0.4rem;
+      margin: 0.6rem 0 1rem;
       opacity: 0.9;
     }
 
@@ -515,7 +515,6 @@
       font-size: clamp(0.95rem, 3.5vw, 1.15rem);
       color: #aaa9c7;
       margin: 0.8rem 0 1.5rem;
-      opacity: 0.9;
       min-height: 3.5rem;
       position: relative;
     }
@@ -564,7 +563,13 @@
       <div>
         <h1>The Xplicit Ink</h1>
         <p class="tagline">Literate adult roleplay & meaningful connections • 18+ • Consent Always</p>
-        <p class="social-proof">600+ members already inked • Daily RP & voice heat • "Best kink community I've found" – new join</p>
+
+        <!-- Rotating testimonials – now here, after tagline -->
+        <div class="testimonials">
+          <div class="testimonial active">"The depth of the stories here is unreal – finally a place for real literary RP." – @nyxshadow</div>
+          <div class="testimonial">"Safe, creative, and steamy – joined last week and already hooked." – @velvetquill</div>
+          <div class="testimonial">"Best adult RP server I've found. The voice rooms are 🔥" – @inkbound</div>
+        </div>
 
         <!-- Real Discord Widget – compact on mobile -->
         <div class="discord-widget">
@@ -579,18 +584,14 @@
           </iframe>
         </div>
 
-        <!-- Join Now button right under the widget -->
+        <!-- Static social proof line – now here, under widget -->
+        <p class="social-proof">600+ members already inked • Daily RP & voice heat • "Best kink community I've found" – new join</p>
+
+        <!-- Join Now button right under widget & social proof -->
         <a href="https://discord.gg/RGwnBbnzgA" class="enter-button pulse-btn ripple" target="_blank">
           Join Now – Dive Into the Ink 🔥
         </a>
         <span class="badge">18+ Only – Explicit Content</span>
-
-        <!-- Rotating testimonials – one by one fade -->
-        <div class="testimonials">
-          <div class="testimonial active">"The depth of the stories here is unreal – finally a place for real literary RP." – @nyxshadow</div>
-          <div class="testimonial">"Safe, creative, and steamy – joined last week and already hooked." – @velvetquill</div>
-          <div class="testimonial">"Best adult RP server I've found. The voice rooms are 🔥" – @inkbound</div>
-        </div>
 
         <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
 
@@ -598,7 +599,6 @@
       </div>
     </section>
 
-    <!-- Rest of your sections remain unchanged -->
     <section class="reveal-on-scroll">
       <h2 class="section-title">Sneak Peek Inside</h2>
       <div class="teaser-grid">

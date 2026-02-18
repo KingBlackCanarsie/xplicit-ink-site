@@ -111,7 +111,7 @@
       opacity: 0.9;
     }
 
-    /* Community Cards - Kept exactly as you liked */
+    /* Community Cards - Kept with your image backgrounds */
     .community-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -123,7 +123,7 @@
       backdrop-filter: blur(12px);
       border: 1px solid rgba(167, 139, 250, 0.4);
       border-radius: 16px;
-      padding: 32px;
+      overflow: hidden;
       box-shadow: 0 10px 40px rgba(106, 50, 255, 0.2);
       transition: transform 0.3s, box-shadow 0.3s;
     }
@@ -133,17 +133,28 @@
       box-shadow: 0 15px 60px rgba(167, 139, 250, 0.35);
     }
 
+    .card-image {
+      width: 100%;
+      height: 250px;
+      background-size: cover;
+      background-position: center;
+      border-bottom: 1px solid rgba(167, 139, 250, 0.4);
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover .card-image {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 26px 26px 32px;
+    }
+
     .card h2 {
       font-size: 2rem;
       color: #c6b8ff;
       margin-bottom: 1rem;
       text-shadow: 0 0 12px rgba(167, 139, 250, 0.5);
-    }
-
-    .card p {
-      font-size: 1.15rem;
-      line-height: 1.65;
-      opacity: 0.9;
     }
 
     .identity-line {
@@ -152,6 +163,12 @@
       opacity: 0.8;
       margin-bottom: 1.5rem;
       color: #a78bfa;
+    }
+
+    .card p {
+      font-size: 1.15rem;
+      line-height: 1.65;
+      opacity: 0.9;
     }
 
     /* Back link */
@@ -216,34 +233,46 @@
       <p class="subtitle">Where real connections, creativity, and shared energy come alive.</p>
 
       <div class="community-grid">
+        <!-- Core Spaces Card -->
         <div class="card">
-          <h2>Core Spaces</h2>
-          <p class="identity-line">The foundation where everyone gathers and the vibe is set.</p>
-          <p>
-            • Access — Verify and enter the ink<br>
-            • Lobby — First impressions and casual chat<br>
-            • Chatroom — Main hub for unfiltered conversation
-          </p>
+          <div class="card-image img-lobby" style="background-image: url('./lobby.jpg');"></div>
+          <div class="card-content">
+            <h2>Core Spaces</h2>
+            <p class="identity-line">The foundation where everyone gathers and the vibe is set.</p>
+            <p>
+              • Access — Verify and enter the ink<br>
+              • Lobby — First impressions and casual chat<br>
+              • Chatroom — Main hub for unfiltered conversation
+            </p>
+          </div>
         </div>
 
+        <!-- Roleplay Card -->
         <div class="card">
-          <h2>Roleplay</h2>
-          <p class="identity-line">The creative heart — stories, worlds, and characters come to life.</p>
-          <p>
-            • Rp_Only — Pure immersive narrative<br>
-            • Characters — Profiles and personas<br>
-            • Domination — Power dynamics with full consent
-          </p>
+          <div class="card-image img-rp" style="background-image: url('./rp.jpg');"></div>
+          <div class="card-content">
+            <h2>Roleplay</h2>
+            <p class="identity-line">The creative heart — stories, worlds, and characters come to life.</p>
+            <p>
+              • Rp_Only — Pure immersive narrative<br>
+              • Characters — Profiles and personas<br>
+              • Domination — Power dynamics with full consent
+            </p>
+          </div>
         </div>
 
+        <!-- Voice & Live Card -->
         <div class="card">
-          <h2>Voice & Live</h2>
-          <p class="identity-line">Real-time presence, voice, streams, and shared moments.</p>
-          <p>
-            • Mic Chat — Ambient and intimate voice<br>
-            • Streams — Gaming, movies, visual stories<br>
-            • X-Stream — Live sessions for those who want the edge
-          </p>
+          <div class="card-image img-voice" style="background-image: url('./voice.jpg');"></div>
+          <div class="card-content">
+            <h2>Voice & Live</h2>
+            <p class="identity-line">Real-time presence, voice, streams, and shared moments.</p>
+            <p>
+              • Mic Chat — Ambient and intimate voice<br>
+              • Streams — Gaming, movies, visual stories<br>
+              • X-Stream — Live sessions for those who want the edge
+            </p>
+          </div>
         </div>
       </div>
 
@@ -257,7 +286,7 @@
   </div>
 
   <script>
-    // Purple Matrix Rain (same as other pages)
+    // Purple Matrix Rain
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 

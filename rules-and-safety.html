@@ -25,7 +25,6 @@
       pointer-events: none;
     }
 
-    /* Subtle overlay to keep text perfectly readable over the rain */
     .overlay {
       position: fixed;
       inset: 0;
@@ -34,22 +33,32 @@
       pointer-events: none;
     }
 
-    /* Content on top */
     .main-content {
       position: relative;
       z-index: 10;
-      min-height: 100vh;
     }
 
-    /* Header - matched to landing page */
+    /* Glowing Cursor */
+    .ink-cursor {
+      position: fixed;
+      width: 22px;
+      height: 22px;
+      background: radial-gradient(circle, #a78bfa 30%, transparent 70%);
+      pointer-events: none;
+      z-index: 100;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+    }
+
+    /* Header */
     .header {
-      background: rgba(43, 45, 49, 0.85);
+      background: rgba(43, 45, 49, 0.9);
       backdrop-filter: blur(10px);
       padding: 16px 24px;
-      border-bottom: 1px solid rgba(167, 139, 250, 0.25);
+      border-bottom: 1px solid rgba(167, 139, 250, 0.3);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 50;
     }
     .header-inner {
       max-width: 1100px;
@@ -66,4 +75,221 @@
       text-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
     }
     .nav a {
-      margin-left: 30
+      margin-left: 30px;
+      color: #b5bac1;
+      text-decoration: none;
+      font-size: 1.05rem;
+      transition: color 0.3s;
+    }
+    .nav a:hover, .nav a.active {
+      color: #c6b8ff;
+    }
+
+    /* Page Content */
+    .page {
+      max-width: 950px;
+      margin: 100px auto 80px;
+      padding: 0 30px;
+    }
+
+    .page-title {
+      font-size: 4rem;
+      font-weight: bold;
+      color: #c6b8ff;
+      text-align: center;
+      margin-bottom: 0.8rem;
+      text-shadow: 0 0 20px rgba(106, 50, 255, 0.7);
+    }
+    .page-subtitle {
+      font-size: 1.4rem;
+      color: #aaa9c7;
+      text-align: center;
+      margin-bottom: 60px;
+      opacity: 0.9;
+    }
+
+    /* Rule Cards - Glass + Neon Glow */
+    .rule-card {
+      background: rgba(49, 51, 56, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin-bottom: 32px;
+      box-shadow: 0 10px 40px rgba(106, 50, 255, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .rule-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 60px rgba(167, 139, 250, 0.35);
+    }
+    .rule-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #c6b8ff;
+      margin-bottom: 14px;
+      text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+    }
+    .rule-text {
+      font-size: 1.15rem;
+      color: #d0d2d6;
+      line-height: 1.65;
+    }
+
+    /* Back Button */
+    .back-btn {
+      display: block;
+      width: fit-content;
+      margin: 50px auto 0;
+      padding: 16px 32px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #5b3cb9, #6a32ff);
+      border: 2px solid #a78bfa;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 0 25px rgba(167, 139, 250, 0.6);
+      transition: all 0.3s;
+    }
+    .back-btn:hover {
+      transform: scale(1.06);
+      box-shadow: 0 0 45px rgba(198, 184, 255, 0.8);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 50px 20px;
+      color: #8e9297;
+      font-size: 1rem;
+      border-top: 1px solid rgba(167, 139, 250, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Purple Matrix Rain -->
+  <canvas id="matrix"></canvas>
+
+  <!-- Overlay for readability -->
+  <div class="overlay"></div>
+
+  <!-- Glowing Cursor -->
+  <div class="ink-cursor" id="cursor"></div>
+
+  <div class="main-content">
+
+    <header class="header">
+      <div class="header-inner">
+        <div class="brand">Xplicit Ink</div>
+        <nav class="nav">
+          <a href="/index.html">Home</a>
+          <a href="/community.html">Community</a>
+          <a href="/rules-and-safety.html" class="active">Rules</a>
+          <a href="/manifesto.html">Manifesto</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+      <h1 class="page-title">Rules & Safety</h1>
+      <p class="page-subtitle">These guidelines keep Xplicit Ink safe, respectful, and enjoyable for everyone.</p>
+
+      <div class="rule-card">
+        <div class="rule-title">1. Adults Only</div>
+        <div class="rule-text">Xplicit Ink is strictly 18+. If staff suspect a member is underage, removal is immediate and permanent.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-title">2. Consent Is Mandatory</div>
+        <div class="rule-text">No pressure, no guilt-tripping, no ignoring boundaries. “No” is final. Always respect limits and safewords.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-title">3. Respect the Person</div>
+        <div class="rule-text">Behind every username is a real human being. Treat others with basic decency, kindness, and respect at all times.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-title">4. Privacy Matters</div>
+        <div class="rule-text">Do not share screenshots, messages, voices, or any content outside the server without explicit permission from all involved parties.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-title">5. Keep Drama Out</div>
+        <div class="rule-text">No harassment, personal attacks, or dragging issues into public channels. Handle conflicts privately or via staff tickets.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-title">6. Roleplay Is Fiction</div>
+        <div class="rule-text">Roleplay does not equal real-life consent. Keep IC (in-character) and OOC (out-of-character) clearly separated at all times.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-title">7. Voice Etiquette</div>
+        <div class="rule-text">No yelling, ear-rape, blasting music, or disrupting others. Match the tone/energy of the voice room you're in.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-title">8. Reporting Issues</div>
+        <div class="rule-text">If something feels wrong or violates rules, open a private ticket. Staff will review and respond as quickly as possible.</div>
+      </div>
+
+      <a href="/index.html" class="back-btn">← Back to Home</a>
+    </main>
+
+    <footer class="footer">
+      Xplicit Ink • Respect. Safety. Creativity.
+    </footer>
+
+  </div>
+
+  <script>
+    // Purple Matrix Rain (identical to landing page)
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const fontSize = 15;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = new Array(columns).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(11, 10, 15, 0.085)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#a78bfa';
+      ctx.shadowColor = '#6a32ff';
+      ctx.shadowBlur = 10;
+      ctx.font = `${fontSize}px monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 38);
+
+    // Glowing Cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+  </script>
+
+</body>
+</html>

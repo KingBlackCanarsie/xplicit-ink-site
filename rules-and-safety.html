@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rules & Safety • Xplicit Ink</title>
+
   <style>
-    /* Base & Matrix Background */
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
-      background: #0b0a0f;
+      background: url('https://live.staticflickr.com/65535/55102596973_abcdef1234.jpg') no-repeat center center fixed;
+      background-size: cover;
       font-family: 'Georgia', serif;
       color: #dddde8;
       overflow-x: hidden;
@@ -23,12 +24,18 @@
       height: 100%;
       z-index: 1;
       pointer-events: none;
+      opacity: 0.35; /* Keeps rain subtle over the background image */
     }
 
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(11, 10, 15, 0.55);
+      background: linear-gradient(
+        to bottom,
+        rgba(11, 10, 15, 0.65),
+        rgba(11, 10, 15, 0.45),
+        rgba(11, 10, 15, 0.65)
+      );
       z-index: 2;
       pointer-events: none;
     }
@@ -36,6 +43,7 @@
     .main-content {
       position: relative;
       z-index: 10;
+      min-height: 100vh;
     }
 
     /* Glowing Cursor */
@@ -246,7 +254,7 @@
   </div>
 
   <script>
-    // Purple Matrix Rain (identical to landing page)
+    // Purple Matrix Rain (identical to other pages)
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 

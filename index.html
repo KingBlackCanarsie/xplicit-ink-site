@@ -16,7 +16,7 @@
         
         body {
             font-family: 'VT323', monospace;
-            background: #0a0a0a;
+            background: #1e1f22;
         }
         
         .hero-title {
@@ -28,9 +28,9 @@
         }
 
         .glass {
-            background: rgba(10, 10, 20, 0.85);
+            background: rgba(49, 51, 56, 0.92);
             backdrop-filter: blur(16px);
-            border: 2px solid rgba(192, 38, 211, 0.4);
+            border: 2px solid rgba(192, 38, 211, 0.5);
         }
 
         canvas {
@@ -40,6 +40,7 @@
             z-index: 1;
             pointer-events: none;
             mix-blend-mode: screen;
+            opacity: 0.95;
         }
 
         .content {
@@ -103,11 +104,17 @@
         }
 
         .hero-bg {
-            background-image: linear-gradient(rgba(10,10,20,0.75), rgba(10,10,20,0.85)), 
+            background-image: linear-gradient(rgba(30,31,34,0.85), rgba(30,31,34,0.92)), 
                               url('https://images.unsplash.com/photo-1617791160505-6f00504e3519?auto=format&fit=crop&q=90');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+        }
+
+        /* Discord-style header */
+        .discord-header {
+            background: #2b2d31;
+            border-bottom: 1px solid #1a1b1d;
         }
     </style>
 </head>
@@ -121,47 +128,45 @@
 
     <div class="content min-h-screen relative z-10">
 
-        <!-- NAVBAR -->
-        <nav class="border-b border-purple-500/30 bg-black/90 backdrop-blur-lg fixed w-full z-50">
-            <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-3xl font-black rounded-xl shadow-lg shadow-purple-500/50">✒️</div>
-                    <span class="text-4xl tracking-[6px] hero-title text-purple-400">XPLICIT INK</span>
+        <!-- DISCORD-STYLE HEADER (matches your Rules page) -->
+        <header class="discord-header fixed w-full z-50">
+            <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+                <div class="brand flex items-center gap-3 text-2xl font-bold">
+                    <span class="text-[#c026d3]">✒️</span> 
+                    XPLICIT INK
                 </div>
-                
-                <div class="hidden md:flex items-center gap-10 text-xl">
-                    <a href="#about" class="hover:text-purple-400 transition-colors">THE INK</a>
-                    <a href="#gallery" class="hover:text-purple-400 transition-colors">GALLERY</a>
-                    <a href="#rules" class="hover:text-purple-400 transition-colors">CODE</a>
-                    <a href="#join" class="hover:text-purple-400 transition-colors">ENTER</a>
-                </div>
-
-                <a href="https://discord.gg/YOUR_DISCORD_INVITE_HERE" 
+                <nav class="nav flex items-center gap-8 text-[#b5bac1] text-lg">
+                    <a href="index.html" class="hover:text-white transition-colors font-medium text-white">Home</a>
+                    <a href="community.html" class="hover:text-white transition-colors">Community</a>
+                    <a href="rules-and-safety.html" class="hover:text-white transition-colors">Rules</a>
+                    <a href="manifesto.html" class="hover:text-white transition-colors">Manifesto</a>
+                </nav>
+                <a href="https://discord.gg/RGwnBbnzgA" 
                    target="_blank"
-                   class="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-pink-600 hover:to-purple-600 font-bold text-2xl rounded-2xl neon-button border-2 border-white">
+                   class="px-8 py-3 bg-gradient-to-r from-[#c026d3] to-pink-600 hover:from-pink-600 hover:to-[#c026d3] font-bold text-xl rounded-2xl neon-button border-2 border-white">
                     JOIN NOW
                 </a>
             </div>
-        </nav>
+        </header>
 
-        <!-- HERO - EYE-CATCHING BIG IMAGE -->
+        <!-- HERO SECTION -->
         <section class="min-h-screen flex items-center justify-center pt-20 hero-bg">
             <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
-                <div class="mb-8 inline-flex items-center gap-3 bg-black/70 border-2 border-purple-500 px-8 py-3 rounded-3xl">
-                    <span class="w-4 h-4 bg-purple-500 rounded-full animate-pulse"></span>
-                    <span class="text-2xl tracking-widest text-purple-300">18+ ONLY • NO LIMITS • EXPLICIT RP</span>
+                <div class="mb-8 inline-flex items-center gap-3 bg-black/70 border-2 border-[#c026d3] px-8 py-3 rounded-3xl">
+                    <span class="w-4 h-4 bg-[#c026d3] rounded-full animate-pulse"></span>
+                    <span class="text-2xl tracking-widest text-[#c026d3]">18+ ONLY • EXPLICIT • NO JUDGMENT</span>
                 </div>
                 
-                <h1 class="hero-title text-[90px] md:text-[130px] leading-none mb-6 tracking-[10px] text-white">
+                <h1 class="hero-title text-[90px] md:text-[130px] leading-none mb-6 tracking-[10px]">
                     XPLICIT<br>INK
                 </h1>
                 
-                <p class="text-5xl md:text-6xl text-purple-200 mb-12 max-w-4xl mx-auto leading-tight drop-shadow-2xl">
-                    Darkest fantasies.<br>Real connections.<br>Zero judgment.
+                <p class="text-5xl md:text-6xl text-purple-200 mb-12 max-w-4xl mx-auto leading-tight">
+                    Darkest fantasies.<br>Real connections.<br>Zero limits.
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                    <a href="https://discord.gg/YOUR_DISCORD_INVITE_HERE" 
+                    <a href="https://discord.gg/RGwnBbnzgA" 
                        target="_blank"
                        class="neon-button px-16 py-7 bg-white text-black text-5xl font-bold rounded-3xl flex items-center gap-5 shadow-2xl">
                         ENTER THE SERVER
@@ -170,11 +175,11 @@
                     
                     <a href="#about" 
                        class="px-16 py-7 border-4 border-white hover:bg-white hover:text-black text-5xl font-bold rounded-3xl transition-all">
-                        SEE MORE
+                        SEE INSIDE
                     </a>
                 </div>
                 
-                <div class="mt-20 flex justify-center gap-12 text-lg opacity-90">
+                <div class="mt-20 flex justify-center gap-12 text-lg">
                     <div class="flex items-center gap-3"><i class="fa-solid fa-book-skull text-3xl"></i> Literate RP</div>
                     <div class="flex items-center gap-3"><i class="fa-solid fa-headset text-3xl"></i> Steamy VC</div>
                     <div class="flex items-center gap-3"><i class="fa-solid fa-users text-3xl"></i> Real Bonds</div>
@@ -186,126 +191,99 @@
         <section id="about" class="py-28 border-t border-purple-500/30">
             <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
                 <div>
-                    <h2 class="text-7xl hero-title text-purple-400 mb-10 leading-none">THE INK<br>NEVER DRIES...</h2>
+                    <h2 class="text-7xl hero-title text-[#c026d3] mb-10">THE INK<br>NEVER DRIES...</h2>
                     <div class="space-y-8 text-3xl text-purple-200 leading-relaxed">
-                        <p>A private 18+ sanctuary for adults who want more than small talk.</p>
-                        <p>Erotic roleplay, deep kink conversations, voice sessions that leave you breathless, and friendships that last beyond the server.</p>
-                        <p>Consent is law. Creativity is everything. Heat is guaranteed.</p>
+                        <p>A private 18+ sanctuary for adults craving more than vanilla chat.</p>
+                        <p>Intense erotic roleplay, deep kink talks, voice sessions that melt you, and friendships that actually last.</p>
+                        <p>Consent is everything. Creativity is king. Heat guaranteed.</p>
                     </div>
                 </div>
                 
-                <!-- Eye-catching side image -->
-                <div class="relative rounded-3xl overflow-hidden shadow-2xl shadow-purple-500/50">
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl shadow-[#c026d3]/50">
                     <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=90" 
-                         alt="Dark seductive fantasy scene" 
-                         class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                    <div class="absolute bottom-8 left-8 text-4xl font-bold text-white drop-shadow-lg">Your story starts here</div>
+                         alt="Seductive fantasy" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 text-4xl font-bold text-white">Your fantasy starts here</div>
                 </div>
             </div>
         </section>
 
-        <!-- FEATURES - with images -->
-        <section class="py-24 bg-black/95">
+        <!-- FEATURES -->
+        <section class="py-24 bg-[#1e1f22]">
             <div class="max-w-6xl mx-auto px-6">
-                <h2 class="text-center text-6xl hero-title mb-16 text-purple-300 tracking-widest">WHAT'S WAITING FOR YOU</h2>
+                <h2 class="text-center text-6xl hero-title mb-16 text-[#c026d3]">WHAT AWAITS YOU</h2>
                 
                 <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Card 1 -->
                     <div class="feature-card glass p-8 rounded-3xl overflow-hidden">
-                        <img src="https://picsum.photos/id/1015/600/340" 
-                             alt="Epic Roleplay" class="w-full h-52 object-cover rounded-2xl mb-6">
-                        <h3 class="text-4xl mb-4 text-purple-400">LITERATE ROLEPLAY</h3>
+                        <img src="https://picsum.photos/id/1015/600/340" alt="Roleplay" class="w-full h-52 object-cover rounded-2xl mb-6">
+                        <h3 class="text-4xl mb-4 text-[#c026d3]">LITERATE ROLEPLAY</h3>
                         <p class="text-2xl text-purple-200">Fantasy, dark romance, horror, sci-fi — every kink, every world. Long-form encouraged.</p>
                     </div>
                     
-                    <!-- Card 2 -->
                     <div class="feature-card glass p-8 rounded-3xl overflow-hidden">
-                        <img src="https://picsum.photos/id/133/600/340" 
-                             alt="Steamy Voice" class="w-full h-52 object-cover rounded-2xl mb-6">
-                        <h3 class="text-4xl mb-4 text-purple-400">NSFW VOICE ROOMS</h3>
-                        <p class="text-2xl text-purple-200">Always-open channels for ERP, moans, aftercare talks, and late-night vibes.</p>
+                        <img src="https://picsum.photos/id/133/600/340" alt="Voice" class="w-full h-52 object-cover rounded-2xl mb-6">
+                        <h3 class="text-4xl mb-4 text-[#c026d3]">NSFW VOICE ROOMS</h3>
+                        <p class="text-2xl text-purple-200">Always-open channels for ERP, moans, aftercare & late-night vibes.</p>
                     </div>
                     
-                    <!-- Card 3 -->
                     <div class="feature-card glass p-8 rounded-3xl overflow-hidden">
-                        <img src="https://picsum.photos/id/201/600/340" 
-                             alt="Real Friendships" class="w-full h-52 object-cover rounded-2xl mb-6">
-                        <h3 class="text-4xl mb-4 text-purple-400">DEEP CONNECTIONS</h3>
-                        <p class="text-2xl text-purple-200">Find your people. Gaming, streams, deep talks, and bonds that go far beyond kink.</p>
+                        <img src="https://picsum.photos/id/201/600/340" alt="Friendships" class="w-full h-52 object-cover rounded-2xl mb-6">
+                        <h3 class="text-4xl mb-4 text-[#c026d3]">REAL CONNECTIONS</h3>
+                        <p class="text-2xl text-purple-200">Gaming, streams, deep talks — bonds that go way beyond kink.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- GALLERY - MAJOR EYE-CATCHER -->
-        <section id="gallery" class="py-24 border-t border-purple-500/30 bg-gradient-to-b from-black to-purple-950">
+        <!-- GALLERY -->
+        <section id="gallery" class="py-24 border-t border-purple-500/30 bg-gradient-to-b from-[#1e1f22] to-[#2b2d31]">
             <div class="max-w-7xl mx-auto px-6">
                 <h2 class="text-center text-6xl hero-title mb-4 text-white">GALLERY OF TEMPTATION</h2>
-                <p class="text-center text-3xl text-purple-300 mb-16">Just a taste of the heat inside...</p>
+                <p class="text-center text-3xl text-[#c026d3] mb-16">Just a taste of the heat inside...</p>
                 
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                    <img src="https://picsum.photos/id/251/600/600" alt="Neon fantasy" class="gallery-img w-full aspect-square object-cover rounded-3xl">
-                    <img src="https://picsum.photos/id/274/600/600" alt="Dark seduction" class="gallery-img w-full aspect-square object-cover rounded-3xl">
-                    <img src="https://picsum.photos/id/1016/600/600" alt="Ink & neon" class="gallery-img w-full aspect-square object-cover rounded-3xl">
-                    <img src="https://picsum.photos/id/160/600/600" alt="Roleplay vibe" class="gallery-img w-full aspect-square object-cover rounded-3xl">
-                    <img src="https://picsum.photos/id/201/600/600" alt="Kink aesthetic" class="gallery-img w-full aspect-square object-cover rounded-3xl">
-                    <img src="https://picsum.photos/id/133/600/600" alt="Community heat" class="gallery-img w-full aspect-square object-cover rounded-3xl">
+                    <img src="https://picsum.photos/id/251/600/600" alt="" class="gallery-img w-full aspect-square object-cover rounded-3xl">
+                    <img src="https://picsum.photos/id/274/600/600" alt="" class="gallery-img w-full aspect-square object-cover rounded-3xl">
+                    <img src="https://picsum.photos/id/1016/600/600" alt="" class="gallery-img w-full aspect-square object-cover rounded-3xl">
+                    <img src="https://picsum.photos/id/160/600/600" alt="" class="gallery-img w-full aspect-square object-cover rounded-3xl">
+                    <img src="https://picsum.photos/id/201/600/600" alt="" class="gallery-img w-full aspect-square object-cover rounded-3xl">
+                    <img src="https://picsum.photos/id/133/600/600" alt="" class="gallery-img w-full aspect-square object-cover rounded-3xl">
                 </div>
             </div>
         </section>
 
-        <!-- RULES -->
-        <section id="rules" class="py-24">
+        <!-- RULES TEASER -->
+        <section class="py-24 bg-[#1e1f22]">
             <div class="max-w-4xl mx-auto px-6 text-center">
                 <div class="inline-block px-10 py-4 bg-red-950 border-2 border-red-500 rounded-3xl text-3xl mb-12">
                     ⚠️ 18+ ONLY — MINORS = INSTANT BAN ⚠️
                 </div>
-                
-                <h2 class="text-6xl hero-title mb-12 text-purple-400">THE CODE OF THE INK</h2>
-                
-                <div class="grid md:grid-cols-2 gap-8 text-left text-2xl">
-                    <div class="glass p-10 rounded-3xl">
-                        <ul class="space-y-7">
-                            <li class="flex gap-5"><span class="text-purple-400 text-4xl">✅</span> Consent first, always.</li>
-                            <li class="flex gap-5"><span class="text-purple-400 text-4xl">✅</span> No minors. Zero tolerance.</li>
-                            <li class="flex gap-5"><span class="text-purple-400 text-4xl">✅</span> Respect limits &amp; safewords.</li>
-                        </ul>
-                    </div>
-                    <div class="glass p-10 rounded-3xl">
-                        <ul class="space-y-7">
-                            <li class="flex gap-5"><span class="text-purple-400 text-4xl">✅</span> Be kind to newcomers.</li>
-                            <li class="flex gap-5"><span class="text-purple-400 text-4xl">✅</span> No drama or doxxing.</li>
-                            <li class="flex gap-5"><span class="text-purple-400 text-4xl">✅</span> Get filthy. Stay safe. Have fun.</li>
-                        </ul>
-                    </div>
-                </div>
+                <h2 class="text-6xl hero-title mb-12 text-[#c026d3]">THE CODE OF THE INK</h2>
+                <p class="text-2xl text-purple-200">Consent first. Respect always. Get filthy safely.</p>
+                <a href="rules-and-safety.html" class="mt-10 inline-block px-10 py-5 border-4 border-[#c026d3] hover:bg-[#c026d3] hover:text-black text-3xl rounded-3xl transition-all">
+                    READ FULL RULES →
+                </a>
             </div>
         </section>
 
         <!-- FINAL CTA -->
-        <section id="join" class="py-32 bg-black relative overflow-hidden">
+        <section id="join" class="py-32 bg-[#1e1f22]">
             <div class="max-w-3xl mx-auto px-6 text-center">
-                <p class="text-7xl mb-10 text-purple-200">Ready to get inked?</p>
-                <a href="https://discord.gg/YOUR_DISCORD_INVITE_HERE" 
+                <p class="text-7xl mb-10 text-[#c026d3]">Ready to get inked?</p>
+                <a href="https://discord.gg/RGwnBbnzgA" 
                    target="_blank"
-                   class="inline-block neon-button px-20 py-10 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-6xl font-bold rounded-3xl border-4 border-white">
+                   class="inline-block neon-button px-20 py-10 bg-gradient-to-r from-[#c026d3] to-pink-600 text-white text-6xl font-bold rounded-3xl border-4 border-white">
                     JOIN XPLICIT INK
                 </a>
-                <p class="mt-16 text-3xl text-purple-400">Hundreds of members already waiting for you...</p>
+                <p class="mt-16 text-3xl text-purple-400">Hundreds already waiting… come get filthy with us 🔥</p>
             </div>
         </section>
 
         <!-- FOOTER -->
-        <footer class="border-t border-purple-500/30 py-16 bg-black">
-            <div class="max-w-6xl mx-auto px-6 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-purple-300 text-xl">
-                <div>© 2026 Xplicit Ink • All fantasies stay inside</div>
-                <div class="flex gap-8 my-8 md:my-0">
-                    <a href="https://discord.gg/YOUR_DISCORD_INVITE_HERE" class="hover:text-white">Discord</a>
-                    <a href="#" class="hover:text-white">Rules</a>
-                    <a href="#" class="hover:text-white">Support</a>
-                </div>
-                <div>Made for adults who play without limits 🔥</div>
+        <footer class="border-t border-purple-500/30 py-16 bg-[#2b2d31]">
+            <div class="max-w-6xl mx-auto px-6 text-center text-[#b5bac1]">
+                © 2026 Xplicit Ink • All fantasies stay inside the server
+                <div class="mt-6 text-sm">Made for adults who play without limits</div>
             </div>
         </footer>
     </div>
@@ -316,14 +294,14 @@
         const ctx = canvas.getContext('2d');
 
         let w, h;
-        function resizeCanvas() {
+        function resize() {
             w = window.innerWidth;
             h = window.innerHeight;
             canvas.width = w;
             canvas.height = h;
         }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+        resize();
+        window.addEventListener('resize', resize);
 
         const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const fontSize = 16;
@@ -331,7 +309,7 @@
         let drops = Array(columns).fill(1);
 
         function draw() {
-            ctx.fillStyle = 'rgba(10, 10, 20, 0.08)';
+            ctx.fillStyle = 'rgba(30, 31, 34, 0.08)';
             ctx.fillRect(0, 0, w, h);
             
             ctx.fillStyle = '#c026d3';
@@ -340,23 +318,13 @@
             for (let i = 0; i < drops.length; i++) {
                 const text = chars[Math.floor(Math.random() * chars.length)];
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
                 if (drops[i] * fontSize > h && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             }
         }
-
         setInterval(draw, 40);
 
-        console.log('%cXplicit Ink loaded — welcome to the dark side ✨', 'color:#c026d3; font-size:18px; font-family:monospace');
+        console.log('%cXplicit Ink — Welcome to the dark side ✨', 'color:#c026d3; font-size:18px; font-family:monospace');
     </script>
 </body>
 </html>
-
-
-13
-:
-47
-
-Selected Voice
-1x

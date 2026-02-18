@@ -6,12 +6,12 @@
   <title>Rules & Safety • Xplicit Ink</title>
 
   <style>
-    /* Base & Matrix Background with your image */
+    /* Base & Matrix Background with your image visible behind rain */
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
-      background: url('https://live.staticflickr.com/65535/55102596973_abcdef1234_b.jpg') no-repeat center center fixed;
+      background: url('https://live.staticflickr.com/65535/55102596973_cda27b7dd4_b.jpg') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Georgia', serif;
       color: #dddde8;
@@ -25,7 +25,7 @@
       height: 100%;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.28; /* Lowered so your image is clearly visible */
+      opacity: 0.28; /* Reduced so your image shows clearly */
     }
 
     .overlay {
@@ -34,7 +34,7 @@
       background: linear-gradient(
         to bottom,
         rgba(11, 10, 15, 0.55),
-        rgba(11, 10, 15, 0.35), /* lighter middle for better image visibility */
+        rgba(11, 10, 15, 0.35), /* Lighter middle for better visibility */
         rgba(11, 10, 15, 0.55)
       );
       z-index: 2;
@@ -271,7 +271,7 @@
     let drops = new Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = 'rgba(11, 10, 15, 0.10)'; // Slightly stronger fill for more visibility
+      ctx.fillStyle = 'rgba(11, 10, 15, 0.10)'; // Slightly stronger for visibility
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.fillStyle = '#a78bfa';

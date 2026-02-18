@@ -25,7 +25,6 @@
       pointer-events: none;
     }
 
-    /* Overlay for perfect text readability */
     .overlay {
       position: fixed;
       inset: 0;
@@ -34,13 +33,12 @@
       pointer-events: none;
     }
 
-    /* Content sits on top */
     .main-content {
       position: relative;
       z-index: 10;
     }
 
-    /* ==================== DISCORD-STYLE TOP PANEL (exactly like your Rules page) ==================== */
+    /* ==================== HEADER ==================== */
     .header {
       position: fixed;
       top: 0;
@@ -81,13 +79,13 @@
       font-weight: 600;
     }
 
-    /* ==================== HERO (your exact original appearance) ==================== */
+    /* ==================== HERO ==================== */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding-top: 90px; /* space for fixed header */
+      padding-top: 90px;
       text-align: center;
       position: relative;
     }
@@ -145,7 +143,7 @@
       opacity: 1;
     }
 
-    /* ==================== INK DRIPS & CURSOR (kept from your original) ==================== */
+    /* ==================== INK DRIPS & CURSOR ==================== */
     .ink-drip {
       position: fixed;
       width: 2px;
@@ -173,7 +171,7 @@
       mix-blend-mode: screen;
     }
 
-    /* ==================== SCROLLABLE SECTIONS (new but matching your elegant style) ==================== */
+    /* ==================== SCROLLABLE SECTIONS ==================== */
     section {
       padding: 100px 20px;
       max-width: 1100px;
@@ -189,6 +187,7 @@
       text-shadow: 0 0 15px #a78bfa;
     }
 
+    /* What Awaits You - preserved exactly */
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -223,38 +222,88 @@
       opacity: 0.9;
     }
 
-    .gallery {
+    /* Teaser Cards (Community, Rules, Manifesto) */
+    .teaser-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
-    }
-    .gallery img {
-      width: 100%;
-      height: 320px;
-      object-fit: cover;
-      border-radius: 12px;
-      transition: all 0.5s;
-      box-shadow: 0 0 12px rgba(0,0,0,0.6);
-    }
-    .gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px #a78bfa;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
     }
 
-    .rules-teaser {
-      background: rgba(43, 45, 49, 0.7);
-      border: 2px solid #6a32ff;
+    .teaser-card {
+      background: rgba(49, 51, 56, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(167, 139, 250, 0.4);
       border-radius: 16px;
-      padding: 60px 40px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(106, 50, 255, 0.2);
+      transition: transform 0.4s, box-shadow 0.4s;
       text-align: center;
-      max-width: 760px;
-      margin: 80px auto;
     }
 
+    .teaser-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 70px rgba(167, 139, 250, 0.35);
+    }
+
+    .teaser-card h2 {
+      font-size: 2.2rem;
+      color: #c6b8ff;
+      margin: 30px 20px 15px;
+      text-shadow: 0 0 12px rgba(167, 139, 250, 0.5);
+    }
+
+    .teaser-card p {
+      font-size: 1.15rem;
+      line-height: 1.65;
+      padding: 0 30px 30px;
+      opacity: 0.9;
+    }
+
+    .teaser-card a {
+      display: inline-block;
+      margin: 0 0 30px;
+      padding: 12px 28px;
+      font-size: 1.1rem;
+      color: #c6b8ff;
+      border: 2px solid #a78bfa;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .teaser-card a:hover {
+      background: rgba(167, 139, 250, 0.15);
+      color: white;
+      box-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
+    }
+
+    /* Manifesto teaser text fade effect */
+    .manifesto-teaser .fade-block {
+      opacity: 0;
+      animation: fadeInOut 12s ease-in-out infinite;
+      max-width: 680px;
+      margin: 0 auto 20px;
+      font-size: 1.3rem;
+      line-height: 1.7;
+    }
+
+    .manifesto-teaser .fade-block:nth-child(1) { animation-delay: 0s; }
+    .manifesto-teaser .fade-block:nth-child(2) { animation-delay: 4s; }
+    .manifesto-teaser .fade-block:nth-child(3) { animation-delay: 8s; }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; }
+      25%, 75% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* CTA */
     .cta {
       text-align: center;
       padding: 120px 20px 140px;
     }
+
     .big-cta {
       display: inline-block;
       padding: 1.4rem 4.5rem;
@@ -267,6 +316,7 @@
       text-decoration: none;
       transition: all 0.4s;
     }
+
     .big-cta:hover {
       transform: scale(1.08);
       box-shadow: 0 0 60px #c6b8ff;
@@ -278,13 +328,13 @@
   <!-- PURPLE MATRIX RAIN -->
   <canvas id="matrix"></canvas>
 
-  <!-- Light overlay for perfect readability -->
+  <!-- Light overlay -->
   <div class="overlay"></div>
 
-  <!-- Custom glowing cursor -->
+  <!-- Glowing cursor -->
   <div class="ink-cursor" id="cursor"></div>
 
-  <!-- TOP NAV PANEL (exactly like your Rules & Safety page) -->
+  <!-- TOP NAV -->
   <header class="header">
     <div class="header-inner">
       <div class="brand">The Xplicit Ink</div>
@@ -299,7 +349,7 @@
 
   <div class="main-content">
 
-    <!-- HERO - YOUR ORIGINAL EXACT APPEARANCE -->
+    <!-- HERO - preserved exactly -->
     <section class="hero">
       <div>
         <h1>The Xplicit Ink</h1>
@@ -309,16 +359,7 @@
       </div>
     </section>
 
-    <!-- SCROLLABLE SECTIONS START HERE -->
-    <section>
-      <h2 class="section-title">Welcome to the Ink</h2>
-      <p style="max-width:720px; margin:0 auto; font-size:1.25rem; line-height:1.7; text-align:center; opacity:0.9;">
-        A private 18+ space for adult roleplay, deep friendships, and the kind of real connections the old internet promised. 
-        No judgment. Only consent, creativity, and heat.
-      </p>
-    </section>
-
-    <!-- FEATURES WITH EYE-CATCHING IMAGES -->
+    <!-- What Awaits You - preserved exactly -->
     <section style="background:#0f0e14;">
       <h2 class="section-title">What Awaits You</h2>
       <div class="feature-grid">
@@ -340,28 +381,34 @@
       </div>
     </section>
 
-    <!-- GALLERY - EYE-CATCHING -->
+    <!-- NEW: TEASER SECTIONS (scrollable) -->
     <section>
-      <h2 class="section-title">Gallery of Temptation</h2>
-      <div class="gallery">
-        <img src="https://picsum.photos/id/251/800/800" alt="Neon fantasy">
-        <img src="https://picsum.photos/id/274/800/800" alt="Dark seduction">
-        <img src="https://picsum.photos/id/1016/800/800" alt="Ink aesthetic">
-        <img src="https://picsum.photos/id/160/800/800" alt="Roleplay scene">
-        <img src="https://picsum.photos/id/201/800/800" alt="Kink vibe">
-        <img src="https://picsum.photos/id/133/800/800" alt="Community heat">
-      </div>
-    </section>
+      <h2 class="section-title">Explore the Ink</h2>
+      <div class="teaser-grid">
 
-    <!-- RULES TEASER -->
-    <section class="rules-teaser">
-      <h2 class="section-title" style="margin-bottom:1.5rem; text-shadow:none;">18+ Only • Consent First</h2>
-      <p style="font-size:1.3rem; max-width:620px; margin:0 auto 2rem;">
-        Minors are instantly banned. Respect limits, safewords, and boundaries at all times.
-      </p>
-      <a href="rules-and-safety.html" style="color:#c6b8ff; font-size:1.3rem; text-decoration:underline;">
-        Read Full Rules →
-      </a>
+        <!-- Community Teaser -->
+        <div class="teaser-card">
+          <h2>Community</h2>
+          <p>Where real connections, creativity, and shared energy come alive — from core spaces to voice & live moments.</p>
+          <a href="community.html">Read More →</a>
+        </div>
+
+        <!-- Rules & Safety Teaser -->
+        <div class="teaser-card">
+          <h2>Rules & Safety</h2>
+          <p>Consent is mandatory. Adults only. Respect the person. Privacy matters. Roleplay is fiction. Keep drama out.</p>
+          <a href="rules-and-safety.html">Read Full Rules →</a>
+        </div>
+
+        <!-- Manifesto Teaser -->
+        <div class="teaser-card manifesto-teaser">
+          <h2>Manifesto</h2>
+          <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
+          <div class="fade-block">Today, noise and fear cloud genuine connection — but here, the ink flows freely.</div>
+          <div class="fade-block">Welcome to Xplicit Ink — where voices are real, and the community is unshackled.</div>
+          <a href="manifesto.html">Read the Full Manifesto →</a>
+        </div>
+      </div>
     </section>
 
     <!-- FINAL CTA -->
@@ -428,8 +475,6 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
     });
-
-    console.log('%cThe Xplicit Ink loaded — welcome back to the old internet ✨', 'color:#c6b8ff; font-family:Georgia; font-size:15px');
   </script>
 </body>
 </html>

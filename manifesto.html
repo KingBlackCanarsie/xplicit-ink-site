@@ -11,7 +11,7 @@
     body {
       margin: 0;
       padding: 0;
-      min-height: 100vh; /* Allows growth beyond viewport */
+      min-height: 100vh; /* Fills screen but allows growth */
       width: 100vw;
       background: url('https://live.staticflickr.com/65535/55102665340_c58cd2328b_b.jpg') no-repeat center center fixed;
       background-size: cover;
@@ -19,10 +19,10 @@
       color: #e8e0ff;
       display: flex;
       flex-direction: column;
-      justify-content: center; /* Centers vertically when content fits */
+      justify-content: center; /* Centers when content fits */
       align-items: center;
       text-align: center;
-      overflow-y: auto; /* Enables scrolling when needed */
+      overflow-y: auto; /* Enables scrolling when content is tall */
       cursor: none;
     }
 
@@ -49,14 +49,13 @@
         rgba(11, 10, 15, 0.55)
       );
       z-index: 2;
-      pointer-events: none;
     }
 
     /* Text container */
     .text-blocks {
       position: relative;
       z-index: 3;
-      margin: 8vh 0 8vh 0; /* Top and bottom margin for scroll room */
+      margin: 8vh 0 12vh 0; /* Extra bottom margin for scroll room */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -66,11 +65,11 @@
 
     .fade-block {
       max-width: 700px;
-      font-size: 1.7rem;
+      font-size: clamp(1.3rem, 4vw, 1.7rem); /* Responsive font */
       opacity: 0;
       animation: fadeInOut 12s ease-in-out infinite;
       line-height: 1.6;
-      margin: 1.2rem 0;
+      margin: 1.5rem 0;
       filter: drop-shadow(0 0 12px #000000cc);
       text-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
     }
@@ -119,16 +118,16 @@
       }
     }
 
-    /* Back link - now always scrollable to */
+    /* Back link - now always scrollable */
     .back-link {
       position: relative;
       z-index: 3;
-      margin: 4vh 0 8vh 0; /* Extra bottom margin for scroll access */
-      font-size: 1.3rem;
+      margin: 4vh 0 8vh 0; /* Extra bottom space */
+      padding: 1rem 2rem;
+      font-size: clamp(1.1rem, 4vw, 1.3rem);
       color: #d6caff;
       text-decoration: underline;
       text-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
-      padding: 1rem 2rem;
     }
 
     .back-link:hover {
@@ -168,7 +167,7 @@
     resize();
     window.addEventListener('resize', resize);
 
-    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const fontSize = 15;
     let columns = Math.floor(canvas.width / fontSize);
     let drops = new Array(columns).fill(1);

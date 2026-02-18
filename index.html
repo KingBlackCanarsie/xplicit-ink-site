@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Favicon – sexy red lips logo -->
-  <link rel="icon" type="image/jpeg" href="https://live.staticflickr.com/65535/55101410087_221b343cde_w.jpg">
   <title>Xplicit Ink • 18+ Adult Roleplay & Forbidden Friendships</title>
+  <!-- Sexy red lips logo as favicon -->
+  <link rel="icon" type="image/jpeg" href="https://live.staticflickr.com/65535/55101410087_221b343cde_w.jpg">
 
   <style>
     body, html {
@@ -25,6 +25,7 @@
       height: 100%;
       z-index: 1;
       pointer-events: none;
+      opacity: 0.35;
     }
 
     .overlay {
@@ -92,7 +93,19 @@
       justify-content: center;
       padding-top: 90px;
       text-align: center;
+      position: relative;
     }
+
+    h1, .tagline, .social-proof, .live-counter {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    h1.active { transition-delay: 0.2s; }
+    .tagline.active { transition-delay: 0.5s; }
+    .social-proof.active { transition-delay: 0.8s; }
+    .live-counter.active { transition-delay: 1.1s; }
 
     h1 {
       font-size: 5.5rem;
@@ -112,8 +125,22 @@
     .social-proof {
       font-size: 1.3rem;
       color: #aaa9c7;
-      margin: 1.5rem 0 2.5rem;
+      margin: 1.5rem 0 1rem;
       opacity: 0.9;
+    }
+
+    .live-counter {
+      font-size: 1.4rem;
+      color: #c6b8ff;
+      text-shadow: 0 0 10px #a78bfa;
+      margin: 1rem 0 2.5rem;
+      animation: glowPulse 4s infinite alternate;
+      font-weight: bold;
+    }
+
+    @keyframes glowPulse {
+      from { text-shadow: 0 0 10px #a78bfa; }
+      to   { text-shadow: 0 0 25px #c6b8ff; }
     }
 
     .enter-button {
@@ -127,11 +154,25 @@
       box-shadow: 0 0 30px #a78bfa;
       text-decoration: none;
       transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
     }
 
     .enter-button:hover {
       transform: scale(1.08);
       box-shadow: 0 0 50px #c6b8ff;
+    }
+
+    .enter-button:active::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: rgba(198, 184, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      transition: width 0.7s, height 0.7s;
     }
 
     .badge {
@@ -203,11 +244,94 @@
       to { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
     }
 
-    /* Sections */
+    /* Floating particles */
+    .particles-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(167, 139, 250, 0.5);
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(167, 139, 250, 0.7);
+      animation: float 25s infinite linear;
+      opacity: 0;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(110vh) scale(0.3); opacity: 0; }
+      15%  { opacity: 0.8; }
+      85%  { opacity: 0.8; }
+      100% { transform: translateY(-30vh) scale(0.7); opacity: 0; }
+    }
+
+    /* Ink particles (falling drops) */
+    .ink-particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ink-drop {
+      position: absolute;
+      width: 6px;
+      height: 12px;
+      background: #a78bfa;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      box-shadow: 0 0 12px #a78bfa;
+      animation: inkFall 12s linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes inkFall {
+      0%   { transform: translateY(-100vh) scale(0.4) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.8; }
+      100% { transform: translateY(100vh) scale(1) rotate(180deg); opacity: 0; }
+    }
+
+    /* Scroll hint arrow */
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.8rem;
+      color: #c6b8ff;
+      animation: bounce 2s infinite, fadeOut 8s forwards 4s;
+      opacity: 0.8;
+      text-shadow: 0 0 12px #a78bfa;
+      pointer-events: none;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-20px); }
+      60% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; }
+    }
+
+    /* Sections with fade-in */
     section {
       padding: 100px 20px;
       max-width: 1100px;
       margin: 0 auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    section.active {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .section-title {
@@ -318,6 +442,8 @@
       box-shadow: 0 0 50px #a78bfa;
       text-decoration: none;
       transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
     }
 
     .big-cta:hover {
@@ -347,11 +473,15 @@
 
   <canvas id="matrix"></canvas>
   <div class="overlay"></div>
+
+  <!-- Floating particles & ink drops -->
+  <div class="particles-bg"></div>
+  <div class="ink-particles"></div>
+
   <div class="ink-cursor" id="cursor"></div>
 
   <header class="header">
     <div class="header-inner">
-      <!-- Brand with sexy red lips logo -->
       <div class="brand">
         <img src="https://live.staticflickr.com/65535/55101410087_221b343cde_w.jpg" alt="Xplicit Ink Logo" class="brand-logo">
         Xplicit Ink
@@ -367,36 +497,43 @@
 
   <div class="main-content">
 
-    <!-- Hero -->
-    <section class="hero">
+    <!-- Hero with all effects -->
+    <section class="hero reveal-on-scroll">
       <div>
         <h1>The Xplicit Ink</h1>
         <p class="tagline">Where your darkest fantasies become shared realities • 18+ • Consent First • No Judgment</p>
         <p class="social-proof">600+ members already inked • Daily RP & voice heat • "Best kink community I've found" – new join</p>
 
-        <a href="https://discord.gg/RGwnBbnzgA" class="enter-button" target="_blank">
+        <!-- Live member counter – visible and animating -->
+        <div class="live-counter">
+          Members online right now: <span id="memberCount">312</span>
+        </div>
+
+        <a href="https://discord.gg/RGwnBbnzgA" class="enter-button pulse-btn ripple" target="_blank">
           Join Now – Dive Into the Ink 🔥
         </a>
         <span class="badge">18+ Only – Explicit Content</span>
 
         <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
+
+        <div class="scroll-hint">↓</div>
       </div>
     </section>
 
     <!-- Teaser previews -->
-    <section>
+    <section class="reveal-on-scroll">
       <h2 class="section-title">Sneak Peek Inside</h2>
       <div class="teaser-grid">
         <div class="teaser-card">
           <h2>Community</h2>
           <p>Core spaces for chat & vibes, immersive roleplay channels, steamy voice rooms, gaming nights, movie streams, and friendships that last beyond the kink.</p>
-          <a href="community.html">Explore Community →</a>
+          <a href="community.html" class="pulse-btn">Explore Community →</a>
         </div>
 
         <div class="teaser-card">
           <h2>Rules & Safety</h2>
           <p>18+ only • Consent mandatory • Respect limits & safewords • No minors ever • Privacy protected • Drama handled privately • Zero tolerance for harassment.</p>
-          <a href="rules-and-safety.html">Read Full Rules →</a>
+          <a href="rules-and-safety.html" class="pulse-btn">Read Full Rules →</a>
         </div>
 
         <div class="teaser-card manifesto-teaser">
@@ -404,13 +541,13 @@
           <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
           <div class="fade-block">Today, noise and fear cloud genuine connection — but here, the ink flows freely.</div>
           <div class="fade-block">Welcome to Xplicit Ink — where voices are real, and the community is unshackled.</div>
-          <a href="manifesto.html">Read Full Manifesto →</a>
+          <a href="manifesto.html" class="pulse-btn">Read Full Manifesto →</a>
         </div>
       </div>
     </section>
 
-    <!-- Gallery – using your hottest Flickr images -->
-    <section>
+    <!-- Gallery -->
+    <section class="reveal-on-scroll">
       <h2 class="section-title">Gallery of Temptation</h2>
       <div class="gallery">
         <img src="https://live.staticflickr.com/65535/55102557854_0a68e55a78_w.jpg" alt="Hot masquerade couple">
@@ -423,7 +560,7 @@
     </section>
 
     <!-- Trust & Safety -->
-    <section>
+    <section class="reveal-on-scroll">
       <h2 class="section-title">Why We're Safe & Welcoming</h2>
       <div class="trust-block">
         <p>
@@ -440,14 +577,14 @@
     </section>
 
     <!-- Final CTA -->
-    <section class="cta">
+    <section class="cta reveal-on-scroll">
       <h2 style="font-size:3.8rem; margin-bottom:1rem; color:#c6b8ff; text-shadow:0 0 20px #a78bfa;">
         Your Fantasy Awaits… Join Before the Ink Dries
       </h2>
       <p style="font-size:1.4rem; margin-bottom:2rem; opacity:0.9;">
         New members join every hour • Hundreds already inside waiting for you
       </p>
-      <a href="https://discord.gg/RGwnBbnzgA" class="big-cta" target="_blank">Join Xplicit Ink 🔥</a>
+      <a href="https://discord.gg/RGwnBbnzgA" class="big-cta pulse-btn ripple" target="_blank">Join Xplicit Ink 🔥</a>
       <a href="community.html" class="tour-link">Take the Tour First →</a>
       <div class="trust-badges">
         100% Anonymous Join • Discord Verified • 18+ Only
@@ -519,9 +656,48 @@
 
       setTimeout(() => trail.remove(), 600);
     });
+
+    // Fade-in on scroll
+    const reveals = document.querySelectorAll('.reveal-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Fake live member counter – visible and updating
+    let members = 312;
+    const countEl = document.getElementById('memberCount');
+    if (countEl) {
+      setInterval(() => {
+        members += Math.floor(Math.random() * 4) + 1;
+        countEl.textContent = members;
+      }, 10000); // every 10 seconds
+    }
+
+    // Floating particles
+    for (let i = 0; i < 25; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.width = p.style.height = (3 + Math.random() * 6) + 'px';
+      p.style.animationDuration = (18 + Math.random() * 15) + 's';
+      p.style.animationDelay = Math.random() * 10 + 's';
+      document.querySelector('.particles-bg').appendChild(p);
+    }
+
+    // Ink drops
+    for (let i = 0; i < 15; i++) {
+      const drop = document.createElement('div');
+      drop.className = 'ink-drop';
+      drop.style.left = Math.random() * 100 + 'vw';
+      drop.style.animationDuration = (8 + Math.random() * 10) + 's';
+      drop.style.animationDelay = Math.random() * 12 + 's';
+      document.querySelector('.ink-particles').appendChild(drop);
+    }
   </script>
 </body>
 </html>
-
-
-

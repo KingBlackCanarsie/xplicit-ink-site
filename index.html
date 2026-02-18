@@ -34,7 +34,7 @@
       height: 100%;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.78; /* Much more prominent rain */
+      opacity: 0.78;
     }
 
     .overlay {
@@ -551,6 +551,12 @@
           <div class="testimonial">"Best adult RP server I've found. The voice rooms are 🔥" – @inkbound</div>
         </div>
 
+        <!-- Join Now button + badge – NOW RIGHT ABOVE THE WIDGET -->
+        <a href="https://discord.gg/RGwnBbnzgA" class="enter-button pulse-btn ripple" target="_blank">
+          Join Now – Dive Into the Ink 🔥
+        </a>
+        <span class="badge">18+ Only – Explicit Content</span>
+
         <!-- Real Discord Widget -->
         <div class="discord-widget">
           <iframe 
@@ -566,12 +572,6 @@
 
         <!-- Static social proof line -->
         <p class="social-proof">600+ members already inked • Daily RP & voice heat • "Best kink community I've found" – new join</p>
-
-        <!-- Join Now button right under widget & social proof -->
-        <a href="https://discord.gg/RGwnBbnzgA" class="enter-button pulse-btn ripple" target="_blank">
-          Join Now – Dive Into the Ink 🔥
-        </a>
-        <span class="badge">18+ Only – Explicit Content</span>
 
         <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
 
@@ -649,7 +649,7 @@
   </div>
 
   <script>
-    // === MATRIX RAIN - MORE PROMINENT VERSION ===
+    // Purple Matrix Rain – More Prominent
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -666,12 +666,12 @@
     let drops = new Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = 'rgba(11, 10, 15, 0.18)';   // Stronger trails
+      ctx.fillStyle = 'rgba(11, 10, 15, 0.18)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.fillStyle = '#a78bfa';
       ctx.shadowColor = '#7a4aff';
-      ctx.shadowBlur = 18;                        // Brighter glow
+      ctx.shadowBlur = 18;
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {
@@ -684,7 +684,7 @@
         drops[i]++;
       }
     }
-    setInterval(draw, 28);   // Faster refresh for more dynamic rain
+    setInterval(draw, 28);
 
     // Ink Drips
     for (let i = 0; i < 18; i++) {

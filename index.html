@@ -6,6 +6,16 @@
   <title>Xplicit Ink • 18+ Adult Roleplay & Forbidden Friendships</title>
   <link rel="icon" type="image/jpeg" href="https://live.staticflickr.com/65535/55101410087_221b343cde_w.jpg">
 
+  <!-- Open Graph / Discord & social preview tags -->
+  <meta property="og:title" content="Xplicit Ink • 18+ Literate Adult Roleplay">
+  <meta property="og:description" content="Where intimate stories come to life • 18+ • Consent Always • Deep literary RP, voice rooms & real connections">
+  <meta property="og:image" content="https://live.staticflickr.com/65535/55101410087_221b343cde_w.jpg">
+  <meta property="og:image:width" content="400">
+  <meta property="og:image:height" content="400">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://xplicitink.org/">
+  <meta name="theme-color" content="#5b3cb9">
+
   <style>
     body, html {
       margin: 0;
@@ -145,7 +155,7 @@
         margin: 0.8rem auto 1rem;
       }
       .discord-widget iframe {
-        height: 260px; /* Shows icon, count, join button + several members (scrollable inside) */
+        height: 260px;
         max-width: 320px;
       }
       .hero {
@@ -564,14 +574,14 @@
         <h1>The Xplicit Ink</h1>
         <p class="tagline">Literate adult roleplay & meaningful connections • 18+ • Consent Always</p>
 
-        <!-- Rotating testimonials – now here, after tagline -->
+        <!-- Rotating testimonials -->
         <div class="testimonials">
           <div class="testimonial active">"The depth of the stories here is unreal – finally a place for real literary RP." – @nyxshadow</div>
           <div class="testimonial">"Safe, creative, and steamy – joined last week and already hooked." – @velvetquill</div>
           <div class="testimonial">"Best adult RP server I've found. The voice rooms are 🔥" – @inkbound</div>
         </div>
 
-        <!-- Real Discord Widget – compact on mobile -->
+        <!-- Real Discord Widget -->
         <div class="discord-widget">
           <iframe 
             src="https://discord.com/widget?id=1007816656006946896&theme=dark" 
@@ -584,7 +594,7 @@
           </iframe>
         </div>
 
-        <!-- Static social proof line – now here, under widget -->
+        <!-- Static social proof line -->
         <p class="social-proof">600+ members already inked • Daily RP & voice heat • "Best kink community I've found" – new join</p>
 
         <!-- Join Now button right under widget & social proof -->
@@ -599,6 +609,7 @@
       </div>
     </section>
 
+    <!-- Rest of your sections remain unchanged -->
     <section class="reveal-on-scroll">
       <h2 class="section-title">Sneak Peek Inside</h2>
       <div class="teaser-grid">
@@ -629,7 +640,7 @@
       <div class="gallery">
         <img src="https://live.staticflickr.com/65535/55102557854_0a68e55a78_w.jpg" alt="Hot masquerade couple">
         <img src="https://live.staticflickr.com/65535/55102557884_d3d2506bc6_w.jpg" alt="Woman with red feather on lips">
-        <img src="https://live.staticflickr.com/65535/55102294346_d1994a7fc8.jpg" alt="Futuristic book seduction">
+        <img src="https://live.staticflickr.com/55102294346_d1994a7fc8.jpg" alt="Futuristic book seduction">
         <img src="https://live.staticflickr.com/65535/55102557869_6e3e1d808e_w.jpg" alt="Woman writing with Xplicit tattoo">
         <img src="https://live.staticflickr.com/65535/55102557764_cfdabfe447_h.jpg" alt="Living book fantasy">
         <img src="https://live.staticflickr.com/65535/55101410097_7bb8dcaeb7_w.jpg" alt="Themed RP night vibe">
@@ -742,18 +753,6 @@
       });
     }, { threshold: 0.15 });
     reveals.forEach(el => observer.observe(el));
-
-    // Rotating testimonials – one by one fade
-    const testimonials = document.querySelectorAll('.testimonial');
-    let current = 0;
-    if (testimonials.length > 0) {
-      testimonials[current].classList.add('active');
-      setInterval(() => {
-        testimonials[current].classList.remove('active');
-        current = (current + 1) % testimonials.length;
-        testimonials[current].classList.add('active');
-      }, 6000);
-    }
 
     // Floating particles
     for (let i = 0; i < 25; i++) {

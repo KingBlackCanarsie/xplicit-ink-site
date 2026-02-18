@@ -1,181 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Xplicit Ink</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xplicit Ink • Adult Roleplay & Forbidden Friendships</title>
 
-  <style>
-    /* 1. THE ATMOSPHERE */
-    body, html {
-      margin: 0; padding: 0;
-      height: 100%;
-      background-color: #0b0a0f;
-      background-image: url('./ink-background.svg');
-      background-position: center;
-      background-size: cover;
-      font-family: 'Georgia', serif;
-      color: #dddde8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      cursor: none;
-    }
+    <!-- Tailwind + Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    /* ⭐ TOP NAVIGATION BAR (RESTORED) */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 18px 0;
-      text-align: center;
-      background: rgba(5, 5, 15, 0.75);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(167, 139, 250, 0.35);
-      z-index: 50;
-    }
+    <!-- Fonts -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
-    nav a {
-      margin: 0 20px;
-      color: #a78bfa;
-      text-decoration: none;
-      font-size: 0.9rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      opacity: 0.85;
-      transition: 0.3s ease;
-    }
+        :root {
+            --matrix-green: #00ff41;
+        }
 
-    nav a:hover {
-      color: #ffffff;
-      opacity: 1;
-      text-shadow: 0 0 10px #a78bfa;
-    }
+        body {
+            font-family: 'VT323', monospace;
+        }
 
-    .content-wrapper {
-      text-align: center;
-      z-index: 10;
-      margin-top: 80px; /* Prevent overlap with nav */
-    }
+        /* MATRIX TITLE */
+        .hero-title {
+            font-family: 'Press Start 2P', system-ui;
+            text-shadow:
+                0 0 10px var(--matrix-green),
+                0 0 20px var(--matrix-green),
+                0 0 40px var(--matrix-green);
+        }
 
-    /* 2. THE GLOWING TITLE */
-    h1 {
-      font-size: 5rem;
-      margin: 0;
-      color: #c6b8ff;
-      letter-spacing: 2px;
-      text-shadow: 
-        0 0 10px #a78bfa,
-        0 0 20px #6a32ff,
-        0 0 40px #6a32ff;
-      font-weight: bold;
-    }
+        /* GLASS EFFECT */
+        .glass {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
 
-    p.subtitle {
-      font-size: 1.4rem;
-      font-style: italic;
-      color: #aaa9c7;
-      margin: 1.5rem 0 3rem 0;
-      opacity: 0.8;
-    }
+        /* MATRIX RAIN CANVAS */
+        canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
 
-    /* 3. THE BUTTON */
-    .enter-button {
-      display: inline-block;
-      padding: 1rem 3.5rem;
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: white;
-      text-decoration: none;
-      background: #5b3cb9;
-      border: 2px solid #a78bfa;
-      border-radius: 12px;
-      box-shadow: 0 0 25px #a78bfa;
-      transition: all 0.3s ease;
-    }
+        /* CONTENT ABOVE CANVAS */
+        .content {
+            position: relative;
+            z-index: 10;
+        }
 
-    .enter-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px #c6b8ff;
-    }
+        /* NEON BUTTON */
+        .neon-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--matrix-green),
+                        inset 0 0 20px var(--matrix-green);
+        }
+        .neon-button:hover {
+            box-shadow: 0 0 40px var(--matrix-green),
+                        inset 0 0 40px var(--matrix-green);
+            transform: scale(1.05);
+            color: #000;
+        }
 
-    .manifesto-link {
-      display: block;
-      margin-top: 2rem;
-      color: #a78bfa;
-      text-decoration: underline;
-      font-size: 1rem;
-      opacity: 0.7;
-    }
-
-    /* 4. THE INK DRIPS */
-    .ink-drip {
-      position: fixed;
-      width: 2px;
-      background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
-      box-shadow: 0 0 8px #a78bfa;
-      z-index: 1;
-      animation: fall linear infinite;
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(-100vh); opacity: 0; }
-      50% { opacity: 0.5; }
-      100% { transform: translateY(100vh); opacity: 0; }
-    }
-
-    /* 5. CUSTOM CURSOR */
-    .ink-cursor {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      background: radial-gradient(circle, #a78bfa, transparent);
-      pointer-events: none;
-      z-index: 100;
-      transform: translate(-50%, -50%);
-    }
-  </style>
+        /* SCANLINE EFFECT */
+        .scanline {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 255, 65, 0.03) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 2;
+            animation: scan 8s linear infinite;
+        }
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+    </style>
 </head>
 
-<body>
+<body class="bg-black text-white overflow-x-hidden">
 
-  <!-- ⭐ RESTORED NAVIGATION BAR -->
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="community.html">Community</a>
-    <a href="rules-and-safety.html">Rules</a>
-    <a href="manifesto.html">Manifesto</a>
-  </nav>
+    <!-- MATRIX RAIN BACKGROUND -->
+    <canvas id="matrix"></canvas>
 
-  <div class="ink-cursor" id="cursor"></div>
+    <!-- SCANLINE -->
+    <div class="scanline"></div>
 
-  <div class="content-wrapper">
-    <h1>The Xplicit Ink</h1>
-    <p class="subtitle">A quiet gathering for people who miss when the internet felt human.</p>
-    <a href="https://discord.gg/RGwnBbnzgA" class="enter-button">Enter the Ink</a>
-    <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
-  </div>
+    <div class="content min-h-screen">
 
-  <script>
-    // Create the vertical drip lines
-    for (let i = 0; i < 15; i++) {
-      let drip = document.createElement('div');
-      drip.className = 'ink-drip';
-      drip.style.left = Math.random() * 100 + 'vw';
-      drip.style.height = Math.random() * 200 + 100 + 'px';
-      drip.style.animationDuration = Math.random() * 3 + 2 + 's';
-      drip.style.animationDelay = Math.random() * 5 + 's';
-      document.body.appendChild(drip);
-    }
+        <!-- ⭐ NAVIGATION BAR (FULLY FIXED) -->
+        <nav class="border-b border-lime-500/30 bg-black/80 backdrop-blur-md fixed w-full z-50">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
-    // Cursor Follow
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-  </script>
+                <!-- LOGO -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-lime-500 text-black flex items-center justify-center text-2xl font-bold rounded">✒️</div>
+                    <span class="text-3xl tracking-widest hero-title text-lime-400">XPLICIT INK</span>
+                </div>
+
+                <!-- MAIN NAV LINKS -->
+                <div class="hidden md:flex items-center gap-8 text-lg">
+                    <a href="index.html" class="hover:text-lime-400 transition-colors">HOME</a>
+                    <a href="community.html" class="hover:text-lime-400 transition-colors">COMMUNITY</a>
+                    <a href="rules-and-safety.html" class="hover:text-lime-400 transition-colors">RULES</a>
+                    <a href="manifesto.html" class="hover:text-lime-400 transition-colors">MANIFESTO</a>
+                </div>
+
+                <!-- DISCORD BUTTON -->
+                <a href="https://discord.gg/YOUR_DISCORD_INVITE_HERE"
+                   target="_blank"
+                   class="px-6 py-2 bg-lime-500 hover:bg-white text-black font-bold text-xl rounded border-2 border-lime-400 neon-button">
+                    JOIN DISCORD
+                </a>
+            </div>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <section class="min-h-screen flex items-center justify-center pt-24">
+            <div class="max-w-5xl mx-auto px-6 text-center">
+
+                <div class="mb-6 inline-flex items-center gap-2 bg-black/70 border border-lime-500/50 px-6 py-2 rounded-full">
+                    <span class="animate-pulse w-3 h-3 bg-lime-500 rounded-full"></span>
+                    <span class="text-lime-400 text-xl tracking-widest">18+ ONLY • EXPLICIT CONTENT</span>
+                </div>
+
+                <h1 class="hero-title text-7xl md:text-8xl lg:text-[120px] leading-none mb-6 tracking-[8px]">
+                    XPLICIT<br>INK
+                </h1>
+
+                <p class="text-4xl md:text-5xl text-lime-300 mb-8 max-w-3xl mx-auto leading-tight">
+                    Where your darkest fantasies<br>become shared realities.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <a href="https://discord.gg/YOUR_DISCORD_INVITE_HERE"
+                       target="_blank"
+                       class="neon-button group px-12 py-6 bg-lime-500 hover:bg-lime-400 text-black text-4xl font-bold rounded-xl flex items-center gap-4 border-4 border-white">
+                        ENTER THE SERVER
+                        <i class="fa-solid fa-arrow-right group-active:rotate-45 transition-transform"></i>
+                    </a>
+
+                    <a href="manifesto.html"
+                       class="px-12 py-6 border-4 border-lime-500 hover:border-white text-4xl font-bold rounded-xl flex items-center gap-3 transition-all">
+                        LEARN MORE
+                    </a>
+                </div>
+
+                <div class="mt-16 flex items-center justify-center gap-8 text-sm opacity-75">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-user-secret"></i>
+                        <span>Adult Roleplay</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Real Friendships</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-fire"></i>
+                        <span>Steamy Voice Chats</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- MATRIX RAIN SCRIPT -->
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#00ff41";
+            ctx.font = fontSize + "px monospace";
+
+            drops.forEach((y, i) => {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, y * fontSize);
+
+                if (y * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            });
+        }
+
+        setInterval(draw, 33);
+    </script>
 
 </body>
 </html>

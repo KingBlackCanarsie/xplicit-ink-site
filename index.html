@@ -121,6 +121,7 @@
       to   { text-shadow: 0 0 25px #c6b8ff; }
     }
 
+    /* Discord Widget Styling */
     .discord-widget {
       margin: 1rem auto 1.5rem;
       max-width: 380px;
@@ -134,7 +135,57 @@
       margin: 0 auto;
       width: 100%;
       max-width: 350px;
-      height: 450px;
+      border: none;
+    }
+
+    /* Mobile: make widget smaller and compact */
+    @media (max-width: 768px) {
+      .discord-widget {
+        max-width: 320px;
+        margin: 0.8rem auto 1.2rem;
+      }
+      .discord-widget iframe {
+        height: 260px; /* Compact height on phones – shows icon, count, join button + members list */
+        max-width: 320px;
+      }
+      .hero {
+        min-height: 65vh;
+        padding: 50px 15px 20px;
+      }
+      h1 {
+        font-size: clamp(2.6rem, 11vw, 4rem);
+        margin-bottom: 0.3rem;
+      }
+      .tagline {
+        margin: 0.3rem 0 0.6rem;
+      }
+      .social-proof {
+        margin: 0.5rem 0;
+      }
+      .enter-button {
+        padding: 0.8rem 2.2rem;
+        font-size: clamp(1rem, 4.5vw, 1.3rem);
+      }
+      .badge {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+      }
+      .scroll-hint {
+        font-size: 2rem;
+        bottom: 15px;
+      }
+      .section {
+        padding: 60px 15px;
+      }
+      .section-title {
+        font-size: 2.2rem;
+      }
+      .teaser-card {
+        padding: 24px;
+      }
+      .gallery img {
+        height: 240px;
+      }
     }
 
     .enter-button {
@@ -311,51 +362,6 @@
 
     @keyframes fadeOut {
       to { opacity: 0; }
-    }
-
-    /* Responsive adjustments for phones */
-    @media (max-width: 768px) {
-      .hero {
-        min-height: 65vh;
-        padding: 50px 15px 20px;
-      }
-      h1 {
-        font-size: clamp(2.6rem, 11vw, 4rem);
-        margin-bottom: 0.3rem;
-      }
-      .tagline {
-        margin: 0.3rem 0 0.6rem;
-      }
-      .social-proof, .discord-widget {
-        margin: 0.5rem 0;
-      }
-      .enter-button {
-        padding: 0.8rem 2.2rem;
-        font-size: clamp(1rem, 4.5vw, 1.3rem);
-      }
-      .badge {
-        font-size: 0.85rem;
-        padding: 0.4rem 0.8rem;
-      }
-      .scroll-hint {
-        font-size: 2rem;
-        bottom: 15px;
-      }
-      .section {
-        padding: 60px 15px;
-      }
-      .section-title {
-        font-size: 2.2rem;
-      }
-      .teaser-card {
-        padding: 24px;
-      }
-      .gallery img {
-        height: 240px;
-      }
-      .discord-widget iframe {
-        height: 400px;
-      }
     }
 
     section {
@@ -538,7 +544,7 @@
         <p class="tagline">Literate adult roleplay & meaningful connections • 18+ • Consent Always</p>
         <p class="social-proof">600+ members already inked • Daily RP & voice heat • "Best kink community I've found" – new join</p>
 
-        <!-- Real Discord Widget -->
+        <!-- Real Discord Widget – compact on mobile -->
         <div class="discord-widget">
           <iframe 
             src="https://discord.com/widget?id=1007816656006946896&theme=dark" 
@@ -551,7 +557,7 @@
           </iframe>
         </div>
 
-        <!-- Rotating testimonials (kept as backup social proof) -->
+        <!-- Rotating testimonials (kept as extra social proof) -->
         <div class="testimonials">
           <div class="testimonial active">"The depth of the stories here is unreal – finally a place for real literary RP." – @nyxshadow</div>
           <div class="testimonial">"Safe, creative, and steamy – joined last week and already hooked." – @velvetquill</div>
@@ -569,7 +575,6 @@
       </div>
     </section>
 
-    <!-- Rest of your sections remain unchanged -->
     <section class="reveal-on-scroll">
       <h2 class="section-title">Sneak Peek Inside</h2>
       <div class="teaser-grid">

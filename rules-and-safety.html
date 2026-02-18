@@ -1,182 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rules & Safety • Xplicit Ink</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rules & Safety • Xplicit Ink</title>
+  <style>
+    /* Base & Background */
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #0b0a0f, #1e1f22);
+      font-family: 'Georgia', serif;
+      color: #dddde8;
+      min-height: 100vh;
+    }
 
-<style>
-/* Base */
-body {
-    margin: 0;
-    padding: 0;
-    background: #1e1f22; /* Discord dark */
-    font-family: "Inter", system-ui, sans-serif;
-    color: #f2f3f5;
-}
+    /* Header (matched to landing page style) */
+    .header {
+      background: #2b2d31;
+      padding: 16px 24px;
+      border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      font-size: 1.7rem;
+      font-weight: bold;
+      color: #c6b8ff;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+    }
+    .nav a {
+      margin-left: 28px;
+      color: #b5bac1;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    .nav a:hover, .nav a.active {
+      color: #c6b8ff;
+    }
 
-/* Header */
-.header {
-    background: #2b2d31;
-    padding: 14px 20px;
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid #1a1b1d;
-}
-.header-inner {
-    width: 100%;
-    max-width: 1100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.brand {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #ffffff;
-}
-.nav a {
-    margin-left: 20px;
-    color: #b5bac1;
-    text-decoration: none;
-    font-size: 0.95rem;
-}
-.nav a:hover {
-    color: #ffffff;
-}
+    /* Main Content */
+    .page {
+      max-width: 950px;
+      margin: 80px auto 60px;
+      padding: 0 24px;
+    }
 
-/* Page Layout */
-.page {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 0 20px;
-}
+    .page-title {
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: #c6b8ff;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 15px rgba(106, 50, 255, 0.6);
+    }
+    .page-subtitle {
+      font-size: 1.3rem;
+      color: #aaa9c7;
+      text-align: center;
+      margin-bottom: 50px;
+      opacity: 0.9;
+    }
 
-/* Title */
-.page-title {
-    font-size: 2.2rem;
-    font-weight: 800;
-    margin-bottom: 10px;
-}
-.page-subtitle {
-    font-size: 1rem;
-    color: #b5bac1;
-    margin-bottom: 30px;
-}
+    /* Rule Cards - Glassmorphic + Neon Glow */
+    .rule-card {
+      background: rgba(49, 51, 56, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      box-shadow: 0 8px 32px rgba(106, 50, 255, 0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .rule-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 48px rgba(167, 139, 250, 0.3);
+    }
+    .rule-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #c6b8ff;
+      margin-bottom: 12px;
+      text-shadow: 0 0 8px rgba(167, 139, 250, 0.4);
+    }
+    .rule-text {
+      font-size: 1.1rem;
+      color: #d0d2d6;
+      line-height: 1.6;
+    }
 
-/* Rule Card */
-.rule-card {
-    background: #313338;
-    padding: 22px 24px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #1f2023;
-}
-.rule-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 6px;
-}
-.rule-text {
-    font-size: 0.95rem;
-    color: #d0d2d6;
-    line-height: 1.5;
-}
+    /* Back Button */
+    .back-btn {
+      display: inline-block;
+      margin: 40px auto 0;
+      padding: 14px 28px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #5b3cb9, #6a32ff);
+      border: 2px solid #a78bfa;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
+      transition: all 0.3s;
+    }
+    .back-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px rgba(198, 184, 255, 0.7);
+    }
 
-/* Back Button */
-.back-btn {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 12px 22px;
-    border-radius: 6px;
-    background: #5865f2;
-    color: #ffffff;
-    font-weight: 600;
-    text-decoration: none;
-}
-.back-btn:hover {
-    background: #4752c4;
-}
-
-/* Footer */
-.footer {
-    text-align: center;
-    margin-top: 60px;
-    padding-bottom: 40px;
-    font-size: 0.8rem;
-    color: #8e9297;
-}
-</style>
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #8e9297;
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(167, 139, 250, 0.15);
+    }
+  </style>
 </head>
-
 <body>
 
 <header class="header">
-    <div class="header-inner">
-        <div class="brand">Xplicit Ink</div>
-        <nav class="nav">
-            <a href="/index.html">Home</a>
-            <a href="/community.html">Community</a>
-
-            <!-- ⭐ FIXED LINK RIGHT HERE ⭐ -->
-            <a href="/rules-and-safety.html">Rules</a>
-
-            <a href="/manifesto.html">Manifesto</a>
-        </nav>
-    </div>
+  <div class="header-inner">
+    <div class="brand">Xplicit Ink</div>
+    <nav class="nav">
+      <a href="/index.html">Home</a>
+      <a href="/community.html">Community</a>
+      <a href="/rules-and-safety.html" class="active">Rules</a>
+      <a href="/manifesto.html">Manifesto</a>
+    </nav>
+  </div>
 </header>
 
 <main class="page">
+  <h1 class="page-title">Rules & Safety</h1>
+  <p class="page-subtitle">These guidelines keep Xplicit Ink safe, respectful, and enjoyable for everyone.</p>
 
-    <h1 class="page-title">Rules & Safety</h1>
-    <p class="page-subtitle">These guidelines keep Xplicit Ink safe, respectful, and enjoyable for everyone.</p>
+  <div class="rule-card">
+    <div class="rule-title">1. Adults Only</div>
+    <div class="rule-text">Xplicit Ink is strictly 18+. If staff suspect a member is underage, removal is immediate and permanent.</div>
+  </div>
 
-    <div class="rule-card">
-        <div class="rule-title">1. Adults Only</div>
-        <div class="rule-text">Xplicit Ink is strictly 18+. If staff suspect a member is underage, removal is immediate.</div>
-    </div>
+  <div class="rule-card">
+    <div class="rule-title">2. Consent Is Mandatory</div>
+    <div class="rule-text">No pressure, no guilt-tripping, no ignoring boundaries. “No” is final. Always respect limits and safewords.</div>
+  </div>
 
-    <div class="rule-card">
-        <div class="rule-title">2. Consent Is Mandatory</div>
-        <div class="rule-text">No pressure, no guilt‑tripping, no ignoring boundaries. “No” is final. Respect all limits.</div>
-    </div>
+  <div class="rule-card">
+    <div class="rule-title">3. Respect the Person</div>
+    <div class="rule-text">Behind every username is a real human being. Treat others with basic decency, kindness, and respect at all times.</div>
+  </div>
 
-    <div class="rule-card">
-        <div class="rule-title">3. Respect the Person</div>
-        <div class="rule-text">Behind every username is a real human being. Treat them with basic decency and respect.</div>
-    </div>
+  <div class="rule-card">
+    <div class="rule-title">4. Privacy Matters</div>
+    <div class="rule-text">Do not share screenshots, messages, voices, or any content outside the server without explicit permission from all involved parties.</div>
+  </div>
 
-    <div class="rule-card">
-        <div class="rule-title">4. Privacy Matters</div>
-        <div class="rule-text">Do not share screenshots, messages, or content outside the server without explicit permission.</div>
-    </div>
+  <div class="rule-card">
+    <div class="rule-title">5. Keep Drama Out</div>
+    <div class="rule-text">No harassment, personal attacks, or dragging issues into public channels. Handle conflicts privately or via staff tickets.</div>
+  </div>
 
-    <div class="rule-card">
-        <div class="rule-title">5. Keep Drama Out</div>
-        <div class="rule-text">No harassment, no personal attacks, no dragging issues into public channels. Use staff tickets.</div>
-    </div>
+  <div class="rule-card">
+    <div class="rule-title">6. Roleplay Is Fiction</div>
+    <div class="rule-text">Roleplay does not equal real-life consent. Keep IC (in-character) and OOC (out-of-character) clearly separated at all times.</div>
+  </div>
 
-    <div class="rule-card">
-        <div class="rule-title">6. Roleplay Is Fiction</div>
-        <div class="rule-text">Roleplay does not equal real‑life consent. Keep IC and OOC separate at all times.</div>
-    </div>
+  <div class="rule-card">
+    <div class="rule-title">7. Voice Etiquette</div>
+    <div class="rule-text">No yelling, ear-rape, blasting music, or disrupting others. Match the tone/energy of the voice room you're in.</div>
+  </div>
 
-    <div class="rule-card">
-        <div class="rule-title">7. Voice Etiquette</div>
-        <div class="rule-text">No yelling, blasting music, or disrupting others. Match the tone of the room you're in.</div>
-    </div>
+  <div class="rule-card">
+    <div class="rule-title">8. Reporting Issues</div>
+    <div class="rule-text">If something feels wrong or violates rules, open a private ticket. Staff will review and respond as quickly as possible.</div>
+  </div>
 
-    <div class="rule-card">
-        <div class="rule-title">8. Reporting Issues</div>
-        <div class="rule-text">If something feels wrong, open a private ticket. Staff will respond as soon as possible.</div>
-    </div>
-
-    <a href="/index.html" class="back-btn">← Back to Home</a>
-
+  <a href="/index.html" class="back-btn">← Back to Home</a>
 </main>
 
 <footer class="footer">
-    Xplicit Ink • Respect. Safety. Clarity.
+  Xplicit Ink • Respect. Safety. Creativity.
 </footer>
 
 </body>

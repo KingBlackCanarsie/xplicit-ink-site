@@ -38,7 +38,6 @@
       z-index: 10;
     }
 
-    /* Header */
     .header {
       position: fixed;
       top: 0;
@@ -72,7 +71,6 @@
       color: #c6b8ff;
     }
 
-    /* Hero */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -143,7 +141,6 @@
       color: white;
     }
 
-    /* Ink drips */
     .ink-drip {
       position: fixed;
       width: 2px;
@@ -160,7 +157,6 @@
       100% { transform: translateY(120vh); opacity: 0; }
     }
 
-    /* Glowing cursor with trail */
     .ink-cursor {
       position: fixed;
       width: 24px;
@@ -191,7 +187,6 @@
       to { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
     }
 
-    /* Sections */
     section {
       padding: 100px 20px;
       max-width: 1100px;
@@ -253,28 +248,6 @@
       color: white;
     }
 
-    /* Manifesto fade */
-    .manifesto-teaser .fade-block {
-      opacity: 0;
-      animation: fadeInOut 12s ease-in-out infinite;
-      max-width: 680px;
-      margin: 0 auto 1.5rem;
-      font-size: 1.4rem;
-      line-height: 1.7;
-      text-align: center;
-    }
-
-    .manifesto-teaser .fade-block:nth-child(1) { animation-delay: 0s; }
-    .manifesto-teaser .fade-block:nth-child(2) { animation-delay: 4s; }
-    .manifesto-teaser .fade-block:nth-child(3) { animation-delay: 8s; }
-
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0; }
-      25%, 75% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-
-    /* Gallery */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -295,7 +268,6 @@
       transform: scale(1.05);
     }
 
-    /* Trust block */
     .trust-block {
       background: rgba(49, 51, 56, 0.75);
       backdrop-filter: blur(12px);
@@ -313,7 +285,6 @@
       margin-bottom: 1.5rem;
     }
 
-    /* CTA */
     .cta {
       text-align: center;
       padding: 140px 20px;
@@ -361,10 +332,9 @@
   <div class="overlay"></div>
   <div class="ink-cursor" id="cursor"></div>
 
-  <!-- Header nav -->
   <header class="header">
     <div class="header-inner">
-      <div class="brand">The Xplicit Ink</div>
+      <div class="brand">Xplicit Ink</div>
       <nav class="nav">
         <a href="index.html" class="active">Home</a>
         <a href="community.html">Community</a>
@@ -397,21 +367,18 @@
       <h2 class="section-title">Sneak Peek Inside</h2>
       <div class="teaser-grid">
 
-        <!-- Community -->
         <div class="teaser-card">
           <h2>Community</h2>
           <p>Core spaces for chat & vibes, immersive roleplay channels, steamy voice rooms, gaming nights, movie streams, and friendships that last beyond the kink.</p>
           <a href="community.html">Explore Community →</a>
         </div>
 
-        <!-- Rules & Safety -->
         <div class="teaser-card">
           <h2>Rules & Safety</h2>
           <p>18+ only • Consent mandatory • Respect limits & safewords • No minors ever • Privacy protected • Drama handled privately • Zero tolerance for harassment.</p>
           <a href="rules-and-safety.html">Read Full Rules →</a>
         </div>
 
-        <!-- Manifesto -->
         <div class="teaser-card manifesto-teaser">
           <h2>Manifesto</h2>
           <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
@@ -422,16 +389,16 @@
       </div>
     </section>
 
-    <!-- Gallery of Temptation – using your Flickr images -->
+    <!-- Gallery – using your hottest Flickr images -->
     <section>
       <h2 class="section-title">Gallery of Temptation</h2>
       <div class="gallery">
-        <img src="https://live.staticflickr.com/65535/54239123456_abcdef1234.jpg" alt="Sexy man and woman with ink pen">
-        <img src="https://live.staticflickr.com/65535/54239123478_ghijkl5678.jpg" alt="Handsome man">
-        <img src="https://live.staticflickr.com/65535/54239123500_mnopqr9012.jpg" alt="Woman with red feather on lips">
-        <img src="https://live.staticflickr.com/65535/54239123522_stuvwx3456.jpg" alt="Sexy voice chat session">
-        <img src="https://live.staticflickr.com/65535/54239123544_yzabcd7890.jpg" alt="Lady writing with Xplicit tattoo">
-        <img src="https://live.staticflickr.com/65535/54239123566_efghij1234.jpg" alt="Hot masquerade couple">
+        <img src="https://live.staticflickr.com/65535/55102557854_0a68e55a78_w.jpg" alt="Hot masquerade couple">
+        <img src="https://live.staticflickr.com/65535/55102557884_d3d2506bc6_w.jpg" alt="Woman with red feather on lips">
+        <img src="https://live.staticflickr.com/65535/55102294346_d1994a7fc8.jpg" alt="Futuristic book seduction">
+        <img src="https://live.staticflickr.com/65535/55102557869_6e3e1d808e_w.jpg" alt="Woman writing with Xplicit tattoo">
+        <img src="https://live.staticflickr.com/65535/55102557764_cfdabfe447_h.jpg" alt="Living book fantasy">
+        <img src="https://live.staticflickr.com/65535/55101410097_7bb8dcaeb7_w.jpg" alt="Themed RP night vibe">
       </div>
     </section>
 

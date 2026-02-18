@@ -34,7 +34,7 @@
       height: 100%;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.68; /* More prominent rain */
+      opacity: 0.78; /* Much more prominent rain */
     }
 
     .overlay {
@@ -649,7 +649,7 @@
   </div>
 
   <script>
-    // Purple Matrix Rain – MORE PROMINENT
+    // === MATRIX RAIN - MORE PROMINENT VERSION ===
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -666,12 +666,12 @@
     let drops = new Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = 'rgba(11, 10, 15, 0.16)'; // Stronger fade for more visible trails
+      ctx.fillStyle = 'rgba(11, 10, 15, 0.18)';   // Stronger trails
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.fillStyle = '#a78bfa';
       ctx.shadowColor = '#7a4aff';
-      ctx.shadowBlur = 16; // Brighter, more prominent glow
+      ctx.shadowBlur = 18;                        // Brighter glow
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {
@@ -684,7 +684,7 @@
         drops[i]++;
       }
     }
-    setInterval(draw, 32); // Faster refresh for more dynamic rain
+    setInterval(draw, 28);   // Faster refresh for more dynamic rain
 
     // Ink Drips
     for (let i = 0; i < 18; i++) {

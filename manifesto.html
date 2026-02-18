@@ -13,7 +13,7 @@
       padding: 0;
       height: 100vh;
       width: 100vw;
-      background: url('Manifesto.jpg') no-repeat center center fixed;
+      background: url('https://live.staticflickr.com/65535/55102665340_c58cd2328b_b.jpg') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Crimson Pro', serif;
       color: #e8e0ff;
@@ -25,7 +25,7 @@
       cursor: none;
     }
 
-    /* Purple Matrix Rain - toned down for visibility */
+    /* Purple Matrix Rain - kept subtle so book background remains visible */
     #matrix {
       position: fixed;
       top: 0; left: 0;
@@ -33,10 +33,10 @@
       height: 100%;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.35; /* Reduced so book background shines through */
+      opacity: 0.35;
     }
 
-    /* Dark overlay - adjusted mid-gradient for more background visibility */
+    /* Dark overlay - light enough to let the new book image shine through */
     .overlay {
       position: absolute;
       top: 0; left: 0;
@@ -152,7 +152,7 @@
   <a href="/" class="back-link">← Back to Home</a>
 
   <script>
-    // Purple Matrix Rain - lighter version
+    // Purple Matrix Rain - light version so book background shines
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -169,12 +169,12 @@
     let drops = new Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = 'rgba(11, 10, 15, 0.04)'; // Much lighter fade → background more visible
+      ctx.fillStyle = 'rgba(11, 10, 15, 0.04)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.fillStyle = '#a78bfa';
       ctx.shadowColor = '#6a32ff';
-      ctx.shadowBlur = 8; // Slightly softer glow
+      ctx.shadowBlur = 8;
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {
@@ -187,7 +187,7 @@
         drops[i]++;
       }
     }
-    setInterval(draw, 45); // Slightly slower for gentler feel (was 38)
+    setInterval(draw, 45);
 
     // Glowing Cursor + Trail
     const cursor = document.getElementById('cursor');
@@ -195,7 +195,6 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
 
-      // Create trail particle
       const trail = document.createElement('div');
       trail.classList.add('cursor-trail');
       trail.style.left = e.clientX + 'px';

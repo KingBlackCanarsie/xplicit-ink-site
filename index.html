@@ -36,24 +36,24 @@
       height: 100%;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.92;
+      opacity: 1;
     }
 
     @media (max-width: 768px) {
-      #matrix { opacity: 0.65; }
+      #matrix { opacity: 0.75; }
     }
 
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(10, 5, 20, 0.45);
+      background: rgba(10, 5, 20, 0.35);
       z-index: 2;
       pointer-events: none;
     }
 
     .main-content {
       position: relative;
-      z-index: 30;
+      z-index: 40;
     }
 
     .header {
@@ -609,7 +609,7 @@
       <div class="gallery">
         <img src="https://live.staticflickr.com/65535/55102557854_0a68e55a78_w.jpg" alt="Hot masquerade couple">
         <img src="https://live.staticflickr.com/65535/55102557884_d3d2506bc6_w.jpg" alt="Woman with red feather on lips">
-        <img src="https://live.staticflickr.com/65535/55102294346_d1994a7fc8.jpg" alt="Futuristic book seduction">
+        <img src="https://live.staticflickr.com/55102294346_d1994a7fc8.jpg" alt="Futuristic book seduction">
         <img src="https://live.staticflickr.com/65535/55102557869_6e3e1d808e_w.jpg" alt="Woman writing with Xplicit tattoo">
         <img src="https://live.staticflickr.com/65535/55102557764_cfdabfe447_h.jpg" alt="Living book fantasy">
         <img src="https://live.staticflickr.com/65535/55101410097_7bb8dcaeb7_w.jpg" alt="Themed RP night vibe">
@@ -649,70 +649,72 @@
   </div>
 
   <script>
-    // Purple Matrix rain – full authentic look
+    // MATRIX STORM – very dense, fast, purple, aggressive
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
+
+    let fontSize = 18;
+    let columns;
+    let drops = [];
 
     function resize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+
+      fontSize = window.innerWidth < 768 ? 14 : 18;
+      columns = Math.floor(canvas.width / fontSize);
+      drops = new Array(columns);
+
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.random() * -canvas.height * 1.5; // start higher
+      }
     }
     resize();
     window.addEventListener('resize', resize);
 
-    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let fontSize = window.innerWidth < 768 ? 14 : 18;
-    let columns = Math.floor(canvas.width / fontSize);
-    let drops = [];
-    let fadeCounter = 0;
-
-    // Initialize drops with random starting heights for natural start
-    for (let i = 0; i < columns; i++) {
-      drops[i] = Math.random() * -canvas.height;
-    }
+    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?/`~";
 
     function draw() {
-      // Trailing fade (classic Matrix effect)
-      ctx.fillStyle = 'rgba(10, 5, 20, 0.05)';
+      // Very heavy trailing fade → storm density
+      ctx.fillStyle = 'rgba(10, 5, 20, 0.12)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      ctx.shadowBlur = 18;
       ctx.shadowColor = '#6a32ff';
-      ctx.shadowBlur = window.innerWidth < 768 ? 10 : 18;
 
       for (let i = 0; i < columns; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        // Vary brightness for leading characters (Matrix style)
-        if (Math.random() > 0.98) {
-          ctx.fillStyle = '#ffffff'; // occasional bright white
-        } else if (Math.random() > 0.92) {
-          ctx.fillStyle = '#c6b8ff'; // lighter purple
+        // Leading characters very bright / flashing
+        if (Math.random() > 0.94) {
+          ctx.fillStyle = '#ffffff';
+          ctx.shadowBlur = 30;
+        } else if (Math.random() > 0.84) {
+          ctx.fillStyle = '#c6b8ff';
+          ctx.shadowBlur = 24;
         } else {
-          ctx.fillStyle = '#a78bfa'; // main purple
+          ctx.fillStyle = '#a78bfa';
+          ctx.shadowBlur = 18;
         }
 
         ctx.font = `${fontSize}px monospace`;
         ctx.fillText(text, x, y);
 
-        // Faster fall + random reset
-        drops[i] += Math.random() * 0.5 + 1.2; // variable speed
+        // Storm speed – very fast + high variation
+        drops[i] += 2.2 + Math.random() * 2.8;
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = Math.random() * -50; // reset higher for continuous rain
+        // Very frequent resets → constant heavy rain
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.88) {
+          drops[i] = Math.random() * -150;
         }
       }
-
-      fadeCounter++;
-      if (fadeCounter % 5 === 0) { // occasional full fade for depth
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.02)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-      }
     }
-    setInterval(draw, 33); // ~30fps for smooth rain
 
-    // Fake counts update
+    setInterval(draw, 18); // very fast loop → storm intensity
+
+    // Fake member count (600–800)
     function updateMemberCount() {
       const count = Math.floor(Math.random() * 201) + 600;
       document.getElementById('memberCount').textContent = count;
@@ -721,6 +723,7 @@
     updateMemberCount();
     setInterval(updateMemberCount, 10000);
 
+    // Fake online count (120–180)
     function updateOnlineCount() {
       const count = Math.floor(Math.random() * 61) + 120;
       document.getElementById('onlineCount').textContent = count;

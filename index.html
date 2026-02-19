@@ -155,7 +155,7 @@
       display: flex;
       align-items: center;
       height: 100%;
-      animation: scrollLeft 8s linear infinite;
+      animation: scrollLeft 7s linear infinite;
       white-space: nowrap;
     }
 
@@ -164,7 +164,7 @@
       align-items: center;
       color: #e0d0ff;
       font-size: 1rem;
-      padding: 0 4rem;
+      padding: 0 4.5rem;
       text-shadow: 0 0 10px #a78bfa;
     }
 
@@ -180,7 +180,7 @@
 
     @media (max-width: 768px) {
       .bulletin-board { margin: 1rem 15px; height: 65px; }
-      .board-item { font-size: 0.95rem; padding: 0 3rem; }
+      .board-item { font-size: 0.95rem; padding: 0 3.2rem; }
     }
 
     .join-container {
@@ -537,7 +537,7 @@
 
         <div class="bulletin-board">
           <div class="board-track">
-            <!-- 5 full sets for ultra-smooth fast infinite loop -->
+            <!-- 6 full sets + extra spacing for perfect continuous scroll -->
             <div class="board-item"><strong id="memberCount">742</strong> members</div>
             <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -558,6 +558,24 @@
 
             <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
             <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
+            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
+            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
+            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
+            <div class="board-item">"Best RP server ever" – @shadowquill</div>
+            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
+            <div class="board-item">💦｜ X-Stream live</div>
+            <div class="board-item">📺｜𝖲treams active</div>
+            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
+            <div class="board-item">Voice Lounge 🔥 live</div>
+            <div class="board-item">Steamy Whispers active</div>
+            <div class="board-item">Late Night Ink dripping</div>
+            <div class="board-item">Dark Desires RP</div>
+            <div class="board-item">Forbidden Ink Tales</div>
+            <div class="board-item">The ink's <strong>dripping</strong></div>
+            <div class="board-item">Stories unfolding</div>
+
+            <div class="board-item"><strong>742</strong> members</div>
+            <div class="board-item"><strong>158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
             <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
             <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
@@ -708,7 +726,7 @@
   </div>
 
   <script>
-    // AUTHENTIC PURPLE MATRIX – movie-style continuous pouring code streams (300x density)
+    // CONTINUOUS PURPLE MATRIX – movie-style endless pouring code streams (no restarts)
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -722,12 +740,12 @@
       canvas.height = window.innerHeight;
 
       fontSize = window.innerWidth < 768 ? 10 : 14;
-      columns = Math.floor(canvas.width / fontSize * 5); // massive column count
+      columns = Math.floor(canvas.width / fontSize * 5.5); // extreme density
       drops = new Array(columns).fill(0);
       charIndex = new Array(columns).fill(0);
 
       for (let i = 0; i < columns; i++) {
-        drops[i] = Math.floor(Math.random() * -canvas.height / fontSize) - 50;
+        drops[i] = Math.floor(Math.random() * -canvas.height / fontSize) - 100; // start far above
       }
     }
     resize();
@@ -736,10 +754,10 @@
     const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     function draw() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.035)'; // very slow fade = long continuous streams
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.03)'; // extremely slow fade = very long continuous streams
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.shadowBlur = 22;
+      ctx.shadowBlur = 24;
       ctx.shadowColor = '#6a32ff';
 
       for (let i = 0; i < columns; i++) {
@@ -747,31 +765,31 @@
         const y = drops[i] * fontSize;
 
         // Bright leading character
-        ctx.fillStyle = '#c6b8ff';
-        ctx.shadowBlur = 40;
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowBlur = 45;
         const headChar = chars[charIndex[i] % chars.length];
         ctx.fillText(headChar, x, y);
 
-        // Long tail — many characters fading down
-        for (let j = 1; j < 25; j++) { // very long trail like movie
-          const opacity = (25 - j) / 25;
-          ctx.fillStyle = `rgba(167, 139, 250, ${opacity * 0.95})`;
-          ctx.shadowBlur = 22 - j * 0.8;
+        // Very long tail
+        for (let j = 1; j < 35; j++) { // 35+ characters trail
+          const opacity = Math.max(0, (35 - j) / 35);
+          ctx.fillStyle = `rgba(167, 139, 250, ${opacity * 0.98})`;
+          ctx.shadowBlur = 24 - j * 0.6;
           const tailChar = chars[(charIndex[i] - j) % chars.length];
           ctx.fillText(tailChar, x, y - j * fontSize);
         }
 
-        drops[i] += 1.9; // uniform movie-style fall speed
+        drops[i] += 2.1; // consistent movie-like fall speed
         charIndex[i]++;
 
-        // Reset when completely off-screen
-        if (drops[i] * fontSize > canvas.height + 300) {
-          drops[i] = -60; // start far above screen for continuous pour
+        // Reset HIGH above screen → no visible gap/restart
+        if (drops[i] * fontSize > canvas.height + 500) {
+          drops[i] = -120; // start very far above
         }
       }
     }
 
-    setInterval(draw, 35); // classic Matrix frame rate
+    setInterval(draw, 33); // smooth ~30fps
 
     // Fake member & online counts
     function updateMemberCount() {

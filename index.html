@@ -139,7 +139,6 @@
       max-width: 90vw;
     }
 
-    /* INFINITE MARQUEE — 24s (75% speed) */
     .bulletin-board {
       margin: 1.5rem auto;
       max-width: calc(100% - 30px);
@@ -157,7 +156,7 @@
       align-items: center;
       height: 100%;
       white-space: nowrap;
-      animation: scrollLeft 24s linear infinite;
+      animation: scrollLeft 18s linear infinite;
     }
 
     .board-item {
@@ -178,6 +177,7 @@
       0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
+
     @media (max-width: 768px) {
       .bulletin-board { margin: 1rem 15px; height: 65px; }
       .board-item { font-size: 0.95rem; padding: 0 3.2rem; }
@@ -535,10 +535,8 @@
           <span class="badge">18+ Only – No Exceptions</span>
         </div>
 
-        <!-- INFINITE MARQUEE -->
         <div class="bulletin-board">
           <div class="board-track">
-
             <!-- HALF 1 -->
             <div class="board-item"><strong id="memberCount">742</strong> members</div>
             <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
@@ -564,7 +562,7 @@
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
 
-            <!-- HALF 2 (duplicate for seamless loop) -->
+            <!-- HALF 2 (EXACT DUPLICATE FOR SEAMLESS LOOP) -->
             <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
             <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -588,7 +586,6 @@
             <div class="board-item">Forbidden Ink Tales</div>
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
-
           </div>
         </div>
 
@@ -600,5 +597,179 @@
       </div>
     </section>
 
-    <!-- OTHER SECTIONS (unchanged) -->
-    <section class
+    <section class="reveal-on-scroll">
+      <h2 class="section-title">Sneak Peek Inside</h2>
+      <div class="teaser-grid">
+        <div class="teaser-card">
+          <h2>Community</h2>
+          <p>Core spaces for chat & vibes, immersive theme channels, steamy voice rooms, gaming nights, movie streams, and friendships that last beyond the kink.</p>
+          <a href="community.html" class="pulse-btn">Explore Community →</a>
+        </div>
+
+        <div class="teaser-card">
+          <h2>Rules & Safety</h2>
+          <p>18+ only • Consent mandatory • Respect limits & safewords • No minors ever • Privacy protected • Drama handled privately • Zero tolerance for harassment.</p>
+          <a href="rules-and-safety.html" class="pulse-btn">Read Full Rules →</a>
+        </div>
+
+        <div class="teaser-card manifesto-teaser">
+          <h2>Manifesto</h2>
+          <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
+          <div class="fade-block">Today, noise and fear cloud genuine connection — but here, the ink flows freely.</div>
+          <div class="fade-block">Welcome to Xplicit Ink — where voices are real, and the community is unshackled.</div>
+          <a href="manifesto.html" class="pulse-btn">Read Full Manifesto →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal-on-scroll">
+      <h2 class="section-title">Gallery of Temptation</h2>
+      <div class="gallery">
+        <img src="https://live.staticflickr.com/65535/55102557854_0a68e55a78_w.jpg" alt="Hot masquerade couple">
+        <img src="https://live.staticflickr.com/65535/55102557884_d3d2506bc6_w.jpg" alt="Woman with red feather on lips">
+        <img src="https://live.staticflickr.com/65535/55102294316_0be756f0f3_w.jpg" alt="Futuristic book seduction">
+        <img src="https://live.staticflickr.com/65535/55102557869_6e3e1d808e_w.jpg" alt="Woman writing with Xplicit tattoo">
+        <img src="https://live.staticflickr.com/65535/55102557764_cfdabfe447_h.jpg" alt="Living book fantasy">
+        <img src="https://live.staticflickr.com/65535/55101410097_7bb8dcaeb7_w.jpg" alt="Themed RP night vibe">
+      </div>
+    </section>
+
+    <section class="reveal-on-scroll">
+      <h2 class="section-title">Why We're Safe & Welcoming</h2>
+      <div class="trust-block">
+        <p>
+          • Strict 18+ verification – zero tolerance for minors<br>
+          • Consent is mandatory – safewords are sacred<br>
+          • Respect the person – no harassment or doxxing<br>
+          • Privacy protected – no sharing outside without permission<br>
+          • Active moderators & private reporting tickets
+        </p>
+        <a href="rules-and-safety.html" style="color:#c6b8ff; font-size:1.3rem; text-decoration:underline; margin-top:1.5rem; display:inline-block;">
+          Read Full Rules →
+        </a>
+      </div>
+    </section>
+
+    <section class="cta reveal-on-scroll">
+      <h2 style="font-size: clamp(2.5rem, 8vw, 3.8rem); margin-bottom:1rem; color:#c6b8ff; text-shadow:0 0 20px #a78bfa;">
+        Your Fantasy Awaits… Join Before the Ink Dries
+      </h2>
+      <p style="font-size: clamp(1.1rem, 4vw, 1.4rem); margin-bottom:2rem; opacity:0.9;">
+        New members join every hour • Hundreds already inside waiting for you
+      </p>
+      <a href="https://discord.gg/RGwnBbnzgA" class="big-cta pulse-btn ripple" target="_blank">Dive Into the Ink 🔥</a>
+      <a href="community.html" class="tour-link">Take the Tour First →</a>
+      <div class="trust-badges">
+        100% Anonymous Join • Discord Verified • 18+ Only
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // CONTINUOUS PURPLE MATRIX – 10× density, smooth, no visible restart
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    const letters = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let fontSize = 14;
+    let columns;
+    let drops = [];
+
+    function resizeMatrix() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      fontSize = window.innerWidth < 768 ? 10 : 14;
+      // 10× more columns than normal
+      columns = Math.floor((canvas.width / fontSize) * 10);
+      drops = Array(columns).fill(0).map(() => Math.random() * canvas.height / fontSize);
+    }
+
+    resizeMatrix();
+    window.addEventListener('resize', resizeMatrix);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        const x = (i * fontSize) % canvas.width;
+        const y = drops[i] * fontSize;
+
+        ctx.shadowBlur = 18;
+        ctx.shadowColor = "#a78bfa";
+        ctx.fillStyle = "#e5d4ff";
+        ctx.fillText(text, x, y);
+
+        if (y > canvas.height + fontSize && Math.random() > 0.985) {
+          drops[i] = -Math.random() * 10;
+        } else {
+          drops[i] += 0.8 + Math.random() * 0.6;
+        }
+      }
+
+      requestAnimationFrame(drawMatrix);
+    }
+
+    drawMatrix();
+
+    // Fake counts
+    function updateMemberCount() {
+      const count = Math.floor(Math.random() * 201) + 600;
+      document.getElementById('memberCount').textContent = count;
+      document.getElementById('memberCountDup').textContent = count;
+    }
+    updateMemberCount();
+    setInterval(updateMemberCount, 10000);
+
+    function updateOnlineCount() {
+      const count = Math.floor(Math.random() * 61) + 120;
+      document.getElementById('onlineCount').textContent = count;
+      document.getElementById('onlineCountDup').textContent = count;
+    }
+    updateOnlineCount();
+    setInterval(updateOnlineCount, 10000);
+
+    // Ink Drips
+    for (let i = 0; i < 18; i++) {
+      let drip = document.createElement('div');
+      drip.className = 'ink-drip';
+      drip.style.left = Math.random() * 100 + 'vw';
+      drip.style.height = Math.random() * 280 + 120 + 'px';
+      drip.style.animationDuration = (Math.random() * 4 + 2.5) + 's';
+      drip.style.animationDelay = Math.random() * 6 + 's';
+      document.body.appendChild(drip);
+    }
+
+    // Glowing Cursor + Trail
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+
+      const trail = document.createElement('div');
+      trail.classList.add('cursor-trail');
+      trail.style.left = e.clientX + 'px';
+      trail.style.top = e.clientY + 'px';
+      document.body.appendChild(trail);
+
+      setTimeout(() => trail.remove(), 600);
+    });
+
+    // Fade-in on scroll
+    const reveals = document.querySelectorAll('.reveal-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -6,7 +6,6 @@
   <title>Xplicit Ink • 18+ Adult Wordplay & Forbidden Friendships</title>
   <link rel="icon" type="image/jpeg" href="https://live.staticflickr.com/65535/55101410087_221b343cde_w.jpg">
 
-  <!-- Open Graph -->
   <meta property="og:title" content="Xplicit Ink • 18+ Literate Adults">
   <meta property="og:description" content="A quiet gathering for people who miss when the internet felt human.">
   <meta property="og:image" content="https://live.staticflickr.com/65535/55101410087_221b343cde_w.jpg">
@@ -140,13 +139,6 @@
       max-width: 90vw;
     }
 
-    .social-proof {
-      font-size: clamp(1.1rem, 4vw, 1.4rem);
-      color: #ddd;
-      margin: 1rem auto 1.6rem;
-      max-width: 90vw;
-    }
-
     .bulletin-board {
       margin: 1.5rem auto;
       max-width: calc(100% - 30px);
@@ -163,7 +155,7 @@
       display: flex;
       align-items: center;
       height: 100%;
-      animation: scrollLeft 16s linear infinite;
+      animation: scrollLeft 18s linear infinite;
       white-space: nowrap;
     }
 
@@ -172,7 +164,7 @@
       align-items: center;
       color: #e0d0ff;
       font-size: 1rem;
-      padding: 0 3.5rem;
+      padding: 0 4rem;
       text-shadow: 0 0 10px #a78bfa;
     }
 
@@ -188,7 +180,7 @@
 
     @media (max-width: 768px) {
       .bulletin-board { margin: 1rem 15px; height: 65px; }
-      .board-item { font-size: 0.95rem; padding: 0 2.5rem; }
+      .board-item { font-size: 0.95rem; padding: 0 3rem; }
     }
 
     .join-container {
@@ -548,7 +540,7 @@
             <!-- Set 1 -->
             <div class="board-item"><strong id="memberCount">742</strong> members</div>
             <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
-            <div class="board-item">"The depth here is unreal..." – @nyxshadow</div>
+            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
             <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
             <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
             <div class="board-item">"Best RP server ever" – @shadowquill</div>
@@ -567,7 +559,7 @@
             <!-- Set 2 -->
             <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
             <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
-            <div class="board-item">"The depth here is unreal..." – @nyxshadow</div>
+            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
             <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
             <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
             <div class="board-item">"Best RP server ever" – @shadowquill</div>
@@ -583,10 +575,29 @@
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
 
-            <!-- Set 3 (extra for ultra-smooth infinite loop) -->
+            <!-- Set 3 -->
             <div class="board-item"><strong>742</strong> members</div>
             <div class="board-item"><strong>158</strong> online now</div>
-            <div class="board-item">"The depth here is unreal..." – @nyxshadow</div>
+            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
+            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
+            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
+            <div class="board-item">"Best RP server ever" – @shadowquill</div>
+            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
+            <div class="board-item">💦｜ X-Stream live</div>
+            <div class="board-item">📺｜𝖲treams active</div>
+            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
+            <div class="board-item">Voice Lounge 🔥 live</div>
+            <div class="board-item">Steamy Whispers active</div>
+            <div class="board-item">Late Night Ink dripping</div>
+            <div class="board-item">Dark Desires RP</div>
+            <div class="board-item">Forbidden Ink Tales</div>
+            <div class="board-item">The ink's <strong>dripping</strong></div>
+            <div class="board-item">Stories unfolding</div>
+
+            <!-- Set 4 (extra padding for ultra-smooth infinite loop) -->
+            <div class="board-item"><strong>742</strong> members</div>
+            <div class="board-item"><strong>158</strong> online now</div>
+            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
             <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
             <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
             <div class="board-item">"Best RP server ever" – @shadowquill</div>
@@ -682,7 +693,7 @@
   </div>
 
   <script>
-    // MATRIX FLOOD – purple, movie-accurate density, overwhelming storm
+    // PURPLE MATRIX FLOOD – movie-authentic density & speed, purple palette
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -695,11 +706,11 @@
       canvas.height = window.innerHeight;
 
       fontSize = window.innerWidth < 768 ? 10 : 14;
-      columns = Math.floor(canvas.width / fontSize * 3); // 3x density
+      columns = Math.floor(canvas.width / fontSize * 3.2); // extreme density
       drops = new Array(columns);
 
       for (let i = 0; i < columns; i++) {
-        drops[i] = Math.random() * -canvas.height * 5;
+        drops[i] = Math.random() * -canvas.height * 6;
       }
     }
     resize();
@@ -708,10 +719,10 @@
     const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?/`~\\|";
 
     function draw() {
-      ctx.fillStyle = 'rgba(10, 5, 20, 0.08)';
+      ctx.fillStyle = 'rgba(10, 5, 20, 0.07)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.shadowBlur = 22;
+      ctx.shadowBlur = 20;
       ctx.shadowColor = '#6a32ff';
 
       for (let i = 0; i < columns; i++) {
@@ -736,17 +747,17 @@
         ctx.font = `${fontSize}px monospace`;
         ctx.fillText(text, x, y);
 
-        // Extreme speed + variation
-        drops[i] += 5.5 + Math.random() * 6.5;
+        // Very fast + chaotic fall
+        drops[i] += 5.8 + Math.random() * 7.2;
 
-        // Insane reset frequency → total flood
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.82) {
-          drops[i] = Math.random() * -300;
+        // Extremely frequent resets → total flood
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.80) {
+          drops[i] = Math.random() * -350;
         }
       }
     }
 
-    setInterval(draw, 10); // super-fast loop for overwhelming rain
+    setInterval(draw, 9); // extremely fast loop → overwhelming purple rain
 
     // Fake member count
     function updateMemberCount() {

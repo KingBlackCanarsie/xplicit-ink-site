@@ -28,18 +28,24 @@
       min-height: 100vh;
     }
 
-    #matrix {
+    .matrix-layer {
       position: fixed;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
       z-index: 1;
       pointer-events: none;
-      opacity: 1;
     }
 
+    #matrix1 { opacity: 0.95; }
+    #matrix2 { opacity: 0.75; }
+    #matrix3 { opacity: 0.55; }
+
     @media (max-width: 768px) {
-      #matrix { opacity: 0.85; }
+      .matrix-layer { opacity: 0.7; }
+      #matrix1 { opacity: 0.85; }
+      #matrix2 { opacity: 0.65; }
+      #matrix3 { opacity: 0.45; }
     }
 
     .overlay {
@@ -149,15 +155,22 @@
       box-shadow: 0 0 35px rgba(167, 139, 250, 0.45);
       overflow: hidden;
       height: 70px;
+      position: relative;
     }
 
     .board-track {
+      position: absolute;
+      top: 0; left: 0;
+      width: 300%; /* extra wide for seamless overlap */
+      height: 100%;
       display: flex;
       align-items: center;
-      height: 100%;
-      animation: scrollLeft 6s linear infinite;
       white-space: nowrap;
     }
+
+    .board-track-1 { animation: scrollLeft 6s linear infinite; }
+    .board-track-2 { animation: scrollLeft 6s linear infinite -2s; }
+    .board-track-3 { animation: scrollLeft 6s linear infinite -4s; }
 
     .board-item {
       display: inline-flex;
@@ -175,7 +188,7 @@
 
     @keyframes scrollLeft {
       0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      100% { transform: translateX(-33.333%); } /* matches 300% width */
     }
 
     @media (max-width: 768px) {
@@ -498,7 +511,11 @@
 </head>
 <body>
 
-  <canvas id="matrix"></canvas>
+  <!-- Three overlapping Matrix canvases for continuous flow -->
+  <canvas class="matrix-layer" id="matrix1"></canvas>
+  <canvas class="matrix-layer" id="matrix2"></canvas>
+  <canvas class="matrix-layer" id="matrix3"></canvas>
+
   <div class="overlay"></div>
 
   <div class="particles-bg"></div>
@@ -536,8 +553,7 @@
         </div>
 
         <div class="bulletin-board">
-          <div class="board-track">
-            <!-- 7 full sets + extra padding → invisible seamless loop -->
+          <div class="board-track board-track-1">
             <div class="board-item"><strong id="memberCount">742</strong> members</div>
             <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -555,7 +571,9 @@
             <div class="board-item">Forbidden Ink Tales</div>
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
+          </div>
 
+          <div class="board-track board-track-2">
             <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
             <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -573,79 +591,9 @@
             <div class="board-item">Forbidden Ink Tales</div>
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
+          </div>
 
-            <div class="board-item"><strong>742</strong> members</div>
-            <div class="board-item"><strong>158</strong> online now</div>
-            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
-            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
-            <div class="board-item">"Best RP server ever" – @shadowquill</div>
-            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
-            <div class="board-item">💦｜ X-Stream live</div>
-            <div class="board-item">📺｜𝖲treams active</div>
-            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
-            <div class="board-item">Voice Lounge 🔥 live</div>
-            <div class="board-item">Steamy Whispers active</div>
-            <div class="board-item">Late Night Ink dripping</div>
-            <div class="board-item">Dark Desires RP</div>
-            <div class="board-item">Forbidden Ink Tales</div>
-            <div class="board-item">The ink's <strong>dripping</strong></div>
-            <div class="board-item">Stories unfolding</div>
-
-            <div class="board-item"><strong>742</strong> members</div>
-            <div class="board-item"><strong>158</strong> online now</div>
-            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
-            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
-            <div class="board-item">"Best RP server ever" – @shadowquill</div>
-            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
-            <div class="board-item">💦｜ X-Stream live</div>
-            <div class="board-item">📺｜𝖲treams active</div>
-            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
-            <div class="board-item">Voice Lounge 🔥 live</div>
-            <div class="board-item">Steamy Whispers active</div>
-            <div class="board-item">Late Night Ink dripping</div>
-            <div class="board-item">Dark Desires RP</div>
-            <div class="board-item">Forbidden Ink Tales</div>
-            <div class="board-item">The ink's <strong>dripping</strong></div>
-            <div class="board-item">Stories unfolding</div>
-
-            <div class="board-item"><strong>742</strong> members</div>
-            <div class="board-item"><strong>158</strong> online now</div>
-            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
-            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
-            <div class="board-item">"Best RP server ever" – @shadowquill</div>
-            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
-            <div class="board-item">💦｜ X-Stream live</div>
-            <div class="board-item">📺｜𝖲treams active</div>
-            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
-            <div class="board-item">Voice Lounge 🔥 live</div>
-            <div class="board-item">Steamy Whispers active</div>
-            <div class="board-item">Late Night Ink dripping</div>
-            <div class="board-item">Dark Desires RP</div>
-            <div class="board-item">Forbidden Ink Tales</div>
-            <div class="board-item">The ink's <strong>dripping</strong></div>
-            <div class="board-item">Stories unfolding</div>
-
-            <div class="board-item"><strong>742</strong> members</div>
-            <div class="board-item"><strong>158</strong> online now</div>
-            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
-            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
-            <div class="board-item">"Best RP server ever" – @shadowquill</div>
-            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
-            <div class="board-item">💦｜ X-Stream live</div>
-            <div class="board-item">📺｜𝖲treams active</div>
-            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
-            <div class="board-item">Voice Lounge 🔥 live</div>
-            <div class="board-item">Steamy Whispers active</div>
-            <div class="board-item">Late Night Ink dripping</div>
-            <div class="board-item">Dark Desires RP</div>
-            <div class="board-item">Forbidden Ink Tales</div>
-            <div class="board-item">The ink's <strong>dripping</strong></div>
-            <div class="board-item">Stories unfolding</div>
-
+          <div class="board-track board-track-3">
             <div class="board-item"><strong>742</strong> members</div>
             <div class="board-item"><strong>158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -744,9 +692,14 @@
   </div>
 
   <script>
-    // ENDLESS CONTINUOUS PURPLE MATRIX – no restarts, movie-style pouring streams
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
+    // MULTI-LAYER CONTINUOUS MATRIX RAIN – overlapping streams for endless flow
+    const canvases = [
+      document.getElementById('matrix1'),
+      document.getElementById('matrix2'),
+      document.getElementById('matrix3')
+    ];
+
+    const ctxs = canvases.map(c => c.getContext('2d'));
 
     let fontSize = 14;
     let columns;
@@ -754,16 +707,27 @@
     let charIndex = [];
 
     function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
 
-      fontSize = window.innerWidth < 768 ? 10 : 14;
-      columns = Math.floor(canvas.width / fontSize * 5.5);
-      drops = new Array(columns).fill(0);
-      charIndex = new Array(columns).fill(0);
+      canvases.forEach(c => {
+        c.width = w;
+        c.height = h;
+      });
 
-      for (let i = 0; i < columns; i++) {
-        drops[i] = Math.floor(Math.random() * -canvas.height / fontSize) - 150; // far above screen
+      fontSize = w < 768 ? 10 : 14;
+      columns = Math.floor(w / fontSize * 5.5);
+
+      drops = [];
+      charIndex = [];
+
+      for (let l = 0; l < 3; l++) {
+        drops[l] = new Array(columns).fill(0);
+        charIndex[l] = new Array(columns).fill(0);
+
+        for (let i = 0; i < columns; i++) {
+          drops[l][i] = Math.floor(Math.random() * -h / fontSize) - 150 - l * 60;
+        }
       }
     }
     resize();
@@ -771,8 +735,9 @@
 
     const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    function draw() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.025)'; // ultra-slow fade for very long continuous streams
+    function drawLayer(layer) {
+      const ctx = ctxs[layer];
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.025)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.shadowBlur = 26;
@@ -780,36 +745,39 @@
 
       for (let i = 0; i < columns; i++) {
         const x = i * fontSize;
-        const y = drops[i] * fontSize;
+        const y = drops[layer][i] * fontSize;
 
-        // Bright leading character
+        // Bright leading char
         ctx.fillStyle = '#ffffff';
         ctx.shadowBlur = 48;
-        const headChar = chars[charIndex[i] % chars.length];
-        ctx.fillText(headChar, x, y);
+        ctx.fillText(chars[charIndex[layer][i] % chars.length], x, y);
 
-        // Extremely long tail
+        // Long tail
         for (let j = 1; j < 40; j++) {
-          const opacity = Math.max(0, (40 - j) / 40);
-          ctx.fillStyle = `rgba(167, 139, 250, ${opacity * 0.98})`;
+          const op = Math.max(0, (40 - j) / 40);
+          ctx.fillStyle = `rgba(167, 139, 250, ${op * 0.98})`;
           ctx.shadowBlur = 26 - j * 0.65;
-          const tailChar = chars[(charIndex[i] - j) % chars.length];
-          ctx.fillText(tailChar, x, y - j * fontSize);
+          ctx.fillText(chars[(charIndex[layer][i] - j) % chars.length], x, y - j * fontSize);
         }
 
-        drops[i] += 2.3; // consistent fast fall
-        charIndex[i]++;
+        drops[layer][i] += 2.3;
+        charIndex[layer][i]++;
 
-        // Reset VERY high above → completely invisible loop
-        if (drops[i] * fontSize > canvas.height + 800) {
-          drops[i] = -200; // start extremely far above
+        if (drops[layer][i] * fontSize > canvas.height + 900) {
+          drops[layer][i] = -250 - Math.random() * 100;
         }
       }
     }
 
-    setInterval(draw, 32); // smooth continuous animation
+    function animateMatrix() {
+      for (let l = 0; l < 3; l++) drawLayer(l);
+      requestAnimationFrame(animateMatrix);
+    }
+    animateMatrix();
 
-    // Fake counts
+    // Bulletin board uses CSS layers — no JS needed
+
+    // Your other scripts (counts, ink drips, cursor, reveal)
     function updateMemberCount() {
       const count = Math.floor(Math.random() * 201) + 600;
       document.getElementById('memberCount').textContent = count;
@@ -864,4 +832,4 @@
     reveals.forEach(el => observer.observe(el));
   </script>
 </body>
-  </html>
+</html>

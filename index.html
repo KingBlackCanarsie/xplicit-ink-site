@@ -537,7 +537,7 @@
 
         <div class="bulletin-board">
           <div class="board-track">
-            <!-- 7 full sets + extra padding → invisible seamless loop -->
+            <!-- your repeated items -->
             <div class="board-item"><strong id="memberCount">742</strong> members</div>
             <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -574,24 +574,7 @@
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
 
-            <div class="board-item"><strong>742</strong> members</div>
-            <div class="board-item"><strong>158</strong> online now</div>
-            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
-            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
-            <div class="board-item">"Best RP server ever" – @shadowquill</div>
-            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
-            <div class="board-item">💦｜ X-Stream live</div>
-            <div class="board-item">📺｜𝖲treams active</div>
-            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
-            <div class="board-item">Voice Lounge 🔥 live</div>
-            <div class="board-item">Steamy Whispers active</div>
-            <div class="board-item">Late Night Ink dripping</div>
-            <div class="board-item">Dark Desires RP</div>
-            <div class="board-item">Forbidden Ink Tales</div>
-            <div class="board-item">The ink's <strong>dripping</strong></div>
-            <div class="board-item">Stories unfolding</div>
-
+            <!-- extra repeated sets you had -->
             <div class="board-item"><strong>742</strong> members</div>
             <div class="board-item"><strong>158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -744,70 +727,57 @@
   </div>
 
   <script>
-    // ENDLESS CONTINUOUS PURPLE MATRIX – no restarts, movie-style pouring streams
+    // CONTINUOUS PURPLE MATRIX – smooth, no visible restart
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
+    const letters = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let fontSize = 14;
     let columns;
     let drops = [];
-    let charIndex = [];
 
-    function resize() {
+    function resizeMatrix() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
       fontSize = window.innerWidth < 768 ? 10 : 14;
-      columns = Math.floor(canvas.width / fontSize * 5.5);
-      drops = new Array(columns).fill(0);
-      charIndex = new Array(columns).fill(0);
-
-      for (let i = 0; i < columns; i++) {
-        drops[i] = Math.floor(Math.random() * -canvas.height / fontSize) - 150; // far above screen
-      }
+      columns = Math.floor(canvas.width / fontSize);
+      drops = Array(columns).fill(0).map(() => Math.random() * canvas.height / fontSize);
     }
-    resize();
-    window.addEventListener('resize', resize);
 
-    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    resizeMatrix();
+    window.addEventListener('resize', resizeMatrix);
 
-    function draw() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.025)'; // ultra-slow fade for very long continuous streams
+    function drawMatrix() {
+      // subtle fade for trailing effect
+      ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.shadowBlur = 26;
-      ctx.shadowColor = '#6a32ff';
+      ctx.font = fontSize + "px monospace";
 
-      for (let i = 0; i < columns; i++) {
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        // Bright leading character
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowBlur = 48;
-        const headChar = chars[charIndex[i] % chars.length];
-        ctx.fillText(headChar, x, y);
+        // bright-ish head, purple tail
+        ctx.shadowBlur = 18;
+        ctx.shadowColor = "#a78bfa";
+        ctx.fillStyle = "#e5d4ff";
+        ctx.fillText(text, x, y);
 
-        // Extremely long tail
-        for (let j = 1; j < 40; j++) {
-          const opacity = Math.max(0, (40 - j) / 40);
-          ctx.fillStyle = `rgba(167, 139, 250, ${opacity * 0.98})`;
-          ctx.shadowBlur = 26 - j * 0.65;
-          const tailChar = chars[(charIndex[i] - j) % chars.length];
-          ctx.fillText(tailChar, x, y - j * fontSize);
-        }
-
-        drops[i] += 2.3; // consistent fast fall
-        charIndex[i]++;
-
-        // Reset VERY high above → completely invisible loop
-        if (drops[i] * fontSize > canvas.height + 800) {
-          drops[i] = -200; // start extremely far above
+        // random, per-column reset → no synchronized restart
+        if (y > canvas.height + fontSize && Math.random() > 0.985) {
+          drops[i] = -Math.random() * 10;
+        } else {
+          drops[i] += 0.6 + Math.random() * 0.4;
         }
       }
+
+      requestAnimationFrame(drawMatrix);
     }
 
-    setInterval(draw, 32); // smooth continuous animation
+    drawMatrix();
 
     // Fake counts
     function updateMemberCount() {
@@ -864,5 +834,4 @@
     reveals.forEach(el => observer.observe(el));
   </script>
 </body>
-  </html>
-
+</html>

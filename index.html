@@ -155,7 +155,7 @@
       display: flex;
       align-items: center;
       height: 100%;
-      animation: scrollLeft 18s linear infinite;
+      animation: scrollLeft 10s linear infinite;
       white-space: nowrap;
     }
 
@@ -537,7 +537,7 @@
 
         <div class="bulletin-board">
           <div class="board-track">
-            <!-- Set 1 -->
+            <!-- Repeated sets for smooth infinite loop -->
             <div class="board-item"><strong id="memberCount">742</strong> members</div>
             <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -556,7 +556,6 @@
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
 
-            <!-- Set 2 -->
             <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
             <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -575,7 +574,6 @@
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
 
-            <!-- Set 3 -->
             <div class="board-item"><strong>742</strong> members</div>
             <div class="board-item"><strong>158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -594,7 +592,6 @@
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
 
-            <!-- Set 4 (extra padding for ultra-smooth infinite loop) -->
             <div class="board-item"><strong>742</strong> members</div>
             <div class="board-item"><strong>158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -653,7 +650,7 @@
       <div class="gallery">
         <img src="https://live.staticflickr.com/65535/55102557854_0a68e55a78_w.jpg" alt="Hot masquerade couple">
         <img src="https://live.staticflickr.com/65535/55102557884_d3d2506bc6_w.jpg" alt="Woman with red feather on lips">
-        <img src="https://live.staticflickr.com/55102294346_d1994a7fc8.jpg" alt="Futuristic book seduction">
+        <img src="https://live.staticflickr.com/65535/55102294316_0be756f0f3_w.jpg" alt="Futuristic book seduction">
         <img src="https://live.staticflickr.com/65535/55102557869_6e3e1d808e_w.jpg" alt="Woman writing with Xplicit tattoo">
         <img src="https://live.staticflickr.com/65535/55102557764_cfdabfe447_h.jpg" alt="Living book fantasy">
         <img src="https://live.staticflickr.com/65535/55101410097_7bb8dcaeb7_w.jpg" alt="Themed RP night vibe">
@@ -693,7 +690,7 @@
   </div>
 
   <script>
-    // PURPLE MATRIX FLOOD – movie-authentic density & speed, purple palette
+    // AUTHENTIC MATRIX FLOOD – purple version, movie-level density & speed
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -706,11 +703,11 @@
       canvas.height = window.innerHeight;
 
       fontSize = window.innerWidth < 768 ? 10 : 14;
-      columns = Math.floor(canvas.width / fontSize * 3.2); // extreme density
+      columns = Math.floor(canvas.width / fontSize * 4); // extreme density
       drops = new Array(columns);
 
       for (let i = 0; i < columns; i++) {
-        drops[i] = Math.random() * -canvas.height * 6;
+        drops[i] = Math.random() * -canvas.height * 8;
       }
     }
     resize();
@@ -719,10 +716,10 @@
     const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?/`~\\|";
 
     function draw() {
-      ctx.fillStyle = 'rgba(10, 5, 20, 0.07)';
+      ctx.fillStyle = 'rgba(10, 5, 20, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.shadowBlur = 20;
+      ctx.shadowBlur = 25;
       ctx.shadowColor = '#6a32ff';
 
       for (let i = 0; i < columns; i++) {
@@ -730,34 +727,32 @@
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        if (Math.random() > 0.94) {
+        if (Math.random() > 0.95) {
           ctx.fillStyle = '#ffffff';
-          ctx.shadowBlur = 45;
-        } else if (Math.random() > 0.82) {
+          ctx.shadowBlur = 50;
+        } else if (Math.random() > 0.85) {
           ctx.fillStyle = '#c6b8ff';
-          ctx.shadowBlur = 35;
-        } else if (Math.random() > 0.70) {
+          ctx.shadowBlur = 40;
+        } else if (Math.random() > 0.75) {
           ctx.fillStyle = '#d0c0ff';
-          ctx.shadowBlur = 30;
+          ctx.shadowBlur = 35;
         } else {
           ctx.fillStyle = '#a78bfa';
-          ctx.shadowBlur = 22;
+          ctx.shadowBlur = 25;
         }
 
         ctx.font = `${fontSize}px monospace`;
         ctx.fillText(text, x, y);
 
-        // Very fast + chaotic fall
-        drops[i] += 5.8 + Math.random() * 7.2;
+        drops[i] += 8.5 + Math.random() * 9.5; // extremely fast
 
-        // Extremely frequent resets → total flood
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.80) {
-          drops[i] = Math.random() * -350;
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.78) {
+          drops[i] = Math.random() * -400;
         }
       }
     }
 
-    setInterval(draw, 9); // extremely fast loop → overwhelming purple rain
+    setInterval(draw, 8); // ultra-fast → total flood effect
 
     // Fake member count
     function updateMemberCount() {

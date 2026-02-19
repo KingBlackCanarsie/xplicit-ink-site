@@ -40,9 +40,7 @@
     }
 
     @media (max-width: 768px) {
-      #matrix {
-        opacity: 0.45; /* Less dominant on phones */
-      }
+      #matrix { opacity: 0.45; }
     }
 
     .overlay {
@@ -54,9 +52,7 @@
     }
 
     @media (max-width: 768px) {
-      .overlay {
-        background: rgba(11, 10, 15, 0.35);
-      }
+      .overlay { background: rgba(11, 10, 15, 0.35); }
     }
 
     .main-content {
@@ -76,9 +72,8 @@
     }
 
     @media (max-width: 768px) {
-      .header {
-        padding: 10px 12px;
-      }
+      .header { padding: 10px 12px; }
+      .hero { padding-top: 120px !important; }
     }
 
     .header-inner {
@@ -127,14 +122,8 @@
       position: relative;
     }
 
-    @media (max-width: 768px) {
-      .hero {
-        padding-top: 120px !important;
-      }
-    }
-
     h1 {
-      font-size: clamp(3rem, 11vw, 5.5rem);
+      font-size: clamp(3.2rem, 11vw, 5.8rem);
       margin: 0 auto 0.6rem;
       color: #f0e0ff;
       text-shadow: 0 0 40px #6a32ff, 0 0 80px #a78bfa;
@@ -162,7 +151,6 @@
       max-width: 90vw;
     }
 
-    /* Fast scrolling bulletin board */
     .bulletin-board {
       margin: 1.5rem auto;
       max-width: calc(100% - 30px);
@@ -179,7 +167,7 @@
       display: flex;
       align-items: center;
       height: 100%;
-      animation: scrollLeft 12s linear infinite; /* Fast scroll */
+      animation: scrollLeft 12s linear infinite;
       white-space: nowrap;
     }
 
@@ -203,14 +191,15 @@
     }
 
     @media (max-width: 768px) {
-      .bulletin-board {
-        margin: 1rem 15px;
-        height: 65px;
-      }
-      .board-item {
-        font-size: 0.95rem;
-        padding: 0 2rem;
-      }
+      .bulletin-board { margin: 1rem 15px; height: 65px; }
+      .board-item { font-size: 0.95rem; padding: 0 2rem; }
+    }
+
+    .join-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1.5rem 0;
     }
 
     .enter-button {
@@ -254,7 +243,269 @@
       color: white;
     }
 
-    /* Ink drips, cursor, particles, scroll hint, etc. – keep your originals or paste */
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.5rem;
+      color: #c6b8ff;
+      animation: bounce 2s infinite, fadeOut 8s forwards 4s;
+      opacity: 0.8;
+      text-shadow: 0 0 12px #a78bfa;
+      pointer-events: none;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-20px); }
+      60% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; }
+    }
+
+    section {
+      padding: 100px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    section.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      font-size: 3.2rem;
+      color: #c6b8ff;
+      text-align: center;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 15px #a78bfa;
+    }
+
+    .teaser-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .teaser-card {
+      background: rgba(49, 51, 56, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 40px rgba(106, 50, 255, 0.2);
+      transition: transform 0.4s, box-shadow 0.4s;
+      text-align: center;
+    }
+
+    .teaser-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 70px rgba(167, 139, 250, 0.35);
+    }
+
+    .teaser-card h2 {
+      font-size: 2.2rem;
+      color: #c6b8ff;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 12px rgba(167, 139, 250, 0.5);
+    }
+
+    .teaser-card p {
+      font-size: 1.15rem;
+      line-height: 1.65;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .teaser-card a {
+      color: #c6b8ff;
+      text-decoration: underline;
+      font-size: 1.1rem;
+    }
+
+    .teaser-card a:hover {
+      color: white;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
+      transition: transform 0.5s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .trust-block {
+      background: rgba(49, 51, 56, 0.75);
+      backdrop-filter: blur(12px);
+      border: 2px solid #6a32ff;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 800px;
+      margin: 80px auto;
+      text-align: center;
+    }
+
+    .trust-block p {
+      font-size: 1.3rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 100px 20px 140px;
+    }
+
+    .big-cta {
+      display: inline-block;
+      padding: 1.2rem 4rem;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      background: linear-gradient(135deg, #5b3cb9, #6a32ff);
+      color: white;
+      border: 3px solid #c6b8ff;
+      border-radius: 16px;
+      box-shadow: 0 0 50px #a78bfa;
+      text-decoration: none;
+      transition: all 0.4s;
+    }
+
+    .big-cta:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 80px #c6b8ff;
+    }
+
+    .tour-link {
+      margin-left: 1.5rem;
+      color: #c6b8ff;
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      text-decoration: underline;
+    }
+
+    .tour-link:hover {
+      color: white;
+    }
+
+    .trust-badges {
+      margin-top: 1.5rem;
+      font-size: clamp(1rem, 3.5vw, 1.2rem);
+      opacity: 0.9;
+    }
+
+    .ink-drip {
+      position: fixed;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
+      box-shadow: 0 0 9px #a78bfa;
+      z-index: 3;
+      pointer-events: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-120vh); opacity: 0; }
+      40% { opacity: 0.6; }
+      100% { transform: translateY(120vh); opacity: 0; }
+    }
+
+    .ink-cursor {
+      position: fixed;
+      width: 24px;
+      height: 24px;
+      background: radial-gradient(circle, #a78bfa 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 100;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      box-shadow: 0 0 15px #a78bfa, 0 0 30px #6a32ff;
+    }
+
+    .cursor-trail {
+      position: fixed;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.7), transparent);
+      pointer-events: none;
+      z-index: 99;
+      opacity: 0.9;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      animation: trailFade 0.6s ease-out forwards;
+    }
+
+    @keyframes trailFade {
+      to { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+    }
+
+    .particles-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(167, 139, 250, 0.5);
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(167, 139, 250, 0.7);
+      animation: float 25s infinite linear;
+      opacity: 0;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(110vh) scale(0.3); opacity: 0; }
+      15%  { opacity: 0.8; }
+      85%  { opacity: 0.8; }
+      100% { transform: translateY(-30vh) scale(0.7); opacity: 0; }
+    }
+
+    .ink-particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ink-drop {
+      position: absolute;
+      width: 6px;
+      height: 12px;
+      background: #a78bfa;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      box-shadow: 0 0 12px #a78bfa;
+      animation: inkFall 12s linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes inkFall {
+      0%   { transform: translateY(-100vh) scale(0.4) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.8; }
+      100% { transform: translateY(100vh) scale(1) rotate(180deg); opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -289,17 +540,10 @@
         <h1>The Xplicit Ink</h1>
         <p class="tagline">A quiet gathering for people who miss when the internet felt human.</p>
 
-        <!-- Rotating testimonials -->
-        <div class="testimonials">
-          <div class="testimonial active">"The depth of the stories here is unreal – finally a place for real literary RP." – @nyxshadow</div>
-          <div class="testimonial">"Safe, creative, and steamy – joined last week and already hooked." – @velvetquill</div>
-          <div class="testimonial">"Best adult RP server I've found. The voice rooms are 🔥" – @inkbound</div>
-        </div>
-
         <!-- Join button + badge -->
         <div class="join-container">
           <a href="https://discord.gg/RGwnBbnzgA" class="enter-button" target="_blank">
-            Join Xplicit Ink 🔥
+            Enter the Ink 🔥
           </a>
           <span class="badge">18+ Only – No Exceptions</span>
         </div>
@@ -319,7 +563,7 @@
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
             <!-- Duplicate for seamless loop -->
-            <div class="board-item"><strong>682</strong> members</div>
+            <div class="board-item"><strong id="memberCountDup">682</strong> members</div>
             <div class="board-item"><strong id="onlineCountDup">147</strong> online now</div>
             <div class="board-item">"Safe, creative, and steamy..." – @velvetquill</div>
             <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
@@ -333,7 +577,7 @@
           </div>
         </div>
 
-        <p class="social-proof">The Ink's Dripping. Join before it's gone 🔥</p>
+        <p class="social-proof">The Ink's Dripping. 600+ Locked in 🔥 – new join</p>
 
         <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
 
@@ -341,11 +585,77 @@
       </div>
     </section>
 
-    <!-- Rest of your sections (Sneak Peek, Gallery, Trust Block, CTA) go here – paste them unchanged -->
+    <section class="reveal-on-scroll">
+      <h2 class="section-title">Sneak Peek Inside</h2>
+      <div class="teaser-grid">
+        <div class="teaser-card">
+          <h2>Community</h2>
+          <p>Core spaces for chat & vibes, immersive theme channels, steamy voice rooms, gaming nights, movie streams, and friendships that last beyond the kink.</p>
+          <a href="community.html" class="pulse-btn">Explore Community →</a>
+        </div>
+
+        <div class="teaser-card">
+          <h2>Rules & Safety</h2>
+          <p>18+ only • Consent mandatory • Respect limits & safewords • No minors ever • Privacy protected • Drama handled privately • Zero tolerance for harassment.</p>
+          <a href="rules-and-safety.html" class="pulse-btn">Read Full Rules →</a>
+        </div>
+
+        <div class="teaser-card manifesto-teaser">
+          <h2>Manifesto</h2>
+          <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
+          <div class="fade-block">Today, noise and fear cloud genuine connection — but here, the ink flows freely.</div>
+          <div class="fade-block">Welcome to Xplicit Ink — where voices are real, and the community is unshackled.</div>
+          <a href="manifesto.html" class="pulse-btn">Read Full Manifesto →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal-on-scroll">
+      <h2 class="section-title">Gallery of Temptation</h2>
+      <div class="gallery">
+        <img src="https://live.staticflickr.com/65535/55102557854_0a68e55a78_w.jpg" alt="Hot masquerade couple">
+        <img src="https://live.staticflickr.com/65535/55102557884_d3d2506bc6_w.jpg" alt="Woman with red feather on lips">
+        <img src="https://live.staticflickr.com/65535/55102294346_d1994a7fc8.jpg" alt="Futuristic book seduction">
+        <img src="https://live.staticflickr.com/65535/55102557869_6e3e1d808e_w.jpg" alt="Woman writing with Xplicit tattoo">
+        <img src="https://live.staticflickr.com/65535/55102557764_cfdabfe447_h.jpg" alt="Living book fantasy">
+        <img src="https://live.staticflickr.com/65535/55101410097_7bb8dcaeb7_w.jpg" alt="Themed RP night vibe">
+      </div>
+    </section>
+
+    <section class="reveal-on-scroll">
+      <h2 class="section-title">Why We're Safe & Welcoming</h2>
+      <div class="trust-block">
+        <p>
+          • Strict 18+ verification – zero tolerance for minors<br>
+          • Consent is mandatory – safewords are sacred<br>
+          • Respect the person – no harassment or doxxing<br>
+          • Privacy protected – no sharing outside without permission<br>
+          • Active moderators & private reporting tickets
+        </p>
+        <a href="rules-and-safety.html" style="color:#c6b8ff; font-size:1.3rem; text-decoration:underline; margin-top:1.5rem; display:inline-block;">
+          Read Full Rules →
+        </a>
+      </div>
+    </section>
+
+    <section class="cta reveal-on-scroll">
+      <h2 style="font-size: clamp(2.5rem, 8vw, 3.8rem); margin-bottom:1rem; color:#c6b8ff; text-shadow:0 0 20px #a78bfa;">
+        Your Fantasy Awaits… Join Before the Ink Dries
+      </h2>
+      <p style="font-size: clamp(1.1rem, 4vw, 1.4rem); margin-bottom:2rem; opacity:0.9;">
+        New members join every hour • Hundreds already inside waiting for you
+      </p>
+      <a href="https://discord.gg/RGwnBbnzgA" class="big-cta pulse-btn ripple" target="_blank">Dive Into the Ink 🔥</a>
+      <a href="community.html" class="tour-link">Take the Tour First →</a>
+      <div class="trust-badges">
+        100% Anonymous Join • Discord Verified • 18+ Only
+      </div>
+    </section>
+
   </div>
 
   <script>
-    // Matrix rain (adaptive opacity/size on mobile)
+    // Matrix rain – adaptive on mobile
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -382,15 +692,16 @@
     }
     setInterval(draw, 28);
 
-    // Fake member count (600–800 range, updates every 10s)
+    // Fake member count (600–800)
     function updateMemberCount() {
       const count = Math.floor(Math.random() * 201) + 600;
       document.getElementById('memberCount').textContent = count;
+      document.getElementById('memberCountDup').textContent = count;
     }
     updateMemberCount();
     setInterval(updateMemberCount, 10000);
 
-    // Fake online count (120–180 range, updates every 10s)
+    // Fake online count (120–180)
     function updateOnlineCount() {
       const count = Math.floor(Math.random() * 61) + 120;
       document.getElementById('onlineCount').textContent = count;
@@ -399,7 +710,44 @@
     updateOnlineCount();
     setInterval(updateOnlineCount, 10000);
 
-    // ... your other scripts (drips, cursor trail, particles, testimonials rotation, etc.)
+    // Ink Drips
+    for (let i = 0; i < 18; i++) {
+      let drip = document.createElement('div');
+      drip.className = 'ink-drip';
+      drip.style.left = Math.random() * 100 + 'vw';
+      drip.style.height = Math.random() * 280 + 120 + 'px';
+      drip.style.animationDuration = (Math.random() * 4 + 2.5) + 's';
+      drip.style.animationDelay = Math.random() * 6 + 's';
+      document.body.appendChild(drip);
+    }
+
+    // Glowing Cursor + Trail
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+
+      const trail = document.createElement('div');
+      trail.classList.add('cursor-trail');
+      trail.style.left = e.clientX + 'px';
+      trail.style.top = e.clientY + 'px';
+      document.body.appendChild(trail);
+
+      setTimeout(() => trail.remove(), 600);
+    });
+
+    // Fade-in on scroll
+    const reveals = document.querySelectorAll('.reveal-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Scroll hint animation already in CSS
   </script>
 </body>
-</html>
+  </html>

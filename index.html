@@ -40,7 +40,7 @@
     }
 
     @media (max-width: 768px) {
-      #matrix { opacity: 0.75; }
+      #matrix { opacity: 0.8; }
     }
 
     .overlay {
@@ -53,7 +53,7 @@
 
     .main-content {
       position: relative;
-      z-index: 40;
+      z-index: 50;
     }
 
     .header {
@@ -69,7 +69,7 @@
 
     @media (max-width: 768px) {
       .header { padding: 10px 12px; }
-      .hero { padding-top: 120px !important; }
+      .hero { padding-top: 130px !important; }
     }
 
     .header-inner {
@@ -140,13 +140,6 @@
       max-width: 90vw;
     }
 
-    .social-proof {
-      font-size: clamp(1.1rem, 4vw, 1.4rem);
-      color: #ddd;
-      margin: 1rem auto 1.6rem;
-      max-width: 90vw;
-    }
-
     .bulletin-board {
       margin: 1.5rem auto;
       max-width: calc(100% - 30px);
@@ -163,7 +156,7 @@
       display: flex;
       align-items: center;
       height: 100%;
-      animation: scrollLeft 12s linear infinite;
+      animation: scrollLeft 14s linear infinite;
       white-space: nowrap;
     }
 
@@ -172,7 +165,7 @@
       align-items: center;
       color: #e0d0ff;
       font-size: 1rem;
-      padding: 0 2.5rem;
+      padding: 0 3rem;
       text-shadow: 0 0 10px #a78bfa;
     }
 
@@ -182,13 +175,13 @@
     }
 
     @keyframes scrollLeft {
-      0% { transform: translateX(0); }
+      0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
 
     @media (max-width: 768px) {
       .bulletin-board { margin: 1rem 15px; height: 65px; }
-      .board-item { font-size: 0.95rem; padding: 0 2rem; }
+      .board-item { font-size: 0.95rem; padding: 0 2.2rem; }
     }
 
     .join-container {
@@ -543,12 +536,20 @@
           <span class="badge">18+ Only – No Exceptions</span>
         </div>
 
+        <!-- Fixed smooth infinite scrolling bulletin board -->
         <div class="bulletin-board">
           <div class="board-track">
-            <div class="board-item"><strong id="memberCount">682</strong> members</div>
-            <div class="board-item"><strong id="onlineCount">147</strong> online now</div>
-            <div class="board-item">"Safe, creative, and steamy..." – @velvetquill</div>
+            <!-- First set -->
+            <div class="board-item"><strong id="memberCount">742</strong> members</div>
+            <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
+            <div class="board-item">"The depth here is unreal..." – @nyxshadow</div>
+            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
             <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
+            <div class="board-item">"Best RP server ever" – @shadowquill</div>
+            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
+            <div class="board-item">💦｜ X-Stream live</div>
+            <div class="board-item">📺｜𝖲treams active</div>
+            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
             <div class="board-item">Voice Lounge 🔥 live</div>
             <div class="board-item">Steamy Whispers active</div>
             <div class="board-item">Late Night Ink dripping</div>
@@ -556,11 +557,18 @@
             <div class="board-item">Forbidden Ink Tales</div>
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
-            <!-- Duplicate -->
-            <div class="board-item"><strong id="memberCountDup">682</strong> members</div>
-            <div class="board-item"><strong id="onlineCountDup">147</strong> online now</div>
-            <div class="board-item">"Safe, creative, and steamy..." – @velvetquill</div>
+
+            <!-- Second set (for perfect seamless loop) -->
+            <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
+            <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
+            <div class="board-item">"The depth here is unreal..." – @nyxshadow</div>
+            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
             <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
+            <div class="board-item">"Best RP server ever" – @shadowquill</div>
+            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
+            <div class="board-item">💦｜ X-Stream live</div>
+            <div class="board-item">📺｜𝖲treams active</div>
+            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
             <div class="board-item">Voice Lounge 🔥 live</div>
             <div class="board-item">Steamy Whispers active</div>
             <div class="board-item">Late Night Ink dripping</div>
@@ -649,11 +657,11 @@
   </div>
 
   <script>
-    // MATRIX STORM – very dense, fast, purple, aggressive
+    // MATRIX STORM – 3× intensity (purple chaos)
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
-    let fontSize = 18;
+    let fontSize = 16;
     let columns;
     let drops = [];
 
@@ -661,25 +669,24 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      fontSize = window.innerWidth < 768 ? 14 : 18;
-      columns = Math.floor(canvas.width / fontSize);
+      fontSize = window.innerWidth < 768 ? 12 : 16;
+      columns = Math.floor(canvas.width / fontSize * 1.5); // 50% more columns
       drops = new Array(columns);
 
       for (let i = 0; i < columns; i++) {
-        drops[i] = Math.random() * -canvas.height * 1.5; // start higher
+        drops[i] = Math.random() * -canvas.height * 3;
       }
     }
     resize();
     window.addEventListener('resize', resize);
 
-    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?/`~";
+    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?/`~\\|";
 
     function draw() {
-      // Very heavy trailing fade → storm density
-      ctx.fillStyle = 'rgba(10, 5, 20, 0.12)';
+      ctx.fillStyle = 'rgba(10, 5, 20, 0.18)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.shadowBlur = 18;
+      ctx.shadowBlur = 25;
       ctx.shadowColor = '#6a32ff';
 
       for (let i = 0; i < columns; i++) {
@@ -687,34 +694,34 @@
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        // Leading characters very bright / flashing
-        if (Math.random() > 0.94) {
+        if (Math.random() > 0.92) {
           ctx.fillStyle = '#ffffff';
-          ctx.shadowBlur = 30;
-        } else if (Math.random() > 0.84) {
+          ctx.shadowBlur = 40;
+        } else if (Math.random() > 0.80) {
           ctx.fillStyle = '#c6b8ff';
-          ctx.shadowBlur = 24;
+          ctx.shadowBlur = 35;
+        } else if (Math.random() > 0.70) {
+          ctx.fillStyle = '#d0c0ff';
+          ctx.shadowBlur = 30;
         } else {
           ctx.fillStyle = '#a78bfa';
-          ctx.shadowBlur = 18;
+          ctx.shadowBlur = 25;
         }
 
         ctx.font = `${fontSize}px monospace`;
         ctx.fillText(text, x, y);
 
-        // Storm speed – very fast + high variation
-        drops[i] += 2.2 + Math.random() * 2.8;
+        drops[i] += 3.5 + Math.random() * 4.5;
 
-        // Very frequent resets → constant heavy rain
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.88) {
-          drops[i] = Math.random() * -150;
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.80) {
+          drops[i] = Math.random() * -200;
         }
       }
     }
 
-    setInterval(draw, 18); // very fast loop → storm intensity
+    setInterval(draw, 14); // ultra-fast for storm chaos
 
-    // Fake member count (600–800)
+    // Fake member count
     function updateMemberCount() {
       const count = Math.floor(Math.random() * 201) + 600;
       document.getElementById('memberCount').textContent = count;
@@ -723,7 +730,7 @@
     updateMemberCount();
     setInterval(updateMemberCount, 10000);
 
-    // Fake online count (120–180)
+    // Fake online count
     function updateOnlineCount() {
       const count = Math.floor(Math.random() * 61) + 120;
       document.getElementById('onlineCount').textContent = count;

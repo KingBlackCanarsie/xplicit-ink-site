@@ -682,7 +682,7 @@
 
       fontSize = window.innerWidth < 768 ? 10 : 14;
       // 10× more columns than normal
-      columns = Math.floor((canvas.width / fontSize) * 10);
+    columns = Math.floor((canvas.width / fontSize) * 5);
       drops = Array(columns).fill(0).map(() => Math.random() * canvas.height / fontSize);
     }
 
@@ -773,3 +773,4 @@
   </script>
 </body>
 </html>
+

@@ -6,6 +6,7 @@
   <title>Xplicit Ink • 18+ Adult Wordplay & Forbidden Friendships</title>
   <link rel="icon" type="image/jpeg" href="https://live.staticflickr.com/65535/55101410087_221b343cde_w.jpg">
 
+  <!-- Open Graph / Discord preview -->
   <meta property="og:title" content="Xplicit Ink • 18+ Literate Adults">
   <meta property="og:description" content="A quiet gathering for people who miss when the internet felt human.">
   <meta property="og:image" content="https://live.staticflickr.com/65535/55101410087_221b343cde_w.jpg">
@@ -16,20 +17,14 @@
   <meta name="theme-color" content="#5b3cb9">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body, html {
       margin: 0;
       padding: 0;
       background: #0b0a0f;
       font-family: 'Georgia', serif;
-      color: #eee;
+      color: #dddde8;
       overflow-x: hidden;
       min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     #matrix {
@@ -45,7 +40,7 @@
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(11, 10, 15, 0.55);
+      background: rgba(11, 10, 15, 0.45);
       z-index: 2;
       pointer-events: none;
     }
@@ -59,22 +54,12 @@
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(43, 45, 49, 0.96);
-      backdrop-filter: blur(14px);
+      background: rgba(43, 45, 49, 0.9);
+      backdrop-filter: blur(10px);
       padding: 12px 16px;
-      border-bottom: 1px solid rgba(167, 139, 250, 0.5);
-      z-index: 120;
+      border-bottom: 1px solid rgba(167, 139, 250, 0.3);
+      z-index: 50;
     }
-
-    @media (max-width: 768px) {
-      .header {
-        padding: 10px 12px;
-      }
-      .hero {
-        padding-top: 110px;
-      }
-    }
-
     .header-inner {
       max-width: 1100px;
       margin: 0 auto;
@@ -82,184 +67,162 @@
       justify-content: space-between;
       align-items: center;
     }
-
     .brand {
       display: flex;
       align-items: center;
-      font-size: clamp(1.7rem, 6.5vw, 2.4rem);
+      font-size: clamp(1.4rem, 4vw, 1.8rem);
       font-weight: bold;
-      color: #d0c0ff;
-      text-shadow: 0 0 16px #a78bfa, 0 0 8px #6a32ff;
+      color: #c6b8ff;
+      text-shadow: 0 0 10px #a78bfa;
     }
-
     .brand-logo {
-      width: 44px;
-      height: 44px;
-      margin-right: 14px;
+      width: 36px;
+      height: 36px;
+      margin-right: 10px;
       border-radius: 50%;
       object-fit: cover;
-      box-shadow: 0 0 24px rgba(167, 139, 250, 0.9);
+      box-shadow: 0 0 15px rgba(167, 139, 250, 0.6);
     }
-
     .nav a {
       margin-left: 20px;
-      color: #d0d0e0;
+      color: #b5bac1;
       text-decoration: none;
-      font-size: clamp(1rem, 3.5vw, 1.1rem);
+      font-size: clamp(0.9rem, 3vw, 1rem);
     }
-
     .nav a:hover, .nav a.active {
-      color: #d0c0ff;
+      color: #c6b8ff;
     }
 
-    /* Hero – prevent horizontal overflow */
+    /* Hero */
     .hero {
       min-height: 70vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 60px 15px 40px;
+      padding: 60px 20px 40px;
       text-align: center;
       position: relative;
     }
 
     h1 {
-      font-size: clamp(2.8rem, 9vw, 5rem);
-      margin: 0 auto 0.6rem;
-      color: #d0c0ff;
-      text-shadow: 0 0 32px #6a32ff, 0 0 64px #a78bfa;
-      letter-spacing: clamp(1px, 0.6vw, 4px);
-      line-height: 1.1;
-      font-weight: 900;
-      max-width: 95vw;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      hyphens: auto;
+      font-size: clamp(3rem, 9vw, 5rem);
+      margin: 0 0 0.4rem;
+      color: #c6b8ff;
+      text-shadow: 0 0 25px #6a32ff, 0 0 50px #a78bfa;
+      letter-spacing: clamp(2px, 0.8vw, 4px);
     }
 
     .tagline {
-      font-size: clamp(1.2rem, 4.5vw, 1.6rem);
-      color: #e0e0ff;
-      margin: 0.6rem auto 1.2rem;
-      text-shadow: 0 0 16px #a78bfa, 0 0 8px #6a32ff;
-      line-height: 1.45;
-      max-width: 90vw;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      hyphens: auto;
-    }
-
-    .social-proof {
-      font-size: clamp(1.1rem, 4vw, 1.4rem);
-      color: #ccc;
-      margin: 1rem auto 1.6rem;
-      opacity: 0.95;
-      line-height: 1.4;
-      max-width: 90vw;
-    }
-
-    /* Scrolling bulletin board – safe width */
-    .bulletin-board {
-      margin: 1.5rem auto;
-      max-width: calc(100% - 30px);
-      width: 100%;
-      background: rgba(49, 51, 56, 0.75);
-      border-radius: 16px;
-      border: 1px solid rgba(167, 139, 250, 0.5);
-      box-shadow: 0 0 35px rgba(167, 139, 250, 0.45);
-      overflow: hidden;
-      height: 70px;
-      position: relative;
-    }
-
-    .board-track {
-      display: flex;
-      align-items: center;
-      height: 100%;
-      animation: scrollLeft 16s linear infinite;
-      white-space: nowrap;
-    }
-
-    .board-item {
-      display: inline-flex;
-      align-items: center;
-      color: #d0c0ff;
-      font-size: 1rem;
-      padding: 0 2.5rem;
+      font-size: clamp(1.1rem, 4vw, 1.5rem);
+      color: #c6b8ff;
+      margin: 0.4rem 0 0.8rem;
       text-shadow: 0 0 10px #a78bfa;
     }
 
-    .board-item strong {
-      color: #ff7777;
-      margin-right: 0.6rem;
+    .social-proof {
+      font-size: clamp(1rem, 3.5vw, 1.3rem);
+      color: #aaa9c7;
+      margin: 0.8rem 0 1.2rem;
+      opacity: 0.9;
     }
 
-    @keyframes scrollLeft {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    /* Discord Widget – slim & elegant */
+    .discord-widget {
+      margin: 1.2rem auto;
+      max-width: 340px;
+      background: rgba(49, 51, 56, 0.65);
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      box-shadow: 0 0 25px rgba(167, 139, 250, 0.35);
+      overflow: hidden;
+    }
+
+    .discord-widget iframe {
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+      height: 220px;
+      border: none;
     }
 
     @media (max-width: 768px) {
-      .bulletin-board {
-        margin: 1rem 15px;
-        height: 65px;
+      .discord-widget {
+        max-width: 300px;
+        margin: 1rem auto;
+        padding: 10px;
       }
-      .board-item {
-        font-size: 0.95rem;
-        padding: 0 2rem;
+      .discord-widget iframe {
+        height: 200px;
       }
+      .hero {
+        min-height: 65vh;
+        padding: 50px 15px 30px;
+      }
+      h1 { font-size: clamp(2.6rem, 11vw, 4rem); margin-bottom: 0.3rem; }
+      .tagline { margin: 0.3rem 0 0.6rem; }
+      .social-proof { margin: 0.6rem 0; }
+      .enter-button { padding: 0.9rem 2.5rem; font-size: clamp(1.1rem, 5vw, 1.4rem); }
+      .badge { font-size: 0.9rem; padding: 0.4rem 0.9rem; display: block; margin: 0.6rem auto 0; }
+      .scroll-hint { font-size: 2rem; bottom: 15px; }
     }
 
     .enter-button {
       display: inline-block;
-      padding: clamp(0.9rem, 4vw, 1.3rem) clamp(2rem, 6vw, 4.5rem);
-      font-size: clamp(1.2rem, 5vw, 1.6rem);
+      padding: clamp(0.8rem, 3vw, 1.2rem) clamp(2rem, 6vw, 4rem);
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
       background: #5b3cb9;
       color: white;
       border: 2px solid #a78bfa;
-      border-radius: 14px;
-      box-shadow: 0 0 40px #a78bfa;
+      border-radius: 12px;
+      box-shadow: 0 0 30px #a78bfa;
       text-decoration: none;
       transition: all 0.3s;
       position: relative;
       overflow: hidden;
-      margin: 1.4rem 0 0.9rem;
-      font-weight: bold;
-      max-width: 90vw;
+      margin-bottom: 0.5rem;
     }
 
     .enter-button:hover {
       transform: scale(1.08);
-      box-shadow: 0 0 60px #c6b8ff;
+      box-shadow: 0 0 50px #c6b8ff;
+    }
+
+    .enter-button:active::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: rgba(198, 184, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      transition: width 0.7s, height 0.7s;
     }
 
     .badge {
-      display: block;
-      margin: 0.7rem auto 0;
-      padding: 0.7rem 1.6rem;
-      background: rgba(255,0,0,0.7);
+      padding: 0.5rem 1.2rem;
+      background: rgba(255,0,0,0.6);
       border-radius: 30px;
-      font-size: clamp(1rem, 4vw, 1.2rem);
+      font-size: clamp(0.9rem, 3vw, 1.1rem);
       color: white;
       font-weight: bold;
-      width: fit-content;
-      max-width: 90vw;
-      box-shadow: 0 0 20px rgba(255,0,0,0.5);
+      display: inline-block;
     }
 
     .manifesto-link {
       display: block;
-      margin-top: 1.6rem;
+      margin-top: 1.2rem;
       color: #a78bfa;
       text-decoration: underline;
-      font-size: clamp(1.1rem, 4vw, 1.3rem);
+      font-size: clamp(1rem, 3.5vw, 1.2rem);
     }
 
     .manifesto-link:hover {
       color: white;
     }
 
-    /* Ink drips, cursor, particles, scroll hint unchanged */
+    /* Ink drips */
     .ink-drip {
       position: fixed;
       width: 2px;
@@ -276,6 +239,7 @@
       100% { transform: translateY(120vh); opacity: 0; }
     }
 
+    /* Glowing cursor with trail */
     .ink-cursor {
       position: fixed;
       width: 24px;
@@ -306,6 +270,7 @@
       to { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
     }
 
+    /* Floating particles */
     .particles-bg {
       position: fixed;
       inset: 0;
@@ -330,6 +295,7 @@
       100% { transform: translateY(-30vh) scale(0.7); opacity: 0; }
     }
 
+    /* Ink particles */
     .ink-particles {
       position: fixed;
       inset: 0;
@@ -355,6 +321,7 @@
       100% { transform: translateY(100vh) scale(1) rotate(180deg); opacity: 0; }
     }
 
+    /* Scroll hint arrow */
     .scroll-hint {
       position: absolute;
       bottom: 30px;
@@ -524,6 +491,7 @@
       opacity: 0.9;
     }
 
+    /* Testimonials */
     .testimonials {
       font-size: clamp(0.95rem, 3.5vw, 1.15rem);
       color: #aaa9c7;
@@ -544,6 +512,7 @@
       opacity: 1;
     }
 
+    /* Join button container – stacks button and badge vertically */
     .join-container {
       display: flex;
       flex-direction: column;
@@ -580,49 +549,38 @@
   <div class="main-content">
 
     <section class="hero reveal-on-scroll">
-      <div style="max-width: 620px; margin: 0 auto; padding: 0 10px;">
+      <div style="max-width: 620px; margin: 0 auto;">
         <h1>The Xplicit Ink</h1>
         <p class="tagline">A quiet gathering for people who miss when the internet felt human.</p>
 
+        <!-- Rotating testimonials -->
         <div class="testimonials">
           <div class="testimonial active">"The depth of the stories here is unreal – finally a place for real literary RP." – @nyxshadow</div>
           <div class="testimonial">"Safe, creative, and steamy – joined last week and already hooked." – @velvetquill</div>
           <div class="testimonial">"Best adult RP server I've found. The voice rooms are 🔥" – @inkbound</div>
         </div>
 
+        <!-- Join button + badge stacked vertically -->
         <div class="join-container">
           <a href="https://discord.gg/RGwnBbnzgA" class="enter-button pulse-btn ripple" target="_blank">
-            Enter The Ink 🔥
+            Join Xplicit Ink 🔥
           </a>
           <span class="badge">18+ Only – Explicit Content</span>
         </div>
 
-        <div class="bulletin-board">
-          <div class="board-track" id="boardTrack">
-            <div class="board-item"><strong>600+</strong> locked in</div>
-            <div class="board-item"><strong id="onlineCount">142</strong> online now</div>
-            <div class="board-item">Voice Lounge 🔥 live</div>
-            <div class="board-item">Steamy Whispers active</div>
-            <div class="board-item">Late Night Ink dripping</div>
-            <div class="board-item">Forbidden Confessions</div>
-            <div class="board-item">Whispered Desires</div>
-            <div class="board-item">Ink Sessions live</div>
-            <div class="board-item">The ink's <strong>dripping</strong></div>
-            <div class="board-item">Stories unfolding</div>
-            <!-- Duplicate -->
-            <div class="board-item"><strong>600+</strong> locked in</div>
-            <div class="board-item"><strong id="onlineCountDup">142</strong> online now</div>
-            <div class="board-item">Voice Lounge 🔥 live</div>
-            <div class="board-item">Steamy Whispers active</div>
-            <div class="board-item">Late Night Ink dripping</div>
-            <div class="board-item">Forbidden Confessions</div>
-            <div class="board-item">Whispered Desires</div>
-            <div class="board-item">Ink Sessions live</div>
-            <div class="board-item">The ink's <strong>dripping</strong></div>
-            <div class="board-item">Stories unfolding</div>
-          </div>
+        <!-- Slim, elegant Discord widget -->
+        <div class="discord-widget">
+          <iframe 
+            src="https://discord.com/widget?id=1007816656006946896&theme=dark" 
+            width="100%" 
+            height="220" 
+            allowtransparency="true" 
+            frameborder="0" 
+            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+          </iframe>
         </div>
 
+        <!-- Social proof -->
         <p class="social-proof">The Ink's Dripping. 600+ Locked in 🔥 – new join</p>
 
         <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
@@ -631,13 +589,78 @@
       </div>
     </section>
 
-    <!-- The rest of your sections remain unchanged – paste them here if needed -->
-    <!-- ... -->
+    <!-- Rest of sections unchanged -->
+    <section class="reveal-on-scroll">
+      <h2 class="section-title">Sneak Peek Inside</h2>
+      <div class="teaser-grid">
+        <div class="teaser-card">
+          <h2>Community</h2>
+          <p>Core spaces for chat & vibes, immersive theme channels, steamy voice rooms, gaming nights, movie streams, and friendships that last beyond the kink.</p>
+          <a href="community.html" class="pulse-btn">Explore Community →</a>
+        </div>
+
+        <div class="teaser-card">
+          <h2>Rules & Safety</h2>
+          <p>18+ only • Consent mandatory • Respect limits & safewords • No minors ever • Privacy protected • Drama handled privately • Zero tolerance for harassment.</p>
+          <a href="rules-and-safety.html" class="pulse-btn">Read Full Rules →</a>
+        </div>
+
+        <div class="teaser-card manifesto-teaser">
+          <h2>Manifesto</h2>
+          <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
+          <div class="fade-block">Today, noise and fear cloud genuine connection — but here, the ink flows freely.</div>
+          <div class="fade-block">Welcome to Xplicit Ink — where voices are real, and the community is unshackled.</div>
+          <a href="manifesto.html" class="pulse-btn">Read Full Manifesto →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal-on-scroll">
+      <h2 class="section-title">Gallery of Temptation</h2>
+      <div class="gallery">
+        <img src="https://live.staticflickr.com/65535/55102557854_0a68e55a78_w.jpg" alt="Hot masquerade couple">
+        <img src="https://live.staticflickr.com/65535/55102557884_d3d2506bc6_w.jpg" alt="Woman with red feather on lips">
+        <img src="https://live.staticflickr.com/65535/55102294346_d1994a7fc8.jpg" alt="Futuristic book seduction">
+        <img src="https://live.staticflickr.com/65535/55102557869_6e3e1d808e_w.jpg" alt="Woman writing with Xplicit tattoo">
+        <img src="https://live.staticflickr.com/65535/55102557764_cfdabfe447_h.jpg" alt="Living book fantasy">
+        <img src="https://live.staticflickr.com/65535/55101410097_7bb8dcaeb7_w.jpg" alt="Themed RP night vibe">
+      </div>
+    </section>
+
+    <section class="reveal-on-scroll">
+      <h2 class="section-title">Why We're Safe & Welcoming</h2>
+      <div class="trust-block">
+        <p>
+          • Strict 18+ verification – zero tolerance for minors<br>
+          • Consent is mandatory – safewords are sacred<br>
+          • Respect the person – no harassment or doxxing<br>
+          • Privacy protected – no sharing outside without permission<br>
+          • Active moderators & private reporting tickets
+        </p>
+        <a href="rules-and-safety.html" style="color:#c6b8ff; font-size:1.3rem; text-decoration:underline; margin-top:1.5rem; display:inline-block;">
+          Read Full Rules →
+        </a>
+      </div>
+    </section>
+
+    <section class="cta reveal-on-scroll">
+      <h2 style="font-size: clamp(2.5rem, 8vw, 3.8rem); margin-bottom:1rem; color:#c6b8ff; text-shadow:0 0 20px #a78bfa;">
+        Your Fantasy Awaits… Join Before the Ink Dries
+      </h2>
+      <p style="font-size: clamp(1.1rem, 4vw, 1.4rem); margin-bottom:2rem; opacity:0.9;">
+        New members join every hour • Hundreds already inside waiting for you
+      </p>
+      <a href="https://discord.gg/RGwnBbnzgA" class="big-cta pulse-btn ripple" target="_blank">Dive Into the Ink 🔥</a>
+      <a href="community.html" class="tour-link">Take the Tour First →</a>
+      <div class="trust-badges">
+        100% Anonymous Join • Discord Verified • 18+ Only
+      </div>
+    </section>
 
   </div>
 
   <script>
-    // Matrix rain (unchanged)
+    // Purple Matrix Rain – Prominent
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -674,16 +697,75 @@
     }
     setInterval(draw, 28);
 
-    // Fake online count update every 10 seconds
-    function updateOnlineCount() {
-      const count = Math.floor(Math.random() * 61) + 120;
-      document.getElementById('onlineCount').textContent = count;
-      document.getElementById('onlineCountDup').textContent = count;
+    // Ink Drips
+    for (let i = 0; i < 18; i++) {
+      let drip = document.createElement('div');
+      drip.className = 'ink-drip';
+      drip.style.left = Math.random() * 100 + 'vw';
+      drip.style.height = Math.random() * 280 + 120 + 'px';
+      drip.style.animationDuration = (Math.random() * 4 + 2.5) + 's';
+      drip.style.animationDelay = Math.random() * 6 + 's';
+      document.body.appendChild(drip);
     }
-    updateOnlineCount();
-    setInterval(updateOnlineCount, 10000);
 
-    // ... rest of your script (ink drips, cursor, particles, testimonials, etc.)
+    // Glowing Cursor + Trail
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+
+      const trail = document.createElement('div');
+      trail.classList.add('cursor-trail');
+      trail.style.left = e.clientX + 'px';
+      trail.style.top = e.clientY + 'px';
+      document.body.appendChild(trail);
+
+      setTimeout(() => trail.remove(), 600);
+    });
+
+    // Fade-in on scroll
+    const reveals = document.querySelectorAll('.reveal-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Rotating testimonials
+    const testimonials = document.querySelectorAll('.testimonial');
+    let current = 0;
+    if (testimonials.length > 0) {
+      testimonials[current].classList.add('active');
+      setInterval(() => {
+        testimonials[current].classList.remove('active');
+        current = (current + 1) % testimonials.length;
+        testimonials[current].classList.add('active');
+      }, 6000);
+    }
+
+    // Floating particles
+    for (let i = 0; i < 25; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.width = p.style.height = (3 + Math.random() * 6) + 'px';
+      p.style.animationDuration = (18 + Math.random() * 15) + 's';
+      p.style.animationDelay = Math.random() * 10 + 's';
+      document.querySelector('.particles-bg').appendChild(p);
+    }
+
+    // Ink drops
+    for (let i = 0; i < 15; i++) {
+      const drop = document.createElement('div');
+      drop.className = 'ink-drop';
+      drop.style.left = Math.random() * 100 + 'vw';
+      drop.style.animationDuration = (8 + Math.random() * 10) + 's';
+      drop.style.animationDelay = Math.random() * 12 + 's';
+      document.querySelector('.ink-particles').appendChild(drop);
+    }
   </script>
 </body>
 </html>

@@ -8,7 +8,7 @@
 
   <!-- Open Graph / Discord preview -->
   <meta property="og:title" content="Xplicit Ink • 18+ Literate Adults">
-  <meta property="og:description" content="Where stories come to life • 18+ • Consent Always • Deep literary RP, voice rooms & real connections">
+  <meta property="og:description" content="A quiet gathering for people who miss when the internet felt human.">
   <meta property="og:image" content="https://live.staticflickr.com/65535/55101410087_221b343cde_w.jpg">
   <meta property="og:image:width" content="400">
   <meta property="og:image:height" content="400">
@@ -163,7 +163,7 @@
       .tagline { margin: 0.3rem 0 0.6rem; }
       .social-proof { margin: 0.6rem 0; }
       .enter-button { padding: 0.9rem 2.5rem; font-size: clamp(1.1rem, 5vw, 1.4rem); }
-      .badge { font-size: 0.9rem; padding: 0.4rem 0.9rem; }
+      .badge { font-size: 0.9rem; padding: 0.4rem 0.9rem; display: block; margin: 0.6rem auto 0; }
       .scroll-hint { font-size: 2rem; bottom: 15px; }
     }
 
@@ -180,7 +180,7 @@
       transition: all 0.3s;
       position: relative;
       overflow: hidden;
-      margin: 1.2rem 0 0.6rem;
+      margin-bottom: 0.5rem;
     }
 
     .enter-button:hover {
@@ -201,12 +201,13 @@
     }
 
     .badge {
-      margin-left: 0.8rem;
-      padding: 0.5rem 1rem;
-      background: rgba(255,0,0,0.5);
+      padding: 0.5rem 1.2rem;
+      background: rgba(255,0,0,0.6);
       border-radius: 30px;
       font-size: clamp(0.9rem, 3vw, 1.1rem);
       color: white;
+      font-weight: bold;
+      display: inline-block;
     }
 
     .manifesto-link {
@@ -221,7 +222,7 @@
       color: white;
     }
 
-    /* Ink drips, cursor, particles, etc. unchanged */
+    /* Ink drips */
     .ink-drip {
       position: fixed;
       width: 2px;
@@ -238,6 +239,7 @@
       100% { transform: translateY(120vh); opacity: 0; }
     }
 
+    /* Glowing cursor with trail */
     .ink-cursor {
       position: fixed;
       width: 24px;
@@ -268,6 +270,7 @@
       to { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
     }
 
+    /* Floating particles */
     .particles-bg {
       position: fixed;
       inset: 0;
@@ -292,6 +295,7 @@
       100% { transform: translateY(-30vh) scale(0.7); opacity: 0; }
     }
 
+    /* Ink particles */
     .ink-particles {
       position: fixed;
       inset: 0;
@@ -317,6 +321,7 @@
       100% { transform: translateY(100vh) scale(1) rotate(180deg); opacity: 0; }
     }
 
+    /* Scroll hint arrow */
     .scroll-hint {
       position: absolute;
       bottom: 30px;
@@ -506,6 +511,14 @@
     .testimonial.active {
       opacity: 1;
     }
+
+    /* Join button container – stacks button and badge vertically */
+    .join-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1.5rem 0;
+    }
   </style>
 </head>
 <body>
@@ -538,7 +551,7 @@
     <section class="hero reveal-on-scroll">
       <div style="max-width: 620px; margin: 0 auto;">
         <h1>The Xplicit Ink</h1>
-        <p class="tagline"> A quiet gathering for people who miss when the internet felt human. </p>
+        <p class="tagline">A quiet gathering for people who miss when the internet felt human.</p>
 
         <!-- Rotating testimonials -->
         <div class="testimonials">
@@ -547,8 +560,8 @@
           <div class="testimonial">"Best adult RP server I've found. The voice rooms are 🔥" – @inkbound</div>
         </div>
 
-        <!-- Join button + badge – above widget -->
-        <div style="margin: 1.5rem 0;">
+        <!-- Join button + badge stacked vertically -->
+        <div class="join-container">
           <a href="https://discord.gg/RGwnBbnzgA" class="enter-button pulse-btn ripple" target="_blank">
             Join Xplicit Ink 🔥
           </a>
@@ -568,7 +581,7 @@
         </div>
 
         <!-- Social proof -->
-        <p class="social-proof"> The Ink's Dripping. 600+ Locked in 🔥 – new join</p>
+        <p class="social-proof">The Ink's Dripping. 600+ Locked in 🔥 – new join</p>
 
         <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
 
@@ -756,8 +769,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-

@@ -28,18 +28,18 @@
       min-height: 100vh;
     }
 
-    .matrix-layer {
+    #matrix {
       position: fixed;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.92;
+      opacity: 1;
     }
 
     @media (max-width: 768px) {
-      .matrix-layer { opacity: 0.78; }
+      #matrix { opacity: 0.85; }
     }
 
     .overlay {
@@ -149,22 +149,15 @@
       box-shadow: 0 0 35px rgba(167, 139, 250, 0.45);
       overflow: hidden;
       height: 70px;
-      position: relative;
     }
 
-    .board-layer {
-      position: absolute;
-      top: 0; left: 0;
-      width: 200%; /* double width for seamless loop */
-      height: 100%;
+    .board-track {
       display: flex;
       align-items: center;
+      height: 100%;
+      animation: scrollLeft 6s linear infinite;
       white-space: nowrap;
     }
-
-    .board-layer-1 { animation: scrollLeft 6s linear infinite; }
-    .board-layer-2 { animation: scrollLeft 6s linear infinite -2s; }
-    .board-layer-3 { animation: scrollLeft 6s linear infinite -4s; }
 
     .board-item {
       display: inline-flex;
@@ -190,39 +183,322 @@
       .board-item { font-size: 0.95rem; padding: 0 3.2rem; }
     }
 
-    /* Rest of your styles remain unchanged */
-    .join-container { ... } /* copy your existing styles here */
-    .enter-button { ... }
-    .badge { ... }
-    .manifesto-link { ... }
-    .scroll-hint { ... }
-    section { ... }
-    .section-title { ... }
-    .teaser-grid { ... }
-    .teaser-card { ... }
-    .gallery { ... }
-    .gallery img { ... }
-    .trust-block { ... }
-    .cta { ... }
-    .big-cta { ... }
-    .tour-link { ... }
-    .trust-badges { ... }
-    .ink-drip { ... }
-    .ink-cursor { ... }
-    .cursor-trail { ... }
-    .particles-bg { ... }
-    .particle { ... }
-    .ink-particles { ... }
-    .ink-drop { ... }
+    .join-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1.5rem 0;
+    }
+
+    .enter-button {
+      padding: clamp(1rem, 4vw, 1.4rem) clamp(2.5rem, 7vw, 5rem);
+      font-size: clamp(1.3rem, 5vw, 1.8rem);
+      background: #5b3cb9;
+      color: white;
+      border: 2px solid #a78bfa;
+      border-radius: 14px;
+      box-shadow: 0 0 40px #a78bfa;
+      text-decoration: none;
+      font-weight: bold;
+      max-width: 90vw;
+    }
+
+    .enter-button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 60px #c6b8ff;
+    }
+
+    .badge {
+      margin: 0.8rem auto 0;
+      padding: 0.7rem 1.6rem;
+      background: rgba(255,0,0,0.75);
+      border-radius: 30px;
+      font-size: clamp(1.05rem, 4vw, 1.25rem);
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 0 20px rgba(255,0,0,0.5);
+    }
+
+    .manifesto-link {
+      display: block;
+      margin-top: 1.6rem;
+      color: #a78bfa;
+      text-decoration: underline;
+      font-size: clamp(1.1rem, 4vw, 1.3rem);
+    }
+
+    .manifesto-link:hover {
+      color: white;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.5rem;
+      color: #c6b8ff;
+      animation: bounce 2s infinite, fadeOut 8s forwards 4s;
+      opacity: 0.8;
+      text-shadow: 0 0 12px #a78bfa;
+      pointer-events: none;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-20px); }
+      60% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; }
+    }
+
+    section {
+      padding: 100px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    section.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      font-size: 3.2rem;
+      color: #c6b8ff;
+      text-align: center;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 15px #a78bfa;
+    }
+
+    .teaser-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .teaser-card {
+      background: rgba(49, 51, 56, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 40px rgba(106, 50, 255, 0.2);
+      transition: transform 0.4s, box-shadow 0.4s;
+      text-align: center;
+    }
+
+    .teaser-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 70px rgba(167, 139, 250, 0.35);
+    }
+
+    .teaser-card h2 {
+      font-size: 2.2rem;
+      color: #c6b8ff;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 12px rgba(167, 139, 250, 0.5);
+    }
+
+    .teaser-card p {
+      font-size: 1.15rem;
+      line-height: 1.65;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .teaser-card a {
+      color: #c6b8ff;
+      text-decoration: underline;
+      font-size: 1.1rem;
+    }
+
+    .teaser-card a:hover {
+      color: white;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
+      transition: transform 0.5s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .trust-block {
+      background: rgba(49, 51, 56, 0.75);
+      backdrop-filter: blur(12px);
+      border: 2px solid #6a32ff;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 800px;
+      margin: 80px auto;
+      text-align: center;
+    }
+
+    .trust-block p {
+      font-size: 1.3rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 100px 20px 140px;
+    }
+
+    .big-cta {
+      display: inline-block;
+      padding: 1.2rem 4rem;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      background: linear-gradient(135deg, #5b3cb9, #6a32ff);
+      color: white;
+      border: 3px solid #c6b8ff;
+      border-radius: 16px;
+      box-shadow: 0 0 50px #a78bfa;
+      text-decoration: none;
+      transition: all 0.4s;
+    }
+
+    .big-cta:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 80px #c6b8ff;
+    }
+
+    .tour-link {
+      margin-left: 1.5rem;
+      color: #c6b8ff;
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      text-decoration: underline;
+    }
+
+    .tour-link:hover {
+      color: white;
+    }
+
+    .trust-badges {
+      margin-top: 1.5rem;
+      font-size: clamp(1rem, 3.5vw, 1.2rem);
+      opacity: 0.9;
+    }
+
+    .ink-drip {
+      position: fixed;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
+      box-shadow: 0 0 9px #a78bfa;
+      z-index: 3;
+      pointer-events: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-120vh); opacity: 0; }
+      40% { opacity: 0.6; }
+      100% { transform: translateY(120vh); opacity: 0; }
+    }
+
+    .ink-cursor {
+      position: fixed;
+      width: 24px;
+      height: 24px;
+      background: radial-gradient(circle, #a78bfa 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 100;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      box-shadow: 0 0 15px #a78bfa, 0 0 30px #6a32ff;
+    }
+
+    .cursor-trail {
+      position: fixed;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.7), transparent);
+      pointer-events: none;
+      z-index: 99;
+      opacity: 0.9;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      animation: trailFade 0.6s ease-out forwards;
+    }
+
+    @keyframes trailFade {
+      to { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+    }
+
+    .particles-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(167, 139, 250, 0.5);
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(167, 139, 250, 0.7);
+      animation: float 25s infinite linear;
+      opacity: 0;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(110vh) scale(0.3); opacity: 0; }
+      15%  { opacity: 0.8; }
+      85%  { opacity: 0.8; }
+      100% { transform: translateY(-30vh) scale(0.7); opacity: 0; }
+    }
+
+    .ink-particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ink-drop {
+      position: absolute;
+      width: 6px;
+      height: 12px;
+      background: #a78bfa;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      box-shadow: 0 0 12px #a78bfa;
+      animation: inkFall 12s linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes inkFall {
+      0%   { transform: translateY(-100vh) scale(0.4) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.8; }
+      100% { transform: translateY(100vh) scale(1) rotate(180deg); opacity: 0; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Multiple overlapping Matrix layers -->
-  <canvas class="matrix-layer" id="matrix1"></canvas>
-  <canvas class="matrix-layer" id="matrix2"></canvas>
-  <canvas class="matrix-layer" id="matrix3"></canvas>
-
+  <canvas id="matrix"></canvas>
   <div class="overlay"></div>
 
   <div class="particles-bg"></div>
@@ -260,8 +536,8 @@
         </div>
 
         <div class="bulletin-board">
-          <div class="board-layer board-layer-1">
-            <!-- Your full content set (repeat this block 2–3 times inside each layer if you want denser text) -->
+          <div class="board-track">
+            <!-- 7 full sets + extra padding → invisible seamless loop -->
             <div class="board-item"><strong id="memberCount">742</strong> members</div>
             <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -279,10 +555,7 @@
             <div class="board-item">Forbidden Ink Tales</div>
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
-          </div>
 
-          <div class="board-layer board-layer-2">
-            <!-- Identical content -->
             <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
             <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -300,10 +573,79 @@
             <div class="board-item">Forbidden Ink Tales</div>
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
-          </div>
 
-          <div class="board-layer board-layer-3">
-            <!-- Identical content -->
+            <div class="board-item"><strong>742</strong> members</div>
+            <div class="board-item"><strong>158</strong> online now</div>
+            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
+            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
+            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
+            <div class="board-item">"Best RP server ever" – @shadowquill</div>
+            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
+            <div class="board-item">💦｜ X-Stream live</div>
+            <div class="board-item">📺｜𝖲treams active</div>
+            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
+            <div class="board-item">Voice Lounge 🔥 live</div>
+            <div class="board-item">Steamy Whispers active</div>
+            <div class="board-item">Late Night Ink dripping</div>
+            <div class="board-item">Dark Desires RP</div>
+            <div class="board-item">Forbidden Ink Tales</div>
+            <div class="board-item">The ink's <strong>dripping</strong></div>
+            <div class="board-item">Stories unfolding</div>
+
+            <div class="board-item"><strong>742</strong> members</div>
+            <div class="board-item"><strong>158</strong> online now</div>
+            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
+            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
+            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
+            <div class="board-item">"Best RP server ever" – @shadowquill</div>
+            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
+            <div class="board-item">💦｜ X-Stream live</div>
+            <div class="board-item">📺｜𝖲treams active</div>
+            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
+            <div class="board-item">Voice Lounge 🔥 live</div>
+            <div class="board-item">Steamy Whispers active</div>
+            <div class="board-item">Late Night Ink dripping</div>
+            <div class="board-item">Dark Desires RP</div>
+            <div class="board-item">Forbidden Ink Tales</div>
+            <div class="board-item">The ink's <strong>dripping</strong></div>
+            <div class="board-item">Stories unfolding</div>
+
+            <div class="board-item"><strong>742</strong> members</div>
+            <div class="board-item"><strong>158</strong> online now</div>
+            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
+            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
+            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
+            <div class="board-item">"Best RP server ever" – @shadowquill</div>
+            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
+            <div class="board-item">💦｜ X-Stream live</div>
+            <div class="board-item">📺｜𝖲treams active</div>
+            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
+            <div class="board-item">Voice Lounge 🔥 live</div>
+            <div class="board-item">Steamy Whispers active</div>
+            <div class="board-item">Late Night Ink dripping</div>
+            <div class="board-item">Dark Desires RP</div>
+            <div class="board-item">Forbidden Ink Tales</div>
+            <div class="board-item">The ink's <strong>dripping</strong></div>
+            <div class="board-item">Stories unfolding</div>
+
+            <div class="board-item"><strong>742</strong> members</div>
+            <div class="board-item"><strong>158</strong> online now</div>
+            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
+            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
+            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
+            <div class="board-item">"Best RP server ever" – @shadowquill</div>
+            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
+            <div class="board-item">💦｜ X-Stream live</div>
+            <div class="board-item">📺｜𝖲treams active</div>
+            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
+            <div class="board-item">Voice Lounge 🔥 live</div>
+            <div class="board-item">Steamy Whispers active</div>
+            <div class="board-item">Late Night Ink dripping</div>
+            <div class="board-item">Dark Desires RP</div>
+            <div class="board-item">Forbidden Ink Tales</div>
+            <div class="board-item">The ink's <strong>dripping</strong></div>
+            <div class="board-item">Stories unfolding</div>
+
             <div class="board-item"><strong>742</strong> members</div>
             <div class="board-item"><strong>158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -332,48 +674,96 @@
       </div>
     </section>
 
-    <!-- Your other sections (Sneak Peek, Gallery, Trust, CTA) remain unchanged -->
-    <!-- Paste them here from your current file -->
+    <section class="reveal-on-scroll">
+      <h2 class="section-title">Sneak Peek Inside</h2>
+      <div class="teaser-grid">
+        <div class="teaser-card">
+          <h2>Community</h2>
+          <p>Core spaces for chat & vibes, immersive theme channels, steamy voice rooms, gaming nights, movie streams, and friendships that last beyond the kink.</p>
+          <a href="community.html" class="pulse-btn">Explore Community →</a>
+        </div>
+
+        <div class="teaser-card">
+          <h2>Rules & Safety</h2>
+          <p>18+ only • Consent mandatory • Respect limits & safewords • No minors ever • Privacy protected • Drama handled privately • Zero tolerance for harassment.</p>
+          <a href="rules-and-safety.html" class="pulse-btn">Read Full Rules →</a>
+        </div>
+
+        <div class="teaser-card manifesto-teaser">
+          <h2>Manifesto</h2>
+          <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
+          <div class="fade-block">Today, noise and fear cloud genuine connection — but here, the ink flows freely.</div>
+          <div class="fade-block">Welcome to Xplicit Ink — where voices are real, and the community is unshackled.</div>
+          <a href="manifesto.html" class="pulse-btn">Read Full Manifesto →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal-on-scroll">
+      <h2 class="section-title">Gallery of Temptation</h2>
+      <div class="gallery">
+        <img src="https://live.staticflickr.com/65535/55102557854_0a68e55a78_w.jpg" alt="Hot masquerade couple">
+        <img src="https://live.staticflickr.com/65535/55102557884_d3d2506bc6_w.jpg" alt="Woman with red feather on lips">
+        <img src="https://live.staticflickr.com/65535/55102294316_0be756f0f3_w.jpg" alt="Futuristic book seduction">
+        <img src="https://live.staticflickr.com/65535/55102557869_6e3e1d808e_w.jpg" alt="Woman writing with Xplicit tattoo">
+        <img src="https://live.staticflickr.com/65535/55102557764_cfdabfe447_h.jpg" alt="Living book fantasy">
+        <img src="https://live.staticflickr.com/65535/55101410097_7bb8dcaeb7_w.jpg" alt="Themed RP night vibe">
+      </div>
+    </section>
+
+    <section class="reveal-on-scroll">
+      <h2 class="section-title">Why We're Safe & Welcoming</h2>
+      <div class="trust-block">
+        <p>
+          • Strict 18+ verification – zero tolerance for minors<br>
+          • Consent is mandatory – safewords are sacred<br>
+          • Respect the person – no harassment or doxxing<br>
+          • Privacy protected – no sharing outside without permission<br>
+          • Active moderators & private reporting tickets
+        </p>
+        <a href="rules-and-safety.html" style="color:#c6b8ff; font-size:1.3rem; text-decoration:underline; margin-top:1.5rem; display:inline-block;">
+          Read Full Rules →
+        </a>
+      </div>
+    </section>
+
+    <section class="cta reveal-on-scroll">
+      <h2 style="font-size: clamp(2.5rem, 8vw, 3.8rem); margin-bottom:1rem; color:#c6b8ff; text-shadow:0 0 20px #a78bfa;">
+        Your Fantasy Awaits… Join Before the Ink Dries
+      </h2>
+      <p style="font-size: clamp(1.1rem, 4vw, 1.4rem); margin-bottom:2rem; opacity:0.9;">
+        New members join every hour • Hundreds already inside waiting for you
+      </p>
+      <a href="https://discord.gg/RGwnBbnzgA" class="big-cta pulse-btn ripple" target="_blank">Dive Into the Ink 🔥</a>
+      <a href="community.html" class="tour-link">Take the Tour First →</a>
+      <div class="trust-badges">
+        100% Anonymous Join • Discord Verified • 18+ Only
+      </div>
+    </section>
 
   </div>
 
   <script>
-    // MULTI-LAYER CONTINUOUS PURPLE MATRIX – endless overlapping streams
-    const layers = [
-      document.getElementById('matrix1'),
-      document.getElementById('matrix2'),
-      document.getElementById('matrix3')
-    ];
-
-    const ctxs = layers.map(canvas => canvas.getContext('2d'));
+    // ENDLESS CONTINUOUS PURPLE MATRIX – no restarts, movie-style pouring streams
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
 
     let fontSize = 14;
-    let columnsPerLayer;
+    let columns;
     let drops = [];
     let charIndex = [];
 
     function resize() {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-      layers.forEach(canvas => {
-        canvas.width = w;
-        canvas.height = h;
-      });
+      fontSize = window.innerWidth < 768 ? 10 : 14;
+      columns = Math.floor(canvas.width / fontSize * 5.5);
+      drops = new Array(columns).fill(0);
+      charIndex = new Array(columns).fill(0);
 
-      fontSize = w < 768 ? 10 : 14;
-      columnsPerLayer = Math.floor(w / fontSize * 5.5);
-
-      drops = [];
-      charIndex = [];
-
-      for (let layer = 0; layer < 3; layer++) {
-        drops[layer] = new Array(columnsPerLayer).fill(0);
-        charIndex[layer] = new Array(columnsPerLayer).fill(0);
-
-        for (let i = 0; i < columnsPerLayer; i++) {
-          drops[layer][i] = Math.floor(Math.random() * -h / fontSize) - 150 - layer * 40;
-        }
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.floor(Math.random() * -canvas.height / fontSize) - 150; // far above screen
       }
     }
     resize();
@@ -381,51 +771,45 @@
 
     const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    function drawLayer(layerIdx) {
-      const ctx = ctxs[layerIdx];
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.025)';
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.025)'; // ultra-slow fade for very long continuous streams
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.shadowBlur = 26;
       ctx.shadowColor = '#6a32ff';
 
-      for (let i = 0; i < columnsPerLayer; i++) {
+      for (let i = 0; i < columns; i++) {
         const x = i * fontSize;
-        const y = drops[layerIdx][i] * fontSize;
+        const y = drops[i] * fontSize;
 
-        // Bright head
+        // Bright leading character
         ctx.fillStyle = '#ffffff';
         ctx.shadowBlur = 48;
-        const head = chars[charIndex[layerIdx][i] % chars.length];
-        ctx.fillText(head, x, y);
+        const headChar = chars[charIndex[i] % chars.length];
+        ctx.fillText(headChar, x, y);
 
-        // Long tail
+        // Extremely long tail
         for (let j = 1; j < 40; j++) {
-          const op = Math.max(0, (40 - j) / 40);
-          ctx.fillStyle = `rgba(167, 139, 250, ${op * 0.98})`;
+          const opacity = Math.max(0, (40 - j) / 40);
+          ctx.fillStyle = `rgba(167, 139, 250, ${opacity * 0.98})`;
           ctx.shadowBlur = 26 - j * 0.65;
-          const tail = chars[(charIndex[layerIdx][i] - j) % chars.length];
-          ctx.fillText(tail, x, y - j * fontSize);
+          const tailChar = chars[(charIndex[i] - j) % chars.length];
+          ctx.fillText(tailChar, x, y - j * fontSize);
         }
 
-        drops[layerIdx][i] += 2.3;
-        charIndex[layerIdx][i]++;
+        drops[i] += 2.3; // consistent fast fall
+        charIndex[i]++;
 
-        if (drops[layerIdx][i] * fontSize > canvas.height + 800) {
-          drops[layerIdx][i] = -200 - Math.random() * 100; // random high start
+        // Reset VERY high above → completely invisible loop
+        if (drops[i] * fontSize > canvas.height + 800) {
+          drops[i] = -200; // start extremely far above
         }
       }
     }
 
-    function animate() {
-      for (let i = 0; i < 3; i++) drawLayer(i);
-      requestAnimationFrame(animate);
-    }
-    animate();
+    setInterval(draw, 32); // smooth continuous animation
 
-    // Your existing fake counts, ink drips, cursor, reveal scripts remain here unchanged
-    // Paste them below
-    // Fake member count
+    // Fake counts
     function updateMemberCount() {
       const count = Math.floor(Math.random() * 201) + 600;
       document.getElementById('memberCount').textContent = count;
@@ -442,8 +826,42 @@
     updateOnlineCount();
     setInterval(updateOnlineCount, 10000);
 
-    // Ink Drips, cursor, reveal-on-scroll...
-    // (copy your existing code here)
+    // Ink Drips
+    for (let i = 0; i < 18; i++) {
+      let drip = document.createElement('div');
+      drip.className = 'ink-drip';
+      drip.style.left = Math.random() * 100 + 'vw';
+      drip.style.height = Math.random() * 280 + 120 + 'px';
+      drip.style.animationDuration = (Math.random() * 4 + 2.5) + 's';
+      drip.style.animationDelay = Math.random() * 6 + 's';
+      document.body.appendChild(drip);
+    }
+
+    // Glowing Cursor + Trail
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+
+      const trail = document.createElement('div');
+      trail.classList.add('cursor-trail');
+      trail.style.left = e.clientX + 'px';
+      trail.style.top = e.clientY + 'px';
+      document.body.appendChild(trail);
+
+      setTimeout(() => trail.remove(), 600);
+    });
+
+    // Fade-in on scroll
+    const reveals = document.querySelectorAll('.reveal-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
   </script>
 </body>
-</html>
+  </html>

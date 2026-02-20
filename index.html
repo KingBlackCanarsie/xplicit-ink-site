@@ -765,11 +765,11 @@
 // Start with a small staggered batch so the screen isn't empty
 window.addEventListener('load', function() {
   for (let i = 0; i < 6; i++) {
-    setTimeout(createRPWhisper, i * 1800);
+    setTimeout(createRPWhisper, 300 + i * 1600);
   }
 });
 
-// Continuous flow: 1 whisper every 3–6 seconds
+// Continuous flow: 1 whisper every 4–8 seconds
 setInterval(() => {
   createRPWhisper();
 }, Math.random() * 4000 + 4000);
@@ -830,3 +830,4 @@ setInterval(() => {
   </script>
 </body>
 </html>
+

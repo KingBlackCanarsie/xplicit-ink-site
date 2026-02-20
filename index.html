@@ -737,6 +737,28 @@
       {user: "@filthyquill", text: "Every filthy word made her pussy clench and drip even more."},
       {user: "@cockworshipvelvet", text: "She worshipped his cock with her mouth and tongue like it was her god."}
     ];
+function avoidOverlap(newWhisper) {
+    const whispers = document.querySelectorAll('.whisper');
+
+    whispers.forEach(w => {
+        if (w === newWhisper) return;
+
+        const rect1 = w.getBoundingClientRect();
+        const rect2 = newWhisper.getBoundingClientRect();
+
+        const overlap =
+            rect1.left < rect2.right &&
+            rect1.right > rect2.left &&
+            rect1.top < rect2.bottom &&
+            rect1.bottom > rect2.top;
+
+        if (overlap) {
+            // Soft bounce sideways
+            const shift = (Math.random() > 0.5 ? 1 : -1) * 40; 
+            newWhisper.style.transform = `translateX(${shift}px)`;
+        }
+    });
+}
 
     function createRPWhisper() {
       const container = document.getElementById('rp-whispers');
@@ -763,6 +785,7 @@ whisper.style.setProperty('--drift', drift);
 whisper.style.animationTimingFunction = 'cubic-bezier(0.45, 0.05, 0.55, 0.95)';
 
       container.appendChild(whisper);
+      avoidOverlap(whisper);
       setTimeout(() => whisper.remove(), 130000);
     }
 
@@ -842,6 +865,7 @@ setInterval(() => {
   </script>
 </body>
 </html>
+
 
 
 

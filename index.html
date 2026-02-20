@@ -748,11 +748,16 @@
       // FIXED: Using string concatenation (no backticks) so copy-paste cannot break it
       whisper.innerHTML = '<span class="username">' + msg.user + '</span>' + msg.text;
       
-      whisper.style.left = Math.random() * 64 + 9 + 'vw';
-      whisper.style.animationDuration = (35 + Math.random() * 75) + 's';
-      
-      const drift = (Math.random() - 0.5) * 310 + 'px';
-      whisper.style.setProperty('--drift', drift);
+      whisper.style.left = (Math.random() * 70 + 5) + 'vw';
+
+// Vertical lane system (prevents overlapping)
+const lane = Math.floor(Math.random() * 5);
+whisper.style.bottom = (lane * 18) + 'vh';
+
+whisper.style.animationDuration = (50 + Math.random() * 120) + 's';
+
+const drift = (Math.random() - 0.5) * 310 + 'px';
+whisper.style.setProperty('--drift', drift);
 
       if (Math.random() > 0.4) {
         whisper.style.animationDelay = '-' + (Math.random() * 38) + 's';
@@ -830,4 +835,5 @@ setInterval(() => {
   </script>
 </body>
 </html>
+
 

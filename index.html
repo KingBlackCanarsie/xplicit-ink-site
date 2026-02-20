@@ -16,855 +16,431 @@
   <meta name="theme-color" content="#a78bfa">
 
   <style>
-    * { box-sizing: border-box; }
-
+    * { box-sizing: border-box; margin:0; padding:0; }
     body, html {
-      margin: 0;
-      padding: 0;
-      background: #000;
-      font-family: 'Georgia', serif;
-      color: #eee;
-      overflow-x: hidden;
-      min-height: 100vh;
+      background:#000;
+      font-family:Georgia, serif;
+      color:#eee;
+      min-height:100vh;
+      overflow-x:hidden;
     }
 
     #matrix {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.29;
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      opacity:0.3;
     }
 
     #rp-whispers {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
-      padding-bottom: 15vh;
-      opacity: 0.88;
+      position:fixed;
+      inset:0;
+      z-index:1;
+      pointer-events:none;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      align-items:center;
+      padding-bottom:15vh;
+      opacity:0.88;
     }
 
     .whisper {
-      max-width: 420px;
-      width: 90%;
-      margin: 20px 0;
-      padding: 16px 22px;
-      background: rgba(15, 10, 35, 0.68);
-      border-left: 5px solid #a78bfa;
-      color: #e8d9ff;
-      font-size: 0.98rem;
-      line-height: 1.58;
-      border-radius: 8px 16px 16px 8px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.8);
-      text-shadow: 0 1px 6px rgba(0,0,0,0.85);
-      opacity: 0;
-      transform: translateY(100px);
-      transition: opacity 1s ease-out, transform 1s ease-out;
+      max-width:420px;
+      width:90%;
+      margin:20px 0;
+      padding:16px 22px;
+      background:rgba(15,10,35,0.68);
+      border-left:5px solid #a78bfa;
+      color:#e8d9ff;
+      font-size:0.98rem;
+      line-height:1.58;
+      border-radius:8px 16px 16px 8px;
+      box-shadow:0 10px 35px rgba(0,0,0,0.8);
+      text-shadow:0 1px 6px rgba(0,0,0,0.85);
+      opacity:0;
+      transform:translateY(100px);
+      transition:opacity 1s ease-out, transform 1s ease-out;
     }
 
     .whisper.visible {
-      opacity: 0.92;
-      transform: translateY(0);
+      opacity:0.92;
+      transform:translateY(0);
     }
 
     .whisper .username {
-      color: #d4b8ff;
-      font-weight: 700;
-      display: block;
-      margin-bottom: 10px;
-      font-size: 0.95rem;
+      color:#d4b8ff;
+      font-weight:700;
+      display:block;
+      margin-bottom:10px;
+      font-size:0.95rem;
     }
 
     .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(10, 5, 20, 0.19);
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    .main-content {
-      position: relative;
-      z-index: 50;
+      position:fixed;
+      inset:0;
+      background:rgba(10,5,20,0.19);
+      z-index:2;
+      pointer-events:none;
     }
 
     .header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(43, 45, 49, 0.96);
-      backdrop-filter: blur(14px);
-      padding: 12px 16px;
-      border-bottom: 1px solid rgba(167, 139, 250, 0.5);
-      z-index: 140;
-    }
-
-    @media (max-width: 768px) {
-      .header { padding: 10px 12px; }
-      .hero { padding-top: 130px !important; }
+      position:fixed;
+      top:0; left:0; right:0;
+      background:rgba(43,45,49,0.96);
+      backdrop-filter:blur(14px);
+      padding:12px 16px;
+      border-bottom:1px solid rgba(167,139,250,0.5);
+      z-index:140;
     }
 
     .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      max-width:1100px;
+      margin:0 auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      font-size: clamp(1.8rem, 7vw, 2.6rem);
-      font-weight: bold;
-      color: #e0d0ff;
-      text-shadow: 0 0 20px #a78bfa;
+      display:flex;
+      align-items:center;
+      font-size:clamp(1.8rem,7vw,2.6rem);
+      font-weight:bold;
+      color:#e0d0ff;
+      text-shadow:0 0 20px #a78bfa;
     }
 
     .brand-logo {
-      width: 48px;
-      height: 48px;
-      margin-right: 16px;
-      border-radius: 50%;
-      box-shadow: 0 0 28px rgba(167, 139, 250, 0.9);
+      width:48px;
+      height:48px;
+      margin-right:16px;
+      border-radius:50%;
+      box-shadow:0 0 28px rgba(167,139,250,0.9);
     }
 
     .nav a {
-      margin-left: 20px;
-      color: #e0e0ff;
-      text-decoration: none;
-      font-size: clamp(1rem, 3.5vw, 1.1rem);
+      margin-left:20px;
+      color:#e0e0ff;
+      text-decoration:none;
+      font-size:clamp(1rem,3.5vw,1.1rem);
     }
 
     .nav a:hover, .nav a.active {
-      color: #f0e0ff;
+      color:#f0e0ff;
     }
 
     .hero {
-      min-height: 70vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 15px 40px;
-      text-align: center;
-      position: relative;
+      min-height:70vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:60px 15px 40px;
+      text-align:center;
+      position:relative;
     }
 
     h1 {
-      font-size: clamp(3.2rem, 11vw, 5.8rem);
-      margin: 0 auto 0.6rem;
-      color: #f0e0ff;
-      text-shadow: 0 0 40px #a78bfa, 0 0 80px #6a32ff;
-      letter-spacing: clamp(2px, 0.8vw, 5px);
-      line-height: 1.05;
-      font-weight: 900;
-      max-width: 95vw;
-      overflow-wrap: break-word;
-      hyphens: auto;
+      font-size:clamp(3.2rem,11vw,5.8rem);
+      margin:0 auto 0.6rem;
+      color:#f0e0ff;
+      text-shadow:0 0 40px #a78bfa, 0 0 80px #6a32ff;
+      letter-spacing:clamp(2px,0.8vw,5px);
+      line-height:1.05;
+      font-weight:900;
+      max-width:95vw;
     }
 
     .tagline {
-      font-size: clamp(1.3rem, 5vw, 1.8rem);
-      color: #ffffff;
-      margin: 0.6rem auto 1.2rem;
-      text-shadow: 0 0 20px #a78bfa;
-      line-height: 1.45;
-      max-width: 90vw;
-    }
-
-    .bulletin-board {
-      margin: 1.5rem auto;
-      max-width: calc(100% - 30px);
-      width: 100%;
-      background: rgba(49, 51, 56, 0.8);
-      border-radius: 16px;
-      border: 1px solid rgba(167, 139, 250, 0.5);
-      box-shadow: 0 0 35px rgba(167, 139, 250, 0.45);
-      overflow: hidden;
-      height: 70px;
-    }
-
-    .board-track {
-      display: inline-flex;
-      align-items: center;
-      height: 100%;
-      white-space: nowrap;
-      animation: scrollLeft 28s linear infinite;
-    }
-
-    .board-item {
-      display: inline-flex;
-      align-items: center;
-      color: #e0d0ff;
-      font-size: 1rem;
-      padding: 0 4.5rem;
-      text-shadow: 0 0 10px #a78bfa;
-    }
-
-    .board-item strong {
-      color: #ff7777;
-      margin-right: 0.6rem;
-    }
-
-    @keyframes scrollLeft {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    @media (max-width: 768px) {
-      .bulletin-board { margin: 1rem 15px; height: 65px; }
-      .board-item { font-size: 0.95rem; padding: 0 3.2rem; }
-    }
-
-    .join-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 1.5rem 0;
+      font-size:clamp(1.3rem,5vw,1.8rem);
+      color:#ffffff;
+      margin:0.6rem auto 1.2rem;
+      text-shadow:0 0 20px #a78bfa;
+      line-height:1.45;
+      max-width:90vw;
     }
 
     .enter-button {
-      padding: clamp(1rem, 4vw, 1.4rem) clamp(2.5rem, 7vw, 5rem);
-      font-size: clamp(1.3rem, 5vw, 1.8rem);
-      background: #5b3cb9;
-      color: white;
-      border: 2px solid #a78bfa;
-      border-radius: 14px;
-      box-shadow: 0 0 40px #a78bfa;
-      text-decoration: none;
-      font-weight: bold;
-      max-width: 90vw;
+      padding:clamp(1rem,4vw,1.4rem) clamp(2.5rem,7vw,5rem);
+      font-size:clamp(1.3rem,5vw,1.8rem);
+      background:#5b3cb9;
+      color:white;
+      border:2px solid #a78bfa;
+      border-radius:14px;
+      box-shadow:0 0 40px #a78bfa;
+      text-decoration:none;
+      font-weight:bold;
+      max-width:90vw;
     }
 
     .enter-button:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 60px #c6b8ff;
-    }
-
-    .badge {
-      margin: 0.8rem auto 0;
-      padding: 0.7rem 1.6rem;
-      background: rgba(255,0,0,0.75);
-      border-radius: 30px;
-      font-size: clamp(1.05rem, 4vw, 1.25rem);
-      color: white;
-      font-weight: bold;
-      box-shadow: 0 0 20px rgba(255,0,0,0.5);
-    }
-
-    .manifesto-link {
-      display: block;
-      margin-top: 1.6rem;
-      color: #a78bfa;
-      text-decoration: underline;
-      font-size: clamp(1.1rem, 4vw, 1.3rem);
-    }
-
-    .manifesto-link:hover {
-      color: white;
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2.5rem;
-      color: #c6b8ff;
-      animation: bounce 2s infinite, fadeOut 8s forwards 4s;
-      opacity: 0.8;
-      text-shadow: 0 0 12px #a78bfa;
-      pointer-events: none;
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-      40% { transform: translateX(-50%) translateY(-20px); }
-      60% { transform: translateX(-50%) translateY(-10px); }
-    }
-
-    @keyframes fadeOut {
-      to { opacity: 0; }
-    }
-
-    section {
-      padding: 100px 20px;
-      max-width: 1100px;
-      margin: 0 auto;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 1s ease-out, transform 1s ease-out;
-    }
-
-    section.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .section-title {
-      font-size: 3.2rem;
-      color: #c6b8ff;
-      text-align: center;
-      margin-bottom: 2rem;
-      text-shadow: 0 0 15px #a78bfa;
-    }
-
-    .teaser-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 40px;
-      margin-top: 40px;
-    }
-
-    .teaser-card {
-      background: rgba(49, 51, 56, 0.75);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(167, 139, 250, 0.4);
-      border-radius: 16px;
-      padding: 32px;
-      box-shadow: 0 10px 40px rgba(106, 50, 255, 0.2);
-      transition: transform 0.4s, box-shadow 0.4s;
-      text-align: center;
-    }
-
-    .teaser-card:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 20px 70px rgba(167, 139, 250, 0.35);
-    }
-
-    .teaser-card h2 {
-      font-size: 2.2rem;
-      color: #c6b8ff;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 12px rgba(167, 139, 250, 0.5);
-    }
-
-    .teaser-card p {
-      font-size: 1.15rem;
-      line-height: 1.65;
-      opacity: 0.9;
-      margin-bottom: 1.5rem;
-    }
-
-    .teaser-card a {
-      color: #c6b8ff;
-      text-decoration: underline;
-      font-size: 1.1rem;
-    }
-
-    .teaser-card a:hover {
-      color: white;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-top: 40px;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: 320px;
-      object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
-      transition: transform 0.5s;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-
-    .trust-block {
-      background: rgba(49, 51, 56, 0.75);
-      backdrop-filter: blur(12px);
-      border: 2px solid #6a32ff;
-      border-radius: 16px;
-      padding: 40px;
-      max-width: 800px;
-      margin: 80px auto;
-      text-align: center;
-    }
-
-    .trust-block p {
-      font-size: 1.3rem;
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-    }
-
-    .cta {
-      text-align: center;
-      padding: 100px 20px 140px;
-    }
-
-    .big-cta {
-      display: inline-block;
-      padding: 1.2rem 4rem;
-      font-size: clamp(1.4rem, 5vw, 2rem);
-      background: linear-gradient(135deg, #5b3cb9, #6a32ff);
-      color: white;
-      border: 3px solid #c6b8ff;
-      border-radius: 16px;
-      box-shadow: 0 0 50px #a78bfa;
-      text-decoration: none;
-      transition: all 0.4s;
-    }
-
-    .big-cta:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 80px #c6b8ff;
-    }
-
-    .tour-link {
-      margin-left: 1.5rem;
-      color: #c6b8ff;
-      font-size: clamp(1.2rem, 4vw, 1.5rem);
-      text-decoration: underline;
-    }
-
-    .tour-link:hover {
-      color: white;
-    }
-
-    .trust-badges {
-      margin-top: 1.5rem;
-      font-size: clamp(1rem, 3.5vw, 1.2rem);
-      opacity: 0.9;
-    }
-
-    .ink-drip {
-      position: fixed;
-      width: 2px;
-      background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
-      box-shadow: 0 0 9px #a78bfa;
-      z-index: 3;
-      pointer-events: none;
-      animation: fall linear infinite;
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(-120vh); opacity: 0; }
-      40% { opacity: 0.6; }
-      100% { transform: translateY(120vh); opacity: 0; }
+      transform:scale(1.08);
+      box-shadow:0 0 60px #c6b8ff;
     }
 
     .ink-cursor {
-      position: fixed;
-      width: 24px;
-      height: 24px;
-      background: radial-gradient(circle, #a78bfa 40%, transparent 70%);
-      pointer-events: none;
-      z-index: 100;
-      transform: translate(-50%, -50%);
-      mix-blend-mode: screen;
-      box-shadow: 0 0 15px #a78bfa, 0 0 30px #6a32ff;
+      position:fixed;
+      width:24px;
+      height:24px;
+      background:radial-gradient(circle,#a78bfa 40%,transparent 70%);
+      pointer-events:none;
+      z-index:100;
+      transform:translate(-50%,-50%);
+      mix-blend-mode:screen;
+      box-shadow:0 0 15px #a78bfa,0 0 30px #6a32ff;
     }
 
     .cursor-trail {
-      position: fixed;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(167, 139, 250, 0.7), transparent);
-      pointer-events: none;
-      z-index: 99;
-      opacity: 0.9;
-      transform: translate(-50%, -50%);
-      mix-blend-mode: screen;
-      animation: trailFade 0.6s ease-out forwards;
+      position:fixed;
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(167,139,250,0.7),transparent);
+      pointer-events:none;
+      z-index:99;
+      opacity:0.9;
+      transform:translate(-50%,-50%);
+      mix-blend-mode:screen;
+      animation:trailFade 0.6s ease-out forwards;
     }
 
     @keyframes trailFade {
-      to { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+      to { opacity:0; transform:translate(-50%,-50%) scale(0.3); }
+    }
+
+    .ink-drip {
+      position:fixed;
+      width:2px;
+      background:linear-gradient(to bottom,transparent,#a78bfa,transparent);
+      box-shadow:0 0 9px #a78bfa;
+      z-index:3;
+      pointer-events:none;
+      animation:fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform:translateY(-120vh); opacity:0; }
+      40% { opacity:0.6; }
+      100% { transform:translateY(120vh); opacity:0; }
     }
   </style>
 </head>
 <body>
 
-  <canvas id="matrix"></canvas>
+<canvas id="matrix"></canvas>
+<div id="rp-whispers"></div>
+<div class="overlay"></div>
 
-  <div id="rp-whispers"></div>
+<div class="ink-cursor" id="cursor"></div>
 
-  <div class="overlay"></div>
-
-  <div class="ink-cursor" id="cursor"></div>
-
-  <header class="header">
-    <div class="header-inner">
-      <div class="brand">
-        <img src="https://live.staticflickr.com/65535/55101410087_221b343cde_w.jpg" alt="Xplicit Ink Logo" class="brand-logo">
-        Xplicit Ink
-      </div>
-      <nav class="nav">
-        <a href="index.html" class="active">Home</a>
-        <a href="community.html">Community</a>
-        <a href="rules-and-safety.html">Rules</a>
-        <a href="manifesto.html">Manifesto</a>
-      </nav>
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <img src="https://live.staticflickr.com/65535/55101410087_221b343cde_w.jpg" alt="Xplicit Ink Logo" class="brand-logo">
+      Xplicit Ink
     </div>
-  </header>
-
-  <div class="main-content">
-
-    <section class="hero reveal-on-scroll">
-      <div style="max-width: 620px; margin: 0 auto; padding: 0 10px;">
-        <h1>The Xplicit Ink</h1>
-        <p class="tagline">A quiet gathering for people who miss when the internet felt human.</p>
-
-        <div class="join-container">
-          <a href="https://discord.gg/RGwnBbnzgA" class="enter-button" target="_blank">
-            Enter the Ink 🔥
-          </a>
-          <span class="badge">18+ Only – No Exceptions</span>
-        </div>
-
-        <div class="bulletin-board">
-          <div class="board-track">
-            <div class="board-item"><strong id="memberCount">742</strong> members</div>
-            <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
-            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
-            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
-            <div class="board-item">"Best RP server ever" – @shadowquill</div>
-            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
-            <div class="board-item">"Feels like late-night calls from the 2000s" – @dialtone</div>
-            <div class="board-item">"I came for the kink, stayed for the people" – @softsin</div>
-            <div class="board-item">"Mods actually care, wild concept" – @ghostink</div>
-            <div class="board-item">"RP here hits different" – @noirscript</div>
-            <div class="board-item">"VC nights are dangerously addictive" – @moanline</div>
-            <div class="board-item">"Best blend of cozy + filthy" – @inkedheart</div>
-            <div class="board-item">💦｜ X-Stream live</div>
-            <div class="board-item">📺｜𝖲treams active</div>
-            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
-            <div class="board-item">Voice Lounge 🔥 live</div>
-            <div class="board-item">Steamy Whispers active</div>
-            <div class="board-item">Late Night Ink dripping</div>
-            <div class="board-item">Dark Desires RP</div>
-            <div class="board-item">Forbidden Ink Tales</div>
-            <div class="board-item">The ink's <strong>dripping</strong></div>
-            <div class="board-item">Stories unfolding</div>
-
-            <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
-            <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
-            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
-            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
-            <div class="board-item">"Best RP server ever" – @shadowquill</div>
-            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
-            <div class="board-item">"Feels like late-night calls from the 2000s" – @dialtone</div>
-            <div class="board-item">"I came for the kink, stayed for the people" – @softsin</div>
-            <div class="board-item">"Mods actually care, wild concept" – @ghostink</div>
-            <div class="board-item">"RP here hits different" – @noirscript</div>
-            <div class="board-item">"VC nights are dangerously addictive" – @moanline</div>
-            <div class="board-item">"Best blend of cozy + filthy" – @inkedheart</div>
-            <div class="board-item">💦｜ X-Stream live</div>
-            <div class="board-item">📺｜𝖲treams active</div>
-            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
-            <div class="board-item">Voice Lounge 🔥 live</div>
-            <div class="board-item">Steamy Whispers active</div>
-            <div class="board-item">Late Night Ink dripping</div>
-            <div class="board-item">Dark Desires RP</div>
-            <div class="board-item">Forbidden Ink Tales</div>
-            <div class="board-item">The ink's <strong>dripping</strong></div>
-            <div class="board-item">Stories unfolding</div>
-          </div>
-        </div>
-
-        <p class="social-proof">The Ink's Dripping. 600+ Locked in 🔥 – new join</p>
-
-        <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
-
-        <div class="scroll-hint">↓</div>
-      </div>
-    </section>
-
-    <section class="reveal-on-scroll">
-      <h2 class="section-title">Sneak Peek Inside</h2>
-      <div class="teaser-grid">
-        <div class="teaser-card">
-          <h2>Community</h2>
-          <p>Core spaces for chat & vibes, immersive theme channels, steamy voice rooms, gaming nights, movie streams, and friendships that last beyond the kink.</p>
-          <a href="community.html" class="pulse-btn">Explore Community →</a>
-        </div>
-
-        <div class="teaser-card">
-          <h2>Rules & Safety</h2>
-          <p>18+ only • Consent mandatory • Respect limits & safewords • No minors ever • Privacy protected • Drama handled privately • Zero tolerance for harassment.</p>
-          <a href="rules-and-safety.html" class="pulse-btn">Read Full Rules →</a>
-        </div>
-
-        <div class="teaser-card manifesto-teaser">
-          <h2>Manifesto</h2>
-          <div class="fade-block">The internet once united us, forging true friendships beyond screens.</div>
-          <div class="fade-block">Today, noise and fear cloud genuine connection — but here, the ink flows freely.</div>
-          <div class="fade-block">Welcome to Xplicit Ink — where voices are real, and the community is unshackled.</div>
-          <a href="manifesto.html" class="pulse-btn">Read Full Manifesto →</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="reveal-on-scroll">
-      <h2 class="section-title">Gallery of Temptation</h2>
-      <div class="gallery">
-        <img src="https://live.staticflickr.com/65535/55102557854_0a68e55a78_w.jpg" alt="Hot masquerade couple">
-        <img src="https://live.staticflickr.com/65535/55102557884_d3d2506bc6_w.jpg" alt="Woman with red feather on lips">
-        <img src="https://live.staticflickr.com/65535/55102294316_0be756f0f3_w.jpg" alt="Futuristic book seduction">
-        <img src="https://live.staticflickr.com/65535/55102557869_6e3e1d808e_w.jpg" alt="Woman writing with Xplicit tattoo">
-        <img src="https://live.staticflickr.com/65535/55102557764_cfdabfe447_h.jpg" alt="Living book fantasy">
-        <img src="https://live.staticflickr.com/65535/55101410097_7bb8dcaeb7_w.jpg" alt="Themed RP night vibe">
-      </div>
-    </section>
-
-    <section class="reveal-on-scroll">
-      <h2 class="section-title">Why We're Safe & Welcoming</h2>
-      <div class="trust-block">
-        <p>
-          • Strict 18+ verification – zero tolerance for minors<br>
-          • Consent is mandatory – safewords are sacred<br>
-          • Respect the person – no harassment or doxxing<br>
-          • Privacy protected – no sharing outside without permission<br>
-          • Active moderators & private reporting tickets
-        </p>
-        <a href="rules-and-safety.html" style="color:#c6b8ff; font-size:1.3rem; text-decoration:underline; margin-top:1.5rem; display:inline-block;">
-          Read Full Rules →
-        </a>
-      </div>
-    </section>
-
-    <section class="cta reveal-on-scroll">
-      <h2 style="font-size: clamp(2.5rem, 8vw, 3.8rem); margin-bottom:1rem; color:#c6b8ff; text-shadow:0 0 20px #a78bfa;">
-        Your Fantasy Awaits… Join Before the Ink Dries
-      </h2>
-      <p style="font-size: clamp(1.1rem, 4vw, 1.4rem); margin-bottom:2rem; opacity:0.9;">
-        New members join every hour • Hundreds already inside waiting for you
-      </p>
-      <a href="https://discord.gg/RGwnBbnzgA" class="big-cta pulse-btn ripple" target="_blank">Dive Into the Ink 🔥</a>
-      <a href="community.html" class="tour-link">Take the Tour First →</a>
-      <div class="trust-badges">
-        100% Anonymous Join • Discord Verified • 18+ Only
-      </div>
-    </section>
-
+    <nav class="nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="community.html">Community</a>
+      <a href="rules-and-safety.html">Rules</a>
+      <a href="manifesto.html">Manifesto</a>
+    </nav>
   </div>
+</header>
 
-  <script>
-    // Matrix rain
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
+<div class="main-content">
+  <section class="hero reveal-on-scroll">
+    <div style="max-width:620px; margin:0 auto; padding:0 10px;">
+      <h1>The Xplicit Ink</h1>
+      <p class="tagline">A quiet gathering for people who miss when the internet felt human.</p>
 
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
+      <div class="join-container">
+        <a href="https://discord.gg/RGwnBbnzgA" class="enter-button" target="_blank">
+          Enter the Ink 🔥
+        </a>
+        <span class="badge">18+ Only – No Exceptions</span>
+      </div>
 
-    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const fontSize = 15;
-    let columns = Math.floor(canvas.width / fontSize);
-    let drops = new Array(columns).fill(1);
+      <div class="scroll-hint">↓</div>
+    </div>
+  </section>
 
-    function draw() {
-      ctx.fillStyle = 'rgba(11, 10, 15, 0.045)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+  <!-- Add back your other sections if you want (teaser-grid, gallery, etc.) -->
+</div>
 
-      ctx.fillStyle = '#a78bfa';
-      ctx.shadowColor = '#6a32ff';
-      ctx.shadowBlur = 8;
-      ctx.font = `${fontSize}px monospace`;
+<script>
+// Matrix rain
+const canvas = document.getElementById('matrix');
+const ctx = canvas.getContext('2d');
 
-      for (let i = 0; i < drops.length; i++) {
-        const text = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();
+window.addEventListener('resize',resize);
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-    }
-    setInterval(draw, 45);
+const chars="アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const fontSize=15;
+let columns=Math.floor(canvas.width/fontSize);
+let drops=new Array(columns).fill(1);
 
-    // Single-column whisper feed (Option 7)
-    const rpMessages = [
-      {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
-      {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
-      {user: "@thornedrose", text: "Her pussy clenched around his fingers as he curled them hard against her G-spot, making her squirt all over his hand."},
-      {user: "@silkvenom", text: "He spread her legs wide and buried his tongue inside her soaked cunt, licking and sucking until she came so hard her legs shook uncontrollably."},
-      {user: "@crimsonquill", text: "'Take every inch,' he growled as he forced his thick cock balls-deep into her tight ass, making her moan like a whore."},
-      {user: "@inkbound", text: "She rode him reverse cowgirl, her juices dripping down his balls while his cock stretched her pussy to the limit."},
-      {user: "@shadowlace", text: "He choked her lightly while pounding her from behind, her pussy gushing with every deep thrust."},
-      {user: "@ebonyveil", text: "Her nipples were rock hard as he sucked them hard, two fingers buried knuckle-deep in her dripping cunt."},
-      {user: "@moonlitthorn", text: "Blindfolded and tied, she could only gasp as he slid his huge cock into her soaking pussy and fucked her senseless."},
-      {user: "@noirscript", text: "'On all fours, now,' he commanded, then slammed into her from behind until her pussy was creaming around his cock."},
-      {user: "@velvetthorn", text: "Hot wax dripped onto her tits while he fingered her clit, making her beg for his cock like a desperate slut."},
-      {user: "@ghostquill", text: "He gripped her hips and fucked her so hard the bed slammed against the wall, her pussy squirting with every thrust."},
-      {user: "@lacewhisper", text: "She came on his tongue, her thighs squeezing his head while she screamed his name in orgasmic bliss."},
-      {user: "@crimsonink", text: "The mirror showed her face twisted in pleasure as he railed her pussy from behind, his balls slapping her clit."},
-      {user: "@silkbound", text: "'Scream for me,' he ordered, pounding her soaked cunt until she exploded in the hardest orgasm of her life."},
-      {user: "@shadowveil", text: "His tongue flicked her clit rapidly while two fingers fucked her pussy, pushing her over the edge again and again."},
-      {user: "@nyxquill", text: "She begged him to go deeper as he filled her tight pussy with every thick inch of his throbbing cock."},
-      {user: "@velvetnoir", text: "The leather belt cracked across her ass right as he buried his cock inside her, making her cum instantly."},
-      {user: "@inkthorn", text: "Her pussy was so wet it was dripping down her thighs before he even touched her with his massive cock."},
-      {user: "@moonshadow", text: "'Good girl, take it all,' he groaned as he came deep inside her pulsing pussy."},
-      {user: "@forbiddenquill", text: "He pressed her against the window and fucked her standing up, her tits smashed against the glass while he railed her."},
-      {user: "@darklace", text: "She sucked his cock like it was her last meal, deepthroating him until he exploded down her throat."},
-      {user: "@satinveil", text: "Blindfolded, she felt his tongue on her asshole before he slid two fingers into her dripping cunt."},
-      {user: "@emberink", text: "'Beg louder,' he said, edging her clit with his tongue until she was crying for release."},
-      {user: "@midnightthorn", text: "He flipped her over and fucked her ass hard while rubbing her swollen clit, making her squirt everywhere."},
-      {user: "@quillbound", text: "His dirty talk in her ear made her pussy throb as he slowly pushed his cock into her tight hole."},
-      {user: "@rosedark", text: "The paddle left bright red marks on her ass while he fingered her until she came screaming."},
-      {user: "@silknoir", text: "She tasted her own juices on his lips after he made her cum three times in a row."},
-      {user: "@shadowquill", text: "One hand pinned her down while the other choked her as he destroyed her pussy."},
-      {user: "@velvetscript", text: "Every slow, deep thrust made her toes curl and her pussy clench around his thick shaft."},
-      {user: "@crimsonlace", text: "He fucked her doggy style so hard her knees gave out, then kept going until she came again."},
-      {user: "@inkveil", text: "The silk tie around her wrists made her feel completely owned as he fucked her senseless."},
-      {user: "@thornquill", text: "Ice on her nipples followed by his hot mouth made her pussy flood instantly."},
-      {user: "@noirvelvet", text: "She sat on his face and ground her wet pussy against his tongue until she exploded."},
-      {user: "@ebonyquill", text: "Pressed against the cold glass, he fucked her from behind while the city watched."},
-      {user: "@lacebound", text: "Every filthy word he whispered made her pussy throb and drip down her legs."},
-      {user: "@moonlitveil", text: "He explored every inch of her body with his mouth before finally giving her his cock."},
-      {user: "@shadowrose", text: "She came so hard her vision went white, squirting all over his pounding cock."},
-      {user: "@crimsonthorn", text: "The flogger teased her clit before he slammed his cock inside her."},
-      {user: "@silkquill", text: "He dropped to his knees and ate her pussy like it was his favorite meal."},
-      {user: "@nyxveil", text: "'Open that pretty mouth,' he said, sliding his cock between her lips."},
-      {user: "@velvetink", text: "Their bodies slammed together in perfect rhythm, sweat and cum mixing as they fucked."},
-      {user: "@forbiddenthorn", text: "She bit the pillow to muffle her screams as he railed her ass mercilessly."},
-      {user: "@ghostvelvet", text: "Cuffs clicked shut and he immediately buried his face between her spread legs."},
-      {user: "@darkquill", text: "He teased her entrance for minutes before finally slamming in balls-deep."},
-      {user: "@rosescript", text: "He held her right on the edge for twenty minutes before finally letting her cum."},
-      {user: "@inknoir", text: "She arched her back and begged for more as he filled her completely."},
-      {user: "@midnightlace", text: "He marked her neck with his teeth while pounding her pussy raw."},
-      {user: "@satinquill", text: "Slow, deep, relentless strokes that made her eyes roll back in pleasure."},
-      {user: "@emberveil", text: "He watched her face as he made her cum again and again on his cock."},
-      {user: "@thornedveil", text: "The vibrator buzzed against her clit while he fucked her ass."},
-      {user: "@quillnoir", text: "She surrendered completely as he used her body exactly how he wanted."},
-      {user: "@throbbingquill", text: "His cock twitched inside her as he filled her womb with thick ropes of cum."},
-      {user: "@wetvelvet", text: "She was so wet his cock slid in with zero resistance, making her moan like a slut."},
-      {user: "@hardthorn", text: "Her hand wrapped around his throbbing dick while she begged him to fuck her."},
-      {user: "@drippingrose", text: "Juices ran down her thighs as he edged her with just the tip of his cock."},
-      {user: "@pulsingink", text: "Every pulse of his cock inside her made her walls flutter and squeeze."},
-      {user: "@soakedlace", text: "She came the second he entered her, her pussy spasming around his thickness."},
-      {user: "@ragingvelvet", text: "He fucked her like an animal, grunting with every savage thrust."},
-      {user: "@clenchingthorn", text: "Her pussy clenched so hard around him he almost came instantly."},
-      {user: "@floodingquill", text: "She squirted hard all over his cock as he hit her G-spot perfectly."},
-      {user: "@achingrose", text: "Her clit was swollen and throbbing as his tongue flicked it mercilessly."},
-      {user: "@stretchingink", text: "He stretched her tight pussy wide with his massive cock, making her gasp."},
-      {user: "@creamingveil", text: "White cream coated his cock as he pulled out and slammed back in."},
-      {user: "@beggingthorn", text: "'Please fuck me harder,' she cried as he pounded her into the mattress."},
-      {user: "@gushingquill", text: "Her pussy gushed with every thrust, soaking the sheets beneath them."},
-      {user: "@poundingvelvet", text: "The headboard slammed against the wall as he destroyed her dripping cunt."},
-      {user: "@swollenrose", text: "Her clit was swollen from his tongue when he finally slid his cock inside."},
-      {user: "@drippingnoir", text: "She was dripping down his balls before he even started fucking her."},
-      {user: "@thrustingink", text: "Deep, powerful thrusts that made her tits bounce and her moans echo."},
-      {user: "@squirtingthorn", text: "He made her squirt three times before he finally let himself cum."},
-      {user: "@clitquill", text: "His thumb circled her swollen clit while he fucked her slow and deep."},
-      {user: "@asspoundingveil", text: "He switched from her pussy to her tight ass without warning."},
-      {user: "@deepthroatrose", text: "She took him all the way down her throat until her nose touched his stomach."},
-      {user: "@creampieink", text: "He filled her pussy with so much cum it leaked out around his cock."},
-      {user: "@edgingthorn", text: "He edged her for an hour until she was begging and crying to cum."},
-      {user: "@fuckingquill", text: "He fucked her so hard she forgot her own name."},
-      {user: "@wetdreamvelvet", text: "Her pussy was a soaking mess by the time he finally gave her what she needed."},
-      {user: "@throbbingcockthorn", text: "His cock throbbed violently inside her as he came deep in her womb."},
-      {user: "@pussythrobquill", text: "Her pussy throbbed around him, milking every drop of cum from his balls."},
-      {user: "@cumslutrose", text: "She opened her mouth wide to catch every drop of his hot load."},
-      {user: "@ruinedorgasmink", text: "He ruined her orgasm on purpose, then made her cum again immediately."},
-      {user: "@breedingthorn", text: "'I'm going to breed this tight little pussy,' he growled as he came inside her."},
-      {user: "@filthyquill", text: "Every filthy word made her pussy clench and drip even more."},
-      {user: "@cockworshipvelvet", text: "She worshipped his cock with her mouth and tongue like it was her god."}
-    ];
+function draw(){
+  ctx.fillStyle='rgba(11,10,15,0.045)';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle='#a78bfa';
+  ctx.shadowColor='#6a32ff';
+  ctx.shadowBlur=8;
+  ctx.font=`${fontSize}px monospace`;
+  for(let i=0;i<drops.length;i++){
+    const text=chars[Math.floor(Math.random()*chars.length)];
+    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+    if(drops[i]*fontSize>canvas.height&&Math.random()>0.975)drops[i]=0;
+    drops[i]++;
+  }
+}
+setInterval(draw,45);
 
-    function addWhisper() {
-      const container = document.getElementById('rp-whispers');
-      const msg = rpMessages[Math.floor(Math.random() * rpMessages.length)];
+// Single-column whisper feed
+const rpMessages=[
+  {user:"@velvetquill",text:"He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
+  {user:"@nyxshadow",text:"She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
+  {user:"@thornedrose",text:"Her pussy clenched around his fingers as he curled them hard against her G-spot, making her squirt all over his hand."},
+  {user:"@silkvenom",text:"He spread her legs wide and buried his tongue inside her soaked cunt, licking and sucking until she came so hard her legs shook uncontrollably."},
+  {user:"@crimsonquill",text:"'Take every inch,' he growled as he forced his thick cock balls-deep into her tight ass, making her moan like a whore."},
+  {user:"@inkbound",text:"She rode him reverse cowgirl, her juices dripping down his balls while his cock stretched her pussy to the limit."},
+  {user:"@shadowlace",text:"He choked her lightly while pounding her from behind, her pussy gushing with every deep thrust."},
+  {user:"@ebonyveil",text:"Her nipples were rock hard as he sucked them hard, two fingers buried knuckle-deep in her dripping cunt."},
+  {user:"@moonlitthorn",text:"Blindfolded and tied, she could only gasp as he slid his huge cock into her soaking pussy and fucked her senseless."},
+  {user:"@noirscript",text:"'On all fours, now,' he commanded, then slammed into her from behind until her pussy was creaming around his cock."},
+  {user:"@velvetthorn",text:"Hot wax dripped onto her tits while he fingered her clit, making her beg for his cock like a desperate slut."},
+  {user:"@ghostquill",text:"He gripped her hips and fucked her so hard the bed slammed against the wall, her pussy squirting with every thrust."},
+  {user:"@lacewhisper",text:"She came on his tongue, her thighs squeezing his head while she screamed his name in orgasmic bliss."},
+  {user:"@crimsonink",text:"The mirror showed her face twisted in pleasure as he railed her pussy from behind, his balls slapping her clit."},
+  {user:"@silkbound",text:"'Scream for me,' he ordered, pounding her soaked cunt until she exploded in the hardest orgasm of her life."},
+  {user:"@shadowveil",text:"His tongue flicked her clit rapidly while two fingers fucked her pussy, pushing her over the edge again and again."},
+  {user:"@nyxquill",text:"She begged him to go deeper as he filled her tight pussy with every thick inch of his throbbing cock."},
+  {user:"@velvetnoir",text:"The leather belt cracked across her ass right as he buried his cock inside her, making her cum instantly."},
+  {user:"@inkthorn",text:"Her pussy was so wet it was dripping down her thighs before he even touched her with his massive cock."},
+  {user:"@moonshadow",text:"'Good girl, take it all,' he groaned as he came deep inside her pulsing pussy."},
+  {user:"@forbiddenquill",text:"He pressed her against the window and fucked her standing up, her tits smashed against the glass while he railed her."},
+  {user:"@darklace",text:"She sucked his cock like it was her last meal, deepthroating him until he exploded down her throat."},
+  {user:"@satinveil",text:"Blindfolded, she felt his tongue on her asshole before he slid two fingers into her dripping cunt."},
+  {user:"@emberink",text:"'Beg louder,' he said, edging her clit with his tongue until she was crying for release."},
+  {user:"@midnightthorn",text:"He flipped her over and fucked her ass hard while rubbing her swollen clit, making her squirt everywhere."},
+  {user:"@quillbound",text:"His dirty talk in her ear made her pussy throb as he slowly pushed his cock into her tight hole."},
+  {user:"@rosedark",text:"The paddle left bright red marks on her ass while he fingered her until she came screaming."},
+  {user:"@silknoir",text:"She tasted her own juices on his lips after he made her cum three times in a row."},
+  {user:"@shadowquill",text:"One hand pinned her down while the other choked her as he destroyed her pussy."},
+  {user:"@velvetscript",text:"Every slow, deep thrust made her toes curl and her pussy clench around his thick shaft."},
+  {user:"@crimsonlace",text:"He fucked her doggy style so hard her knees gave out, then kept going until she came again."},
+  {user:"@inkveil",text:"The silk tie around her wrists made her feel completely owned as he fucked her senseless."},
+  {user:"@thornquill",text:"Ice on her nipples followed by his hot mouth made her pussy flood instantly."},
+  {user:"@noirvelvet",text:"She sat on his face and ground her wet pussy against his tongue until she exploded."},
+  {user:"@ebonyquill",text:"Pressed against the cold glass, he fucked her from behind while the city watched."},
+  {user:"@lacebound",text:"Every filthy word he whispered made her pussy throb and drip down her legs."},
+  {user:"@moonlitveil",text:"He explored every inch of her body with his mouth before finally giving her his cock."},
+  {user:"@shadowrose",text:"She came so hard her vision went white, squirting all over his pounding cock."},
+  {user:"@crimsonthorn",text:"The flogger teased her clit before he slammed his cock inside her."},
+  {user:"@silkquill",text:"He dropped to his knees and ate her pussy like it was his favorite meal."},
+  {user:"@nyxveil",text:"'Open that pretty mouth,' he said, sliding his cock between her lips."},
+  {user:"@velvetink",text:"Their bodies slammed together in perfect rhythm, sweat and cum mixing as they fucked."},
+  {user:"@forbiddenthorn",text:"She bit the pillow to muffle her screams as he railed her ass mercilessly."},
+  {user:"@ghostvelvet",text:"Cuffs clicked shut and he immediately buried his face between her spread legs."},
+  {user:"@darkquill",text:"He teased her entrance for minutes before finally slamming in balls-deep."},
+  {user:"@rosescript",text:"He held her right on the edge for twenty minutes before finally letting her cum."},
+  {user:"@inknoir",text:"She arched her back and begged for more as he filled her completely."},
+  {user:"@midnightlace",text:"He marked her neck with his teeth while pounding her pussy raw."},
+  {user:"@satinquill",text:"Slow, deep, relentless strokes that made her eyes roll back in pleasure."},
+  {user:"@emberveil",text:"He watched her face as he made her cum again and again on his cock."},
+  {user:"@thornedveil",text:"The vibrator buzzed against her clit while he fucked her ass."},
+  {user:"@quillnoir",text:"She surrendered completely as he used her body exactly how he wanted."},
+  {user:"@throbbingquill",text:"His cock twitched inside her as he filled her womb with thick ropes of cum."},
+  {user:"@wetvelvet",text:"She was so wet his cock slid in with zero resistance, making her moan like a slut."},
+  {user:"@hardthorn",text:"Her hand wrapped around his throbbing dick while she begged him to fuck her."},
+  {user:"@drippingrose",text:"Juices ran down her thighs as he edged her with just the tip of his cock."},
+  {user:"@pulsingink",text:"Every pulse of his cock inside her made her walls flutter and squeeze."},
+  {user:"@soakedlace",text:"She came the second he entered her, her pussy spasming around his thickness."},
+  {user:"@ragingvelvet",text:"He fucked her like an animal, grunting with every savage thrust."},
+  {user:"@clenchingthorn",text:"Her pussy clenched so hard around him he almost came instantly."},
+  {user:"@floodingquill",text:"She squirted hard all over his cock as he hit her G-spot perfectly."},
+  {user:"@achingrose",text:"Her clit was swollen and throbbing as his tongue flicked it mercilessly."},
+  {user:"@stretchingink",text:"He stretched her tight pussy wide with his massive cock, making her gasp."},
+  {user:"@creamingveil",text:"White cream coated his cock as he pulled out and slammed back in."},
+  {user:"@beggingthorn",text:"'Please fuck me harder,' she cried as he pounded her into the mattress."},
+  {user:"@gushingquill",text:"Her pussy gushed with every thrust, soaking the sheets beneath them."},
+  {user:"@poundingvelvet",text:"The headboard slammed against the wall as he destroyed her dripping cunt."},
+  {user:"@swollenrose",text:"Her clit was swollen from his tongue when he finally slid his cock inside."},
+  {user:"@drippingnoir",text:"She was dripping down his balls before he even started fucking her."},
+  {user:"@thrustingink",text:"Deep, powerful thrusts that made her tits bounce and her moans echo."},
+  {user:"@squirtingthorn",text:"He made her squirt three times before he finally let himself cum."},
+  {user:"@clitquill",text:"His thumb circled her swollen clit while he fucked her slow and deep."},
+  {user:"@asspoundingveil",text:"He switched from her pussy to her tight ass without warning."},
+  {user:"@deepthroatrose",text:"She took him all the way down her throat until her nose touched his stomach."},
+  {user:"@creampieink",text:"He filled her pussy with so much cum it leaked out around his cock."},
+  {user:"@edgingthorn",text:"He edged her for an hour until she was begging and crying to cum."},
+  {user:"@fuckingquill",text:"He fucked her so hard she forgot her own name."},
+  {user:"@wetdreamvelvet",text:"Her pussy was a soaking mess by the time he finally gave her what she needed."},
+  {user:"@throbbingcockthorn",text:"His cock throbbed violently inside her as he came deep in her womb."},
+  {user:"@pussythrobquill",text:"Her pussy throbbed around him, milking every drop of cum from his balls."},
+  {user:"@cumslutrose",text:"She opened her mouth wide to catch every drop of his hot load."},
+  {user:"@ruinedorgasmink",text:"He ruined her orgasm on purpose, then made her cum again immediately."},
+  {user:"@breedingthorn",text:"'I'm going to breed this tight little pussy,' he growled as he came inside her."},
+  {user:"@filthyquill",text:"Every filthy word made her pussy clench and drip even more."},
+  {user:"@cockworshipvelvet",text:"She worshipped his cock with her mouth and tongue like it was her god."}
+];
 
-      const whisper = document.createElement('div');
-      whisper.className = 'whisper';
-      whisper.innerHTML = `<span class="username">\( {msg.user}</span> \){msg.text}`;
+function addWhisper() {
+  const container = document.getElementById('rp-whispers');
+  const msg = rpMessages[Math.floor(Math.random() * rpMessages.length)];
 
-      container.appendChild(whisper);
+  const whisper = document.createElement('div');
+  whisper.className = 'whisper';
+  whisper.innerHTML = `<span class="username">\( {msg.user}</span> \){msg.text}`;
 
-      // Fade in and slide up
-      setTimeout(() => {
-        whisper.classList.add('visible');
-      }, 100);
+  container.appendChild(whisper);
 
-      // Keep only the last 10–12 messages visible (prevents clutter)
-      if (container.children.length > 12) {
-        container.removeChild(container.firstChild);
-      }
-    }
+  setTimeout(() => whisper.classList.add('visible'), 100);
 
-    // Start showing messages immediately
-    window.addEventListener('load', () => {
-      // Show initial batch so screen isn't empty
-      for (let i = 0; i < 8; i++) {
-        setTimeout(addWhisper, i * 1400);
-      }
-    });
+  // Remove oldest if too many (keeps ~10–12 visible)
+  if (container.children.length > 12) {
+    container.removeChild(container.firstChild);
+  }
+}
 
-    // Add new message every 5–6 seconds
-    setInterval(addWhisper, 5500);
+// Show initial messages right away
+window.addEventListener('load', () => {
+  for (let i = 0; i < 8; i++) {
+    setTimeout(addWhisper, i * 1400);
+  }
+});
 
-    // Fake counters
-    function updateMemberCount() {
-      const count = Math.floor(Math.random() * 201) + 600;
-      document.getElementById('memberCount').textContent = count;
-      document.getElementById('memberCountDup').textContent = count;
-    }
-    updateMemberCount();
-    setInterval(updateMemberCount, 10000);
+// Add new one every 5.5 seconds
+setInterval(addWhisper, 5500);
 
-    function updateOnlineCount() {
-      const count = Math.floor(Math.random() * 61) + 120;
-      document.getElementById('onlineCount').textContent = count;
-      document.getElementById('onlineCountDup').textContent = count;
-    }
-    updateOnlineCount();
-    setInterval(updateOnlineCount, 10000);
+// Ink Drips
+for (let i = 0; i < 18; i++) {
+  let drip = document.createElement('div');
+  drip.className = 'ink-drip';
+  drip.style.left = Math.random() * 100 + 'vw';
+  drip.style.height = (Math.random() * 280 + 120) + 'px';
+  drip.style.animationDuration = (Math.random() * 4 + 2.5) + 's';
+  drip.style.animationDelay = Math.random() * 6 + 's';
+  document.body.appendChild(drip);
+}
 
-    // Ink Drips
-    for (let i = 0; i < 18; i++) {
-      let drip = document.createElement('div');
-      drip.className = 'ink-drip';
-      drip.style.left = Math.random() * 100 + 'vw';
-      drip.style.height = Math.random() * 280 + 120 + 'px';
-      drip.style.animationDuration = (Math.random() * 4 + 2.5) + 's';
-      drip.style.animationDelay = Math.random() * 6 + 's';
-      document.body.appendChild(drip);
-    }
+// Cursor glow + trail
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
 
-    // Glowing Cursor + Trail
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', function(e) {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-
-      const trail = document.createElement('div');
-      trail.classList.add('cursor-trail');
-      trail.style.left = e.clientX + 'px';
-      trail.style.top = e.clientY + 'px';
-      document.body.appendChild(trail);
-      setTimeout(() => trail.remove(), 600);
-    });
-
-    // Fade-in on scroll
-    const reveals = document.querySelectorAll('.reveal-on-scroll');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
-      });
-    }, { threshold: 0.15 });
-    reveals.forEach(el => observer.observe(el));
-  </script>
+  const trail = document.createElement('div');
+  trail.classList.add('cursor-trail');
+  trail.style.left = e.clientX + 'px';
+  trail.style.top = e.clientY + 'px';
+  document.body.appendChild(trail);
+  setTimeout(() => trail.remove(), 600);
+});
+</script>
 </body>
 </html>

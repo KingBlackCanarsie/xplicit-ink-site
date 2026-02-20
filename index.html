@@ -748,15 +748,19 @@
       // FIXED: Using string concatenation (no backticks) so copy-paste cannot break it
       whisper.innerHTML = '<span class="username">' + msg.user + '</span>' + msg.text;
       
-      whisper.style.left = (Math.random() * 70 + 5) + 'vw';
-      // Start messages higher (middle of screen)
+whisper.style.left = (Math.random() * 70 + 5) + 'vw';
+
+// Start messages higher (upper portion of screen)
 const lane = Math.floor(Math.random() * 5);
-whisper.style.bottom = (lane * 22 + 40) + 'vh';
+whisper.style.bottom = (lane * 22 + 60) + 'vh';
 
-whisper.style.animationDuration = (50 + Math.random() * 120) + 's';
+whisper.style.animationDuration = (25 + Math.random() * 40) + 's';
 
-const drift = (Math.random() - 0.5) * 180 + 'px';
+const drift = (Math.random() - 0.5) * 120 + 'px';
 whisper.style.setProperty('--drift', drift);
+
+// Soft bounce effect
+whisper.style.animationTimingFunction = 'cubic-bezier(0.45, 0.05, 0.55, 0.95)';
 
       container.appendChild(whisper);
       setTimeout(() => whisper.remove(), 130000);
@@ -838,6 +842,7 @@ setInterval(() => {
   </script>
 </body>
 </html>
+
 
 
 

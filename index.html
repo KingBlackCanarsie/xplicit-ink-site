@@ -28,7 +28,6 @@
       min-height: 100vh;
     }
 
-    /* PURPLE MATRIX RAIN – behind everything */
     #matrix {
       position: fixed;
       top: 0; left: 0;
@@ -70,9 +69,8 @@
       text-shadow: 0 1px 6px rgba(0,0,0,0.85);
       opacity: 0;
       filter: blur(8px);
-      animation: whisperVoidFloat 11s ease-in-out forwards;
+      animation: whisperRiseAndExit 14s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
       will-change: transform, opacity, filter;
-      position: relative;
     }
 
     .whisper::before {
@@ -92,26 +90,26 @@
       font-size: 0.92rem;
     }
 
-    @keyframes whisperVoidFloat {
+    @keyframes whisperRiseAndExit {
       0% {
         opacity: 0;
-        transform: translate(-50%, 50px) scale(0.6);
+        transform: translate(-50%, 80px) scale(0.6);
         filter: blur(10px);
       }
-      20% {
+      15% {
         opacity: 1;
-        transform: translate(-50%, 0px) scale(1);
-        filter: blur(0px);
+        transform: translate(-50%, 0) scale(1);
+        filter: blur(0);
       }
-      70% {
+      35% {
         opacity: 1;
-        transform: translate(-50%, 0px) scale(1);
-        filter: blur(0px);
+        transform: translate(-50%, 0) scale(1);
+        filter: blur(0);
       }
       100% {
         opacity: 0;
-        transform: translate(-50%, -80px) scale(1.05);
-        filter: blur(4px);
+        transform: translate(-50%, -1200px) scale(1.08);   /* moves far up, completely out of view */
+        filter: blur(6px);
       }
     }
 
@@ -522,14 +520,10 @@
 </head>
 <body>
 
-  <!-- PURPLE MATRIX RAIN -->
   <canvas id="matrix"></canvas>
 
   <div id="rp-whispers"></div>
   <div class="overlay"></div>
-
-  <div class="particles-bg"></div>
-  <div class="ink-particles"></div>
 
   <div class="ink-cursor" id="cursor"></div>
 
@@ -564,7 +558,6 @@
 
         <div class="bulletin-board">
           <div class="board-track">
-            <!-- HALF 1 -->
             <div class="board-item"><strong id="memberCount">742</strong> members</div>
             <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -589,7 +582,6 @@
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
 
-            <!-- HALF 2 -->
             <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
             <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -731,7 +723,7 @@
     }
     setInterval(draw, 45);
 
-    // ==================== NEW WHISPER SYSTEM ====================
+    // ==================== WHISPER SYSTEM – MOVE UP UNTIL OUT OF VIEW ====================
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
@@ -835,13 +827,13 @@
 
       container.appendChild(whisper);
 
-      // Remove after animation completes
+      // Remove after full animation (14s)
       setTimeout(() => {
-        whisper.remove();
-      }, 11000); // matches animation duration
+        if (whisper.parentNode) whisper.parentNode.removeChild(whisper);
+      }, 14000);
 
-      // Schedule next whisper
-      setTimeout(showNextWhisper, 11000);
+      // Chain next message after 3.5 seconds (so they follow smoothly)
+      setTimeout(showNextWhisper, 3500);
     }
 
     window.addEventListener('load', () => {
@@ -900,5 +892,4 @@
     reveals.forEach(el => observer.observe(el));
   </script>
 </body>
-</html>
-
+  </html>

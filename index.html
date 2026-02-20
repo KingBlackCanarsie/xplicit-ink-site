@@ -54,6 +54,9 @@
 
     .whisper {
       position: absolute;
+      left: 50%;
+      top: 58%;
+      transform: translate(-50%, 40px) scale(0.65);
       max-width: 390px;
       padding: 15px 21px;
       background: rgba(15, 10, 35, 0.62);
@@ -65,8 +68,20 @@
       box-shadow: 0 8px 32px rgba(0,0,0,0.75);
       font-family: Georgia, serif;
       text-shadow: 0 1px 6px rgba(0,0,0,0.85);
-      animation: whisperRise linear forwards;
-      will-change: transform, opacity;
+      opacity: 0;
+      filter: blur(8px);
+      animation: whisperVoidFloat 11s ease-in-out forwards;
+      will-change: transform, opacity, filter;
+      position: relative;
+    }
+
+    .whisper::before {
+      content: "😈";
+      position: absolute;
+      top: -12px;
+      left: -6px;
+      font-size: 1.3rem;
+      text-shadow: 0 0 10px rgba(255, 0, 80, 0.9);
     }
 
     .whisper .username {
@@ -77,11 +92,27 @@
       font-size: 0.92rem;
     }
 
-    @keyframes whisperRise {
-      0%   { transform: translateY(0) translateX(0) rotate(-1deg); opacity: 0; }
-      8%   { opacity: 0.88; }
-      92%  { opacity: 0.88; }
-      100% { transform: translateY(-130px) translateX(var(--drift)) rotate(2deg); opacity: 0; }
+    @keyframes whisperVoidFloat {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 50px) scale(0.6);
+        filter: blur(10px);
+      }
+      20% {
+        opacity: 1;
+        transform: translate(-50%, 0px) scale(1);
+        filter: blur(0px);
+      }
+      70% {
+        opacity: 1;
+        transform: translate(-50%, 0px) scale(1);
+        filter: blur(0px);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -80px) scale(1.05);
+        filter: blur(4px);
+      }
     }
 
     .overlay {
@@ -700,7 +731,7 @@
     }
     setInterval(draw, 45);
 
-    // ==================== ORIGINAL WHISPER SYSTEM (reverted) ====================
+    // ==================== NEW WHISPER SYSTEM ====================
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
@@ -789,46 +820,35 @@
       {user: "@cockworshipvelvet", text: "She worshipped his cock with her mouth and tongue like it was her god."}
     ];
 
-    const lanes = [12, 34, 56, 78];
-    let laneIndex = 0;
+    let rpIndex = 0;
 
-    function createRPWhisper(startBottom = '-30px') {
+    function showNextWhisper() {
       const container = document.getElementById('rp-whispers');
-      const msg = rpMessages[Math.floor(Math.random() * rpMessages.length)];
+      if (!container) return;
+
+      const msg = rpMessages[rpIndex];
+      rpIndex = (rpIndex + 1) % rpMessages.length;
 
       const whisper = document.createElement('div');
       whisper.className = 'whisper';
       whisper.innerHTML = '<span class="username">' + msg.user + '</span>' + msg.text;
 
-      whisper.style.left = lanes[laneIndex] + 'vw';
-      laneIndex = (laneIndex + 1) % lanes.length;
-
-      whisper.style.bottom = startBottom;
-      whisper.style.animationDuration = '39s';
-      const drift = (Math.random() - 0.5) * 55 + 'px';
-      whisper.style.setProperty('--drift', drift);
-
       container.appendChild(whisper);
-      setTimeout(() => whisper.remove(), 140000);
+
+      // Remove after animation completes
+      setTimeout(() => {
+        whisper.remove();
+      }, 11000); // matches animation duration
+
+      // Schedule next whisper
+      setTimeout(showNextWhisper, 11000);
     }
 
-    // Start immediately – first messages high up
     window.addEventListener('load', () => {
-      const initialBottoms = ['78vh', '59vh', '41vh', '24vh', '8vh', '-12vh', '-28vh', '-42vh'];
-
-      initialBottoms.forEach((bottomPos, i) => {
-        setTimeout(() => {
-          createRPWhisper(bottomPos);
-        }, i * 280);
-      });
+      showNextWhisper();
     });
 
-    // Steady flow
-    setInterval(() => {
-      createRPWhisper('-30px');
-    }, 3200);
-
-    // Fake counters
+    // ==================== FAKE COUNTERS ====================
     function updateMemberCount() {
       const count = Math.floor(Math.random() * 201) + 600;
       document.getElementById('memberCount').textContent = count;

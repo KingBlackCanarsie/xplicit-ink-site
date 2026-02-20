@@ -756,12 +756,8 @@ whisper.style.bottom = (lane * 18) + 'vh';
 
 whisper.style.animationDuration = (50 + Math.random() * 120) + 's';
 
-const drift = (Math.random() - 0.5) * 310 + 'px';
+const drift = (Math.random() - 0.5) * 180 + 'px';
 whisper.style.setProperty('--drift', drift);
-
-      if (Math.random() > 0.4) {
-        whisper.style.animationDelay = '-' + (Math.random() * 38) + 's';
-      }
 
       container.appendChild(whisper);
       setTimeout(() => whisper.remove(), 130000);
@@ -769,15 +765,15 @@ whisper.style.setProperty('--drift', drift);
 
 // Start with a small staggered batch so the screen isn't empty
 window.addEventListener('load', function() {
-  for (let i = 0; i < 6; i++) {
-    setTimeout(createRPWhisper, 300 + i * 1600);
-  }
+for (let i = 0; i < 5; i++) {
+    setTimeout(createRPWhisper, i * 900);
+}
 });
 
 // Continuous flow: 1 whisper every 4–8 seconds
 setInterval(() => {
   createRPWhisper();
-}, Math.random() * 4000 + 4000);
+}, Math.random() * 2000 + 2000);
 
     // Fake counts
     function updateMemberCount() {
@@ -835,5 +831,6 @@ setInterval(() => {
   </script>
 </body>
 </html>
+
 
 

@@ -54,62 +54,53 @@
     .whisper {
       position: absolute;
       left: 50%;
-      top: 58%;
-      transform: translate(-50%, 40px) scale(0.65);
-      max-width: 390px;
-      padding: 15px 21px;
-      background: rgba(15, 10, 35, 0.62);
-      border-left: 4px solid #a78bfa;
+      top: 55%;
+      transform: translate(-50%, 80px);
+      max-width: 680px;                /* ← wider for landscape feel */
+      width: 92%;
+      padding: 24px 32px;              /* ← more horizontal space */
+      background: rgba(15, 10, 35, 0.74);
+      border-left: 5px solid #a78bfa;
       color: #e8d9ff;
-      font-size: 0.975rem;
-      line-height: 1.56;
-      border-radius: 7px 15px 15px 7px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.75);
-      font-family: Georgia, serif;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.85);
-      opacity: 0;
-      filter: blur(8px);
-      animation: whisperRiseAndExit 14s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
-      will-change: transform, opacity, filter;
+      font-size: 1.05rem;              /* slightly larger text for readability */
+      line-height: 1.65;
+      border-radius: 12px 24px 24px 12px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.85);
+      text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+      opacity: 1;                      /* no fade — always fully visible */
+      animation: slowRiseAndExit 18s linear forwards;  /* slow upward movement */
+      will-change: transform;
     }
 
     .whisper::before {
       content: "😈";
       position: absolute;
-      top: -12px;
-      left: -6px;
-      font-size: 1.3rem;
-      text-shadow: 0 0 10px rgba(255, 0, 80, 0.9);
+      top: -16px;
+      left: -10px;
+      font-size: 1.6rem;
+      text-shadow: 0 0 12px rgba(255, 0, 80, 0.95);
     }
 
     .whisper .username {
       color: #d4b8ff;
       font-weight: 700;
       display: block;
-      margin-bottom: 8px;
-      font-size: 0.92rem;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
     }
 
-    @keyframes whisperRiseAndExit {
+    @keyframes slowRiseAndExit {
       0% {
-        opacity: 0;
-        transform: translate(-50%, 80px) scale(0.6);
-        filter: blur(10px);
+        transform: translate(-50%, 120px);   /* starts lower */
       }
-      15% {
-        opacity: 1;
-        transform: translate(-50%, 0) scale(1);
-        filter: blur(0);
+      20% {
+        transform: translate(-50%, 0);       /* reaches center/readable position */
       }
-      35% {
-        opacity: 1;
-        transform: translate(-50%, 0) scale(1);
-        filter: blur(0);
+      80% {
+        transform: translate(-50%, 0);       /* stays readable for a while */
       }
       100% {
-        opacity: 0;
-        transform: translate(-50%, -1200px) scale(1.08);   /* moves far up, completely out of view */
-        filter: blur(6px);
+        transform: translate(-50%, -1400px); /* moves far up — completely out of view */
       }
     }
 
@@ -140,6 +131,11 @@
     @media (max-width: 768px) {
       .header { padding: 10px 12px; }
       .hero { padding-top: 130px !important; }
+      .whisper {
+        max-width: 90%;
+        padding: 18px 24px;
+        font-size: 0.98rem;
+      }
     }
 
     .header-inner {
@@ -686,7 +682,7 @@
   </div>
 
   <script>
-    // ==================== PURPLE MATRIX RAIN ====================
+    // Matrix rain
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -723,7 +719,7 @@
     }
     setInterval(draw, 45);
 
-    // ==================== WHISPER SYSTEM – MOVE UP UNTIL OUT OF VIEW ====================
+    // WHISPER SYSTEM – SLOW UPWARD MOVEMENT, NO FADE
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
@@ -827,20 +823,20 @@
 
       container.appendChild(whisper);
 
-      // Remove after full animation (14s)
+      // Remove after full animation completes (18s)
       setTimeout(() => {
         if (whisper.parentNode) whisper.parentNode.removeChild(whisper);
-      }, 14000);
+      }, 18000);
 
-      // Chain next message after 3.5 seconds (so they follow smoothly)
-      setTimeout(showNextWhisper, 3500);
+      // Next message after 5 seconds (slow flow, readable overlap)
+      setTimeout(showNextWhisper, 5000);
     }
 
     window.addEventListener('load', () => {
       showNextWhisper();
     });
 
-    // ==================== FAKE COUNTERS ====================
+    // Fake counters
     function updateMemberCount() {
       const count = Math.floor(Math.random() * 201) + 600;
       document.getElementById('memberCount').textContent = count;
@@ -892,4 +888,4 @@
     reveals.forEach(el => observer.observe(el));
   </script>
 </body>
-  </html>
+</html>

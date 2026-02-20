@@ -762,15 +762,17 @@
       setTimeout(() => whisper.remove(), 130000);
     }
 
-    // INSTANT START – 38 messages in the first second
-    window.addEventListener('load', function() {
-      for (let i = 0; i < 38; i++) {
-        setTimeout(createRPWhisper, i * 28);
-      }
-    });
+// Start with a small staggered batch so the screen isn't empty
+window.addEventListener('load', function() {
+  for (let i = 0; i < 6; i++) {
+    setTimeout(createRPWhisper, i * 1800);
+  }
+});
 
-    // Steady flow
-    setInterval(createRPWhisper, 620);
+// Continuous flow: 1 whisper every 3–6 seconds
+setInterval(() => {
+  createRPWhisper();
+}, Math.random() * 4000 + 4000);
 
     // Fake counts
     function updateMemberCount() {
@@ -828,3 +830,4 @@
   </script>
 </body>
 </html>
+

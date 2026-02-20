@@ -66,12 +66,12 @@
       font-size: 0.92rem;
     }
 
-@keyframes whisperRise {
-  0%   { transform: translateY(140vh) translateX(0) rotate(-2deg); opacity: 0; }
-  10%  { opacity: 0.82; }
-  90%  { opacity: 0.82; }
-  100% { transform: translateY(-180vh) translateX(var(--drift)) rotate(3deg); opacity: 0; }
-}
+    @keyframes whisperRise {
+      0%   { transform: translateY(135vh) translateX(0) rotate(-2deg); opacity: 0; }
+      10%  { opacity: 0.82; }
+      90%  { opacity: 0.82; }
+      100% { transform: translateY(-110px) translateX(var(--drift)) rotate(3deg); opacity: 0; }
+    }
 
     .overlay {
       position: fixed;
@@ -748,8 +748,7 @@
       // FIXED: Using string concatenation (no backticks) so copy-paste cannot break it
       whisper.innerHTML = '<span class="username">' + msg.user + '</span>' + msg.text;
       
-whisper.style.left = (Math.random() * 70 + 5) + 'vw';
-whisper.style.bottom = (Math.random() * -40 - 20) + 'vh';      
+      whisper.style.left = Math.random() * 64 + 9 + 'vw';
       whisper.style.animationDuration = (35 + Math.random() * 75) + 's';
       
       const drift = (Math.random() - 0.5) * 310 + 'px';
@@ -831,5 +830,3 @@ setInterval(() => {
   </script>
 </body>
 </html>
-
-

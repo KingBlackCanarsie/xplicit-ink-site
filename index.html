@@ -28,6 +28,7 @@
       min-height: 100vh;
     }
 
+    /* PURPLE MATRIX RAIN – behind everything */
     #matrix {
       position: fixed;
       top: 0; left: 0;
@@ -43,47 +44,44 @@
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+      overflow: hidden;
+      opacity: 0.88;
+    }
+
+    @media (max-width: 768px) {
+      #rp-whispers { opacity: 0.72; }
     }
 
     .whisper {
-      max-width: 460px;
-      width: 92%;
-      padding: 22px 26px;
-      background: rgba(15, 10, 35, 0.75);
-      border-left: 6px solid #a78bfa;
+      position: absolute;
+      max-width: 390px;
+      padding: 15px 21px;
+      background: rgba(15, 10, 35, 0.62);
+      border-left: 4px solid #a78bfa;
       color: #e8d9ff;
-      font-size: 1.02rem;
-      line-height: 1.62;
-      border-radius: 12px 20px 20px 12px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.85);
-      text-shadow: 0 1px 8px rgba(0,0,0,0.9);
-      text-align: center;
-      opacity: 0;
-      transform: translateY(60px) scale(0.92);
-      transition: opacity 1.4s ease, transform 1.4s ease;
-    }
-
-    .whisper.show {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    .whisper.hide {
-      opacity: 0;
-      transform: translateY(-220px) scale(0.92);
-      transition: opacity 2.4s ease, transform 2.4s ease;
+      font-size: 0.975rem;
+      line-height: 1.56;
+      border-radius: 7px 15px 15px 7px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.75);
+      font-family: Georgia, serif;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.85);
+      animation: whisperRise linear forwards;
+      will-change: transform, opacity;
     }
 
     .whisper .username {
       color: #d4b8ff;
       font-weight: 700;
       display: block;
-      margin-bottom: 12px;
-      font-size: 1.05rem;
+      margin-bottom: 8px;
+      font-size: 0.92rem;
+    }
+
+    @keyframes whisperRise {
+      0%   { transform: translateY(0) translateX(0) rotate(-1deg); opacity: 0; }
+      8%   { opacity: 0.88; }
+      92%  { opacity: 0.88; }
+      100% { transform: translateY(-130px) translateX(var(--drift)) rotate(2deg); opacity: 0; }
     }
 
     .overlay {
@@ -92,6 +90,11 @@
       background: rgba(10, 5, 20, 0.19);
       z-index: 2;
       pointer-events: none;
+    }
+
+    .main-content {
+      position: relative;
+      z-index: 50;
     }
 
     .header {
@@ -488,9 +491,14 @@
 </head>
 <body>
 
+  <!-- PURPLE MATRIX RAIN -->
   <canvas id="matrix"></canvas>
+
   <div id="rp-whispers"></div>
   <div class="overlay"></div>
+
+  <div class="particles-bg"></div>
+  <div class="ink-particles"></div>
 
   <div class="ink-cursor" id="cursor"></div>
 
@@ -525,6 +533,7 @@
 
         <div class="bulletin-board">
           <div class="board-track">
+            <!-- HALF 1 -->
             <div class="board-item"><strong id="memberCount">742</strong> members</div>
             <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -549,6 +558,7 @@
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
 
+            <!-- HALF 2 -->
             <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
             <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -653,7 +663,7 @@
   </div>
 
   <script>
-    // Matrix rain
+    // ==================== PURPLE MATRIX RAIN ====================
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -690,7 +700,7 @@
     }
     setInterval(draw, 45);
 
-    // === FLOAT UP WHILE FADING OUT SYSTEM ===
+    // ==================== ORIGINAL WHISPER SYSTEM (reverted) ====================
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
@@ -779,65 +789,44 @@
       {user: "@cockworshipvelvet", text: "She worshipped his cock with her mouth and tongue like it was her god."}
     ];
 
-    let currentIndex = 0;
-    const container = document.getElementById('rp-whispers');
+    const lanes = [12, 34, 56, 78];
+    let laneIndex = 0;
 
-    function showNextMessage() {
-      const msg = rpMessages[currentIndex];
-      currentIndex = (currentIndex + 1) % rpMessages.length;
+    function createRPWhisper(startBottom = '-30px') {
+      const container = document.getElementById('rp-whispers');
+      const msg = rpMessages[Math.floor(Math.random() * rpMessages.length)];
 
-      let whisper = container.querySelector('.whisper');
-      if (!whisper) {
-        whisper = document.createElement('div');
-        whisper.className = 'whisper';
-        container.appendChild(whisper);
-      }
+      const whisper = document.createElement('div');
+      whisper.className = 'whisper';
+      whisper.innerHTML = '<span class="username">' + msg.user + '</span>' + msg.text;
 
-      whisper.innerHTML = `<span class="username">\( {msg.user}</span> \){msg.text}`;
-      whisper.classList.remove('hide', 'show');
+      whisper.style.left = lanes[laneIndex] + 'vw';
+      laneIndex = (laneIndex + 1) % lanes.length;
 
-      // Fade in
-      setTimeout(() => whisper.classList.add('show'), 50);
+      whisper.style.bottom = startBottom;
+      whisper.style.animationDuration = '39s';
+      const drift = (Math.random() - 0.5) * 55 + 'px';
+      whisper.style.setProperty('--drift', drift);
 
-      // After 5.5 seconds: float up while fading out
-      setTimeout(() => {
-        whisper.classList.add('hide');
-
-        setTimeout(() => {
-          showNextMessage();
-        }, 2600); // wait for fade-out animation
-      }, 5500);
+      container.appendChild(whisper);
+      setTimeout(() => whisper.remove(), 140000);
     }
 
-    // Start immediately
+    // Start immediately – first messages high up
     window.addEventListener('load', () => {
-      showNextMessage();
+      const initialBottoms = ['78vh', '59vh', '41vh', '24vh', '8vh', '-12vh', '-28vh', '-42vh'];
+
+      initialBottoms.forEach((bottomPos, i) => {
+        setTimeout(() => {
+          createRPWhisper(bottomPos);
+        }, i * 280);
+      });
     });
 
-    // Glowing Cursor + Trail
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', function(e) {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-
-      const trail = document.createElement('div');
-      trail.classList.add('cursor-trail');
-      trail.style.left = e.clientX + 'px';
-      trail.style.top = e.clientY + 'px';
-      document.body.appendChild(trail);
-      setTimeout(() => trail.remove(), 600);
-    });
-
-    // Ink Drips
-    for (let i = 0; i < 18; i++) {
-      let drip = document.createElement('div');
-      drip.className = 'ink-drip';
-      drip.style.left = Math.random() * 100 + 'vw';
-      drip.style.height = Math.random() * 280 + 120 + 'px';
-      drip.style.animationDuration = (Math.random() * 4 + 2.5) + 's';
-      drip.style.animationDelay = Math.random() * 6 + 's';
-      document.body.appendChild(drip);
-    }
+    // Steady flow
+    setInterval(() => {
+      createRPWhisper('-30px');
+    }, 3200);
 
     // Fake counters
     function updateMemberCount() {
@@ -856,6 +845,31 @@
     updateOnlineCount();
     setInterval(updateOnlineCount, 10000);
 
+    // Ink Drips
+    for (let i = 0; i < 18; i++) {
+      let drip = document.createElement('div');
+      drip.className = 'ink-drip';
+      drip.style.left = Math.random() * 100 + 'vw';
+      drip.style.height = Math.random() * 280 + 120 + 'px';
+      drip.style.animationDuration = (Math.random() * 4 + 2.5) + 's';
+      drip.style.animationDelay = Math.random() * 6 + 's';
+      document.body.appendChild(drip);
+    }
+
+    // Glowing Cursor + Trail
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', function(e) {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+
+      const trail = document.createElement('div');
+      trail.classList.add('cursor-trail');
+      trail.style.left = e.clientX + 'px';
+      trail.style.top = e.clientY + 'px';
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 600);
+    });
+
     // Fade-in on scroll
     const reveals = document.querySelectorAll('.reveal-on-scroll');
     const observer = new IntersectionObserver((entries) => {
@@ -866,4 +880,4 @@
     reveals.forEach(el => observer.observe(el));
   </script>
 </body>
-  </html>
+</html>

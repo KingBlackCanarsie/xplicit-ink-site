@@ -28,18 +28,57 @@
       min-height: 100vh;
     }
 
-    #matrix {
+    /* === IMMERSIVE RP WHISPERS BACKGROUND === */
+    #rp-whispers {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       z-index: 1;
       pointer-events: none;
-      opacity: 1;
+      overflow: hidden;
+      opacity: 0.78;
     }
 
     @media (max-width: 768px) {
-      #matrix { opacity: 0.85; }
+      #rp-whispers { opacity: 0.65; }
+    }
+
+    .whisper {
+      position: absolute;
+      max-width: 380px;
+      padding: 14px 19px;
+      background: rgba(18, 12, 38, 0.58);
+      border-left: 3.5px solid #a78bfa;
+      color: #e0d4ff;
+      font-size: 0.965rem;
+      line-height: 1.52;
+      border-radius: 6px 13px 13px 6px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+      font-family: Georgia, serif;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+      animation: whisperRise linear forwards;
+      will-change: transform, opacity;
+    }
+
+    .whisper .username {
+      color: #c6b8ff;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 7px;
+      font-size: 0.89rem;
+      opacity: 0.95;
+    }
+
+    @keyframes whisperRise {
+      0% {
+        transform: translateY(125vh) translateX(0) rotate(-2deg);
+        opacity: 0;
+      }
+      15% { opacity: 0.68; }
+      85% { opacity: 0.68; }
+      100% {
+        transform: translateY(-90px) translateX(var(--drift)) rotate(3deg);
+        opacity: 0;
+      }
     }
 
     .overlay {
@@ -156,7 +195,7 @@
       align-items: center;
       height: 100%;
       white-space: nowrap;
-      animation: scrollLeft 28s linear infinite; /* ← Changed to 28 seconds */
+      animation: scrollLeft 28s linear infinite;
     }
 
     .board-item {
@@ -498,7 +537,7 @@
 </head>
 <body>
 
-  <canvas id="matrix"></canvas>
+  <div id="rp-whispers"></div>
   <div class="overlay"></div>
 
   <div class="particles-bg"></div>
@@ -667,55 +706,88 @@
   </div>
 
   <script>
-    // CONTINUOUS PURPLE MATRIX – 10× density, smooth, no visible restart
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
+    // === IMMERSIVE LITERATE RP WHISPERS BACKGROUND (52 unique messages) ===
+    const rpMessages = [
+      {user: "@velvetquill", text: "His fingers traced the delicate lace at her thigh, slow and reverent, as if worshiping the very skin he was about to ruin."},
+      {user: "@nyxshadow", text: "She gasped as the cool leather of the collar closed around her throat. In that moment, she was no longer in control — and it felt like freedom."},
+      {user: "@thornedrose", text: "He pinned her against the velvet wallpaper, one hand on her hip, the other tilting her chin up to meet his hungry gaze."},
+      {user: "@silkvenom", text: "Every slow thrust was a claim. He watched her face intently, drinking in every flutter of her lashes and broken moan."},
+      {user: "@crimsonquill", text: "'Look at me,' he commanded softly as he sank deeper. Her eyes fluttered open, dark with need and complete surrender."},
+      {user: "@inkbound", text: "The silk ropes whispered against her wrists while his mouth claimed every inch of her trembling body."},
+      {user: "@shadowlace", text: "She rode him slow and deep, savoring every inch, her nails leaving crescent moons on his chest."},
+      {user: "@ebonyveil", text: "His teeth grazed her nipple before he sucked hard, pulling a desperate cry from her lips."},
+      {user: "@moonlitthorn", text: "Blindfolded and bound, every touch became electric. She could only feel… and beg."},
+      {user: "@noirscript", text: "'On your knees, love. Show me how badly you’ve missed my taste.'"},
+      {user: "@velvetthorn", text: "The hot wax dripped in perfect lines across her back; each drop made her arch and moan his name."},
+      {user: "@ghostquill", text: "He gripped her hips hard enough to bruise and pulled her back onto him again and again."},
+      {user: "@lacewhisper", text: "She came undone around his fingers while he whispered filthy praise against her ear."},
+      {user: "@crimsonink", text: "The mirror showed everything — her flushed skin, his possessive hands, their perfect rhythm."},
+      {user: "@silkbound", text: "'I want to hear you scream my name when you come for me,' he growled against her throat."},
+      {user: "@shadowveil", text: "Her back arched off the sheets as his tongue found that perfect spot and refused to leave."},
+      {user: "@nyxquill", text: "He took his time undressing her, kissing every new inch of skin like it was sacred."},
+      {user: "@velvetnoir", text: "The leather belt whispered across her skin before the first delicious sting landed."},
+      {user: "@inkthorn", text: "She was dripping for him before he even touched her, and he loved reminding her of it."},
+      {user: "@moonshadow", text: "'Good girl,' he murmured as she took him deeper, tears of pleasure in her eyes."},
+      {user: "@forbiddenquill", text: "Her legs wrapped around his waist as he pressed her against the window, city lights blurring below."},
+      {user: "@darklace", text: "He traced the curve of her spine with his tongue, savoring the shiver that followed each kiss."},
+      {user: "@satinveil", text: "The blindfold heightened everything — his breath on her neck, the slow drag of his fingers lower…"},
+      {user: "@emberink", text: "'Beg for it,' he whispered, hovering just out of reach until she broke."},
+      {user: "@midnightthorn", text: "She melted under his weight, every inch of him claiming every inch of her."},
+      {user: "@quillbound", text: "His voice was velvet as he described exactly what he was going to do to her."},
+      {user: "@rosedark", text: "The paddle left perfect pink prints across her ass, each one making her wetter."},
+      {user: "@silknoir", text: "She tasted herself on his lips when he kissed her after making her come twice."},
+      {user: "@shadowquill", text: "He held her wrists above her head with one hand while the other explored without mercy."},
+      {user: "@velvetscript", text: "Every thrust was measured, deliberate, designed to drive her slowly insane with pleasure."},
+      {user: "@crimsonlace", text: "Her moans echoed in the candlelit room as he took her from behind, slow and deep."},
+      {user: "@inkveil", text: "'You're mine tonight,' he said, sliding the silk tie around her wrists."},
+      {user: "@thornquill", text: "The ice cube trailed down her stomach, followed immediately by his hot mouth."},
+      {user: "@noirvelvet", text: "She rode his face with abandon, fingers tangled in his hair, chasing her release."},
+      {user: "@ebonyquill", text: "He pressed her against the cold glass, the contrast making her gasp as he entered her."},
+      {user: "@lacebound", text: "Every whispered dirty word made her clench around him tighter."},
+      {user: "@moonlitveil", text: "His hands explored her body like he was memorizing every curve for later."},
+      {user: "@shadowrose", text: "She came hard, crying out his name as waves of pleasure crashed through her."},
+      {user: "@crimsonthorn", text: "The flogger danced across her skin, teasing before the real intensity began."},
+      {user: "@silkquill", text: "He lifted her onto the desk, spreading her legs wide and dropping to his knees."},
+      {user: "@nyxveil", text: "'Open wider for me, darling,' he murmured, voice thick with desire."},
+      {user: "@velvetink", text: "Their bodies moved in perfect sync, lost in the rhythm they created together."},
+      {user: "@forbiddenthorn", text: "She bit her lip to stifle her moans as his fingers worked magic inside her."},
+      {user: "@ghostvelvet", text: "The leather cuffs clicked shut and she knew she was completely at his mercy."},
+      {user: "@darkquill", text: "He teased her entrance with the tip of his cock until she was begging."},
+      {user: "@rosescript", text: "Her thighs trembled as he held her right on the edge for what felt like eternity."},
+      {user: "@inknoir", text: "She arched into his touch, craving more, always more of him."},
+      {user: "@midnightlace", text: "He marked her neck with his teeth, a possessive claim she wore proudly."},
+      {user: "@satinquill", text: "Slow, deep, and relentless — that's how he fucked her until she saw stars."},
+      {user: "@emberveil", text: "Every stroke brought her closer, his eyes locked on hers the entire time."},
+      {user: "@thornedveil", text: "The vibrator hummed against her while he watched, completely in control."},
+      {user: "@quillnoir", text: "She surrendered completely, body and soul, to the man who knew her desires better than she did."}
+    ];
 
-    const letters = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let fontSize = 14;
-    let columns;
-    let drops = [];
-
-    function resizeMatrix() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      fontSize = window.innerWidth < 768 ? 10 : 14;
-      // 10× more columns than normal
-    columns = Math.floor((canvas.width / fontSize) * 5);
-      drops = Array(columns).fill(0).map(() => Math.random() * canvas.height / fontSize);
+    function createRPWhisper() {
+      const container = document.getElementById('rp-whispers');
+      const msg = rpMessages[Math.floor(Math.random() * rpMessages.length)];
+      
+      const whisper = document.createElement('div');
+      whisper.className = 'whisper';
+      whisper.innerHTML = `<span class="username">\( {msg.user}</span> \){msg.text}`;
+      
+      whisper.style.left = `${Math.random() * 68 + 8}vw`;
+      whisper.style.animationDuration = `${42 + Math.random() * 58}s`;
+      
+      const drift = (Math.random() - 0.5) * 260 + 'px';
+      whisper.style.setProperty('--drift', drift);
+      
+      container.appendChild(whisper);
+      
+      setTimeout(() => whisper.remove(), 105000);
     }
 
-    resizeMatrix();
-    window.addEventListener('resize', resizeMatrix);
-
-    function drawMatrix() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.font = fontSize + "px monospace";
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = letters[Math.floor(Math.random() * letters.length)];
-        const x = (i * fontSize) % canvas.width;
-        const y = drops[i] * fontSize;
-
-        ctx.shadowBlur = 18;
-        ctx.shadowColor = "#a78bfa";
-        ctx.fillStyle = "#e5d4ff";
-        ctx.fillText(text, x, y);
-
-        if (y > canvas.height + fontSize && Math.random() > 0.985) {
-          drops[i] = -Math.random() * 10;
-        } else {
-          drops[i] += 0.8 + Math.random() * 0.6;
-        }
-      }
-
-      requestAnimationFrame(drawMatrix);
+    // Initial burst (18 visible at start)
+    for (let i = 0; i < 18; i++) {
+      setTimeout(createRPWhisper, i * 340);
     }
 
-    drawMatrix();
+    // Gentle continuous spawning
+    setInterval(createRPWhisper, 820);
 
     // Fake counts
     function updateMemberCount() {
@@ -773,4 +845,3 @@
   </script>
 </body>
 </html>
-

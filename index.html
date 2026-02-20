@@ -28,7 +28,6 @@
       min-height: 100vh;
     }
 
-    /* PURPLE MATRIX RAIN – placed behind everything */
     #matrix {
       position: fixed;
       top: 0; left: 0;
@@ -36,7 +35,7 @@
       height: 100%;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.29;               /* tuned to blend perfectly behind whispers */
+      opacity: 0.29;
     }
 
     #rp-whispers {
@@ -45,43 +44,43 @@
       z-index: 1;
       pointer-events: none;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding-bottom: 20vh;
       opacity: 0.88;
     }
 
-    @media (max-width: 768px) {
-      #rp-whispers { opacity: 0.72; }
-    }
-
     .whisper {
-      position: absolute;
-      max-width: 390px;
-      padding: 15px 21px;
-      background: rgba(15, 10, 35, 0.62);
-      border-left: 4px solid #a78bfa;
+      max-width: 420px;
+      width: 90%;
+      margin: 18px 0;
+      padding: 16px 22px;
+      background: rgba(15, 10, 35, 0.68);
+      border-left: 5px solid #a78bfa;
       color: #e8d9ff;
       font-size: 0.975rem;
-      line-height: 1.56;
-      border-radius: 7px 15px 15px 7px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.75);
-      font-family: Georgia, serif;
+      line-height: 1.58;
+      border-radius: 8px 16px 16px 8px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.8);
       text-shadow: 0 1px 6px rgba(0,0,0,0.85);
-      animation: whisperRise linear forwards;
-      will-change: transform, opacity, left;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+    }
+
+    .whisper.visible {
+      opacity: 0.92;
+      transform: translateY(0);
     }
 
     .whisper .username {
       color: #d4b8ff;
       font-weight: 700;
       display: block;
-      margin-bottom: 8px;
-      font-size: 0.92rem;
-    }
-
-    @keyframes whisperRise {
-      0%   { transform: translateY(135vh) translateX(0) rotate(-2deg); opacity: 0; }
-      10%  { opacity: 0.82; }
-      90%  { opacity: 0.82; }
-      100% { transform: translateY(-110px) translateX(var(--drift)) rotate(3deg); opacity: 0; }
+      margin-bottom: 9px;
+      font-size: 0.94rem;
     }
 
     .overlay {
@@ -491,14 +490,9 @@
 </head>
 <body>
 
-  <!-- PURPLE MATRIX RAIN -->
   <canvas id="matrix"></canvas>
-
   <div id="rp-whispers"></div>
   <div class="overlay"></div>
-
-  <div class="particles-bg"></div>
-  <div class="ink-particles"></div>
 
   <div class="ink-cursor" id="cursor"></div>
 
@@ -533,7 +527,6 @@
 
         <div class="bulletin-board">
           <div class="board-track">
-            <!-- HALF 1 -->
             <div class="board-item"><strong id="memberCount">742</strong> members</div>
             <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -558,7 +551,6 @@
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
 
-            <!-- HALF 2 -->
             <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
             <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -663,7 +655,7 @@
   </div>
 
   <script>
-    // ==================== PURPLE MATRIX RAIN ====================
+    // Matrix rain
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -680,7 +672,7 @@
     let drops = new Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = 'rgba(11, 10, 15, 0.045)';   // subtle fade for dark theme
+      ctx.fillStyle = 'rgba(11, 10, 15, 0.045)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.fillStyle = '#a78bfa';
@@ -700,8 +692,8 @@
     }
     setInterval(draw, 45);
 
-    // ==================== FLOATING WHISPERS (with improved bounce) ====================
-    const rpMessages = [ /* your 90 messages stay exactly the same */ 
+    // OPTION 7 - Single centered column, no overlap
+    const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
       {user: "@thornedrose", text: "Her pussy clenched around his fingers as he curled them hard against her G-spot, making her squirt all over his hand."},
@@ -789,71 +781,34 @@
       {user: "@cockworshipvelvet", text: "She worshipped his cock with her mouth and tongue like it was her god."}
     ];
 
-    function createRPWhisper() {
+    function addWhisper() {
       const container = document.getElementById('rp-whispers');
       const msg = rpMessages[Math.floor(Math.random() * rpMessages.length)];
-      
+
       const whisper = document.createElement('div');
       whisper.className = 'whisper';
-      whisper.innerHTML = '<span class="username">' + msg.user + '</span>' + msg.text;
-
-      // Better initial horizontal spread
-      whisper.style.left = (Math.random() * 68 + 6) + 'vw';
-      const lane = Math.floor(Math.random() * 5);
-      whisper.style.bottom = (lane * 22 + 62) + 'vh';
-      whisper.style.animationDuration = (26 + Math.random() * 38) + 's';
-      const drift = (Math.random() - 0.5) * 135 + 'px';
-      whisper.style.setProperty('--drift', drift);
+      whisper.innerHTML = `<span class="username">\( {msg.user}</span> \){msg.text}`;
 
       container.appendChild(whisper);
 
-      // Initial soft nudge if needed
-      setTimeout(() => avoidOverlap(whisper), 30);
+      setTimeout(() => {
+        whisper.classList.add('visible');
+      }, 50);
 
-      setTimeout(() => whisper.remove(), 135000);
-    }
-
-    // Improved collision detection + gentle bounce
-    function avoidOverlap(newWhisper) {
-      const whispers = document.querySelectorAll('.whisper');
-      whispers.forEach(w => {
-        if (w === newWhisper) return;
-        const r1 = w.getBoundingClientRect();
-        const r2 = newWhisper.getBoundingClientRect();
-        if (r1.left < r2.right && r1.right > r2.left && r1.top < r2.bottom && r1.bottom > r2.top) {
-          const shift = (Math.random() > 0.5 ? 42 : -42);
-          let currentLeft = parseFloat(newWhisper.style.left) || 40;
-          newWhisper.style.left = Math.max(6, Math.min(72, currentLeft + shift)) + 'vw';
-        }
-      });
-    }
-
-    // Continuous gentle bounce check (this makes them truly bounce off each other)
-    function checkAllCollisions() {
-      const whispers = Array.from(document.querySelectorAll('.whisper'));
-      for (let i = 0; i < whispers.length; i++) {
-        for (let j = i + 1; j < whispers.length; j++) {
-          const r1 = whispers[i].getBoundingClientRect();
-          const r2 = whispers[j].getBoundingClientRect();
-          if (r1.left < r2.right && r1.right > r2.left && r1.top < r2.bottom && r1.bottom > r2.top) {
-            // Gentle horizontal bounce
-            const nudge = Math.random() > 0.5 ? 28 : -28;
-            let left1 = parseFloat(whispers[i].style.left) || 40;
-            whispers[i].style.left = Math.max(6, Math.min(72, left1 + nudge)) + 'vw';
-          }
-        }
+      if (container.children.length > 12) {
+        container.removeChild(container.firstChild);
       }
     }
-    setInterval(checkAllCollisions, 650);
 
-    // Start whispers
     window.addEventListener('load', () => {
-      for (let i = 0; i < 6; i++) setTimeout(createRPWhisper, i * 650);
+      for (let i = 0; i < 8; i++) {
+        setTimeout(addWhisper, i * 1300);
+      }
     });
-    createRPWhisper();
-    setInterval(() => createRPWhisper(), Math.random() * 1900 + 2100);
 
-    // Fake counters (unchanged)
+    setInterval(addWhisper, 5200);
+
+    // Fake counters
     function updateMemberCount() {
       const count = Math.floor(Math.random() * 201) + 600;
       document.getElementById('memberCount').textContent = count;
@@ -870,7 +825,7 @@
     updateOnlineCount();
     setInterval(updateOnlineCount, 10000);
 
-    // Ink Drips (unchanged)
+    // Ink Drips
     for (let i = 0; i < 18; i++) {
       let drip = document.createElement('div');
       drip.className = 'ink-drip';
@@ -881,7 +836,7 @@
       document.body.appendChild(drip);
     }
 
-    // Glowing Cursor + Trail (unchanged)
+    // Glowing Cursor + Trail
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', function(e) {
       cursor.style.left = e.clientX + 'px';
@@ -895,7 +850,7 @@
       setTimeout(() => trail.remove(), 600);
     });
 
-    // Fade-in on scroll (unchanged)
+    // Fade-in on scroll
     const reveals = document.querySelectorAll('.reveal-on-scroll');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -906,4 +861,3 @@
   </script>
 </body>
 </html>
-

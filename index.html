@@ -78,10 +78,10 @@
     }
 
     @keyframes whisperRise {
-      0%   { transform: translateY(140vh) translateX(0) rotate(-1deg); opacity: 0; }
-      10%  { opacity: 0.85; }
-      90%  { opacity: 0.85; }
-      100% { transform: translateY(-120px) translateX(var(--drift)) rotate(2deg); opacity: 0; }
+      0%   { transform: translateY(0) translateX(0) rotate(-1deg); opacity: 0; }
+      8%   { opacity: 0.88; }
+      92%  { opacity: 0.88; }
+      100% { transform: translateY(-130px) translateX(var(--drift)) rotate(2deg); opacity: 0; }
     }
 
     .overlay {
@@ -700,8 +700,8 @@
     }
     setInterval(draw, 45);
 
-    // ==================== ORDERLY FLOATING WHISPERS (clean lanes – no collisions) ====================
-    const rpMessages = [
+    // ==================== ORDERLY FLOATING WHISPERS (one behind the other, no crossing) ====================
+    const rpMessages = [ /* your full 90 messages – unchanged */ 
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
       {user: "@thornedrose", text: "Her pussy clenched around his fingers as he curled them hard against her G-spot, making her squirt all over his hand."},
@@ -789,11 +789,10 @@
       {user: "@cockworshipvelvet", text: "She worshipped his cock with her mouth and tongue like it was her god."}
     ];
 
-    // 5 clean vertical lanes – messages rise in order, never overlap
-    const lanes = [9, 28, 47, 66, 85];   // vw positions
+    const lanes = [12, 34, 56, 78]; // 4 wide, clean lanes
     let laneIndex = 0;
 
-    function createRPWhisper() {
+    function createRPWhisper(startBottom = '-30px') {
       const container = document.getElementById('rp-whispers');
       const msg = rpMessages[Math.floor(Math.random() * rpMessages.length)];
       
@@ -801,33 +800,33 @@
       whisper.className = 'whisper';
       whisper.innerHTML = '<span class="username">' + msg.user + '</span>' + msg.text;
 
-      // Assign to next lane (orderly columns)
       whisper.style.left = lanes[laneIndex] + 'vw';
       laneIndex = (laneIndex + 1) % lanes.length;
 
-      // Start from bottom, rise straight up
-      whisper.style.bottom = '-30px';
-
-      // Nice varied speed + gentle drift
-      whisper.style.animationDuration = (28 + Math.random() * 32) + 's';
-      const drift = (Math.random() - 0.5) * 70 + 'px';
+      whisper.style.bottom = startBottom;
+      whisper.style.animationDuration = '39s';           // fixed speed so they stay in perfect order
+      const drift = (Math.random() - 0.5) * 55 + 'px';
       whisper.style.setProperty('--drift', drift);
 
       container.appendChild(whisper);
-
-      // Auto-remove after animation
-      setTimeout(() => whisper.remove(), 135000);
+      setTimeout(() => whisper.remove(), 140000);
     }
 
-    // Start whispers in an orderly flow
+    // START IMMEDIATELY – first message high up (upper portion), then ordered behind it
     window.addEventListener('load', () => {
-      for (let i = 0; i < 7; i++) {
-        setTimeout(createRPWhisper, i * 1100);
-      }
+      const initialBottoms = ['78vh', '59vh', '41vh', '24vh', '8vh', '-12vh', '-28vh', '-42vh'];
+      
+      initialBottoms.forEach((bottomPos, i) => {
+        setTimeout(() => {
+          createRPWhisper(bottomPos);
+        }, i * 280);
+      });
     });
 
-    // Steady stream: one new message every ~2.4 seconds
-    setInterval(createRPWhisper, 2400);
+    // Steady flow from bottom (one every ~3.2s so they stay neatly spaced)
+    setInterval(() => {
+      createRPWhisper('-30px');
+    }, 3200);
 
     // Fake counters
     function updateMemberCount() {

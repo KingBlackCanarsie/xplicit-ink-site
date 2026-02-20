@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- DEPLOY TEST 2025-02-20 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -29,6 +28,7 @@
       min-height: 100vh;
     }
 
+    /* PURPLE MATRIX RAIN – behind everything */
     #matrix {
       position: fixed;
       top: 0; left: 0;
@@ -45,43 +45,43 @@
       z-index: 1;
       pointer-events: none;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
-      padding-bottom: 20vh;
       opacity: 0.88;
     }
 
-    .whisper {
-      max-width: 420px;
-      width: 90%;
-      margin: 18px 0;
-      padding: 16px 22px;
-      background: rgba(15, 10, 35, 0.68);
-      border-left: 5px solid #a78bfa;
-      color: #e8d9ff;
-      font-size: 0.975rem;
-      line-height: 1.58;
-      border-radius: 8px 16px 16px 8px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.8);
-      text-shadow: 0 1px 6px rgba(0,0,0,0.85);
-      opacity: 0;
-      transform: translateY(80px);
-      transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+    @media (max-width: 768px) {
+      #rp-whispers { opacity: 0.72; }
     }
 
-    .whisper.visible {
-      opacity: 0.92;
-      transform: translateY(0);
+    .whisper {
+      position: absolute;
+      max-width: 390px;
+      padding: 15px 21px;
+      background: rgba(15, 10, 35, 0.62);
+      border-left: 4px solid #a78bfa;
+      color: #e8d9ff;
+      font-size: 0.975rem;
+      line-height: 1.56;
+      border-radius: 7px 15px 15px 7px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.75);
+      font-family: Georgia, serif;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.85);
+      animation: whisperRise linear forwards;
+      will-change: transform, opacity;
     }
 
     .whisper .username {
       color: #d4b8ff;
       font-weight: 700;
       display: block;
-      margin-bottom: 9px;
-      font-size: 0.94rem;
+      margin-bottom: 8px;
+      font-size: 0.92rem;
+    }
+
+    @keyframes whisperRise {
+      0%   { transform: translateY(0) translateX(0) rotate(-1deg); opacity: 0; }
+      8%   { opacity: 0.88; }
+      92%  { opacity: 0.88; }
+      100% { transform: translateY(-130px) translateX(var(--drift)) rotate(2deg); opacity: 0; }
     }
 
     .overlay {
@@ -491,9 +491,14 @@
 </head>
 <body>
 
+  <!-- PURPLE MATRIX RAIN -->
   <canvas id="matrix"></canvas>
+
   <div id="rp-whispers"></div>
   <div class="overlay"></div>
+
+  <div class="particles-bg"></div>
+  <div class="ink-particles"></div>
 
   <div class="ink-cursor" id="cursor"></div>
 
@@ -528,6 +533,7 @@
 
         <div class="bulletin-board">
           <div class="board-track">
+            <!-- HALF 1 -->
             <div class="board-item"><strong id="memberCount">742</strong> members</div>
             <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -552,6 +558,7 @@
             <div class="board-item">The ink's <strong>dripping</strong></div>
             <div class="board-item">Stories unfolding</div>
 
+            <!-- HALF 2 -->
             <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
             <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
             <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
@@ -656,7 +663,7 @@
   </div>
 
   <script>
-    // Matrix rain
+    // ==================== PURPLE MATRIX RAIN ====================
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -693,7 +700,7 @@
     }
     setInterval(draw, 45);
 
-    // OPTION 7 - Single centered column, no overlap
+    // ==================== ORIGINAL WHISPER SYSTEM (reverted) ====================
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
@@ -782,32 +789,44 @@
       {user: "@cockworshipvelvet", text: "She worshipped his cock with her mouth and tongue like it was her god."}
     ];
 
-    function addWhisper() {
+    const lanes = [12, 34, 56, 78];
+    let laneIndex = 0;
+
+    function createRPWhisper(startBottom = '-30px') {
       const container = document.getElementById('rp-whispers');
       const msg = rpMessages[Math.floor(Math.random() * rpMessages.length)];
 
       const whisper = document.createElement('div');
       whisper.className = 'whisper';
-      whisper.innerHTML = `<span class="username">\( {msg.user}</span> \){msg.text}`;
+      whisper.innerHTML = '<span class="username">' + msg.user + '</span>' + msg.text;
+
+      whisper.style.left = lanes[laneIndex] + 'vw';
+      laneIndex = (laneIndex + 1) % lanes.length;
+
+      whisper.style.bottom = startBottom;
+      whisper.style.animationDuration = '39s';
+      const drift = (Math.random() - 0.5) * 55 + 'px';
+      whisper.style.setProperty('--drift', drift);
 
       container.appendChild(whisper);
-
-      setTimeout(() => {
-        whisper.classList.add('visible');
-      }, 50);
-
-      if (container.children.length > 12) {
-        container.removeChild(container.firstChild);
-      }
+      setTimeout(() => whisper.remove(), 140000);
     }
 
+    // Start immediately – first messages high up
     window.addEventListener('load', () => {
-      for (let i = 0; i < 8; i++) {
-        setTimeout(addWhisper, i * 1300);
-      }
+      const initialBottoms = ['78vh', '59vh', '41vh', '24vh', '8vh', '-12vh', '-28vh', '-42vh'];
+
+      initialBottoms.forEach((bottomPos, i) => {
+        setTimeout(() => {
+          createRPWhisper(bottomPos);
+        }, i * 280);
+      });
     });
 
-    setInterval(addWhisper, 5200);
+    // Steady flow
+    setInterval(() => {
+      createRPWhisper('-30px');
+    }, 3200);
 
     // Fake counters
     function updateMemberCount() {
@@ -862,4 +881,3 @@
   </script>
 </body>
 </html>
-

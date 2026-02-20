@@ -63,7 +63,7 @@
       border-radius: 12px 24px 24px 12px;
       box-shadow: 0 12px 48px rgba(0,0,0,0.85);
       text-shadow: 0 1px 8px rgba(0,0,0,0.9);
-      opacity: 1;                      /* always fully visible – no fade */
+      opacity: 1;
       animation: stayThenRise 21s linear forwards;
       will-change: transform;
     }
@@ -86,15 +86,9 @@
     }
 
     @keyframes stayThenRise {
-      0% {
-        transform: translate(-50%, 0);
-      }
-      33.33% {                        /* 7 seconds / 21 seconds total = 33.33% */
-        transform: translate(-50%, 0);
-      }
-      100% {
-        transform: translate(-50%, -1400px);  /* 14-second slow rise – fully out of view */
-      }
+      0% { transform: translate(-50%, 0); }
+      33.33% { transform: translate(-50%, 0); }      /* 7s stay */
+      100% { transform: translate(-50%, -1400px); }  /* 14s slow rise */
     }
 
     .overlay {
@@ -103,11 +97,6 @@
       background: rgba(10, 5, 20, 0.19);
       z-index: 2;
       pointer-events: none;
-    }
-
-    .main-content {
-      position: relative;
-      z-index: 50;
     }
 
     .header {
@@ -119,16 +108,6 @@
       padding: 12px 16px;
       border-bottom: 1px solid rgba(167, 139, 250, 0.5);
       z-index: 140;
-    }
-
-    @media (max-width: 768px) {
-      .header { padding: 10px 12px; }
-      .hero { padding-top: 130px !important; }
-      .whisper {
-        max-width: 90%;
-        padding: 18px 24px;
-        font-size: 0.98rem;
-      }
     }
 
     .header-inner {
@@ -167,38 +146,16 @@
       color: #f0e0ff;
     }
 
-    .hero {
-      min-height: 70vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 15px 40px;
+    /* Bulletin board moved up, right after header */
+    .top-section {
+      padding-top: 90px; /* space below fixed header */
       text-align: center;
       position: relative;
-    }
-
-    h1 {
-      font-size: clamp(3.2rem, 11vw, 5.8rem);
-      margin: 0 auto 0.6rem;
-      color: #f0e0ff;
-      text-shadow: 0 0 40px #a78bfa, 0 0 80px #6a32ff;
-      letter-spacing: clamp(2px, 0.8vw, 5px);
-      line-height: 1.05;
-      font-weight: 900;
-      max-width: 95vw;
-    }
-
-    .tagline {
-      font-size: clamp(1.3rem, 5vw, 1.8rem);
-      color: #ffffff;
-      margin: 0.6rem auto 1.2rem;
-      text-shadow: 0 0 20px #a78bfa;
-      line-height: 1.45;
-      max-width: 90vw;
+      z-index: 50;
     }
 
     .bulletin-board {
-      margin: 1.5rem auto;
+      margin: 1rem auto;
       max-width: calc(100% - 30px);
       width: 100%;
       background: rgba(49, 51, 56, 0.8);
@@ -234,6 +191,20 @@
     @keyframes scrollLeft {
       0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 768px) {
+      .bulletin-board { height: 65px; margin: 0.8rem 15px; }
+      .board-item { font-size: 0.95rem; padding: 0 3.2rem; }
+    }
+
+    .tagline {
+      font-size: clamp(1.3rem, 5vw, 1.8rem);
+      color: #ffffff;
+      margin: 1.2rem auto 2rem;
+      text-shadow: 0 0 20px #a78bfa;
+      line-height: 1.45;
+      max-width: 90vw;
     }
 
     .join-container {
@@ -519,79 +490,74 @@
     </div>
   </header>
 
-  <div class="main-content">
+  <!-- Moved bulletin board + tagline up here -->
+  <div class="top-section">
+    <div class="bulletin-board">
+      <div class="board-track">
+        <div class="board-item"><strong id="memberCount">742</strong> members</div>
+        <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
+        <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
+        <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
+        <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
+        <div class="board-item">"Best RP server ever" – @shadowquill</div>
+        <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
+        <div class="board-item">"Feels like late-night calls from the 2000s" – @dialtone</div>
+        <div class="board-item">"I came for the kink, stayed for the people" – @softsin</div>
+        <div class="board-item">"Mods actually care, wild concept" – @ghostink</div>
+        <div class="board-item">"RP here hits different" – @noirscript</div>
+        <div class="board-item">"VC nights are dangerously addictive" – @moanline</div>
+        <div class="board-item">"Best blend of cozy + filthy" – @inkedheart</div>
+        <div class="board-item">💦｜ X-Stream live</div>
+        <div class="board-item">📺｜𝖲treams active</div>
+        <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
+        <div class="board-item">Voice Lounge 🔥 live</div>
+        <div class="board-item">Steamy Whispers active</div>
+        <div class="board-item">Late Night Ink dripping</div>
+        <div class="board-item">Dark Desires RP</div>
+        <div class="board-item">Forbidden Ink Tales</div>
+        <div class="board-item">The ink's <strong>dripping</strong></div>
+        <div class="board-item">Stories unfolding</div>
 
-    <section class="hero reveal-on-scroll">
-      <div style="max-width: 620px; margin: 0 auto; padding: 0 10px;">
-        <h1>The Xplicit Ink</h1>
-        <p class="tagline">A quiet gathering for people who miss when the internet felt human.</p>
-
-        <div class="join-container">
-          <a href="https://discord.gg/RGwnBbnzgA" class="enter-button" target="_blank">
-            Enter the Ink 🔥
-          </a>
-          <span class="badge">18+ Only – No Exceptions</span>
-        </div>
-
-        <div class="bulletin-board">
-          <div class="board-track">
-            <div class="board-item"><strong id="memberCount">742</strong> members</div>
-            <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
-            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
-            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
-            <div class="board-item">"Best RP server ever" – @shadowquill</div>
-            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
-            <div class="board-item">"Feels like late-night calls from the 2000s" – @dialtone</div>
-            <div class="board-item">"I came for the kink, stayed for the people" – @softsin</div>
-            <div class="board-item">"Mods actually care, wild concept" – @ghostink</div>
-            <div class="board-item">"RP here hits different" – @noirscript</div>
-            <div class="board-item">"VC nights are dangerously addictive" – @moanline</div>
-            <div class="board-item">"Best blend of cozy + filthy" – @inkedheart</div>
-            <div class="board-item">💦｜ X-Stream live</div>
-            <div class="board-item">📺｜𝖲treams active</div>
-            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
-            <div class="board-item">Voice Lounge 🔥 live</div>
-            <div class="board-item">Steamy Whispers active</div>
-            <div class="board-item">Late Night Ink dripping</div>
-            <div class="board-item">Dark Desires RP</div>
-            <div class="board-item">Forbidden Ink Tales</div>
-            <div class="board-item">The ink's <strong>dripping</strong></div>
-            <div class="board-item">Stories unfolding</div>
-
-            <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
-            <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
-            <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-            <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
-            <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
-            <div class="board-item">"Best RP server ever" – @shadowquill</div>
-            <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
-            <div class="board-item">"Feels like late-night calls from the 2000s" – @dialtone</div>
-            <div class="board-item">"I came for the kink, stayed for the people" – @softsin</div>
-            <div class="board-item">"Mods actually care, wild concept" – @ghostink</div>
-            <div class="board-item">"RP here hits different" – @noirscript</div>
-            <div class="board-item">"VC nights are dangerously addictive" – @moanline</div>
-            <div class="board-item">"Best blend of cozy + filthy" – @inkedheart</div>
-            <div class="board-item">💦｜ X-Stream live</div>
-            <div class="board-item">📺｜𝖲treams active</div>
-            <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
-            <div class="board-item">Voice Lounge 🔥 live</div>
-            <div class="board-item">Steamy Whispers active</div>
-            <div class="board-item">Late Night Ink dripping</div>
-            <div class="board-item">Dark Desires RP</div>
-            <div class="board-item">Forbidden Ink Tales</div>
-            <div class="board-item">The ink's <strong>dripping</strong></div>
-            <div class="board-item">Stories unfolding</div>
-          </div>
-        </div>
-
-        <p class="social-proof">The Ink's Dripping. 600+ Locked in 🔥 – new join</p>
-
-        <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
-
-        <div class="scroll-hint">↓</div>
+        <!-- duplicate for seamless loop -->
+        <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
+        <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
+        <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
+        <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
+        <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
+        <div class="board-item">"Best RP server ever" – @shadowquill</div>
+        <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
+        <div class="board-item">"Feels like late-night calls from the 2000s" – @dialtone</div>
+        <div class="board-item">"I came for the kink, stayed for the people" – @softsin</div>
+        <div class="board-item">"Mods actually care, wild concept" – @ghostink</div>
+        <div class="board-item">"RP here hits different" – @noirscript</div>
+        <div class="board-item">"VC nights are dangerously addictive" – @moanline</div>
+        <div class="board-item">"Best blend of cozy + filthy" – @inkedheart</div>
+        <div class="board-item">💦｜ X-Stream live</div>
+        <div class="board-item">📺｜𝖲treams active</div>
+        <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
+        <div class="board-item">Voice Lounge 🔥 live</div>
+        <div class="board-item">Steamy Whispers active</div>
+        <div class="board-item">Late Night Ink dripping</div>
+        <div class="board-item">Dark Desires RP</div>
+        <div class="board-item">Forbidden Ink Tales</div>
+        <div class="board-item">The ink's <strong>dripping</strong></div>
+        <div class="board-item">Stories unfolding</div>
       </div>
-    </section>
+    </div>
+
+    <p class="tagline">A quiet gathering for people who miss when the internet felt human.</p>
+
+    <div class="join-container">
+      <a href="https://discord.gg/RGwnBbnzgA" class="enter-button" target="_blank">
+        Enter the Ink 🔥
+      </a>
+      <span class="badge">18+ Only – No Exceptions</span>
+    </div>
+
+    <a href="manifesto.html" class="manifesto-link">Read the Manifesto</a>
+  </div>
+
+  <div class="main-content">
 
     <section class="reveal-on-scroll">
       <h2 class="section-title">Sneak Peek Inside</h2>
@@ -804,12 +770,10 @@
 
       container.appendChild(whisper);
 
-      // Remove after full animation completes (21 seconds)
       setTimeout(() => {
         if (whisper.parentNode) whisper.parentNode.removeChild(whisper);
       }, 21000);
 
-      // Next message starts after exactly 10 seconds
       setTimeout(showNextWhisper, 10000);
     }
 

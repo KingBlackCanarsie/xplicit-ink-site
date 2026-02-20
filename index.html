@@ -44,31 +44,27 @@
       z-index: 1;
       pointer-events: none;
       overflow: hidden;
-      opacity: 0.88;
-    }
-
-    @media (max-width: 768px) {
-      #rp-whispers { opacity: 0.72; }
+      opacity: 0.92;
     }
 
     .whisper {
       position: absolute;
       left: 50%;
       top: 55%;
-      transform: translate(-50%, 80px);
-      max-width: 680px;                /* ← wider for landscape feel */
+      transform: translate(-50%, 0);
+      max-width: 680px;
       width: 92%;
-      padding: 24px 32px;              /* ← more horizontal space */
+      padding: 24px 32px;
       background: rgba(15, 10, 35, 0.74);
       border-left: 5px solid #a78bfa;
       color: #e8d9ff;
-      font-size: 1.05rem;              /* slightly larger text for readability */
+      font-size: 1.05rem;
       line-height: 1.65;
       border-radius: 12px 24px 24px 12px;
       box-shadow: 0 12px 48px rgba(0,0,0,0.85);
       text-shadow: 0 1px 8px rgba(0,0,0,0.9);
-      opacity: 1;                      /* no fade — always fully visible */
-      animation: slowRiseAndExit 18s linear forwards;  /* slow upward movement */
+      opacity: 1;                      /* always fully visible – no fade */
+      animation: stayThenRise 18s linear forwards;
       will-change: transform;
     }
 
@@ -89,18 +85,15 @@
       font-size: 1.1rem;
     }
 
-    @keyframes slowRiseAndExit {
+    @keyframes stayThenRise {
       0% {
-        transform: translate(-50%, 120px);   /* starts lower */
+        transform: translate(-50%, 0);
       }
-      20% {
-        transform: translate(-50%, 0);       /* reaches center/readable position */
-      }
-      80% {
-        transform: translate(-50%, 0);       /* stays readable for a while */
+      38.88% {                        /* 7 seconds / 18 seconds total ≈ 38.9% */
+        transform: translate(-50%, 0);
       }
       100% {
-        transform: translate(-50%, -1400px); /* moves far up — completely out of view */
+        transform: translate(-50%, -1400px);  /* slow upward exit – fully out of view */
       }
     }
 
@@ -193,8 +186,6 @@
       line-height: 1.05;
       font-weight: 900;
       max-width: 95vw;
-      overflow-wrap: break-word;
-      hyphens: auto;
     }
 
     .tagline {
@@ -243,11 +234,6 @@
     @keyframes scrollLeft {
       0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
-    }
-
-    @media (max-width: 768px) {
-      .bulletin-board { margin: 1rem 15px; height: 65px; }
-      .board-item { font-size: 0.95rem; padding: 0 3.2rem; }
     }
 
     .join-container {
@@ -305,7 +291,7 @@
       transform: translateX(-50%);
       font-size: 2.5rem;
       color: #c6b8ff;
-      animation: bounce 2s infinite, fadeOut 8s forwards 4s;
+      animation: bounce 2s infinite;
       opacity: 0.8;
       text-shadow: 0 0 12px #a78bfa;
       pointer-events: none;
@@ -315,10 +301,6 @@
       0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
       40% { transform: translateX(-50%) translateY(-20px); }
       60% { transform: translateX(-50%) translateY(-10px); }
-    }
-
-    @keyframes fadeOut {
-      to { opacity: 0; }
     }
 
     section {
@@ -517,7 +499,6 @@
 <body>
 
   <canvas id="matrix"></canvas>
-
   <div id="rp-whispers"></div>
   <div class="overlay"></div>
 
@@ -719,7 +700,7 @@
     }
     setInterval(draw, 45);
 
-    // WHISPER SYSTEM – SLOW UPWARD MOVEMENT, NO FADE
+    // WHISPER SYSTEM – 7s stay + slow upward move, no fade, next after 10s
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
@@ -823,13 +804,13 @@
 
       container.appendChild(whisper);
 
-      // Remove after full animation completes (18s)
+      // Remove after full animation completes (18 seconds)
       setTimeout(() => {
         if (whisper.parentNode) whisper.parentNode.removeChild(whisper);
       }, 18000);
 
-      // Next message after 5 seconds (slow flow, readable overlap)
-      setTimeout(showNextWhisper, 5000);
+      // Next message starts after exactly 10 seconds
+      setTimeout(showNextWhisper, 10000);
     }
 
     window.addEventListener('load', () => {

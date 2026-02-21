@@ -47,11 +47,11 @@
     .whisper {
       position: absolute;
       left: 50%;
-      top: 45%;
+      top: 55%;
       transform: translate(-50%, 0);
       max-width: 680px;
       width: 92%;
-      padding: 18px 26px;
+      padding: 20px 28px;
       background: rgba(15, 10, 35, 0.74);
       border-left: 5px solid #a78bfa;
       color: #e8d9ff;
@@ -67,9 +67,9 @@
     @media (max-width: 768px) {
       .whisper {
         font-size: 0.90rem;
-        padding: 14px 20px;
+        padding: 16px 22px;
         max-width: 88vw;
-        top: 42%;
+        top: 50%;
       }
     }
 
@@ -154,17 +154,13 @@
       text-align: center;
       position: relative;
       z-index: 50;
-      min-height: 70vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
 
     .tagline-fancy {
       font-family: 'Great Vibes', cursive;
       font-size: clamp(1.8rem, 6vw, 2.8rem);
       color: #e0d0ff;
-      margin: 0 auto 2rem;
+      margin: 1rem auto 2rem;
       text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff;
       letter-spacing: 2px;
       max-width: 90%;
@@ -174,15 +170,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 1.5rem 0 4rem;
+      margin: 1.5rem 0 3rem;
     }
 
     .enter-button {
       padding: clamp(1rem, 4vw, 1.4rem) clamp(2.5rem, 7vw, 5rem);
       font-size: clamp(1.3rem, 5vw, 1.8rem);
-      background: linear-gradient(135deg, #5b3cb9, #7b52ff);
+      background: #5b3cb9;
       color: white;
-      border: 2px solid #c6b8ff;
+      border: 2px solid #a78bfa;
       border-radius: 14px;
       box-shadow: 0 0 40px #a78bfa;
       text-decoration: none;
@@ -196,41 +192,35 @@
     }
 
     .badge {
-      margin: 1rem auto 0;
-      padding: 0.8rem 1.8rem;
-      background: rgba(220,20,60,0.85);
+      margin: 0.8rem auto 0;
+      padding: 0.7rem 1.6rem;
+      background: rgba(255,0,0,0.75);
       border-radius: 30px;
-      font-size: clamp(1.1rem, 4.5vw, 1.3rem);
+      font-size: clamp(1.05rem, 4vw, 1.25rem);
       color: white;
       font-weight: bold;
-      box-shadow: 0 0 25px rgba(220,20,60,0.7);
+      box-shadow: 0 0 20px rgba(255,0,0,0.5);
     }
 
-    /* Bottom banner section – positioned lower but still in first viewport */
-    .bottom-banner {
-      margin: 6rem auto 3rem; /* increased top margin → moved down a bit more */
+    .bulletin-container {
+      margin: 2rem auto 4rem;
       max-width: 1100px;
       padding: 0 15px;
-      text-align: center;
-    }
-
-    @media (max-width: 768px) {
-      .bottom-banner { margin: 4rem auto 2rem; }
     }
 
     .bulletin-board {
-      margin: 0 auto 1.2rem;
+      margin: 0 auto 1rem;
       max-width: calc(100% - 20px);
       background: rgba(49,51,56,0.82);
       border-radius: 12px;
       border: 1px solid rgba(167,139,250,0.45);
       box-shadow: 0 0 25px rgba(167,139,250,0.35);
       overflow: hidden;
-      height: 48px;
+      height: 54px;
     }
 
     @media (max-width: 768px) {
-      .bulletin-board { height: 44px; margin: 0 12px; }
+      .bulletin-board { height: 50px; margin: 0 12px; }
     }
 
     .board-track {
@@ -243,49 +233,44 @@
 
     .board-item {
       color: #e0d0ff;
-      font-size: 0.90rem;
-      padding: 0 3rem;
+      font-size: 0.92rem;
+      padding: 0 3.5rem;
       text-shadow: 0 0 8px #a78bfa;
     }
 
     @media (max-width: 768px) {
-      .board-item { font-size: 0.86rem; padding: 0 2.5rem; }
+      .board-item { font-size: 0.88rem; padding: 0 2.8rem; }
     }
 
     .board-item strong { color: #ff7777; margin-right: 0.5rem; }
+
+    .manifesto-in-ticker {
+      color: #c6b8ff !important;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .manifesto-in-ticker:hover {
+      color: #fff !important;
+      text-shadow: 0 0 12px #c6b8ff;
+    }
 
     @keyframes scrollLeft {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
 
-    .manifesto-link-bottom {
-      display: block;
-      margin: 1rem auto 1.5rem;
-      color: #c6b8ff;
-      text-decoration: underline;
-      font-size: 1.25rem;
-      font-weight: bold;
-    }
-
-    .manifesto-link-bottom:hover {
-      color: #fff;
-      text-shadow: 0 0 12px #c6b8ff;
-    }
-
     .social-proof {
-      font-family: 'Great Vibes', cursive;
-      font-size: 1.15rem;
-      color: #ff4444;
-      text-shadow: 0 0 20px #ff0000, 0 0 30px #ff4444, 0 0 40px #ff7777;
-      letter-spacing: 1px;
+      font-size: 1.25rem;
+      color: #ff7777;
+      margin: 0 auto 3rem;
+      text-shadow: 0 0 12px #ff4444;
+      text-align: center;
       font-weight: bold;
-      margin: 0 auto;
-      max-width: 90%;
     }
 
     section {
-      padding: 80px 20px;
+      padding: 120px 20px 80px;
       max-width: 1100px;
       margin: 0 auto;
     }
@@ -302,7 +287,7 @@
     }
 
     .section-title {
-      font-size: clamp(2.2rem, 6vw, 2.8rem);
+      font-size: clamp(2.2rem, 6vw, 2.8rem);  /* smaller than before */
       color: #c6b8ff;
       text-align: center;
       margin-bottom: 2rem;
@@ -514,6 +499,48 @@
     </div>
   </div>
 
+  <!-- Moved banner + manifesto + dripping text here, above Sneak Peek -->
+  <div class="bulletin-container">
+    <div class="bulletin-board">
+      <div class="board-track">
+        <div class="board-item"><strong id="memberCount">742</strong> members</div>
+        <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
+        <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
+        <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
+        <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
+        <div class="board-item">"Best RP server ever" – @shadowquill</div>
+        <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
+        <div class="board-item">"Feels like late-night calls from the 2000s" – @dialtone</div>
+        <div class="board-item">"I came for the kink, stayed for the people" – @softsin</div>
+        <div class="board-item">"Mods actually care, wild concept" – @ghostink</div>
+        <div class="board-item">"RP here hits different" – @noirscript</div>
+        <div class="board-item">"VC nights are dangerously addictive" – @moanline</div>
+        <div class="board-item">"Best blend of cozy + filthy" – @inkedheart</div>
+        <div class="board-item">💦｜ X-Stream live</div>
+        <div class="board-item">📺｜𝖲treams active</div>
+        <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
+        <div class="board-item">Voice Lounge 🔥 live</div>
+        <div class="board-item">Steamy Whispers active</div>
+        <div class="board-item">Late Night Ink dripping</div>
+        <div class="board-item">Dark Desires RP</div>
+        <div class="board-item">Forbidden Ink Tales</div>
+
+        <div class="board-item"><a href="manifesto.html" class="manifesto-in-ticker">Read the Manifesto</a></div>
+
+        <div class="board-item">The ink's <strong>dripping</strong></div>
+        <div class="board-item">Stories unfolding</div>
+
+        <!-- Duplicates for smooth loop -->
+        <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
+        <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
+        <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
+        <!-- ... add remaining duplicate items here if needed ... -->
+      </div>
+    </div>
+
+    <p class="social-proof">The Ink's Dripping. 600+ Locked in 🔥 – new join</p>
+  </div>
+
   <div class="main-content">
 
     <section class="reveal-on-scroll">
@@ -566,50 +593,6 @@
         </a>
       </div>
     </section>
-
-    <!-- Bulletin + Manifesto + Dripping text – positioned lower but still visible on first screen -->
-    <div class="bottom-banner">
-      <div class="bulletin-board">
-        <div class="board-track">
-          <div class="board-item"><strong id="memberCount">742</strong> members</div>
-          <div class="board-item"><strong id="onlineCount">158</strong> online now</div>
-          <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-          <div class="board-item">"Safe, creative, steamy – hooked!" – @velvetquill</div>
-          <div class="board-item">"Voice rooms are 🔥" – @inkbound</div>
-          <div class="board-item">"Best RP server ever" – @shadowquill</div>
-          <div class="board-item">"Literary kink heaven" – @velvetthorn</div>
-          <div class="board-item">"Feels like late-night calls from the 2000s" – @dialtone</div>
-          <div class="board-item">"I came for the kink, stayed for the people" – @softsin</div>
-          <div class="board-item">"Mods actually care, wild concept" – @ghostink</div>
-          <div class="board-item">"RP here hits different" – @noirscript</div>
-          <div class="board-item">"VC nights are dangerously addictive" – @moanline</div>
-          <div class="board-item">"Best blend of cozy + filthy" – @inkedheart</div>
-          <div class="board-item">💦｜ X-Stream live</div>
-          <div class="board-item">📺｜𝖲treams active</div>
-          <div class="board-item">🗣️｜𝖬ic 𝖢hat buzzing</div>
-          <div class="board-item">Voice Lounge 🔥 live</div>
-          <div class="board-item">Steamy Whispers active</div>
-          <div class="board-item">Late Night Ink dripping</div>
-          <div class="board-item">Dark Desires RP</div>
-          <div class="board-item">Forbidden Ink Tales</div>
-
-          <div class="board-item"><a href="manifesto.html" class="manifesto-in-ticker">Read the Manifesto</a></div>
-
-          <div class="board-item">The ink's <strong>dripping</strong></div>
-          <div class="board-item">Stories unfolding</div>
-
-          <!-- Duplicates for loop -->
-          <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
-          <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
-          <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-          <!-- ... remaining duplicates if desired ... -->
-        </div>
-      </div>
-
-      <a href="manifesto.html" class="manifesto-link-bottom">Read the Manifesto</a>
-
-      <p class="social-proof">The Ink's Dripping. 600+ Locked in 🔥 – new join</p>
-    </div>
 
     <section class="cta reveal-on-scroll">
       <h2 style="font-size: clamp(2.5rem, 8vw, 3.8rem); margin-bottom:1rem; color:#c6b8ff; text-shadow:0 0 20px #a78bfa;">
@@ -665,7 +648,7 @@
     }
     setInterval(draw, 45);
 
-    // WHISPER SYSTEM
+    // WHISPER SYSTEM – 7s stay + 14s rise, next after 10s
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
@@ -833,3 +816,4 @@
   </script>
 </body>
 </html>
+

@@ -11,7 +11,7 @@
     body {
       margin: 0;
       padding: 0;
-      min-height: 100vh; /* Fills screen but allows growth */
+      min-height: 100vh;
       width: 100vw;
       background: url('https://live.staticflickr.com/65535/55102665340_c58cd2328b_b.jpg') no-repeat center center fixed;
       background-size: cover;
@@ -19,14 +19,13 @@
       color: #e8e0ff;
       display: flex;
       flex-direction: column;
-      justify-content: center; /* Centers when content fits */
+      justify-content: center;
       align-items: center;
       text-align: center;
-      overflow-y: auto; /* Enables scrolling when content is tall */
+      overflow-y: auto;
       cursor: none;
     }
 
-    /* Purple Matrix Rain - kept subtle */
     #matrix {
       position: fixed;
       top: 0; left: 0;
@@ -37,7 +36,6 @@
       opacity: 0.35;
     }
 
-    /* Dark overlay */
     .overlay {
       position: fixed;
       top: 0; left: 0;
@@ -51,11 +49,10 @@
       z-index: 2;
     }
 
-    /* Text container */
     .text-blocks {
       position: relative;
       z-index: 3;
-      margin: 8vh 0 12vh 0; /* Extra bottom margin for scroll room */
+      margin: 8vh 0 6vh 0;          /* ← reduced bottom margin → pulls back link up */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -65,7 +62,7 @@
 
     .fade-block {
       max-width: 700px;
-      font-size: clamp(1.3rem, 4vw, 1.7rem); /* Responsive font */
+      font-size: clamp(1.3rem, 4vw, 1.7rem);
       opacity: 0;
       animation: fadeInOut 12s ease-in-out infinite;
       line-height: 1.6;
@@ -83,7 +80,6 @@
       50% { opacity: 0.4; }
     }
 
-    /* Glowing trailing cursor */
     .ink-cursor {
       position: fixed;
       width: 24px;
@@ -118,11 +114,10 @@
       }
     }
 
-    /* Back link - now always scrollable */
     .back-link {
       position: relative;
       z-index: 3;
-      margin: 4vh 0 8vh 0; /* Extra bottom space */
+      margin: 2vh 0 4vh 0;          /* ← moved up significantly (was 8vh top) */
       padding: 1rem 2rem;
       font-size: clamp(1.1rem, 4vw, 1.3rem);
       color: #d6caff;
@@ -138,13 +133,8 @@
 </head>
 <body>
 
-  <!-- Purple Matrix Rain -->
   <canvas id="matrix"></canvas>
-
-  <!-- Overlay -->
   <div class="overlay"></div>
-
-  <!-- Glowing Cursor -->
   <div class="ink-cursor" id="cursor"></div>
 
   <div class="text-blocks">
@@ -156,7 +146,7 @@
   <a href="/" class="back-link">← Back to Home</a>
 
   <script>
-    // Purple Matrix Rain - light version
+    // Purple Matrix Rain
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 

@@ -51,7 +51,7 @@
       transform: translate(-50%, 0);
       max-width: 680px;
       width: 92%;
-      padding: 20px 28px;
+      padding: 32px 32px 24px 80px;     /* extra left padding for the large image */
       background: rgba(15, 10, 35, 0.74);
       border-left: 5px solid #a78bfa;
       color: #e8d9ff;
@@ -67,28 +67,26 @@
     .whisper::before {
       content: "";
       position: absolute;
-      left: -32px;
-      top: -16px;
-      width: 52px;
-      height: 52px;
-      background: url('https://i.postimg.cc/7YDThVVR/Screenshot-20260221-051719-Google.jpg') no-repeat center / contain;
-      opacity: 0.75; /* ← makes it translucent */
+      left: -18px;               /* hugs left side */
+      top: -28px;                /* hugs upper side */
+      width: 90px;
+      height: 90px;
+      background: url('https://i.postimg.cc/d0xZHcGY/1771669917645.png') no-repeat center / contain;
       z-index: 10;
-      filter: drop-shadow(0 0 10px rgba(255, 80, 150, 0.9));
+      filter: drop-shadow(0 0 10px rgba(255, 80, 150, 0.8)); /* optional subtle glow */
     }
 
     @media (max-width: 768px) {
       .whisper {
         font-size: 0.90rem;
-        padding: 16px 22px;
-        max-width: 88vw;
+        padding: 28px 28px 20px 70px;
         top: 57%;
       }
       .whisper::before {
-        left: -26px;
-        top: -14px;
-        width: 44px;
-        height: 44px;
+        left: -16px;
+        top: -24px;
+        width: 78px;
+        height: 78px;
       }
     }
 

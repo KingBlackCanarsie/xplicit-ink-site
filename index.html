@@ -203,7 +203,7 @@
     }
 
     .bulletin-container {
-      margin: 14.5rem auto 4rem;          /* ← increased to 14.5rem as requested */
+      margin: 14.5rem auto 4rem;          /* ← moved down to 14.5rem as requested */
       max-width: 1100px;
       padding: 0 15px;
       text-align: center;
@@ -266,12 +266,14 @@
     }
 
     .social-proof {
-      font-size: 1.25rem;
-      color: #ff7777;
-      margin: 0 auto 3rem;
-      text-shadow: 0 0 12px #ff4444;
-      text-align: center;
+      font-family: 'Great Vibes', cursive;   /* ← scripted font */
+      font-size: 1.1rem;                     /* ← made smaller */
+      color: #ff4444;
+      text-shadow: 0 0 20px #ff0000, 0 0 30px #ff4444, 0 0 40px #ff7777;
+      letter-spacing: 1px;
       font-weight: bold;
+      margin: 1.5rem auto 3rem;
+      max-width: 90%;
     }
 
     section {
@@ -504,7 +506,6 @@
     </div>
   </div>
 
-  <!-- Bulletin + Manifesto + Dripping text – positioned at 14.5rem top margin -->
   <div class="bulletin-container">
     <div class="bulletin-board">
       <div class="board-track">
@@ -539,7 +540,6 @@
         <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
         <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
         <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-        <!-- ... add remaining duplicate items here if needed ... -->
       </div>
     </div>
 
@@ -653,7 +653,7 @@
     }
     setInterval(draw, 45);
 
-    // WHISPER SYSTEM – 7s stay + 14s rise, next after 10s
+    // WHISPER SYSTEM
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},

@@ -154,13 +154,17 @@
       text-align: center;
       position: relative;
       z-index: 50;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .tagline-fancy {
       font-family: 'Great Vibes', cursive;
       font-size: clamp(1.8rem, 6vw, 2.8rem);
       color: #e0d0ff;
-      margin: 1rem auto 2rem;
+      margin: 0 auto 2rem;
       text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff;
       letter-spacing: 2px;
       max-width: 90%;
@@ -170,7 +174,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 1.5rem 0 4rem;
+      margin: 1.5rem 0;
     }
 
     .enter-button {
@@ -202,8 +206,9 @@
       box-shadow: 0 0 25px rgba(220,20,60,0.7);
     }
 
-    .bulletin-container {
-      margin: 5rem auto 3rem;
+    /* Bottom banner section */
+    .bottom-banner {
+      margin: 4rem auto 2rem;
       max-width: 1100px;
       padding: 0 15px;
       text-align: center;
@@ -217,7 +222,7 @@
       border: 1px solid rgba(167,139,250,0.45);
       box-shadow: 0 0 25px rgba(167,139,250,0.35);
       overflow: hidden;
-      height: 48px; /* smaller than before */
+      height: 48px;
     }
 
     @media (max-width: 768px) {
@@ -234,7 +239,7 @@
 
     .board-item {
       color: #e0d0ff;
-      font-size: 0.90rem; /* slightly smaller */
+      font-size: 0.90rem;
       padding: 0 3rem;
       text-shadow: 0 0 8px #a78bfa;
     }
@@ -245,12 +250,17 @@
 
     .board-item strong { color: #ff7777; margin-right: 0.5rem; }
 
+    @keyframes scrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
     .manifesto-link-bottom {
       display: block;
-      margin: 0.8rem auto 1.5rem;
+      margin: 1rem auto 1.5rem;
       color: #c6b8ff;
       text-decoration: underline;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: bold;
     }
 
@@ -260,13 +270,14 @@
     }
 
     .social-proof {
-      font-size: 1.4rem;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.15rem;              /* smaller font */
       color: #ff4444;
-      text-shadow: 0 0 20px #ff0000, 0 0 30px #ff4444;
-      font-weight: bold;
+      text-shadow: 0 0 20px #ff0000, 0 0 30px #ff4444, 0 0 40px #ff7777;
       letter-spacing: 1px;
+      font-weight: bold;
       margin: 0 auto;
-      text-align: center;
+      max-width: 90%;
     }
 
     section {
@@ -294,7 +305,7 @@
       text-shadow: 0 0 15px #a78bfa;
     }
 
-    /* teaser-grid, gallery, trust-block, cta styles remain the same */
+    /* teaser-grid, gallery, trust-block, cta styles (unchanged) */
     .teaser-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; margin-top: 40px; }
     .teaser-card { background: rgba(49,51,56,0.75); backdrop-filter: blur(12px); border: 1px solid rgba(167,139,250,0.4); border-radius: 16px; padding: 32px; box-shadow: 0 10px 40px rgba(106,50,255,0.2); transition: all 0.4s; text-align: center; }
     .teaser-card:hover { transform: translateY(-12px); box-shadow: 0 20px 70px rgba(167,139,250,0.35); }
@@ -412,8 +423,8 @@
       </div>
     </section>
 
-    <!-- Bulletin board, Manifesto link, and Dripping text at the bottom -->
-    <div class="bulletin-container">
+    <!-- Bottom banner section – visible on first screen (bottom part) -->
+    <div class="bottom-banner">
       <div class="bulletin-board">
         <div class="board-track">
           <div class="board-item"><strong id="memberCount">742</strong> members</div>
@@ -443,11 +454,11 @@
           <div class="board-item">The ink's <strong>dripping</strong></div>
           <div class="board-item">Stories unfolding</div>
 
-          <!-- Duplicates for seamless loop -->
+          <!-- Duplicates for smooth loop -->
           <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
           <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
           <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-          <!-- ... add remaining duplicate items if needed ... -->
+          <!-- ... add remaining duplicates if needed ... -->
         </div>
       </div>
 

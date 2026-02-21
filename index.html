@@ -47,11 +47,11 @@
     .whisper {
       position: absolute;
       left: 50%;
-      top: 45%;
+      top: 45%;                    /* moved higher so it's above the badge */
       transform: translate(-50%, 0);
       max-width: 680px;
       width: 92%;
-      padding: 18px 26px;
+      padding: 20px 28px;
       background: rgba(15, 10, 35, 0.74);
       border-left: 5px solid #a78bfa;
       color: #e8d9ff;
@@ -67,7 +67,7 @@
     @media (max-width: 768px) {
       .whisper {
         font-size: 0.90rem;
-        padding: 14px 20px;
+        padding: 16px 22px;
         max-width: 88vw;
         top: 42%;
       }
@@ -154,17 +154,13 @@
       text-align: center;
       position: relative;
       z-index: 50;
-      min-height: 70vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
 
     .tagline-fancy {
       font-family: 'Great Vibes', cursive;
       font-size: clamp(1.8rem, 6vw, 2.8rem);
       color: #e0d0ff;
-      margin: 0 auto 2rem;
+      margin: 1rem auto 2rem;
       text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff;
       letter-spacing: 2px;
       max-width: 90%;
@@ -174,15 +170,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 1.5rem 0;
+      margin: 1.5rem 0 4rem;
     }
 
     .enter-button {
       padding: clamp(1rem, 4vw, 1.4rem) clamp(2.5rem, 7vw, 5rem);
       font-size: clamp(1.3rem, 5vw, 1.8rem);
-      background: linear-gradient(135deg, #5b3cb9, #7b52ff);
+      background: #5b3cb9;
       color: white;
-      border: 2px solid #c6b8ff;
+      border: 2px solid #a78bfa;
       border-radius: 14px;
       box-shadow: 0 0 40px #a78bfa;
       text-decoration: none;
@@ -206,27 +202,25 @@
       box-shadow: 0 0 25px rgba(220,20,60,0.7);
     }
 
-    /* Bottom banner section */
-    .bottom-banner {
+    .bulletin-container {
       margin: 4rem auto 2rem;
       max-width: 1100px;
       padding: 0 15px;
-      text-align: center;
     }
 
     .bulletin-board {
-      margin: 0 auto 1.2rem;
+      margin: 0 auto 1rem;
       max-width: calc(100% - 20px);
       background: rgba(49,51,56,0.82);
       border-radius: 12px;
       border: 1px solid rgba(167,139,250,0.45);
       box-shadow: 0 0 25px rgba(167,139,250,0.35);
       overflow: hidden;
-      height: 48px;
+      height: 54px;
     }
 
     @media (max-width: 768px) {
-      .bulletin-board { height: 44px; margin: 0 12px; }
+      .bulletin-board { height: 50px; margin: 0 12px; }
     }
 
     .board-track {
@@ -239,45 +233,40 @@
 
     .board-item {
       color: #e0d0ff;
-      font-size: 0.90rem;
-      padding: 0 3rem;
+      font-size: 0.92rem;
+      padding: 0 3.5rem;
       text-shadow: 0 0 8px #a78bfa;
     }
 
     @media (max-width: 768px) {
-      .board-item { font-size: 0.86rem; padding: 0 2.5rem; }
+      .board-item { font-size: 0.88rem; padding: 0 2.8rem; }
     }
 
     .board-item strong { color: #ff7777; margin-right: 0.5rem; }
+
+    .manifesto-in-ticker {
+      color: #c6b8ff !important;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .manifesto-in-ticker:hover {
+      color: #fff !important;
+      text-shadow: 0 0 12px #c6b8ff;
+    }
 
     @keyframes scrollLeft {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
 
-    .manifesto-link-bottom {
-      display: block;
-      margin: 1rem auto 1.5rem;
-      color: #c6b8ff;
-      text-decoration: underline;
-      font-size: 1.25rem;
-      font-weight: bold;
-    }
-
-    .manifesto-link-bottom:hover {
-      color: #fff;
-      text-shadow: 0 0 12px #c6b8ff;
-    }
-
     .social-proof {
-      font-family: 'Great Vibes', cursive;
-      font-size: 1.15rem;              /* smaller font */
-      color: #ff4444;
-      text-shadow: 0 0 20px #ff0000, 0 0 30px #ff4444, 0 0 40px #ff7777;
-      letter-spacing: 1px;
+      font-size: 1.25rem;
+      color: #ff7777;
+      margin: 1rem auto;
+      text-shadow: 0 0 12px #ff4444;
+      text-align: center;
       font-weight: bold;
-      margin: 0 auto;
-      max-width: 90%;
     }
 
     section {
@@ -305,35 +294,175 @@
       text-shadow: 0 0 15px #a78bfa;
     }
 
-    /* teaser-grid, gallery, trust-block, cta styles (unchanged) */
-    .teaser-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; margin-top: 40px; }
-    .teaser-card { background: rgba(49,51,56,0.75); backdrop-filter: blur(12px); border: 1px solid rgba(167,139,250,0.4); border-radius: 16px; padding: 32px; box-shadow: 0 10px 40px rgba(106,50,255,0.2); transition: all 0.4s; text-align: center; }
-    .teaser-card:hover { transform: translateY(-12px); box-shadow: 0 20px 70px rgba(167,139,250,0.35); }
-    .teaser-card h2 { font-size: 2.2rem; color: #c6b8ff; margin-bottom: 1rem; text-shadow: 0 0 12px rgba(167,139,250,0.5); }
-    .teaser-card p { font-size: 1.15rem; line-height: 1.65; opacity: 0.9; margin-bottom: 1.5rem; }
-    .teaser-card a { color: #c6b8ff; text-decoration: underline; font-size: 1.1rem; }
-    .teaser-card a:hover { color: white; }
+    .teaser-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
 
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
-    .gallery img { width: 100%; height: 320px; object-fit: cover; border-radius: 12px; box-shadow: 0 0 20px rgba(167,139,250,0.4); transition: transform 0.5s; }
-    .gallery img:hover { transform: scale(1.05); }
+    .teaser-card {
+      background: rgba(49, 51, 56, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 40px rgba(106, 50, 255, 0.2);
+      transition: transform 0.4s, box-shadow 0.4s;
+      text-align: center;
+    }
 
-    .trust-block { background: rgba(49,51,56,0.75); backdrop-filter: blur(12px); border: 2px solid #6a32ff; border-radius: 16px; padding: 40px; max-width: 800px; margin: 80px auto; text-align: center; }
-    .trust-block p { font-size: 1.3rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .teaser-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 70px rgba(167, 139, 250, 0.35);
+    }
 
-    .cta { text-align: center; padding: 100px 20px 140px; }
-    .big-cta { display: inline-block; padding: 1.2rem 4rem; font-size: clamp(1.4rem, 5vw, 2rem); background: linear-gradient(135deg, #5b3cb9, #6a32ff); color: white; border: 3px solid #c6b8ff; border-radius: 16px; box-shadow: 0 0 50px #a78bfa; text-decoration: none; transition: all 0.4s; }
-    .big-cta:hover { transform: scale(1.1); box-shadow: 0 0 80px #c6b8ff; }
-    .tour-link { margin-left: 1.5rem; color: #c6b8ff; font-size: clamp(1.2rem, 4vw, 1.5rem); text-decoration: underline; }
-    .tour-link:hover { color: white; }
-    .trust-badges { margin-top: 1.5rem; font-size: clamp(1rem, 3.5vw, 1.2rem); opacity: 0.9; }
+    .teaser-card h2 {
+      font-size: 2.2rem;
+      color: #c6b8ff;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 12px rgba(167, 139, 250, 0.5);
+    }
 
-    .ink-drip { position: fixed; width: 2px; background: linear-gradient(to bottom, transparent, #a78bfa, transparent); box-shadow: 0 0 9px #a78bfa; z-index: 3; pointer-events: none; animation: fall linear infinite; }
-    @keyframes fall { 0% { transform: translateY(-120vh); opacity: 0; } 40% { opacity: 0.6; } 100% { transform: translateY(120vh); opacity: 0; } }
+    .teaser-card p {
+      font-size: 1.15rem;
+      line-height: 1.65;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
 
-    .ink-cursor { position: fixed; width: 24px; height: 24px; background: radial-gradient(circle, #a78bfa 40%, transparent 70%); pointer-events: none; z-index: 100; transform: translate(-50%, -50%); mix-blend-mode: screen; box-shadow: 0 0 15px #a78bfa, 0 0 30px #6a32ff; }
-    .cursor-trail { position: fixed; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle, rgba(167,139,250,0.7), transparent); pointer-events: none; z-index: 99; opacity: 0.9; transform: translate(-50%, -50%); mix-blend-mode: screen; animation: trailFade 0.6s ease-out forwards; }
-    @keyframes trailFade { to { opacity: 0; transform: translate(-50%, -50%) scale(0.3); } }
+    .teaser-card a {
+      color: #c6b8ff;
+      text-decoration: underline;
+      font-size: 1.1rem;
+    }
+
+    .teaser-card a:hover {
+      color: white;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
+      transition: transform 0.5s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .trust-block {
+      background: rgba(49, 51, 56, 0.75);
+      backdrop-filter: blur(12px);
+      border: 2px solid #6a32ff;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 800px;
+      margin: 80px auto;
+      text-align: center;
+    }
+
+    .trust-block p {
+      font-size: 1.3rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 100px 20px 140px;
+    }
+
+    .big-cta {
+      display: inline-block;
+      padding: 1.2rem 4rem;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      background: linear-gradient(135deg, #5b3cb9, #6a32ff);
+      color: white;
+      border: 3px solid #c6b8ff;
+      border-radius: 16px;
+      box-shadow: 0 0 50px #a78bfa;
+      text-decoration: none;
+      transition: all 0.4s;
+    }
+
+    .big-cta:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 80px #c6b8ff;
+    }
+
+    .tour-link {
+      margin-left: 1.5rem;
+      color: #c6b8ff;
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      text-decoration: underline;
+    }
+
+    .tour-link:hover {
+      color: white;
+    }
+
+    .trust-badges {
+      margin-top: 1.5rem;
+      font-size: clamp(1rem, 3.5vw, 1.2rem);
+      opacity: 0.9;
+    }
+
+    .ink-drip {
+      position: fixed;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, #a78bfa, transparent);
+      box-shadow: 0 0 9px #a78bfa;
+      z-index: 3;
+      pointer-events: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-120vh); opacity: 0; }
+      40% { opacity: 0.6; }
+      100% { transform: translateY(120vh); opacity: 0; }
+    }
+
+    .ink-cursor {
+      position: fixed;
+      width: 24px;
+      height: 24px;
+      background: radial-gradient(circle, #a78bfa 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 100;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      box-shadow: 0 0 15px #a78bfa, 0 0 30px #6a32ff;
+    }
+
+    .cursor-trail {
+      position: fixed;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.7), transparent);
+      pointer-events: none;
+      z-index: 99;
+      opacity: 0.9;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      animation: trailFade 0.6s ease-out forwards;
+    }
+
+    @keyframes trailFade {
+      to { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+    }
   </style>
 </head>
 <body>
@@ -423,8 +552,8 @@
       </div>
     </section>
 
-    <!-- Bottom banner section – visible on first screen (bottom part) -->
-    <div class="bottom-banner">
+    <!-- Bulletin board + dripping text moved to bottom, above CTA -->
+    <div class="bulletin-container">
       <div class="bulletin-board">
         <div class="board-track">
           <div class="board-item"><strong id="memberCount">742</strong> members</div>
@@ -454,15 +583,13 @@
           <div class="board-item">The ink's <strong>dripping</strong></div>
           <div class="board-item">Stories unfolding</div>
 
-          <!-- Duplicates for smooth loop -->
+          <!-- Duplicates for loop -->
           <div class="board-item"><strong id="memberCountDup">742</strong> members</div>
           <div class="board-item"><strong id="onlineCountDup">158</strong> online now</div>
           <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
-          <!-- ... add remaining duplicates if needed ... -->
+          <!-- ... add remaining duplicate items if needed ... -->
         </div>
       </div>
-
-      <a href="manifesto.html" class="manifesto-link-bottom">Read the Manifesto</a>
 
       <p class="social-proof">The Ink's Dripping. 600+ Locked in 🔥 – new join</p>
     </div>

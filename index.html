@@ -32,7 +32,7 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.29;
+      opacity: 0.38; /* strong classic Matrix feel, but still background */
     }
 
     #rp-whispers {
@@ -150,7 +150,7 @@
     .nav a:hover, .nav a.active { color: #f0e0ff; text-shadow: 0 0 10px #c6b8ff; }
 
     .top-content {
-      padding-top: 85px; /* slightly less top padding so whole top section moves up a bit */
+      padding-top: 85px;
       text-align: center;
       position: relative;
       z-index: 50;
@@ -160,7 +160,7 @@
       font-family: 'Great Vibes', cursive;
       font-size: clamp(1.8rem, 6vw, 2.8rem);
       color: #e0d0ff;
-      margin: 1rem auto 1.5rem; /* ← moved up slightly (was 2rem bottom margin) */
+      margin: 1rem auto 1.5rem;
       text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff;
       letter-spacing: 2px;
       max-width: 90%;
@@ -170,7 +170,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 1rem 0 3rem; /* keeps join button close to tagline */
+      margin: 1rem 0 3rem;
     }
 
     .enter-button {
@@ -211,16 +211,9 @@
     }
 
     @media (max-width: 768px) {
-      .bulletin-container {
-        margin: 13rem auto 4rem !important; /* moved up slightly from previous version */
-      }
-      .bulletin-board {
-        height: 50px;
-        margin: 0 12px;
-      }
-      .social-proof {
-        margin: 0.8rem auto 3rem;
-      }
+      .bulletin-container { margin: 13rem auto 4rem !important; }
+      .bulletin-board { height: 50px; margin: 0 12px; }
+      .social-proof { margin: 0.8rem auto 3rem; }
     }
 
     .bulletin-board {
@@ -621,7 +614,7 @@
   </div>
 
   <script>
-    // Matrix rain
+    // Matrix rain — faster, thicker/bolder, classic movie style, still background
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -632,33 +625,41 @@
     resize();
     window.addEventListener('resize', resize);
 
-    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const fontSize = 15;
+    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$€¥£¢§¶†‡☆★♡♥︎✦✧";
+
+    const fontSize = 20;                    // slightly larger + bolder = more legible
     let columns = Math.floor(canvas.width / fontSize);
     let drops = new Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = 'rgba(11, 10, 15, 0.045)';
+      ctx.fillStyle = 'rgba(0, 10, 0, 0.05)'; // classic green fade
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = '#a78bfa';
-      ctx.shadowColor = '#6a32ff';
-      ctx.shadowBlur = 8;
-      ctx.font = `${fontSize}px monospace`;
+      ctx.fillStyle = '#0f0';                 // bright Matrix green
+      ctx.shadowColor = '#0f0';
+      ctx.shadowBlur = 10;
+      ctx.font = `bold ${fontSize}px monospace`; // ← bold = thicker / more significant
 
       for (let i = 0; i < drops.length; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        // Faster fall + occasional very fast streak (movie style)
+        if (Math.random() > 0.975) {
+          drops[i] += 8 + Math.random() * 12;   // occasional fast drop
+        } else {
+          drops[i] += 1.8 + Math.random() * 0.4; // normal fast speed
+        }
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.96) {
           drops[i] = 0;
         }
-        drops[i]++;
       }
     }
-    setInterval(draw, 45);
 
-    // WHISPER SYSTEM
+    setInterval(draw, 35); // smooth & fast enough for movie feel
+
+    // WHISPER SYSTEM (unchanged)
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},

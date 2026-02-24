@@ -32,7 +32,7 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.38; /* strong classic Matrix feel, but still background */
+      opacity: 0.38;                /* strong presence but clearly background */
     }
 
     #rp-whispers {
@@ -614,7 +614,7 @@
   </div>
 
   <script>
-    // Matrix rain — faster, thicker/bolder, classic movie style, still background
+    // Matrix rain – faster, thicker/bolder, purple, classic movie style, background only
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -627,28 +627,28 @@
 
     const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$€¥£¢§¶†‡☆★♡♥︎✦✧";
 
-    const fontSize = 20;                    // slightly larger + bolder = more legible
+    const fontSize = 20;                    // larger + bold = thicker / more legible
     let columns = Math.floor(canvas.width / fontSize);
     let drops = new Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = 'rgba(0, 10, 0, 0.05)'; // classic green fade
+      ctx.fillStyle = 'rgba(10, 5, 15, 0.06)'; // gentle fade so symbols remain visible
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = '#0f0';                 // bright Matrix green
-      ctx.shadowColor = '#0f0';
-      ctx.shadowBlur = 10;
-      ctx.font = `bold ${fontSize}px monospace`; // ← bold = thicker / more significant
+      ctx.fillStyle = '#a78bfa';              // main purple
+      ctx.shadowColor = '#c6b8ff';            // brighter purple glow
+      ctx.shadowBlur = 12;
+      ctx.font = `bold ${fontSize}px monospace`; // ← bold makes it thicker / more significant
 
       for (let i = 0; i < drops.length; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        // Faster fall + occasional very fast streak (movie style)
-        if (Math.random() > 0.975) {
-          drops[i] += 8 + Math.random() * 12;   // occasional fast drop
+        // Faster fall + occasional movie-style fast streak
+        if (Math.random() > 0.97) {
+          drops[i] += 10 + Math.random() * 8;   // fast drop burst
         } else {
-          drops[i] += 1.8 + Math.random() * 0.4; // normal fast speed
+          drops[i] += 2.0 + Math.random() * 0.6; // normal fast speed
         }
 
         if (drops[i] * fontSize > canvas.height && Math.random() > 0.96) {
@@ -657,7 +657,7 @@
       }
     }
 
-    setInterval(draw, 35); // smooth & fast enough for movie feel
+    setInterval(draw, 35); // smooth & quick enough for movie-like motion
 
     // WHISPER SYSTEM (unchanged)
     const rpMessages = [

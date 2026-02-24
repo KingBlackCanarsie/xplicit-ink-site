@@ -239,7 +239,7 @@
     }
 
     .bulletin-container {
-      margin: 11rem auto 4rem;
+      margin: 13rem auto 5rem; /* ← moved lower to fill the void after removing social-proof text */
       max-width: 1100px;
       padding: 0 15px;
       text-align: center;
@@ -247,14 +247,11 @@
 
     @media (max-width: 768px) {
       .bulletin-container {
-        margin: 8rem auto 4rem !important;
+        margin: 10rem auto 5rem !important; /* ← adjusted lower on mobile too */
       }
       .bulletin-board {
         height: 50px;
         margin: 0 12px;
-      }
-      .social-proof {
-        margin: 0.8rem auto 3rem;
       }
     }
 
@@ -311,16 +308,6 @@
     @keyframes scrollLeft {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
-    }
-
-    .social-proof {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(1.25rem, 4.2vw, 1.35rem);
-      color: #e0d0ff;
-      margin: 0.8rem auto 3rem;
-      letter-spacing: 2px;
-      max-width: 90%;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
     }
 
     section {
@@ -540,7 +527,7 @@
     <h2 class="tagline-fancy">A quiet gathering for people who miss when the internet felt human.</h2>
 
     <div class="join-container">
-      <div class="join-teaser">600+ already inside 🔥 waiting for you</div>
+      <div class="join-teaser">The Ink's Dripping. 600+ Locked in 🔥 waiting for you</div>
       <a href="https://discord.gg/RGwnBbnzgA" class="enter-button" target="_blank">
         Enter the Ink 🔥
       </a>
@@ -584,8 +571,6 @@
         <div class="board-item">"Depth of stories is unreal" – @nyxshadow</div>
       </div>
     </div>
-
-    <p class="social-proof">The Ink's Dripping. 600+ Locked in 🔥 – new join</p>
   </div>
 
   <div class="main-content">

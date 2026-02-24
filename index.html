@@ -51,7 +51,7 @@
       transform: translate(-50%, 0);
       max-width: 680px;
       width: 92%;
-      padding: 32px 32px 24px 80px;     /* extra left padding for the large image */
+      padding: 32px 32px 24px 80px;
       background: rgba(15, 10, 35, 0.74);
       border-left: 5px solid #a78bfa;
       color: #e8d9ff;
@@ -67,13 +67,13 @@
     .whisper::before {
       content: "";
       position: absolute;
-      left: -18px;               /* hugs left side */
-      top: -28px;                /* hugs upper side */
+      left: -18px;
+      top: -28px;
       width: 90px;
       height: 90px;
       background: url('https://i.postimg.cc/d0xZHcGY/1771669917645.png') no-repeat center / contain;
       z-index: 10;
-      filter: drop-shadow(0 0 10px rgba(255, 80, 150, 0.8)); /* optional subtle glow */
+      filter: drop-shadow(0 0 10px rgba(255, 80, 150, 0.8));
     }
 
     @media (max-width: 768px) {
@@ -160,7 +160,7 @@
       font-family: 'Great Vibes', cursive;
       font-size: clamp(1.8rem, 6vw, 2.8rem);
       color: #e0d0ff;
-      margin: 1rem auto 2rem;
+      margin: 1rem auto 2.5rem;
       text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff;
       letter-spacing: 2px;
       max-width: 90%;
@@ -170,7 +170,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 1.5rem 0 2.2rem;
+      margin: 1.5rem 0 4.5rem; /* more space below button on all screens */
     }
 
     .enter-button {
@@ -204,14 +204,23 @@
     }
 
     .bulletin-container {
-      margin: 15.5rem auto 4rem;
+      margin: 16rem auto 5rem; /* desktop base */
       max-width: 1100px;
       padding: 0 15px;
       text-align: center;
     }
 
     @media (max-width: 768px) {
-      .bulletin-container { margin: 12rem auto 3rem; }
+      .bulletin-container {
+        margin: 19rem auto 7rem !important; /* moved down noticeably more on mobile */
+      }
+      .bulletin-board {
+        height: 50px;
+        margin: 0 12px;
+      }
+      .social-proof {
+        margin: 1.5rem auto 5rem; /* extra space below the text on mobile */
+      }
     }
 
     .bulletin-board {
@@ -223,10 +232,6 @@
       box-shadow: 0 0 25px rgba(167,139,250,0.35);
       overflow: hidden;
       height: 54px;
-    }
-
-    @media (max-width: 768px) {
-      .bulletin-board { height: 50px; margin: 0 12px; }
     }
 
     .board-track {
@@ -270,7 +275,7 @@
       font-family: 'Great Vibes', cursive;
       font-size: clamp(1.25rem, 4.2vw, 1.35rem);
       color: #e0d0ff;
-      margin: 0.8rem auto 3rem;
+      margin: 1rem auto 4.5rem;
       text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff;
       letter-spacing: 2px;
       max-width: 90%;

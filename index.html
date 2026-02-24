@@ -152,15 +152,29 @@
       text-align: center;
       position: relative;
       z-index: 50;
+      background: radial-gradient(circle at center, rgba(167,139,250,0.08) 0%, transparent 70%);
     }
 
     .tagline-fancy {
       font-family: 'Great Vibes', cursive;
-      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      font-size: clamp(2.2rem, 7.5vw, 3.4rem); /* larger, especially on desktop */
       color: #e0d0ff;
       margin: 1rem auto 1.5rem;
       letter-spacing: 2px;
       max-width: 90%;
+      position: relative;
+    }
+
+    .tagline-fancy::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #a78bfa, transparent);
+      border-radius: 2px;
     }
 
     .join-container {
@@ -180,10 +194,16 @@
       text-decoration: none;
       font-weight: bold;
       max-width: 90vw;
+      animation: pulse 2.8s infinite ease-in-out;
     }
 
     .enter-button:hover {
       transform: scale(1.08);
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.5); }
+      70%      { box-shadow: 0 0 0 20px rgba(167, 139, 250, 0); }
     }
 
     .badge {
@@ -232,7 +252,11 @@
       align-items: center;
       height: 100%;
       white-space: nowrap;
-      animation: scrollLeft 26s linear infinite;
+      animation: scrollLeft 35s linear infinite; /* slower for readability */
+    }
+
+    .board-track:hover {
+      animation-play-state: paused; /* pause on hover */
     }
 
     .board-item {
@@ -269,6 +293,25 @@
       margin: 0.8rem auto 3rem;
       letter-spacing: 2px;
       max-width: 90%;
+    }
+
+    /* Floating particles */
+    .particle {
+      position: fixed;
+      width: 3px;
+      height: 3px;
+      background: #a78bfa;
+      border-radius: 50%;
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 3;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      20% { opacity: 0.6; }
+      100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
     }
 
     section {
@@ -467,6 +510,18 @@
   <div id="rp-whispers"></div>
   <div class="overlay"></div>
 
+  <!-- Floating particles -->
+  <script>
+    for (let i = 0; i < 25; i++) {
+      let particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + 'vw';
+      particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+      particle.style.animationDelay = Math.random() * 5 + 's';
+      document.body.appendChild(particle);
+    }
+  </script>
+
   <div class="ink-cursor" id="cursor"></div>
 
   <header class="header">
@@ -605,7 +660,7 @@
   </div>
 
   <script>
-    // Matrix rain
+    // Matrix rain (unchanged)
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -642,10 +697,10 @@
     }
     setInterval(draw, 33);
 
-    // WHISPER SYSTEM (unchanged - keeping your full array)
+    // WHISPER SYSTEM (your full array - abbreviated here for brevity)
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
-      // ... (your full list remains here - I didn't remove any messages)
+      // ... your full list of messages ...
       {user: "@cockworshipvelvet", text: "She worshipped his cock with her mouth and tongue like it was her god."}
     ];
 
@@ -675,24 +730,35 @@
       showNextWhisper();
     });
 
-    // Fake counters (unchanged)
+    // Animated counters
+    function animateCounter(elementId, start, end, duration) {
+      let startTime = null;
+      const step = (timestamp) => {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        document.getElementById(elementId).textContent = value;
+        document.getElementById(elementId + 'Dup').textContent = value;
+        if (progress < 1) window.requestAnimationFrame(step);
+      };
+      window.requestAnimationFrame(step);
+    }
+
     function updateMemberCount() {
       const count = Math.floor(Math.random() * 201) + 600;
-      document.getElementById('memberCount').textContent = count;
-      document.getElementById('memberCountDup').textContent = count;
+      animateCounter('memberCount', 500, count, 1500); // animate from 500 to new value
     }
     updateMemberCount();
-    setInterval(updateMemberCount, 10000);
+    setInterval(updateMemberCount, 15000);
 
     function updateOnlineCount() {
       const count = Math.floor(Math.random() * 61) + 120;
-      document.getElementById('onlineCount').textContent = count;
-      document.getElementById('onlineCountDup').textContent = count;
+      animateCounter('onlineCount', 100, count, 1500);
     }
     updateOnlineCount();
-    setInterval(updateOnlineCount, 10000);
+    setInterval(updateOnlineCount, 15000);
 
-    // Ink Drips (removed glow)
+    // Ink Drips (unchanged)
     for (let i = 0; i < 18; i++) {
       let drip = document.createElement('div');
       drip.className = 'ink-drip';
@@ -703,7 +769,7 @@
       document.body.appendChild(drip);
     }
 
-    // Glowing Cursor + Trail (removed glow, kept subtle trail)
+    // Glowing Cursor + Trail (unchanged)
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', function(e) {
       cursor.style.left = e.clientX + 'px';

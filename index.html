@@ -47,16 +47,16 @@
     .whisper {
       position: absolute;
       left: 50%;
-      top: 62%;
+      top: 59%;                       /* ← moved up slightly from 62% */
       transform: translate(-50%, 0);
       max-width: 680px;
       width: 92%;
-      padding: 32px 32px 24px 80px;
+      padding: 28px 28px 20px 70px;   /* ← reduced padding */
       background: rgba(15, 10, 35, 0.74);
       border-left: 5px solid #a78bfa;
       color: #e8d9ff;
-      font-size: 0.98rem;
-      line-height: 1.58;
+      font-size: 0.94rem;             /* ← slightly smaller from 0.98rem */
+      line-height: 1.52;              /* ← tightened from 1.58 */
       border-radius: 12px 24px 24px 12px;
       box-shadow: 0 12px 48px rgba(0,0,0,0.85);
       text-shadow: 0 1px 4px rgba(0,0,0,0.8);
@@ -78,9 +78,9 @@
 
     @media (max-width: 768px) {
       .whisper {
-        font-size: 0.90rem;
-        padding: 28px 28px 20px 70px;
-        top: 57%;
+        font-size: 0.86rem;           /* ← smaller from 0.90rem */
+        padding: 24px 24px 16px 60px; /* ← reduced for mobile */
+        top: 54%;                     /* ← moved up from 57% */
       }
       .whisper::before {
         left: -16px;
@@ -218,7 +218,7 @@
     }
 
     .bulletin-container {
-      margin: 11rem auto 4rem; /* ← moved up from 15.5rem */
+      margin: 11rem auto 4rem;
       max-width: 1100px;
       padding: 0 15px;
       text-align: center;
@@ -226,7 +226,7 @@
 
     @media (max-width: 768px) {
       .bulletin-container {
-        margin: 8rem auto 4rem !important; /* ← moved up from 13rem */
+        margin: 8rem auto 4rem !important;
       }
       .bulletin-board {
         height: 50px;
@@ -700,7 +700,8 @@
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
-      // ... (your full array of messages - keep all of them here as in your original)
+      {user: "@thornedrose", text: "Her pussy clenched around his fingers as he curled them hard against her G-spot, making her squirt all over his hand."},
+      // ... (keep your full array of messages here)
       {user: "@cockworshipvelvet", text: "She worshipped his cock with her mouth and tongue like it was her god."}
     ];
 

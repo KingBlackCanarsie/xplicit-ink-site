@@ -747,4 +747,116 @@
       {user: "@achingrose", text: "Her clit was swollen and throbbing as his tongue flicked it mercilessly."},
       {user: "@stretchingink", text: "He stretched her tight pussy wide with his massive cock, making her gasp."},
       {user: "@creamingveil", text: "White cream coated his cock as he pulled out and slammed back in."},
-      {user: "@beggingthorn
+      {user: "@beggingthorn", text: "'Please fuck me harder,' she cried as he pounded her into the mattress."},
+      {user: "@gushingquill", text: "Her pussy gushed with every thrust, soaking the sheets beneath them."},
+      {user: "@poundingvelvet", text: "The headboard slammed against the wall as he destroyed her dripping cunt."},
+      {user: "@swollenrose", text: "Her clit was swollen from his tongue when he finally slid his cock inside."},
+      {user: "@drippingnoir", text: "She was dripping down his balls before he even started fucking her."},
+      {user: "@thrustingink", text: "Deep, powerful thrusts that made her tits bounce and her moans echo."},
+      {user: "@squirtingthorn", text: "He made her squirt three times before he finally let himself cum."},
+      {user: "@clitquill", text: "His thumb circled her swollen clit while he fucked her slow and deep."},
+      {user: "@asspoundingveil", text: "He switched from her pussy to her tight ass without warning."},
+      {user: "@deepthroatrose", text: "She took him all the way down her throat until her nose touched his stomach."},
+      {user: "@creampieink", text: "He filled her pussy with so much cum it leaked out around his cock."},
+      {user: "@edgingthorn", text: "He edged her for an hour until she was begging and crying to cum."},
+      {user: "@fuckingquill", text: "He fucked her so hard she forgot her own name."},
+      {user: "@wetdreamvelvet", text: "Her pussy was a soaking mess by the time he finally gave her what she needed."},
+      {user: "@throbbingcockthorn", text: "His cock throbbed violently inside her as he came deep in her womb."},
+      {user: "@pussythrobquill", text: "Her pussy throbbed around him, milking every drop of cum from his balls."},
+      {user: "@cumslutrose", text: "She opened her mouth wide to catch every drop of his hot load."},
+      {user: "@ruinedorgasmink", text: "He ruined her orgasm on purpose, then made her cum again immediately."},
+      {user: "@breedingthorn", text: "'I'm going to breed this tight little pussy,' he growled as he came inside her."},
+      {user: "@filthyquill", text: "Every filthy word made her pussy clench and drip even more."},
+      {user: "@cockworshipvelvet", text: "She worshipped his cock with her mouth and tongue like it was her god."}
+    ];
+
+    let rpIndex = 0;
+
+    function showNextWhisper() {
+      const container = document.getElementById('rp-whispers');
+      if (!container) return;
+
+      const msg = rpMessages[rpIndex];
+      rpIndex = (rpIndex + 1) % rpMessages.length;
+
+      const whisper = document.createElement('div');
+      whisper.className = 'whisper';
+      whisper.innerHTML = '<span class="username">' + msg.user + '</span>' + msg.text;
+
+      container.appendChild(whisper);
+
+      setTimeout(() => {
+        if (whisper.parentNode) whisper.parentNode.removeChild(whisper);
+      }, 21000);
+
+      setTimeout(showNextWhisper, 10000);
+    }
+
+    window.addEventListener('load', () => {
+      showNextWhisper();
+    });
+
+    // Animated counters
+    function animateCounter(elementId, start, end, duration) {
+      let startTime = null;
+      const step = (timestamp) => {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        document.getElementById(elementId).textContent = value;
+        document.getElementById(elementId + 'Dup').textContent = value;
+        if (progress < 1) window.requestAnimationFrame(step);
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    function updateMemberCount() {
+      const count = Math.floor(Math.random() * 201) + 600;
+      animateCounter('memberCount', 500, count, 1500);
+    }
+    updateMemberCount();
+    setInterval(updateMemberCount, 15000);
+
+    function updateOnlineCount() {
+      const count = Math.floor(Math.random() * 61) + 120;
+      animateCounter('onlineCount', 100, count, 1500);
+    }
+    updateOnlineCount();
+    setInterval(updateOnlineCount, 15000);
+
+    // Ink Drips
+    for (let i = 0; i < 18; i++) {
+      let drip = document.createElement('div');
+      drip.className = 'ink-drip';
+      drip.style.left = Math.random() * 100 + 'vw';
+      drip.style.height = Math.random() * 280 + 120 + 'px';
+      drip.style.animationDuration = (Math.random() * 4 + 2.5) + 's';
+      drip.style.animationDelay = Math.random() * 6 + 's';
+      document.body.appendChild(drip);
+    }
+
+    // Glowing Cursor + Trail
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', function(e) {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+
+      const trail = document.createElement('div');
+      trail.classList.add('cursor-trail');
+      trail.style.left = e.clientX + 'px';
+      trail.style.top = e.clientY + 'px';
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 600);
+    });
+
+    // Fade-in on scroll
+    const reveals = document.querySelectorAll('.reveal-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

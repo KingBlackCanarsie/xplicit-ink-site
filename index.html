@@ -157,7 +157,7 @@
 
     .tagline-fancy {
       font-family: 'Great Vibes', cursive;
-      font-size: clamp(2.2rem, 7.5vw, 3.4rem); /* larger, especially on desktop */
+      font-size: clamp(2.2rem, 7.5vw, 3.4rem);
       color: #e0d0ff;
       margin: 1rem auto 1.5rem;
       letter-spacing: 2px;
@@ -218,7 +218,7 @@
     }
 
     .bulletin-container {
-      margin: 15.5rem auto 4rem;
+      margin: 11rem auto 4rem; /* ← moved up from 15.5rem */
       max-width: 1100px;
       padding: 0 15px;
       text-align: center;
@@ -226,7 +226,7 @@
 
     @media (max-width: 768px) {
       .bulletin-container {
-        margin: 13rem auto 4rem !important;
+        margin: 8rem auto 4rem !important; /* ← moved up from 13rem */
       }
       .bulletin-board {
         height: 50px;
@@ -252,11 +252,11 @@
       align-items: center;
       height: 100%;
       white-space: nowrap;
-      animation: scrollLeft 35s linear infinite; /* slower for readability */
+      animation: scrollLeft 35s linear infinite;
     }
 
     .board-track:hover {
-      animation-play-state: paused; /* pause on hover */
+      animation-play-state: paused;
     }
 
     .board-item {
@@ -295,7 +295,6 @@
       max-width: 90%;
     }
 
-    /* Floating particles */
     .particle {
       position: fixed;
       width: 3px;
@@ -660,7 +659,7 @@
   </div>
 
   <script>
-    // Matrix rain (unchanged)
+    // Matrix rain
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -697,10 +696,11 @@
     }
     setInterval(draw, 33);
 
-    // WHISPER SYSTEM (your full array - abbreviated here for brevity)
+    // WHISPER SYSTEM
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
-      // ... your full list of messages ...
+      {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
+      // ... (your full array of messages - keep all of them here as in your original)
       {user: "@cockworshipvelvet", text: "She worshipped his cock with her mouth and tongue like it was her god."}
     ];
 
@@ -746,7 +746,7 @@
 
     function updateMemberCount() {
       const count = Math.floor(Math.random() * 201) + 600;
-      animateCounter('memberCount', 500, count, 1500); // animate from 500 to new value
+      animateCounter('memberCount', 500, count, 1500);
     }
     updateMemberCount();
     setInterval(updateMemberCount, 15000);
@@ -758,7 +758,7 @@
     updateOnlineCount();
     setInterval(updateOnlineCount, 15000);
 
-    // Ink Drips (unchanged)
+    // Ink Drips
     for (let i = 0; i < 18; i++) {
       let drip = document.createElement('div');
       drip.className = 'ink-drip';
@@ -769,7 +769,7 @@
       document.body.appendChild(drip);
     }
 
-    // Glowing Cursor + Trail (unchanged)
+    // Glowing Cursor + Trail
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', function(e) {
       cursor.style.left = e.clientX + 'px';

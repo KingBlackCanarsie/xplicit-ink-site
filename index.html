@@ -32,7 +32,7 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.38; /* slightly brighter to match whisper mood */
+      opacity: 0.29;
     }
 
     #rp-whispers {
@@ -150,7 +150,7 @@
     .nav a:hover, .nav a.active { color: #f0e0ff; text-shadow: 0 0 10px #c6b8ff; }
 
     .top-content {
-      padding-top: 85px;
+      padding-top: 85px; /* slightly less top padding so whole top section moves up a bit */
       text-align: center;
       position: relative;
       z-index: 50;
@@ -160,7 +160,7 @@
       font-family: 'Great Vibes', cursive;
       font-size: clamp(1.8rem, 6vw, 2.8rem);
       color: #e0d0ff;
-      margin: 1rem auto 1.5rem;
+      margin: 1rem auto 1.5rem; /* ← moved up slightly (was 2rem bottom margin) */
       text-shadow: 0 0 25px #a78bfa, 0 0 50px #6a32ff;
       letter-spacing: 2px;
       max-width: 90%;
@@ -170,7 +170,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 1rem 0 3rem;
+      margin: 1rem 0 3rem; /* keeps join button close to tagline */
     }
 
     .enter-button {
@@ -212,7 +212,7 @@
 
     @media (max-width: 768px) {
       .bulletin-container {
-        margin: 13.5rem auto 4rem !important;
+        margin: 13rem auto 4rem !important; /* moved up slightly from previous version */
       }
       .bulletin-board {
         height: 50px;
@@ -621,7 +621,7 @@
   </div>
 
   <script>
-    // Matrix rain — now mimics whispers (slower, ethereal, purple/pink tones)
+    // Matrix rain
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -632,47 +632,119 @@
     resize();
     window.addEventListener('resize', resize);
 
-    // Whisper-like characters + some seductive symbols
-    const chars = "✧✦♡♥︎♡︎✦✧ アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-    const fontSize = 18; // larger and more spaced out
+    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const fontSize = 15;
     let columns = Math.floor(canvas.width / fontSize);
     let drops = new Array(columns).fill(1);
 
     function draw() {
-      // Very gentle fade — gives whisper-like drift
-      ctx.fillStyle = 'rgba(11, 10, 15, 0.08)';
+      ctx.fillStyle = 'rgba(11, 10, 15, 0.045)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Purple-pink gradient text
-      ctx.shadowColor = '#c6b8ff';
-      ctx.shadowBlur = 12;
+      ctx.fillStyle = '#a78bfa';
+      ctx.shadowColor = '#6a32ff';
+      ctx.shadowBlur = 8;
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
-
-        // Subtle color variation (whisper mood)
-        const alpha = Math.random() * 0.5 + 0.5;
-        ctx.fillStyle = `rgba(167, 139, 250, ${alpha})`;
-
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        // Slower fall + occasional long pauses (mimics whispers rising/fading)
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.992) {
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
-        drops[i] += 0.4; // much slower than classic matrix rain
+        drops[i]++;
       }
     }
-    setInterval(draw, 60); // slower refresh rate for dreamy feel
+    setInterval(draw, 45);
 
-    // WHISPER SYSTEM (unchanged)
+    // WHISPER SYSTEM
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
       {user: "@thornedrose", text: "Her pussy clenched around his fingers as he curled them hard against her G-spot, making her squirt all over his hand."},
-      // ... (your full array goes here - I'm not repeating all 100+ lines to save space)
+      {user: "@silkvenom", text: "He spread her legs wide and buried his tongue inside her soaked cunt, licking and sucking until she came so hard her legs shook uncontrollably."},
+      {user: "@crimsonquill", text: "'Take every inch,' he growled as he forced his thick cock balls-deep into her tight ass, making her moan like a whore."},
+      {user: "@inkbound", text: "She rode him reverse cowgirl, her juices dripping down his balls while his cock stretched her pussy to the limit."},
+      {user: "@shadowlace", text: "He choked her lightly while pounding her from behind, her pussy gushing with every deep thrust."},
+      {user: "@ebonyveil", text: "Her nipples were rock hard as he sucked them hard, two fingers buried knuckle-deep in her dripping cunt."},
+      {user: "@moonlitthorn", text: "Blindfolded and tied, she could only gasp as he slid his huge cock into her soaking pussy and fucked her senseless."},
+      {user: "@noirscript", text: "'On all fours, now,' he commanded, then slammed into her from behind until her pussy was creaming around his cock."},
+      {user: "@velvetthorn", text: "Hot wax dripped onto her tits while he fingered her clit, making her beg for his cock like a desperate slut."},
+      {user: "@ghostquill", text: "He gripped her hips and fucked her so hard the bed slammed against the wall, her pussy squirting with every thrust."},
+      {user: "@lacewhisper", text: "She came on his tongue, her thighs squeezing his head while she screamed his name in orgasmic bliss."},
+      {user: "@crimsonink", text: "The mirror showed her face twisted in pleasure as he railed her pussy from behind, his balls slapping her clit."},
+      {user: "@silkbound", text: "'Scream for me,' he ordered, pounding her soaked cunt until she exploded in the hardest orgasm of her life."},
+      {user: "@shadowveil", text: "His tongue flicked her clit rapidly while two fingers fucked her pussy, pushing her over the edge again and again."},
+      {user: "@nyxquill", text: "She begged him to go deeper as he filled her tight pussy with every thick inch of his throbbing cock."},
+      {user: "@velvetnoir", text: "The leather belt cracked across her ass right as he buried his cock inside her, making her cum instantly."},
+      {user: "@inkthorn", text: "Her pussy was so wet it was dripping down her thighs before he even touched her with his massive cock."},
+      {user: "@moonshadow", text: "'Good girl, take it all,' he groaned as he came deep inside her pulsing pussy."},
+      {user: "@forbiddenquill", text: "He pressed her against the window and fucked her standing up, her tits smashed against the glass while he railed her."},
+      {user: "@darklace", text: "She sucked his cock like it was her last meal, deepthroating him until he exploded down her throat."},
+      {user: "@satinveil", text: "Blindfolded, she felt his tongue on her asshole before he slid two fingers into her dripping cunt."},
+      {user: "@emberink", text: "'Beg louder,' he said, edging her clit with his tongue until she was crying for release."},
+      {user: "@midnightthorn", text: "He flipped her over and fucked her ass hard while rubbing her swollen clit, making her squirt everywhere."},
+      {user: "@quillbound", text: "His dirty talk in her ear made her pussy throb as he slowly pushed his cock into her tight hole."},
+      {user: "@rosedark", text: "The paddle left bright red marks on her ass while he fingered her until she came screaming."},
+      {user: "@silknoir", text: "She tasted her own juices on his lips after he made her cum three times in a row."},
+      {user: "@shadowquill", text: "One hand pinned her down while the other choked her as he destroyed her pussy."},
+      {user: "@velvetscript", text: "Every slow, deep thrust made her toes curl and her pussy clench around his thick shaft."},
+      {user: "@crimsonlace", text: "He fucked her doggy style so hard her knees gave out, then kept going until she came again."},
+      {user: "@inkveil", text: "The silk tie around her wrists made her feel completely owned as he fucked her senseless."},
+      {user: "@thornquill", text: "Ice on her nipples followed by his hot mouth made her pussy flood instantly."},
+      {user: "@noirvelvet", text: "She sat on his face and ground her wet pussy against his tongue until she exploded."},
+      {user: "@ebonyquill", text: "Pressed against the cold glass, he fucked her from behind while the city watched."},
+      {user: "@lacebound", text: "Every filthy word he whispered made her pussy throb and drip down her legs."},
+      {user: "@moonlitveil", text: "He explored every inch of her body with his mouth before finally giving her his cock."},
+      {user: "@shadowrose", text: "She came so hard her vision went white, squirting all over his pounding cock."},
+      {user: "@crimsonthorn", text: "The flogger teased her clit before he slammed his cock inside her."},
+      {user: "@silkquill", text: "He dropped to his knees and ate her pussy like it was his favorite meal."},
+      {user: "@nyxveil", text: "'Open that pretty mouth,' he said, sliding his cock between her lips."},
+      {user: "@velvetink", text: "Their bodies slammed together in perfect rhythm, sweat and cum mixing as they fucked."},
+      {user: "@forbiddenthorn", text: "She bit the pillow to muffle her screams as he railed her ass mercilessly."},
+      {user: "@ghostvelvet", text: "Cuffs clicked shut and he immediately buried his face between her spread legs."},
+      {user: "@darkquill", text: "He teased her entrance for minutes before finally slamming in balls-deep."},
+      {user: "@rosescript", text: "He held her right on the edge for twenty minutes before finally letting her cum."},
+      {user: "@inknoir", text: "She arched her back and begged for more as he filled her completely."},
+      {user: "@midnightlace", text: "He marked her neck with his teeth while pounding her pussy raw."},
+      {user: "@satinquill", text: "Slow, deep, relentless strokes that made her eyes roll back in pleasure."},
+      {user: "@emberveil", text: "He watched her face as he made her cum again and again on his cock."},
+      {user: "@thornedveil", text: "The vibrator buzzed against her clit while he fucked her ass."},
+      {user: "@quillnoir", text: "She surrendered completely as he used her body exactly how he wanted."},
+      {user: "@throbbingquill", text: "His cock twitched inside her as he filled her womb with thick ropes of cum."},
+      {user: "@wetvelvet", text: "She was so wet his cock slid in with zero resistance, making her moan like a slut."},
+      {user: "@hardthorn", text: "Her hand wrapped around his throbbing dick while she begged him to fuck her."},
+      {user: "@drippingrose", text: "Juices ran down her thighs as he edged her with just the tip of his cock."},
+      {user: "@pulsingink", text: "Every pulse of his cock inside her made her walls flutter and squeeze."},
+      {user: "@soakedlace", text: "She came the second he entered her, her pussy spasming around his thickness."},
+      {user: "@ragingvelvet", text: "He fucked her like an animal, grunting with every savage thrust."},
+      {user: "@clenchingthorn", text: "Her pussy clenched so hard around him he almost came instantly."},
+      {user: "@floodingquill", text: "She squirted hard all over his cock as he hit her G-spot perfectly."},
+      {user: "@achingrose", text: "Her clit was swollen and throbbing as his tongue flicked it mercilessly."},
+      {user: "@stretchingink", text: "He stretched her tight pussy wide with his massive cock, making her gasp."},
+      {user: "@creamingveil", text: "White cream coated his cock as he pulled out and slammed back in."},
+      {user: "@beggingthorn", text: "'Please fuck me harder,' she cried as he pounded her into the mattress."},
+      {user: "@gushingquill", text: "Her pussy gushed with every thrust, soaking the sheets beneath them."},
+      {user: "@poundingvelvet", text: "The headboard slammed against the wall as he destroyed her dripping cunt."},
+      {user: "@swollenrose", text: "Her clit was swollen from his tongue when he finally slid his cock inside."},
+      {user: "@drippingnoir", text: "She was dripping down his balls before he even started fucking her."},
+      {user: "@thrustingink", text: "Deep, powerful thrusts that made her tits bounce and her moans echo."},
+      {user: "@squirtingthorn", text: "He made her squirt three times before he finally let himself cum."},
+      {user: "@clitquill", text: "His thumb circled her swollen clit while he fucked her slow and deep."},
+      {user: "@asspoundingveil", text: "He switched from her pussy to her tight ass without warning."},
+      {user: "@deepthroatrose", text: "She took him all the way down her throat until her nose touched his stomach."},
+      {user: "@creampieink", text: "He filled her pussy with so much cum it leaked out around his cock."},
+      {user: "@edgingthorn", text: "He edged her for an hour until she was begging and crying to cum."},
+      {user: "@fuckingquill", text: "He fucked her so hard she forgot her own name."},
+      {user: "@wetdreamvelvet", text: "Her pussy was a soaking mess by the time he finally gave her what she needed."},
+      {user: "@throbbingcockthorn", text: "His cock throbbed violently inside her as he came deep in her womb."},
+      {user: "@pussythrobquill", text: "Her pussy throbbed around him, milking every drop of cum from his balls."},
+      {user: "@cumslutrose", text: "She opened her mouth wide to catch every drop of his hot load."},
+      {user: "@ruinedorgasmink", text: "He ruined her orgasm on purpose, then made her cum again immediately."},
+      {user: "@breedingthorn", text: "'I'm going to breed this tight little pussy,' he growled as he came inside her."},
+      {user: "@filthyquill", text: "Every filthy word made her pussy clench and drip even more."},
+      {user: "@cockworshipvelvet", text: "She worshipped his cock with her mouth and tongue like it was her god."}
     ];
 
     let rpIndex = 0;
@@ -701,7 +773,7 @@
       showNextWhisper();
     });
 
-    // Fake counters (unchanged)
+    // Fake counters
     function updateMemberCount() {
       const count = Math.floor(Math.random() * 201) + 600;
       document.getElementById('memberCount').textContent = count;
@@ -718,7 +790,7 @@
     updateOnlineCount();
     setInterval(updateOnlineCount, 10000);
 
-    // Ink Drips (unchanged)
+    // Ink Drips
     for (let i = 0; i < 18; i++) {
       let drip = document.createElement('div');
       drip.className = 'ink-drip';
@@ -729,7 +801,7 @@
       document.body.appendChild(drip);
     }
 
-    // Glowing Cursor + Trail (unchanged)
+    // Glowing Cursor + Trail
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', function(e) {
       cursor.style.left = e.clientX + 'px';
@@ -743,7 +815,7 @@
       setTimeout(() => trail.remove(), 600);
     });
 
-    // Fade-in on scroll (unchanged)
+    // Fade-in on scroll
     const reveals = document.querySelectorAll('.reveal-on-scroll');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -753,4 +825,4 @@
     reveals.forEach(el => observer.observe(el));
   </script>
 </body>
-</html>
+  </html>

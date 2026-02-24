@@ -32,7 +32,7 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.38;                /* strong presence but clearly background */
+      opacity: 0.52;                /* clearer rain, no haze */
     }
 
     #rp-whispers {
@@ -96,13 +96,7 @@
       100% { transform: translate(-50%, -1400px); }
     }
 
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(10, 5, 20, 0.19);
-      z-index: 2;
-      pointer-events: none;
-    }
+    /* No overlay / no cloudy layer anymore */
 
     .header {
       position: fixed;
@@ -474,7 +468,8 @@
 
   <canvas id="matrix"></canvas>
   <div id="rp-whispers"></div>
-  <div class="overlay"></div>
+
+  <!-- NO OVERLAY DIV HERE ANYMORE -->
 
   <div class="ink-cursor" id="cursor"></div>
 
@@ -614,7 +609,7 @@
   </div>
 
   <script>
-    // Matrix rain – faster, thicker/bolder, purple, classic movie style, background only
+    // Matrix rain – denser layering, smaller font, faster movement, purple theme
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -627,39 +622,38 @@
 
     const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$€¥£¢§¶†‡☆★♡♥︎✦✧";
 
-    const fontSize = 20;                    // larger + bold = thicker / more legible
-    let columns = Math.floor(canvas.width / fontSize);
+    const fontSize = 16;
+    let columns = Math.floor(canvas.width / (fontSize * 0.75));
     let drops = new Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = 'rgba(10, 5, 15, 0.06)'; // gentle fade so symbols remain visible
+      ctx.fillStyle = 'rgba(10, 5, 15, 0.055)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = '#a78bfa';              // main purple
-      ctx.shadowColor = '#c6b8ff';            // brighter purple glow
+      ctx.fillStyle = '#a78bfa';
+      ctx.shadowColor = '#c6b8ff';
       ctx.shadowBlur = 12;
-      ctx.font = `bold ${fontSize}px monospace`; // ← bold makes it thicker / more significant
+      ctx.font = `bold ${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        ctx.fillText(text, i * fontSize * 0.75, drops[i] * fontSize);
 
-        // Faster fall + occasional movie-style fast streak
-        if (Math.random() > 0.97) {
-          drops[i] += 10 + Math.random() * 8;   // fast drop burst
+        if (Math.random() > 0.965) {
+          drops[i] += 12 + Math.random() * 10;
         } else {
-          drops[i] += 2.0 + Math.random() * 0.6; // normal fast speed
+          drops[i] += 2.2 + Math.random() * 0.5;
         }
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.96) {
-          drops[i] = 0;
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.94) {
+          drops[i] = Math.random() * -fontSize * 5;
         }
       }
     }
 
-    setInterval(draw, 35); // smooth & quick enough for movie-like motion
+    setInterval(draw, 35);
 
-    // WHISPER SYSTEM (unchanged)
+    // WHISPER SYSTEM
     const rpMessages = [
       {user: "@velvetquill", text: "He pinned her wrists above her head and slammed his thick, throbbing cock into her dripping pussy in one brutal thrust, making her scream in pure ecstasy."},
       {user: "@nyxshadow", text: "She was on her knees, gagging on his massive cock as saliva dripped down her chin while he fucked her throat deep and slow."},
